@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html 
+	lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> git学习 -  clown</title>
+		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+		<!-- lazyload -->
+		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
+		<!-- smooth-scrolling -->
+		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
+		<!-- highlight -->
+		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
+		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/head.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 7.0.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="clown">
+        <img
+			src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/head.jpg"
+			alt="clown"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/head.jpg" title="clown">
+			<img
+				src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/head.jpg"
+				alt="clown"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>6</div>
+		<div><span>标签</span>2</div>
+		<div><span>分类</span>3</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/378722283"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/clowsman"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/ljc0033"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/blog/">
+              blog
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/git/">
+              git
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/web/">
+              web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">clown</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="git学习"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>git学习</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年01月25日</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.8k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 7 分钟</a>
+		</div>
+		<h1><span id="git学习">Git学习</span></h1><p>这里还有一个很好的总结网站：<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/Q_O0ey4C9tryPZaZeJocbA">https://mp.weixin.qq.com/s/Q_O0ey4C9tryPZaZeJocbA</a></p>
+<h2><span id="概述">概述</span></h2><ol>
+<li>git在实际开发中的运用场景非常多，比如：备份，代码还原，协同开发，追溯问题代码的编写人和时间。</li>
+</ol>
+<p>&#x3D;&#x3D;版本控制器的方式&#x3D;&#x3D;</p>
+<blockquote>
+<p>a.集中式版本控制工具，比如：svn，cvs</p>
+<p>b.分布式版本控制工具，比如：git</p>
+<p>二者的差别很大，集中式中，版本库是存放在中央服务器中的，需要的代码都是提交到中央服务器或从中央服务器下载；分布式中则没有中央服务器，会有一个共享服务器，每台电脑都有自己的本地仓库存放着自己的一个完整的版本库。</p>
+</blockquote>
+<h2><span id="git的配置">git的配置</span></h2><p>&#x3D;&#x3D;设置用户信息&#x3D;&#x3D;</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF%E9%85%8D%E7%BD%AE.png"></p>
+<blockquote>
+<p>当不跟设置信息的名称时就是查询用户的信息</p>
+</blockquote>
+<h2><span id="给常用命令设置一个别名">给常用命令设置一个别名</span></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#创建一个.bashrc文件，在里面设置别名</span><br><span class="hljs-built_in">touch</span> ~/.bashrc<br>vim .bashrc<br><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/%E8%AE%BE%E7%BD%AE%E5%88%AB%E5%90%8D.png"></p>
+<h2><span id="获取本地仓库">获取本地仓库</span></h2><ol>
+<li>新建一个目录作为本地仓库，这里直接在桌面建一个git_test目录</li>
+<li>用 git init 初始化本地仓库<img src="https://gitee.com/ljc0033/magic/raw/master/%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93.png"></li>
+</ol>
+<p>​         能看到.git文件就成功了</p>
+<h2><span id="git的常用命令">git的常用命令</span></h2><p>Git工作目录下对于文件的修改会存在几个状态(除了.git目录的都叫工作目录)</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/%E5%B7%A5%E4%BD%9C%E7%8A%B6%E6%80%81.png"></p>
+<p>接下来新建一个file01.txt文件来进行测试命令，用touch指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#查看git状态</span><br>git status<br><span class="hljs-comment">#添加到缓存区</span><br>git add file01.txt        <span class="hljs-comment">#也可以用.通配符，表示添加所有</span><br><span class="hljs-comment">#提交到仓库</span><br>git commit -m <span class="hljs-string">&quot;注释&quot;</span><br><span class="hljs-comment">#查看历史日志</span><br>git <span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/%E5%B7%A5%E4%BD%9C%E7%8A%B6%E6%80%81%E6%94%B9%E5%8F%98.png"></p>
+<blockquote>
+<p>git log [option]还有更多的参数，这里详细列出来</p>
+<ul>
+<li>–all  显示所有分支</li>
+<li>–pretty&#x3D;oneline   将提交信息显示为一行</li>
+<li>–abbrev-commit  使得输出的commitid更简短</li>
+<li>–graph     以图的形式显示</li>
+</ul>
+</blockquote>
+<p>&#x3D;&#x3D;版本回退&#x3D;&#x3D;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git reset --hard commitID<br><span class="hljs-comment">#查看已经删除的记录</span><br>git reflog     <span class="hljs-comment">#这个可以查看所有操作记录</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>commitID可以用git log查看</p>
+</blockquote>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80.png"></p>
+<p>&#x3D;&#x3D;添加文件至忽略&#x3D;&#x3D;</p>
+<p>有些文件我们不需要git管理，可以将他们添加到gitignore文件中即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> .gitignore<br></code></pre></td></tr></table></figure>
+
+<p>一些示例<img src="https://gitee.com/ljc0033/magic/raw/master/%E5%BF%BD%E7%95%A5%E5%88%97%E8%A1%A8.png"></p>
+<h2><span id="git分支">git分支</span></h2><p>几乎所有的版本控制系统都以某种形式支持分支。 使用分支意味着你可以把你的工作从开发主线上分离开来， 以免影响开发主线。</p>
+<ul>
+<li><p>常用分支相关命令</p>
+<ul>
+<li><p>查看本地分支</p>
+<p>git branch</p>
+</li>
+<li><p>创建本地分支</p>
+<p>git branch 分支名</p>
+</li>
+<li><p>切换分支</p>
+<p>git checkout 分支名</p>
+<p>git checkout -b 分支名  (直接切换到一个不存在的分支并创建该分支)</p>
+</li>
+<li><p>合并分支</p>
+<p>一个分支上的提交可以合并到另一个分支</p>
+<p>git merge 分支名称</p>
+<blockquote>
+<p>比如dev分支要合并到master需要先切换到master主线，再get merge dev</p>
+</blockquote>
+</li>
+<li><p>删除分支</p>
+<p><strong>不能删除当前分支，只能删除其他分支</strong></p>
+<p>git branch -d b1  删除分支时，需要做各种检查</p>
+<p>git branch -D b1 不做任何检查，强制删除</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2><span id="git远程仓库">git远程仓库</span></h2><p>这是一个总结的工作流程图：<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240123132413459.png" alt="image-20240123132413459" class="lazyload"></p>
+<h3><span id="使用ssh绑定gitee">使用ssh绑定gitee</span></h3><ol>
+<li><p>用git来绑定gitee：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">//生成ssh公钥，可以使用-f参数指定生成的文件名，比如：-f &quot;id_rsa_gitee&quot;<br>ssh-keygen -t rsa//生成的ssh密钥会默认在~/.ssh下面，如果生成过了也会直接覆盖，所以有多个密钥时要记得备份(在Windows的c盘用户目录下可以找到)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Gitee设置公钥</p>
+<p>将~&#x2F;.ssh下的id_rsa.pub公钥复制到下面的地方</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125154416297.png" alt="image-20240125154416297" class="lazyload"></p>
+</li>
+<li><p>绑定之后可以去验证ssh能否连接到gitee，这里选择用在~&#x2F;.ssh下新建一个config文件来配置，这样可以连接gitee也行、github也行，参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40402743/article/details/124484633">https://blog.csdn.net/weixin_40402743/article/details/124484633</a></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125170039569.png" alt="image-20240125170039569" class="lazyload"></p>
+<p>config文件中的配置如下，我配github的时候配置了邮箱，gitee则没有</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125170137353.png" alt="image-20240125170137353" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">#github<br>Host github.com<br>User &lt;生成密钥时指定的邮箱邮箱&gt;<br>Hostname ssh.github.com<br>PreferredAuthentications publickey<br>IdentityFile ~/.ssh/id_rsa_github<br>Port 443<br><br>#gitee<br>Host gitee.com<br>HostName gitee.com<br>PreferredAuthentications publickey<br>IdentityFile ~/.ssh/id_rsa_gitee<br></code></pre></td></tr></table></figure>
+
+<p>使用<strong>ssh -T <a href="mailto:&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#101;&#x65;&#x2e;&#99;&#x6f;&#109;">&#103;&#x69;&#x74;&#x40;&#103;&#105;&#116;&#101;&#x65;&#x2e;&#99;&#x6f;&#109;</a></strong>验证<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125170434757.png" alt="image-20240125170434757" class="lazyload"></p>
+</li>
+</ol>
+<h3><span id="远程仓库操作">远程仓库操作</span></h3><p><strong>添加远程仓库</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">git remote add &lt;起的名字&gt; &lt;仓库地址&gt;<br>//git remote 可以查看当前的远程仓库<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125174304783.png" alt="image-20240125174304783" class="lazyload"></p>
+<p><strong>推送远程仓库</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git push &lt;自己命名的名称&gt; &lt;分支&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125180131766.png" alt="image-20240125180131766" class="lazyload"></p>
+<p>这是远程推送的完整指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git push [-f] [--set-upstream] [远端名称 [本地分支名]:[远端分支名]]#如果本地和远端分支名一致就可以省略一个，像上面一样<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>-f表示强制推送，和远端代码修改同一块地方时可能会出现冲突。</p>
+</li>
+<li><p>–set-upstream：推送到远端的同时并且建立和远端分支的关联关系，这样当当前分支已经和远端分支关联时，则可以省略分支名和远端名<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125182248016.png" alt="image-20240125182248016" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125183254456.png" alt="image-20240125183254456" class="lazyload"></p>
+</li>
+</ul>
+<p><strong>克隆远程仓库</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git clone &lt;仓库路径&gt; [本地目录]<br></code></pre></td></tr></table></figure>
+
+<p>如果没有指定目录的话，就会创建一个默认目录，比如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">git@gitee.com:ljc0033/git_test.git<br></code></pre></td></tr></table></figure>
+
+<p>就会取git_test作为目录名</p>
+<p><strong>抓取和拉取</strong></p>
+<ul>
+<li><p>抓取指令：git fetch [remote name] [branch name]</p>
+<p>抓取就是将仓库里的更新都抓取到本地，不会进行合并</p>
+<p>如果不指定远端名称和分支名，则抓取所有分支</p>
+</li>
+<li><p>拉取命令：git pull [remote name] [branch name]</p>
+<p>拉取就是将远端仓库的修改拉到本地并自动进行合并，等同于fetch+merge</p>
+<p>如果不指定远端名称和分支名，则抓取所有并更新当前分支</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125213127428.png" alt="image-20240125213127428" class="lazyload"></p>
+<p>这里可以看到fetch之后的分支并没有合并到当前的master，接下来再进行 git merge origin&#x2F;master<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125213243273.png" alt="image-20240125213243273" class="lazyload"></p>
+<p>可以看到成功合并了(这里可以写上分支名)，git pull就相当于合并了这两步</p>
+<h3><span id="解决冲突">解决冲突</span></h3><p>当A和B修改同一个文件时会出现冲突，这里模拟一下同时修改file01.txt文件，其中一个先提交<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125214924391.png" alt="image-20240125214924391" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125215448663.png" alt="image-20240125215448663" class="lazyload"></p>
+<p>这里可以看到右边想要进行合并出现了冲突，因为修改了同一块地方，再看一下file01.txt的内容<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125215616774.png" alt="image-20240125215616774" class="lazyload"></p>
+<p>上面的是我们当前分支，下面的是远端分支，我们只需要在本地把他修改我们想要的样子然后提交再合并就可以了，比如这样<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125215801079.png" alt="image-20240125215801079" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20240125215928798.png" alt="image-20240125215928798" class="lazyload"></p>
+<h2><span id="git绑定github账号">git绑定GitHub账号</span></h2><ol>
+<li><pre><code>git config --global --list  //查看自己的用户名和邮箱，注意要和github保持一致
+//如果不一致则自己去设置
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext"><br>2. ```<br>   ssh-keygen -t rsa -C &quot;自己的邮箱&quot;//这里生成ssh的密钥，会默认在~/.ssh目录下面<br></code></pre></td></tr></table></figure>
+
+可以看到有下列文件：![image-20231103174934422](https://gitee.com/ljc0033/magic/raw/master/image-20231103174934422.png)
+</code></pre>
+</li>
+<li><p>回到github仓库添加密钥</p>
+</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20231103175102389.png" alt="image-20231103175102389" class="lazyload"></p>
+<p>然后复制.ssh下面的.pub公钥到下面的key中<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20231103175214763.png" alt="image-20231103175214763" class="lazyload"></p>
+<ol start="4">
+<li><pre><code>ssh -T git@github.com //测试是否连通
+</code></pre>
+<p>出现下面的结果即代表成功<img data-fancybox="gallery" data-sizes="auto" data-src="https://gitee.com/ljc0033/magic/raw/master/image-20231103175607799.png" alt="image-20231103175607799" class="lazyload"></p>
+</li>
+</ol>
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/01/25/git%E5%AD%A6%E4%B9%A0/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;01&#x2F;25&#x2F;git学习&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;01&#x2F;25&#x2F;git学习&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			          
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			          
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/git/">git</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	</body>
+</html>
