@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> Tags：ctf -  clown</title>
+		<title> go get小坑 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -294,45 +294,155 @@
 			<div class="kira-content">
 				<div id="kira-top-header"></div>
 				<div class="kira-main-content">
-					<div class="kira-posts">
-    
-        <div class="kira-post">
-            <a href="/2023/11/04/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">
-                
-                <div
-                    class="kira-post-cover mdui-ripple"
-                    style="padding-bottom: '56.25%'"
-                >
-                    <img
-                        data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
-                        data-sizes="auto"
-                        alt="反序列化"
-                        class="lazyload"
-                    />
-                    <h1>反序列化</h1>
-                </div>
-                
-            </a>
+					
+<link rel="stylesheet" href="/css/kira-image.css">
 
-            <div class="kira-post-meta kira-rainbow">
-                <a>
-                    <i class="kirafont icon-calendar-fill"></i>
-                    2023年11月04日
-                </a>
-                <a>
-                    <i class="kirafont icon-edit-fill"></i>
-                    1.4k 字
-                </a>
-                <a>
-                    <i class="kirafont icon-time-circle-fill"></i>大概
-                    6 分钟
-                </a>
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
             </div>
-    
-            
         </div>
-        <div class="kira-hr"></div>
-    
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="go get小坑"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>go get小坑</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年02月27日</a>
+			<a><i class="kirafont icon-edit-fill"></i>269 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 1 分钟</a>
+		</div>
+		<h1><span id="gin框架安装">gin框架安装</span></h1><p>尝试本地去跑一个go项目时，在导入包时提示找不到路径找不到对应的包</p>
+<p>先用下列命令开启了环境变量GO111MODULE&#x3D;on，不然go get不了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">go env -w GO111MODULE=on<br></code></pre></td></tr></table></figure>
+
+<p>然后get相应的包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">go get -u github.com/chromedp/chromedp<br>go get -u github.com/gin-gonic/gin<br>go get -u golang.org/x/net/html<br></code></pre></td></tr></table></figure>
+
+<p>再go build源码时就出现了下面的错误</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">main.go:13:2: cannot find package &quot;github.com/chromedp/chromedp&quot; in any of: D:\go\src\github.com\chromedp\chromedp (from $GOROOT) C:\Users\86189\go\src\github.com\chromedp\chromedp (from $GOPATH)<br></code></pre></td></tr></table></figure>
+
+<h1><span id="查看环境变量">查看环境变量</span></h1><p>用下面命令查看go环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">go env<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240227171305349.png" alt="image-20240227171305349" class="lazyload"></p>
+<p>发现gopath没有指向我安装时设置的环境变量，去环境变量设置的地方查看一下<img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240227171421124.png" alt="image-20240227171421124" class="lazyload"></p>
+<p>会发现用户变量还有一个gopath指向默认的地方，删掉即可</p>
+<p>现在再使用go env查看一下，发现成功修改</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240227171518116.png" alt="image-20240227171518116" class="lazyload"></p>
+<p>然后再去重新get一遍即可</p>
+<blockquote>
+<p>开启了环境变量GO111MODULE&#x3D;on，会将go get的文件下载到GOPATH&#x2F;pkg&#x2F;mod里</p>
+</blockquote>
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/02/27/go-get%E5%B0%8F%E5%9D%91/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;27&#x2F;go-get小坑&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;27&#x2F;go-get小坑&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			      
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			                  
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/go/">go</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/go/" rel="tag">go</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
 </div>
 
 				</div>
