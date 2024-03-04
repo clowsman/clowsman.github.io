@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> Windows 提权 -  clown</title>
+		<title> 计算机网络学习(1) -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -363,58 +363,93 @@
 			<img
 				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
 				data-sizes="auto"
-				alt="Windows 提权"
+				alt="计算机网络学习(1)"
 				class="lazyload kira-post-cover-image disabled-kira-image"
 			/>
-			<h1>Windows 提权</h1>
+			<h1>计算机网络学习(1)</h1>
 		</div>
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2024年02月29日</a>
-			<a><i class="kirafont icon-edit-fill"></i>587 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 2 分钟</a>
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月04日</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.1k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 4 分钟</a>
 		</div>
-		<h1><span id="windows权限划分">Windows权限划分</span></h1><p>在Windows中，有User、Administrator、System、TrustedInstaller这四种用户权限，其权限从左到右依次升高。</p>
-<p>权限提升分为下面两类：</p>
+		<p><strong>这里根据王道考研视频来学习，啃书太折磨了()</strong></p>
+<h1><span id="性能指标">性能指标</span></h1><h2><span id="速率">速率</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305004320101.png" alt="image-20240305004320101" class="lazyload"></p>
+<h2><span id="带宽">带宽</span></h2><p>计算机网络中，带宽用来表示网络的通信线路传送数据的能力，通常是指单位时间内从网络中的某一点到另一点所能通过的“最高数据率”。单位是“比特每秒”，b&#x2F;s，kb&#x2F;s，Mb&#x2F;s，Gb&#x2F;s。网络设备所支持的最高速度。</p>
+<p>也就是理论上的最高速率。</p>
+<p>带宽增大也就是发送的速率变快了，并不影响传播的速率。</p>
+<h2><span id="吞吐量">吞吐量</span></h2><p>表示在单位时间内通过某个网络(或信道、接口)的数据量。单位b&#x2F;s，kb&#x2F;s，Mb&#x2F;s等。</p>
+<p>吞吐量受网络的带宽或网络的额定速率的限制。</p>
+<h2><span id="时延">时延</span></h2><p>指数据(报文&#x2F;分组&#x2F;比特流)从网络(或链路)的一端传送到另一端所需的时间。也叫延迟或迟延。单位是s。</p>
+<p>时延又分为4种：</p>
 <ul>
-<li>纵向提取：低权限用户获得高权限用户的权限</li>
-<li>横向提权：获得同级别角色的权限</li>
+<li>发送时延(传输时延)</li>
+<li>传播时延</li>
+<li>排队时延</li>
+<li>处理时延</li>
 </ul>
-<p><strong>常用提权方法</strong></p>
-<ul>
-<li>Windows系统内核溢出漏洞提权</li>
-<li>错误系统配置提权</li>
-<li>数据库提权</li>
-<li>等等~</li>
-</ul>
-<h1><span id="windows系统内核溢出漏洞提权">Windows系统内核溢出漏洞提权</span></h1><p>溢出漏洞是一种计算机程序的可更正性缺陷。溢出漏洞的全名:缓冲区溢出漏洞。因为它是在程序执行的也是攻击者时候在缓冲区执行的错误代码，所以叫缓冲区溢出漏洞。缓冲溢出是最常见的内存错误之一，入侵系统时所用到的最强大、最经典的一类漏洞利用方式。成功地利用缓冲区溢出漏洞可!修改内存中变量的值，甚至可以劫持进程，执行恶意代码，最终获得主机的控制权。利用Windows系统内核溢出漏洞提权是一种很通用的提权方法，攻击者通常可以使用该方法绕过系统中的所有安全限制。攻击者利用该漏洞的关键是目标系统有没有及时安装补丁，如果目标系统没有安装某一漏洞的补丁且存在该漏洞的话，攻击者就会向目标系统上传本地溢出程序，溢出Administrator权限。</p>
-<h2><span id="手动查看系统漏洞">手动查看系统漏洞</span></h2><p>获得一个普通用户的shell之后，我们可以用一些命令来查看系统有哪些补丁</p>
-<ol>
-<li><p>systeminfo</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240229111338484.png" alt="image-20240229111338484" class="lazyload"></p>
-</li>
-<li><p>wmic qfe get caption,description,hotfixid,installedon</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240229111417594.png" alt="image-20240229111417594" class="lazyload"></p>
-</li>
-</ol>
-<h2><span id="提权辅助工具">提权辅助工具</span></h2><ol>
-<li><p><strong>使用Windows-Exploit-Suggester解析systeminfo</strong>：<a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
-<p>该工具可以解析systeminfo出来的数据看是否存在漏洞</p>
-<p>使用步骤：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">./windows-exploit-suggester.py --update  #用来更新漏洞库<br>pip install xlrd --upgrade  #如果没有该依赖可以进行安装<br>./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo win7sp1-systeminfo.txt  #提供我们保存的systeminfo输出的文本文件，然后指向微软数据库<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Windows提权漏洞合集：<a target="_blank" rel="noopener" href="https://github.com/SecWiki/windows-kernel-exploits">https://github.com/SecWiki/windows-kernel-exploits</a></p>
-</li>
-<li><p>各大平台提权工具：<a target="_blank" rel="noopener" href="https://github.com/klsfct/getshell">https://github.com/klsfct/getshell</a></p>
-</li>
-</ol>
-<h1><span id="系统权限配置错误">系统权限配置错误</span></h1>
+<h1><span id="osi七层模型">OSI七层模型</span></h1><p>OSI七层模型偏理论，并不在实际中运用，因为该模型十分理想，且效率低但对我们了解网络模型有帮助</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240304110839603.png" alt="image-20240304110839603" class="lazyload"></p>
+<p>下面是一个利用OSI七层模型通过中间系统进行信息传输的示例图</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240304111508504.png" alt="image-20240304111508504" class="lazyload"></p>
+<p>除了物理层，每一层都会对数据进行封装再往下一层传输，信息处理的过程示例图如下，也就是打包和拆包的过程</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240304111743194.png" alt="image-20240304111743194" class="lazyload"></p>
+<h2><span id="应用层">应用层</span></h2><p>能和用户交互产生网路流量的程序</p>
+<p>典型应用层服务：</p>
+<p>文件传输(FTP)</p>
+<p>电子邮件(SMTP)</p>
+<p>万维网(HTTP)</p>
+<p>……</p>
+<h2><span id="表示层">表示层</span></h2><p>用户处理两个通信系统中交换信息的表示方式</p>
+<p>功能一：数据格式变换</p>
+<p>功能二：数据加密解密</p>
+<p>功能三：数据压缩和恢复</p>
+<h2><span id="会话层">会话层</span></h2><p>向表示层实体&#x2F;用户进程提供建立连接并在连接上有序地传输数据。</p>
+<p>这是会话也是建立同步</p>
+<p>功能一：建立、管理、终止会话</p>
+<p>功能二：使用校验点可使会话在通信失效时从校验点&#x2F;同步点继续恢复通信，实现数据同步。适用于传输大文件</p>
+<h2><span id="传输层">传输层</span></h2><p>负责主机中两个进程的通信，即&#x3D;&#x3D;端到端&#x3D;&#x3D;的通信(也就是端口号那种)。传输单位是报文段或用户数据报。</p>
+<p>功能一:可靠传输、不可靠传输</p>
+<p>功能二:差错控制</p>
+<p>功能三:流量控制</p>
+<p>功能四:复用分用</p>
+<blockquote>
+<p>复用:多个应用层进程可同时使用下面传输层的服务。</p>
+<p>分用:传输层把收到的信息分别交付给上面应用层中相应的进程，</p>
+</blockquote>
+<h2><span id="网络层">网络层</span></h2><p>主要任务是把分组从源端传到目的端，为分组交换网上的不同主机提供通信服务，网络层传输单位是数据报。</p>
+<p>功能一:路由选择(最佳路径)</p>
+<p>功能二:流量控制</p>
+<p>功能三:差错控制</p>
+<p>功能四:拥塞控制</p>
+<blockquote>
+<p>若所有结点都来不及接受分组，而要丢弃大量分组的话，网络就处于拥塞状态。因此要采取一定措施，缓解这种拥塞，也就是拥塞控制。</p>
+</blockquote>
+<p>该层主要协议：</p>
+<p>IP、IPX、ICMP、IGMP、ARP、RARP、OSPF</p>
+<h2><span id="数据链路层">数据链路层</span></h2><p>主要任务是把网络层传下来的数据报组装成帧，数据链路层&#x2F;链路层的传输单位是帧。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305002727144.png" alt="image-20240305002727144" class="lazyload"></p>
+<h2><span id="物理层">物理层</span></h2><p>主要任务是在物理媒体上实现比特流的透明传输，物理层传输单位是比特，</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305002907189.png" alt="image-20240305002907189" class="lazyload"></p>
+<h1><span id="tcpx2fip参考模型">TCP&#x2F;IP参考模型</span></h1><p>下面是一个TCP&#x2F;IP模型和起协议栈的对应图：<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003141069.png" alt="image-20240305003141069" class="lazyload"></p>
+<p><strong>TCP&#x2F;IP和OSI的不同之处：</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003538566.png" alt="image-20240305003538566" class="lazyload"></p>
+<blockquote>
+<p>面向连接：分为三个阶段，第一阶段建立连接，第二阶段进行数据传输，第三阶段释放连接</p>
+<p>无连接：直接进行数据传输</p>
+</blockquote>
+<h1><span id="5层参考模型">5层参考模型</span></h1><p>综合了OSI和TCP&#x2F;IP的优点</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003806547.png" alt="image-20240305003806547" class="lazyload"></p>
+<p>5层模型的封装和解封装过程如下：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003949042.png" alt="image-20240305003949042" class="lazyload"></p>
+
 	</article>
 
 	 
     <div class="kira-post-copyright">
         <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2024/02/29/Windows-%E6%8F%90%E6%9D%83/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;Windows-提权&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;Windows-提权&#x2F;</a><br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-1/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;04&#x2F;计算机网络学习-1&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;04&#x2F;计算机网络学习-1&#x2F;</a><br>
         
             <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
         
@@ -423,20 +458,14 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			      
-			<!-- 先找到与当前文字相同的目录 -->
-			   
-			<!-- 在找到当前文章所在的 index -->
-			                          
+			            
 		</nav>
 	</div>
 	
 	<div class="kira-post-meta kira-rainbow">
 		
-			<a class="kirafont icon-container-fill -link" href="/categories/%E6%8F%90%E6%9D%83/">提权</a>
 		
-		
-			<a class="kirafont icon-tag-fill -none-link" href="/tags/web/" rel="tag">web</a>
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E8%AE%A1%E7%BD%91/" rel="tag">计网</a>
 		
 	</div>
 	
