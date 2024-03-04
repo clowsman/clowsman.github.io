@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> Hello World -  clown</title>
+		<title> BC入门 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -363,37 +363,121 @@
 			<img
 				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
 				data-sizes="auto"
-				alt="Hello World"
+				alt="BC入门"
 				class="lazyload kira-post-cover-image disabled-kira-image"
 			/>
-			<h1>Hello World</h1>
+			<h1>BC入门</h1>
 		</div>
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2023年11月03日</a>
-			<a><i class="kirafont icon-edit-fill"></i>75 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 1 分钟</a>
+			<a><i class="kirafont icon-calendar-fill"></i>2024年02月29日</a>
+			<a><i class="kirafont icon-edit-fill"></i>1k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 4 分钟</a>
 		</div>
-		<p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2><span id="quick-start">Quick Start</span></h2><h3><span id="create-a-new-post">Create a new post</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
+		<h1><span id="智能合约入门">智能合约入门</span></h1><h2><span id="第一个合约">第一个合约</span></h2><p>这是一个计数器智能合约的实例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js">pragma solidity &gt;=<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;<span class="hljs-comment">//声明编译器版本</span><br><span class="hljs-comment">//类似的表示还有</span><br><span class="hljs-comment">//pragma solidity &gt;=0.8.0 &lt;0.9.0;</span><br><span class="hljs-comment">//pragma solidity ^0.8.0;</span><br><br><span class="hljs-comment">// 定义一个合约</span><br>contract <span class="hljs-title class_">Counter</span> &#123;<br>    uint public counter;<br>    <br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>        counter = <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">function</span> <span class="hljs-title function_">count</span>(<span class="hljs-params"></span>) public &#123;<br>        counter = counter + <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">function</span> <span class="hljs-title function_">get</span>(<span class="hljs-params"></span>) public view returns (uint) &#123;<br>        <span class="hljs-keyword">return</span> counter;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3><span id="run-server">Run server</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
+<p>合约是可部署到区块链的最小单元， 一个合约通常由<strong>状态变量（合约数据）</strong>和<strong>合约函数</strong>组成。</p>
+<h2><span id="变量和函数">变量和函数</span></h2><p><strong>控制可见性的关键词</strong></p>
+<p><code>public</code> 类型的状态变量，会自动创建一个同名的外部函数（称为访问器），来获取状态变量的值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">比如：<br>uint public a;<br>部署的时候就会有一个a()函数来获取a的值<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3><span id="generate-static-files">Generate static files</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>public</th>
+<th>external</th>
+<th>internal</th>
+<th>private</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>修饰函数</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>修饰变量</td>
+<td>✔️</td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>当前合约内可访问</td>
+<td>✔️</td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>派生合约可访问</td>
+<td>✔️</td>
+<td></td>
+<td>✔️</td>
+<td></td>
+</tr>
+<tr>
+<td>外部访问</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><strong>常量和不可变量</strong></p>
+<ul>
+<li><p>constant：在合约里可以定义常量，使用 <code>constant</code> 来声明一个常量，常量不占用合约的存储空间，而是在编译时使用对应的表达式值替换常量名。</p>
+<p>使用<code>constant</code>修饰的状态变量，只能使用在编译时有确定值的表达式来给变量赋值。</p>
+<p>因此任何通过访问存储数据、区块链数据（如<code>now</code>、<code>address(this).balance</code>或者<code>block.number</code>）或执行数据（<code>msg.value</code>或<code>gasleft()</code>）或对外部合约的调用来给它们赋值都是不允许的（因为它们的值无法在编译期确定）。</p>
+<p>不过对于内建函数，如<code>keccak256</code>、<code>sha256</code>、<code>ripemd160</code>、<code>ecrecover</code>、<code>addmod</code>和<code>mulmod</code>，是允许的（尽管它们调用的是外部预编译合约），如这句代码就是合法的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs solidity">bytes32 constant myHash = keccak256(&quot;abc&quot;);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>immutable： Solidity 中使用 <code>immutable</code> 来定义一个不可变量，<code>immutable</code>不可变量同样不会占用状态变量存储空间，在部署时，变量的值会被追加的运行时字节码中，因此它比使用状态变量便宜的多，同样带来了更多的安全性</p>
+<p>不可变量在构造函数中进行赋值，构造函数是在部署的时候执行，因此这是运行时赋值。</p>
+</li>
+</ul>
+<p><strong>定义函数</strong></p>
+<p>定义函数使用function关键字，且函数可以有多个返回值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs solidit">pragma solidity &gt;0.5.0;<br>contract C &#123;<br>    function f() public pure returns (uint, bool, uint) &#123;<br>        return (7, true, 2);<br>    &#125;<br>     function g() public &#123;<br>        // 获取返回值<br>        (uint x, bool b, uint y) = f();<br>     &#125;    <br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3><span id="deploy-to-remote-sites">Deploy to remote sites</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+<p><strong>状态可变性</strong></p>
+<p>形容函数的可变性有 3 个关键字：</p>
+<ul>
+<li>view：用 view 修饰的函数，称为视图函数，它只能读取状态，而不能修改状态。</li>
+<li>pure：用 pure 修饰的函数，称为纯函数，它既不能读取也不能修改状态。</li>
+<li>payable：用 payable 修饰的函数表示可以接受以太币，如果未指定，该函数将自动拒绝所有发送给它的以太币。</li>
+</ul>
+<blockquote>
+<p><code>view</code> , <code>pure</code> , <code>payable</code> 通常被称为修饰符</p>
+</blockquote>
+<h2><span id="数据类型">数据类型</span></h2><p>数据类型分为一下三种：</p>
+<ul>
+<li>值类型（Value Types）</li>
+<li>引用类型（Reference Types）</li>
+<li>映射类型（Mapping Types）</li>
+</ul>
+<p><strong>引用类型</strong></p>
+<p>引用类型包括<strong>数组</strong> 和<strong>结构体</strong>。</p>
+<p>在定义引用类型时，有一个额外属性来标识数据的存储位置，这个属性有：</p>
+<ul>
+<li>memory（内存）： 变量在运行时存在，其生命周期只存在于函数调用期间。</li>
+<li>storage（存储）：保存状态变量，只要合约存在就一直保存在区块链中。</li>
+<li>calldata（调用数据）：用来存储函数参数的特殊数据位置，用来接收外部数据，是一个不可修改的、非持久的函数参数存储区域。</li>
+</ul>
+<p><strong>映射类型</strong></p>
+<p>映射类型和Java的Map、Python的Dict在功能上差不多，它是一种键值对的映射关系存储结构，定义方式为mapping(KT &#x3D;&gt; KV)。</p>
+<h2><span id="地址类型">地址类型</span></h2><h1><span id="ethernaut">Ethernaut</span></h1><p>这里通过该靶场来学习只能合约安全，先从<strong>Hello Ethernaut</strong>看起</p>
+<h2><span id="hello-ethernaut">Hello Ethernaut</span></h2>
 	</article>
 
 	 
     <div class="kira-post-copyright">
         <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2023/11/03/hello-world/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2023&#x2F;11&#x2F;03&#x2F;hello-world&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2023&#x2F;11&#x2F;03&#x2F;hello-world&#x2F;</a><br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/02/29/BC%E5%85%A5%E9%97%A8/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;BC入门&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;BC入门&#x2F;</a><br>
         
             <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
         
@@ -402,12 +486,20 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			            
+			  
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			                              
 		</nav>
 	</div>
 	
 	<div class="kira-post-meta kira-rainbow">
 		
+			<a class="kirafont icon-container-fill -link" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/CTF-BC/" rel="tag">CTF BC</a>
 		
 	</div>
 	
