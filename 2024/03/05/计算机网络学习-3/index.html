@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> 配置GitHub图床 -  clown</title>
+		<title> 计算机网络学习-3 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -370,39 +370,152 @@
 			<img
 				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
 				data-sizes="auto"
-				alt="配置GitHub图床"
+				alt="计算机网络学习-3"
 				class="lazyload kira-post-cover-image disabled-kira-image"
 			/>
-			<h1>配置GitHub图床</h1>
+			<h1>计算机网络学习-3</h1>
 		</div>
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2023年11月03日</a>
-			<a><i class="kirafont icon-edit-fill"></i>170 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 1 分钟</a>
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月05日</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.8k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 7 分钟</a>
 		</div>
-		<h1><span id="采用picgo来配置github图床">采用PicGo来配置GitHub图床</span></h1><p>转到picgo的GitHub图床设置来看配置信息：</p>
+		<h1><span id="传输层概述">传输层概述</span></h1><p>传输层学习两种协议，TCP和UDP协议</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305182817812.png" alt="image-20240305182817812" class="lazyload"></p>
+<p><strong>TCP协议的作用：</strong></p>
+<ul>
+<li>可靠传输</li>
+<li>流量控制</li>
+<li>拥塞控制</li>
+</ul>
+<p>传输层是只有主机才有的层次，传输层可以为应用层提供服务，也可以使用网络层的服务</p>
+<p>传输层的功能：</p>
+<ul>
+<li>传输层提供进程和进程之间的逻辑通信。网络层则提供主机之间的逻辑通信。</li>
+<li>复用和分用。</li>
+<li>传输层对收到的报文进行差错检测</li>
+<li>传输层有两种协议</li>
+</ul>
+<h1><span id="传输层的寻址与端口">传输层的寻址与端口</span></h1><p><strong>复用</strong>：应用层所有的应用进程都可以通过传输层再传输到网络层。</p>
+<p><strong>分用</strong>：传输层从网络层收到数据后交付指明的应用进程。</p>
+<p>端口号标识主机中的应用进程。</p>
+<p>端口号长度为16bit，所以能表示的端口号数量为65535个。</p>
+<p><strong>端口号的分类：</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305183319948.png" alt="image-20240305183319948" class="lazyload"></p>
+<p>所以有些程序都会有默认端口号，比如HTTP的80端口，HTTPS的443端口，这里列举出一些协议的端口号：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305183457929.png" alt="image-20240305183457929" class="lazyload"></p>
+<blockquote>
+<p> 在网络中采用发送方和接收方的套接字组合来识别端点，套接字唯一标识了网络中的一个主机和它上面的一个进程。</p>
+<p>套接字socket&#x3D;(主机IP地址，端口号)</p>
+</blockquote>
+<h1><span id="udp协议">UDP协议</span></h1><p>UDP只在IP数据报服务之上增加了很少功能，即复用分用和差错检测功能。</p>
+<h2><span id="udp的主要特点">UDP的主要特点</span></h2><ol>
+<li><p>UDP是无连接的，减少开销和发送数据之前的时延。</p>
+</li>
+<li><p>UDP使用最大努力交付，即不保证可靠交付。</p>
+</li>
+<li><p>UDP是面向报文的，适合一次性传输少量数据的网络应用。</p>
+</li>
+<li><p>UDP无拥塞控制，适合很多实时应用，比如一些实时视频之类的，丢失了少量数据也是允许的。</p>
+</li>
+<li><p>UDP首部开销小，8B(字节)，TCP20B(字节)</p>
+</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305215954723.png" alt="image-20240305215954723" class="lazyload"></p>
+<h2><span id="udp首部格式">UDP首部格式</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220132283.png" alt="image-20240305220132283" class="lazyload"></p>
+<h2><span id="udp校验过程">UDP校验过程</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220303149.png" alt="image-20240305220303149" class="lazyload"></p>
+<p><strong>伪首部校验</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220730662.png" alt="image-20240305220730662" class="lazyload"></p>
+<h1><span id="tcp协议">TCP协议</span></h1><h2><span id="tcp协议的特点">TCP协议的特点</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305221800753.png" alt="image-20240305221800753" class="lazyload"></p>
+<p>发送数据时，先把一定的字节放入缓存中，然后取一些字节组成报文段然后带上TCP头部组成完整报文段</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305222029888.png" alt="image-20240305222029888" class="lazyload"></p>
+<blockquote>
+<p>字节数不是固定的</p>
+</blockquote>
+<h2><span id="tcp报文段首部格式">TCP报文段首部格式</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305222924879.png" alt="image-20240305222924879" class="lazyload"></p>
+<p><strong>下面是各个部分的作用：</strong></p>
+<ul>
+<li><p>序号:在一个TCP连接中传送的字节流中的每一个字节都按顺序编号，本字段表示本报文段所发送数据的第一个字节的序号。</p>
+</li>
+<li><p>确认号:期望收到对方下一个报文段的第一个数据字节的序号。若确认号为N,则证明到序号N-1为止的所有数据都已正确收到。</p>
+</li>
+<li><p>数据偏移(首部长度):TCP报文段的数据起始处距离TCP报文段的起始处有多远以4B位单位，即1个数值是4B。</p>
+</li>
+<li><p>窗口:指的是发送本报文段的一方的接收窗口，即现在允许对方发送的数据量。</p>
+</li>
+<li><p>检验和:检验首部+数据，检验时要加上12B伪首部，第四个字段为6。</p>
+</li>
+<li><p>紧急指针:URG&#x3D;1时才有意义，指出本报文段中紧急数据的字节数</p>
+</li>
+<li><p>选项:最大报文段长度MSS、窗口扩大、时间戳、选择确认…</p>
+</li>
+<li><p>填充:即将报文首部填充至4B的整数倍</p>
+</li>
+</ul>
+<p><strong>6个控制位</strong></p>
+<ul>
+<li><p>紧急位URG：URG&#x3D;1时，标明此报文段中有紧急数据，是高优先级的数据，应尽快传送，不用在缓存里排队，配合紧急指针字段使用。</p>
+</li>
+<li><p>确认位ACK：ACK&#x3D;1时确认号有效，在连接建立后所有传送的报文段都必须把ACK置为1。</p>
+</li>
+<li><p>推送位PSH：PSH&#x3D;1时，接收方尽快交付接收应用进程，不再等到缓存填满再向上交付。</p>
+</li>
+<li><p>复位RST：RST&#x3D;1时，表明TCP连接中出现严重差错，必须释放连接，然后再重新建立传输链接。</p>
+</li>
+<li><p>同步位SYN：SYN&#x3D;1时，表明是一个连接请求&#x2F;连接接受报文。</p>
+</li>
+<li><p>终止位FIN：FIN&#x3D;1时，表明此报文段发送方数据已发完，要求释放连接。</p>
+</li>
+</ul>
+<h1><span id="tcp连接管理">TCP连接管理</span></h1><p>TCP连接传输的三个阶段：</p>
+<p>连接建立&#x3D;》数据传输&#x3D;》连接释放</p>
+<h2><span id="tcp连接建立">TCP连接建立</span></h2><p>采用三次握手建立TCP连接</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305225606569.png" alt="image-20240305225606569" class="lazyload"></p>
+<blockquote>
+<p>seq是序号，ack是确认号</p>
+</blockquote>
+<h2><span id="syn洪泛攻击">SYN洪泛攻击</span></h2><p>SYN洪泛攻击发生在OSI第四层，这种方式利用TCP协议的特性，就是三次握手。攻击者发送TCP SYN，SYN是TCP三次握手中的第一个数据包，而当服务器返回ACK后，该攻击者就不对其进行再确认，那这个TCP连接就处于挂起状态，也就是所谓的半连接状态，服务器收不到再确认的话，还会重复发送ACK给攻击者。这样更加会浪费服务器的资源。攻击者就对服务器发送非常大量的这种TCP连接，由于每一个都没法完成三次握手，所以在服务器上，这些TCP连接会因为挂起状态而消耗CPU和内存，最后服务器可能死机，就无法为正常用户提供服务了。</p>
+<p><strong>防范SYN洪泛攻击的方法</strong></p>
+<p>可以通过设置SYN cookie</p>
+<h2><span id="tcp的连接释放">TCP的连接释放</span></h2><p>采用四次握手</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305230921528.png" alt="image-20240305230921528" class="lazyload"></p>
+<blockquote>
+<p>等待2MSL的目的是为了能够彻底关闭连接</p>
+<p>因为若B没有收到确认报文段会在2MSL内重新发送第三个报文段，若A直接关闭了就会收不到重传的报文段，B就会一直重传导致连接无法完全关闭</p>
+</blockquote>
+<h1><span id="tcp可靠传输">TCP可靠传输</span></h1><p>可靠传输就是保证接收方进程从缓存区读出的字节流与发送方发出的字节流是完全一样的。</p>
+<p>实现可靠传输的机制：</p>
 <ol>
-<li>我们新建一个仓库来存放图片，比如我开了一个image的仓库，那格式就为&lt;github用户名&gt;&#x2F;image</li>
-<li>分支名以前默认是master，现在是main，如果不创建其他分支填main就好</li>
+<li><p><strong>校验</strong></p>
+<p>增加伪首部与UDP校验一样，</p>
+</li>
+<li><p><strong>序号</strong></p>
+<p>一个字节占一个序号；序号字段指的是一个报文的第一个字节的序号</p>
+<p>一个报文段的字节数取决于MTU(链路层的最大传输单元)</p>
+</li>
+<li><p><strong>确认</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306003306167.png" alt="image-20240306003306167" class="lazyload"></p>
+<p>这里发送方要在收到确认报文段之后才会将报文段从缓存中删去，因为可能需要重传。</p>
+<p>如果456和78一起发送过去，只收到了78，接受方就会返回ack为4的报文段，发送方就会重传456报文段，如下图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306003639763.png" alt="image-20240306003639763" class="lazyload"></p>
+</li>
+<li><p><strong>重传</strong></p>
+<p>TCP的发送方在规定时间内没有收到确认报文段就要重传已发送的报文段；也就是超时重传</p>
+<p>重传时间的设置就采用了自适应算法，动态改变重传时间RTTs(加权平均往返时间)</p>
+<p>不过等待时间过久，还有一种冗余ACK(冗余确认)方法来提高效率</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306004112025.png" alt="image-20240306004112025" class="lazyload"></p>
+</li>
 </ol>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/picgo2.png" alt="picgo2" class="lazyload"></p>
-<ol start="3">
-<li>token是最重要的一步，用来识别你的身份，创建token的时候一定要勾选repo选项不然会上传失败，报各种权限不足。。。</li>
-</ol>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/picgo1.png" alt="picgo1" class="lazyload"></p>
-<ol start="4">
-<li>最后在图床上面上传一张图片看是否能成功</li>
-</ol>
-<p>如果要和typora一起用直接在偏好设置中设置使用picgo上传即可。</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20231103224740889.png" alt="image-20231103224740889" class="lazyload"></p>
+<h1><span id="tcp流量控制">TCP流量控制</span></h1><p>流量控制：也就是控制发送速率，使接收方能够完全接收数据</p>
+<p>TCP采用滑动窗口机制实现流量控制</p>
 
 	</article>
 
 	 
     <div class="kira-post-copyright">
         <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2023/11/03/%E9%85%8D%E7%BD%AEGitHub%E5%9B%BE%E5%BA%8A/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2023&#x2F;11&#x2F;03&#x2F;配置GitHub图床&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2023&#x2F;11&#x2F;03&#x2F;配置GitHub图床&#x2F;</a><br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-3/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;05&#x2F;计算机网络学习-3&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;05&#x2F;计算机网络学习-3&#x2F;</a><br>
         
             <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
         
@@ -411,26 +524,26 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			                      
+			                          
 			<!-- 先找到与当前文字相同的目录 -->
-			      
+			         
 			<!-- 在找到当前文章所在的 index -->
-			    
+			        
 			<!-- 上一篇文章 -->
 			<div class="old">
 				<span>上一章</span>
-				<a href="/2023/11/03/hexo-%E6%90%AD%E5%BB%BAblog/"> hexo blog 搭建</a>
+				<a href="/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-2/"> 计算机网络学习-2</a>
 			</div>
-			              
+			          
 		</nav>
 	</div>
 	
 	<div class="kira-post-meta kira-rainbow">
 		
-			<a class="kirafont icon-container-fill -link" href="/categories/blog/">blog</a>
+			<a class="kirafont icon-container-fill -link" href="/categories/%E5%9F%BA%E7%A1%80/">基础</a>
 		
 		
-			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a>
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E8%AE%A1%E7%BD%91/" rel="tag">计网</a>
 		
 	</div>
 	
