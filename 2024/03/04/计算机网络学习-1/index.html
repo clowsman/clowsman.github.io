@@ -371,8 +371,8 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月04日</a>
-			<a><i class="kirafont icon-edit-fill"></i>1.1k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 4 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.4k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 5 分钟</a>
 		</div>
 		<p><strong>这里根据王道考研视频来学习，啃书太折磨了()</strong></p>
 <h1><span id="性能指标">性能指标</span></h1><h2><span id="速率">速率</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305004320101.png" alt="image-20240305004320101" class="lazyload"></p>
@@ -384,11 +384,31 @@
 <h2><span id="时延">时延</span></h2><p>指数据(报文&#x2F;分组&#x2F;比特流)从网络(或链路)的一端传送到另一端所需的时间。也叫延迟或迟延。单位是s。</p>
 <p>时延又分为4种：</p>
 <ul>
-<li>发送时延(传输时延)</li>
-<li>传播时延</li>
-<li>排队时延</li>
-<li>处理时延</li>
+<li>发送时延(传输时延)：发送时延&#x3D;数据长度&#x2F;信道带宽(发送速率)</li>
+<li>传播时延：取决于电磁波传播速度和链路长度，传播时延&#x3D;信道长度&#x2F;电磁波在信道上的传播速率</li>
+<li>排队时延：等待输出、输入链路可用(例如排队等安检)</li>
+<li>处理时延：检错找出口(例如安检时的过程要的时间)</li>
 </ul>
+<h2><span id="时延带宽积">时延带宽积</span></h2><p>时延带宽积(bit)&#x3D;传播时延(s) X 带宽(b&#x2F;s)</p>
+<p>时延带宽积又称为以比特为单位的链路长度</p>
+<p>就是链路上的容量</p>
+<h2><span id="往返时延rtt">往返时延RTT</span></h2><p>从发送方发送数据开始，到发送方收到接收方的确认(接收方收到数据后立即发送确认)，总共经历的时延。</p>
+<p>这里可以用ping来看到往返时延</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305084247521.png" alt="image-20240305084247521" class="lazyload"></p>
+<p>上面的时间就是往返时延</p>
+<p>RTT越大，在收到确认之前，可以发送的数据越多，因为收到确认前的时间越长</p>
+<p>RTT包括以下两部分：</p>
+<ul>
+<li>往返传播时延&#x3D;传播时延*2（主要就是这个）</li>
+<li>末端处理时间</li>
+</ul>
+<h2><span id="利用率">利用率</span></h2><ul>
+<li>信道利用率：信道利用率&#x3D;有数据通过时间&#x2F;(有+无)数据通过时间</li>
+<li>网络利用率：信道利用率的加权平均值</li>
+</ul>
+<p><strong>时延和利用率的关系图</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305084703782.png" alt="image-20240305084703782" class="lazyload"></p>
+<p>这就相当于高速车辆越多行驶越缓慢</p>
 <h1><span id="osi七层模型">OSI七层模型</span></h1><p>OSI七层模型偏理论，并不在实际中运用，因为该模型十分理想，且效率低但对我们了解网络模型有帮助</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240304110839603.png" alt="image-20240304110839603" class="lazyload"></p>
 <p>下面是一个利用OSI七层模型通过中间系统进行信息传输的示例图</p>
