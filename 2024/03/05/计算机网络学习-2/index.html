@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html 
+	lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> 计算机网络学习-2 -  clown</title>
+		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+		<!-- lazyload -->
+		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
+		<!-- smooth-scrolling -->
+		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
+		<!-- highlight -->
+		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
+		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 7.0.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="clown">
+        <img
+			src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			alt="clown"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" title="clown">
+			<img
+				src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+				alt="clown"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>14</div>
+		<div><span>标签</span>7</div>
+		<div><span>分类</span>6</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/378722283"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/clowsman"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/ljc0033"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/blog/">
+              blog
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/git/">
+              git
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/go/">
+              go
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/web/">
+              web
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/区块链/">
+              区块链
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/提权/">
+              提权
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 15px;">计网</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">clown</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="计算机网络学习-2"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>计算机网络学习-2</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月05日</a>
+			<a><i class="kirafont icon-edit-fill"></i>2.2k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 9 分钟</a>
+		</div>
+		<h1><span id="应用层">应用层</span></h1><p>应用层对应用程序的通信提供服务。</p>
+<p><strong>应用层协议定义:</strong></p>
+<ul>
+<li><p>应用进程交换的报文类型，请求还是响应?</p>
+</li>
+<li><p>各种报文类型的语法，如报文中的各个字段及其详细描述字段的语义，即包含在字段中的信息的含义。</p>
+</li>
+<li><p>进程何时、如何发送报文，以及对报文进行响应的规则。</p>
+</li>
+</ul>
+<p><strong>应用层的功能：</strong></p>
+<ul>
+<li><p>文件传输、访问和管理    </p>
+</li>
+<li><p>电子邮件      </p>
+</li>
+<li><p>虚拟终端     </p>
+</li>
+<li><p>查询服务和远程作业登录</p>
+</li>
+</ul>
+<p><strong>应用层重要协议</strong></p>
+<p> <strong>FTP</strong>，<strong>SMTP、POP3</strong>， <strong>HTTP</strong>， <strong>DNS</strong></p>
+<p><strong>网络应用模型</strong></p>
+<ul>
+<li>客户&#x2F;服务器模型（C&#x2F;S）</li>
+<li>P2P模型（Peer-to-peer）也叫对等模型</li>
+</ul>
+<h1><span id="dns系统">DNS系统</span></h1><h2><span id="域名">域名</span></h2><p>域名从左到右级别逐渐升高，最右边的叫做顶级域名</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305091606492.png" alt="image-20240305091606492" class="lazyload"></p>
+<p><strong>根</strong></p>
+<p>根指的是顶级域名右边的一点，所以完整的域名写法应该是<a target="_blank" rel="noopener" href="http://www.xxx.com.,从根后面才是顶级域名/">www.xxx.com.，从根后面才是顶级域名</a></p>
+<p><strong>顶级域名</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305091738436.png" alt="image-20240305091738436" class="lazyload"></p>
+<p>反向域名即通过IP地址来反向解析出域名</p>
+<p><strong>二级域名</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305091920777.png" alt="image-20240305091920777" class="lazyload"></p>
+<p><strong>域名树</strong></p>
+<p>域名可以有很多级，比如学校的域名就有三级、四级等等</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305092053637.png" alt="image-20240305092053637" class="lazyload"></p>
+<h2><span id="域名服务器">域名服务器</span></h2><ul>
+<li><p>本地域名服务器：当一个主机发出DNS查询请求时，这个查询请求报文就发给本地域名服务器。</p>
+</li>
+<li><p>根域名服务器：知道所有的域名，就是知道顶级域名对应那个顶级域名服务器，在本地域名服务器找不到域名时就会先去请求根域名服务器</p>
+</li>
+<li><p>顶级域名服务器：管理该顶级域名服务器注册的所有二级域名</p>
+</li>
+<li><p>权限域名服务器：负责一个区的域名服务器</p>
+</li>
+</ul>
+<p>总之就是向DNS请求来指明下一步要查询哪一个DNS服务器，这是一个示例图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305093038757.png" alt="image-20240305093038757" class="lazyload"></p>
+<h2><span id="域名解析过程">域名解析过程</span></h2><p>可以参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37263637/article/details/85157611">域名分级与域名解析过程(DNS)-CSDN博客</a></p>
+<p>域名解析分为两种查询：</p>
+<ul>
+<li><p>递归查询</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305093323157.png" alt="image-20240305093323157" class="lazyload"></p>
+</li>
+<li><p>迭代查询</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305093347626.png" alt="image-20240305093347626" class="lazyload"></p>
+</li>
+</ul>
+<p>这两种查询的区别就是客户角色不同，递归是每一种服务器都要做查询用户，而迭代就一直是本地域名服务器做查询用户</p>
+<h2><span id="高速缓存">高速缓存</span></h2><p>这是为了提高DNS查询效率的方法，比如最近查询过的域名会存放在本地域名服务器</p>
+<h1><span id="文件传送协议">文件传送协议</span></h1><ul>
+<li>文件传送协议FTP(FileTransfer Protocol)：提供不同种类主机系统(硬、软件体系等都可以不同)之间的文件传输能力。</li>
+<li>简单文件传送协议TFTP(Trivial File Transfer Protocol)</li>
+</ul>
+<h2><span id="ftp服务端和用户端">FTP服务端和用户端</span></h2><blockquote>
+<p> FTP是基于客户&#x2F;服务器(C&#x2F;S)的协议。</p>
+<p>用户通过一个客户机程序连接至在远程计算机上运行的服务器程序。</p>
+<p>依照 FTP协议提供服务，进行文件传送的计算机就是FTP服务器。</p>
+<p>连接FTP服务器，遵循FTP协议与服务器传送文件的电脑就是FTP客户端</p>
+</blockquote>
+<h2><span id="ftp工作原理">FTP工作原理</span></h2><ul>
+<li><p>登陆</p>
+<p>知道ftp服务器地址后有两种登陆方式，一种是用户名&amp;密码登陆方式，另一种是匿名登陆</p>
+<blockquote>
+<p>互连网中有很大一部分FTP 服务器被称为“匿名”(Anonymous)FTP服务器。这类服务器的目的是向公众提供文件拷贝服务，不要求用户事先在该服务器进行登记注册，也不用取得FTP服务器的授权。Anonymous(匿名文件传输)能够使用户与远程主机建立连接并以匿名身份从远程主机上拷贝文件，而不必是该远程主机的注册用户。用户使用特殊的用户名“anonymous”登陆FTP服务，就可访问远程主机上公开的文件。这样可以减少服务器的压力。</p>
+</blockquote>
+</li>
+</ul>
+<p>FTP使用TCP实现可靠传输</p>
+<p>FTP的服务器进程分为两种：</p>
+<ul>
+<li>一个主进程：负责接收请求</li>
+<li>n个从属进程：去处理用户请求</li>
+</ul>
+<p>这是ftp传输的过程及其使用的端口号：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305095147480.png" alt="image-20240305095147480" class="lazyload"></p>
+<p>ftp传输的文件有两种模式：</p>
+<ul>
+<li>文本模式：ASCII模式，以文本序列传输数据</li>
+<li>二进制模式：Binary模式，以二进制序列传输数据</li>
+</ul>
+<h1><span id="电子邮件">电子邮件</span></h1><h2><span id="信息格式">信息格式</span></h2><ul>
+<li><p>信封：例如<a href="mailto:&#x78;&#x78;&#x78;&#x40;&#49;&#x36;&#x33;&#46;&#x63;&#111;&#x6d;">&#x78;&#x78;&#x78;&#x40;&#49;&#x36;&#x33;&#46;&#x63;&#111;&#x6d;</a></p>
+</li>
+<li><p>内容</p>
+<ul>
+<li><p>首部</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305124931354.png" alt="image-20240305124931354" class="lazyload"></p>
+</li>
+<li><p>主体</p>
+<p>就是邮件内容了。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2><span id="组成结构">组成结构</span></h2><p>邮件发送采用C&#x2F;S模式，邮件服务器既可以做服务器也可以做发送方客户端，下面是一个示意图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305130100685.png" alt="image-20240305130100685" class="lazyload"></p>
+<p>邮件是存放在邮件服务器的缓存当中</p>
+<h2><span id="smtp协议">SMTP协议</span></h2><p>SMTP规定了14条命令(几个字母)和21种应信息(三位数字代码+简单文字说明)。</p>
+<p>用于TCP连接的端口号一般是25端口</p>
+<p><strong>SMTP通信的三个阶段</strong></p>
+<p>连接建立&#x3D;》邮件传送&#x3D;》连接释放</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305131325496.png" alt="image-20240305131325496" class="lazyload"></p>
+<p><strong>SMTP的缺点</strong></p>
+<ol>
+<li><p>SMTP不能传送可执行文件或者其他二进制对象。</p>
+</li>
+<li><p>SMTP仅限于传送7位ASCII码，不能传送其他非英语国家的文字。</p>
+</li>
+<li><p>SMTP服务器会拒绝超过一定长度的邮件。</p>
+</li>
+</ol>
+<p><strong>MIME</strong></p>
+<p>也叫通用因特网邮件扩充MIME，用来弥补SMTP协议的不足，MIME是电子邮件可以传输各种各样的数据</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305131619206.png" alt="image-20240305131619206" class="lazyload"></p>
+<p>现在也不光为邮件服务使用，也已经为浏览器使用，传输数据的时候就会声明传输的数据是什么MIME类型，http的请求头会有一栏<strong>content-type</strong>就是标识数据的MIME类型</p>
+<h2><span id="邮局协议pop3">邮局协议POP3</span></h2><p>该协议也采用TCP连接，端口号一般为110，也是C&#x2F;S模式，作用在最后用户读取邮件内容的时候</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305132443641.png" alt="image-20240305132443641" class="lazyload"></p>
+<p>其工作方式有两种：</p>
+<ul>
+<li>下载并保留(在服务器)</li>
+<li>下载并删除</li>
+</ul>
+<h2><span id="网际报文存取协议imap">网际报文存取协议IMAP</span></h2><p>IMAP协议比POP协议复杂。当用户Pc上的IMAP客户程序打开IMAP服务器的邮箱时，用户可以看到邮箱的首部，若用户需要打开某个邮件，该邮件才上传到用户的计算机上。</p>
+<p>IMAP可以让用户在不同的地方使用不同的计算机随时上网阅读处理邮件，还允许只读取邮件中的某一个部分<br>(先看正文，有WiFi的时候再下载附件)。</p>
+<p>该协议也是和POP3一样作用在最后一个环节</p>
+<h2><span id="基于万维网的电子邮件">基于万维网的电子邮件</span></h2><p>现在很少专门去下载发送邮件的软件，我们直接在网上输入邮箱写上内容就可以发送邮件了，是基于http协议去连接别的厂商的邮件服务器，比如通过http协议用户代理连接到网易邮件服务器</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305132800061.png" alt="image-20240305132800061" class="lazyload"></p>
+<h1><span id="万维网和http协议">万维网和HTTP协议</span></h1><h2><span id="url和uri">URL和URI</span></h2><p><strong>URI</strong>叫做统一资源标识符，<strong>URL</strong>（统一资源定位符）是其中的一种。</p>
+<p>HTTP 请求的内容通称为”资源”。”资源“这一概念非常宽泛，它可以是一份文档，一张图片，或所有其他你能够想到的格式。每个资源都由一个 <strong>URI</strong> 来进行标识。</p>
+<p>一般情况下，资源的名称和位置由同一个 URL（统一资源定位符，它是 URI 的一种）来标识。也有某些特殊情况，资源的名称和位置由不同的 URI 进行标识：例如，待请求的资源希望客户端从另外一个位置访问它。我们可以使用一个特定的首部字段，<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Alt-Svc"><code>Alt-Svc</code></a>，来指示这种情况。</p>
+<p><strong>URL</strong> 由多个必须或可选的组件构成。下面给出了一个复杂的 URL：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">http://www.example.com:80/path/to/myfile.html?key1=value1&amp;key2=value2#SomewhereInTheDocument<br></code></pre></td></tr></table></figure>
+
+<p><strong>URL的结构如下：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">URI=scheme:[//authority]path[?query][#fragment]<br>authority组件又分为三部分：[userinfo@]host[:port]<br>该组件中，userinfo用的比较少，一般HTTP以匿名的方式获取数据，如果要进行身份验证，格式为 username:password ,以@结尾<br></code></pre></td></tr></table></figure>
+
+<p><strong>URN</strong> 是另一种形式的 URI，它通过特定命名空间中的唯一名称来标识资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">urn:isbn:9780141036144<br>urn:ietf:rfc:7230<br></code></pre></td></tr></table></figure>
+
+<h2><span id="http请求过程">HTTP请求过程</span></h2><p>HTTP请求具体过程示例图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305133740408.png" alt="image-20240305133740408" class="lazyload"></p>
+<h2><span id="http连接方式">HTTP连接方式</span></h2><p>http协议本身是一个无状态协议，如果需要识别用户的话可以利用Cookie</p>
+<p>连接方式：</p>
+<ul>
+<li><p>持久连接(Keep-alive)</p>
+<p>只需要进行一次TCP连接，后续再发送新数据不需要重新建立连接</p>
+<ul>
+<li><p>非流水线</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305134328129.png" alt="image-20240305134328129" class="lazyload"></p>
+<p>这就是非流水线式的连接，要在收到响应后才能继续下一次请求</p>
+</li>
+<li><p>流水线</p>
+<p>就是可以同时发送多个请求报文不需要逐次等待</p>
+</li>
+</ul>
+</li>
+<li><p>非持久连接(Close)</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305134223174.png" alt="image-20240305134223174" class="lazyload"></p>
+<p>即每次发送一次新的数据都需要重新建立连接，比较耗时</p>
+</li>
+</ul>
+<h2><span id="http请求报文结构">HTTP请求报文结构</span></h2><p>这里放一张图就行了，这是get请求的报文结构</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305134824112.png" alt="image-20240305134824112" class="lazyload"></p>
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-2/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;05&#x2F;计算机网络学习-2&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;05&#x2F;计算机网络学习-2&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			            
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E8%AE%A1%E7%BD%91/" rel="tag">计网</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
