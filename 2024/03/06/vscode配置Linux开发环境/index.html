@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> 反弹shell学习 -  clown</title>
+		<title> vscode配置Linux开发环境 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -377,24 +377,75 @@
 			<img
 				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
 				data-sizes="auto"
-				alt="反弹shell学习"
+				alt="vscode配置Linux开发环境"
 				class="lazyload kira-post-cover-image disabled-kira-image"
 			/>
-			<h1>反弹shell学习</h1>
+			<h1>vscode配置Linux开发环境</h1>
 		</div>
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2024年02月29日</a>
-			<a><i class="kirafont icon-edit-fill"></i>0 字</a>
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月06日</a>
+			<a><i class="kirafont icon-edit-fill"></i>460 字</a>
 			<a><i class="kirafont icon-time-circle-fill"></i>大概 1 分钟</a>
 		</div>
-		
+		<h1><span id="vscode配置wsl开发环境">VSCode配置wsl开发环境</span></h1><p>在vscode上使用wsl进行开发环境就比较简单，我这里用的是Ubuntu的wsl</p>
+<p>首先检查一下wsl里面有没有gcc和g++编译器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">g++ -v<br>gcc -v<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306164855577.png" alt="image-20240306164855577" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306164915530.png" alt="image-20240306164915530" class="lazyload"></p>
+<p>如果没有就执行下面命令安装</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo apt-get update #更新软件包列表<br>sudo apt-get install build-essential gdb #安装 GNU 编译器工具和 GDB 调试器<br></code></pre></td></tr></table></figure>
+
+<p>然后去创建一个项目文件夹，在需要vscode打开的文件夹下输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">code .<br></code></pre></td></tr></table></figure>
+
+<p>就会自动开启一个vscode</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306165346221.png" alt="image-20240306165346221" class="lazyload"></p>
+<p>左下角就会显示wsl的连接</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306165411416.png" alt="image-20240306165411416" class="lazyload"></p>
+<p>随便写个cpp文件，然后我们在终端就可以进行编译了</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306165629607.png" alt="image-20240306165629607" class="lazyload"></p>
+<p><strong>从vscode中启动wsl</strong></p>
+<p>只需要安装两个remote扩展就可以了</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306170459303.png" alt="image-20240306170459303" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306170511786.png" alt="image-20240306170511786" class="lazyload"></p>
+<p>然后命令输入wsl即可连接</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306170442810.png" alt="image-20240306170442810" class="lazyload"></p>
+<p>如果有多个发行版想要指定的话就选这个</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306170834830.png" alt="image-20240306170834830" class="lazyload"></p>
+<blockquote>
+<p>另外不想命令行编译调试的话也可以直接在为wsl安装code runner和c++扩展即可</p>
+</blockquote>
+<h1><span id="vscode配置远程服务器连接">VSCode配置远程服务器连接</span></h1><p>首先安装好这个插件</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306205105832.png" alt="image-20240306205105832" class="lazyload"></p>
+<p>然后去config文件配置ssh文件</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306205237737.png" alt="image-20240306205237737" class="lazyload"></p>
+<p>要先在本机使用如下命令生成密钥</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh-keygen -t rsa  //一般默认保存在~/.ssh路径下<br></code></pre></td></tr></table></figure>
+
+<p>然后配置文件如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">Host &lt;随便填主机名&gt;<br>HostName &lt;远程主机ip地址&gt;<br>User &lt;登陆用户&gt;<br>IdentityFile &lt;私钥路径&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306205426338.png" alt="image-20240306205426338" class="lazyload"></p>
+<p>配置好本机ssh文件之后，公钥放在远程主机的~&#x2F;.ssh下</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306205744858.png" alt="image-20240306205744858" class="lazyload"></p>
+<p>然后把公钥文件写入authorized_keys里即可完成整个配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat id_rsa_vps.pub &gt;&gt; authorized_keys<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>公钥私钥是用来进行免密登陆的，也可以不使用，只不过在登陆的时候就要输入密码</p>
+</blockquote>
+<p>然后点击在新窗口连接主机</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306210558090.png" alt="image-20240306210558090" class="lazyload"></p>
+<p>成功！其余的开发配置就和上面的wsl配置没什么区别了，就懒得整了</p>
+
 	</article>
 
 	 
     <div class="kira-post-copyright">
         <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2024/02/29/%E5%8F%8D%E5%BC%B9shell%E5%AD%A6%E4%B9%A0/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;反弹shell学习&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;反弹shell学习&#x2F;</a><br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/06/vscode%E9%85%8D%E7%BD%AELinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;06&#x2F;vscode配置Linux开发环境&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;06&#x2F;vscode配置Linux开发环境&#x2F;</a><br>
         
             <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
         
@@ -403,12 +454,20 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			                
+			                          
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			              
 		</nav>
 	</div>
 	
 	<div class="kira-post-meta kira-rainbow">
 		
+			<a class="kirafont icon-container-fill -link" href="/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" rel="tag">c/c++ 环境配置</a>
 		
 	</div>
 	

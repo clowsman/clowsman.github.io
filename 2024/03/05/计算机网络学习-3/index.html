@@ -80,9 +80,9 @@
 		</a>
 	</div>
 	<div class="kira-count">
-		<div><span>文章</span>15</div>
-		<div><span>标签</span>7</div>
-		<div><span>分类</span>7</div>
+		<div><span>文章</span>16</div>
+		<div><span>标签</span>8</div>
+		<div><span>分类</span>8</div>
 	</div>
 	<div class="kira-list">
 		
@@ -278,6 +278,13 @@
             <span class="category-list-count">1</span>
           </li>
         
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/环境配置/">
+              环境配置
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
       </ul>
     </div>
   </div>
@@ -286,7 +293,7 @@
 			
 	<div class="kira-widget-wrap">
 		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
-			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
 		</div>
 		
 	</div>
@@ -378,8 +385,8 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月05日</a>
-			<a><i class="kirafont icon-edit-fill"></i>1.8k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 7 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>2.4k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 9 分钟</a>
 		</div>
 		<h1><span id="传输层概述">传输层概述</span></h1><p>传输层学习两种协议，TCP和UDP协议</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305182817812.png" alt="image-20240305182817812" class="lazyload"></p>
@@ -509,6 +516,26 @@
 </ol>
 <h1><span id="tcp流量控制">TCP流量控制</span></h1><p>流量控制：也就是控制发送速率，使接收方能够完全接收数据</p>
 <p>TCP采用滑动窗口机制实现流量控制</p>
+<p>在通信过程中，接收方根据自己接收缓存的大小，动态地调整发送方的发送窗口大小，即接收窗口rwnd(接收方设置确认报文段的窗口字段来将rwnd通知给发送方)，发送方的发送窗口取接收窗口rwnd和拥塞窗口cwnd的最小值。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306132247748.png" alt="image-20240306132247748" class="lazyload"></p>
+<h1><span id="tcp拥塞控制">TCP拥塞控制</span></h1><p>出现拥塞的条件：对资源需求总和&gt;可用资源</p>
+<p>拥塞控制就是防止过多的数据注入到网络中。(全局性控制)</p>
+<p>拥塞控制还有四种算法：满开始、拥塞避免、快重传、快恢复</p>
+<p><strong>现在先假定一下情况来学习这四种算法：</strong></p>
+<ol>
+<li><p>数据单方向传送，而另一个方向只传送确认(就是没有捎带确认，也就是附加数据)</p>
+</li>
+<li><p>接收方总是有足够大的缓存空间，因而发送窗口大小取决于拥塞程度</p>
+<p>发送窗口&#x3D;Min{接收窗口rwnd，拥塞窗口cwnd}</p>
+<p>接收窗口：接收方根据接受缓存设置的值，并告知给发送方，反映接收方容量。<br>拥塞窗口：发送方根据自己估算的网络拥塞程度而设置的窗口值，反映网络当前容量。</p>
+</li>
+</ol>
+<h2><span id="慢开始和拥塞避免">慢开始和拥塞避免</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306134517263.png" alt="image-20240306134517263" class="lazyload"></p>
+<p>慢开始就是逐渐增加注入的报文段，在达到sshresh(慢开始门限)之前以2的指数倍上升，第一次传输1，第二次则2，第三次则4，以此类推，这里在收到确认报文段之后就会立刻改变拥塞窗口大小；到达门限之后就线性增长，这里的图就逐次加一。</p>
+<p>检测到网络拥塞之后，cwnd(拥塞窗口)就直接降到一，然后重复前面的过程，但是唯一改变的就是sshresh，是在检测到网络拥塞时，将拥塞窗口除以2作为新的sshresh</p>
+<h2><span id="快重传和快恢复">快重传和快恢复</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306134721633.png" alt="image-20240306134721633" class="lazyload"></p>
+<p>快重传就是上面说到的冗余ACK，收到三个重复的确认之后就会执行快重传。</p>
+<p>快重传之后执行的就是快恢复，快恢复不会立刻降到拥塞窗口为1，而是降到新的门限值，门限值的大小就是检测到三个重复确认时的拥塞窗口除以2.</p>
 
 	</article>
 
@@ -524,7 +551,7 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			                          
+			                              
 			<!-- 先找到与当前文字相同的目录 -->
 			         
 			<!-- 在找到当前文章所在的 index -->
