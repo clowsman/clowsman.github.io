@@ -80,7 +80,7 @@
 		</a>
 	</div>
 	<div class="kira-count">
-		<div><span>文章</span>16</div>
+		<div><span>文章</span>17</div>
 		<div><span>标签</span>8</div>
 		<div><span>分类</span>8</div>
 	</div>
@@ -268,7 +268,7 @@
             <a class="category-list-link" href="/categories/基础/">
               基础
             </a>
-            <span class="category-list-count">3</span>
+            <span class="category-list-count">4</span>
           </li>
         
           <li class="category-list-item">
@@ -293,7 +293,7 @@
 			
 	<div class="kira-widget-wrap">
 		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
-			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
 		</div>
 		
 	</div>
@@ -388,11 +388,11 @@
 			<a><i class="kirafont icon-edit-fill"></i>1k 字</a>
 			<a><i class="kirafont icon-time-circle-fill"></i>大概 4 分钟</a>
 		</div>
-		<h1><span id="智能合约入门">智能合约入门</span></h1><h2><span id="第一个合约">第一个合约</span></h2><p>这是一个计数器智能合约的实例：</p>
+		<h1><span id="zhi-neng-he-yue-ru-men">智能合约入门</span><a href="#zhi-neng-he-yue-ru-men" class="header-anchor">#</a></h1><h2><span id="di-yi-ge-he-yue">第一个合约</span><a href="#di-yi-ge-he-yue" class="header-anchor">#</a></h2><p>这是一个计数器智能合约的实例：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs js">pragma solidity &gt;=<span class="hljs-number">0.8</span><span class="hljs-number">.0</span>;<span class="hljs-comment">//声明编译器版本</span><br><span class="hljs-comment">//类似的表示还有</span><br><span class="hljs-comment">//pragma solidity &gt;=0.8.0 &lt;0.9.0;</span><br><span class="hljs-comment">//pragma solidity ^0.8.0;</span><br><br><span class="hljs-comment">// 定义一个合约</span><br>contract <span class="hljs-title class_">Counter</span> &#123;<br>    uint public counter;<br>    <br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>        counter = <span class="hljs-number">0</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">function</span> <span class="hljs-title function_">count</span>(<span class="hljs-params"></span>) public &#123;<br>        counter = counter + <span class="hljs-number">1</span>;<br>    &#125;<br>    <br>    <span class="hljs-keyword">function</span> <span class="hljs-title function_">get</span>(<span class="hljs-params"></span>) public view returns (uint) &#123;<br>        <span class="hljs-keyword">return</span> counter;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>合约是可部署到区块链的最小单元， 一个合约通常由<strong>状态变量（合约数据）</strong>和<strong>合约函数</strong>组成。</p>
-<h2><span id="变量和函数">变量和函数</span></h2><p><strong>控制可见性的关键词</strong></p>
+<h2><span id="bian-liang-he-han-shu">变量和函数</span><a href="#bian-liang-he-han-shu" class="header-anchor">#</a></h2><p><strong>控制可见性的关键词</strong></p>
 <p><code>public</code> 类型的状态变量，会自动创建一个同名的外部函数（称为访问器），来获取状态变量的值</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">比如：<br>uint public a;<br>部署的时候就会有一个a()函数来获取a的值<br></code></pre></td></tr></table></figure>
 
@@ -468,7 +468,7 @@
 <blockquote>
 <p><code>view</code> , <code>pure</code> , <code>payable</code> 通常被称为修饰符</p>
 </blockquote>
-<h2><span id="数据类型">数据类型</span></h2><p>数据类型分为一下三种：</p>
+<h2><span id="shu-ju-lei-xing">数据类型</span><a href="#shu-ju-lei-xing" class="header-anchor">#</a></h2><p>数据类型分为一下三种：</p>
 <ul>
 <li>值类型（Value Types）</li>
 <li>引用类型（Reference Types）</li>
@@ -484,8 +484,8 @@
 </ul>
 <p><strong>映射类型</strong></p>
 <p>映射类型和Java的Map、Python的Dict在功能上差不多，它是一种键值对的映射关系存储结构，定义方式为mapping(KT &#x3D;&gt; KV)。</p>
-<h2><span id="地址类型">地址类型</span></h2><h1><span id="ethernaut">Ethernaut</span></h1><p>这里通过该靶场来学习只能合约安全，先从<strong>Hello Ethernaut</strong>看起</p>
-<h2><span id="hello-ethernaut">Hello Ethernaut</span></h2>
+<h2><span id="di-zhi-lei-xing">地址类型</span><a href="#di-zhi-lei-xing" class="header-anchor">#</a></h2><h1><span id="ethernaut">Ethernaut</span><a href="#ethernaut" class="header-anchor">#</a></h1><p>这里通过该靶场来学习只能合约安全，先从<strong>Hello Ethernaut</strong>看起</p>
+<h2><span id="hello-ethernaut">Hello Ethernaut</span><a href="#hello-ethernaut" class="header-anchor">#</a></h2>
 	</article>
 
 	 

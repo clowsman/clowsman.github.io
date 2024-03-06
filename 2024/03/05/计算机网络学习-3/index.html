@@ -80,7 +80,7 @@
 		</a>
 	</div>
 	<div class="kira-count">
-		<div><span>文章</span>16</div>
+		<div><span>文章</span>17</div>
 		<div><span>标签</span>8</div>
 		<div><span>分类</span>8</div>
 	</div>
@@ -268,7 +268,7 @@
             <a class="category-list-link" href="/categories/基础/">
               基础
             </a>
-            <span class="category-list-count">3</span>
+            <span class="category-list-count">4</span>
           </li>
         
           <li class="category-list-item">
@@ -293,7 +293,7 @@
 			
 	<div class="kira-widget-wrap">
 		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
-			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 20px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
 		</div>
 		
 	</div>
@@ -388,7 +388,7 @@
 			<a><i class="kirafont icon-edit-fill"></i>2.4k 字</a>
 			<a><i class="kirafont icon-time-circle-fill"></i>大概 9 分钟</a>
 		</div>
-		<h1><span id="传输层概述">传输层概述</span></h1><p>传输层学习两种协议，TCP和UDP协议</p>
+		<h1><span id="chuan-shu-ceng-gai-shu">传输层概述</span><a href="#chuan-shu-ceng-gai-shu" class="header-anchor">#</a></h1><p>传输层学习两种协议，TCP和UDP协议</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305182817812.png" alt="image-20240305182817812" class="lazyload"></p>
 <p><strong>TCP协议的作用：</strong></p>
 <ul>
@@ -404,7 +404,7 @@
 <li>传输层对收到的报文进行差错检测</li>
 <li>传输层有两种协议</li>
 </ul>
-<h1><span id="传输层的寻址与端口">传输层的寻址与端口</span></h1><p><strong>复用</strong>：应用层所有的应用进程都可以通过传输层再传输到网络层。</p>
+<h1><span id="chuan-shu-ceng-de-xun-zhi-yu-duan-kou">传输层的寻址与端口</span><a href="#chuan-shu-ceng-de-xun-zhi-yu-duan-kou" class="header-anchor">#</a></h1><p><strong>复用</strong>：应用层所有的应用进程都可以通过传输层再传输到网络层。</p>
 <p><strong>分用</strong>：传输层从网络层收到数据后交付指明的应用进程。</p>
 <p>端口号标识主机中的应用进程。</p>
 <p>端口号长度为16bit，所以能表示的端口号数量为65535个。</p>
@@ -416,8 +416,8 @@
 <p> 在网络中采用发送方和接收方的套接字组合来识别端点，套接字唯一标识了网络中的一个主机和它上面的一个进程。</p>
 <p>套接字socket&#x3D;(主机IP地址，端口号)</p>
 </blockquote>
-<h1><span id="udp协议">UDP协议</span></h1><p>UDP只在IP数据报服务之上增加了很少功能，即复用分用和差错检测功能。</p>
-<h2><span id="udp的主要特点">UDP的主要特点</span></h2><ol>
+<h1><span id="udp-xie-yi">UDP协议</span><a href="#udp-xie-yi" class="header-anchor">#</a></h1><p>UDP只在IP数据报服务之上增加了很少功能，即复用分用和差错检测功能。</p>
+<h2><span id="udp-de-zhu-yao-te-dian">UDP的主要特点</span><a href="#udp-de-zhu-yao-te-dian" class="header-anchor">#</a></h2><ol>
 <li><p>UDP是无连接的，减少开销和发送数据之前的时延。</p>
 </li>
 <li><p>UDP使用最大努力交付，即不保证可靠交付。</p>
@@ -430,17 +430,17 @@
 </li>
 </ol>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305215954723.png" alt="image-20240305215954723" class="lazyload"></p>
-<h2><span id="udp首部格式">UDP首部格式</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220132283.png" alt="image-20240305220132283" class="lazyload"></p>
-<h2><span id="udp校验过程">UDP校验过程</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220303149.png" alt="image-20240305220303149" class="lazyload"></p>
+<h2><span id="udp-shou-bu-ge-shi">UDP首部格式</span><a href="#udp-shou-bu-ge-shi" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220132283.png" alt="image-20240305220132283" class="lazyload"></p>
+<h2><span id="udp-xiao-yan-guo-cheng">UDP校验过程</span><a href="#udp-xiao-yan-guo-cheng" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220303149.png" alt="image-20240305220303149" class="lazyload"></p>
 <p><strong>伪首部校验</strong></p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305220730662.png" alt="image-20240305220730662" class="lazyload"></p>
-<h1><span id="tcp协议">TCP协议</span></h1><h2><span id="tcp协议的特点">TCP协议的特点</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305221800753.png" alt="image-20240305221800753" class="lazyload"></p>
+<h1><span id="tcp-xie-yi">TCP协议</span><a href="#tcp-xie-yi" class="header-anchor">#</a></h1><h2><span id="tcp-xie-yi-de-te-dian">TCP协议的特点</span><a href="#tcp-xie-yi-de-te-dian" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305221800753.png" alt="image-20240305221800753" class="lazyload"></p>
 <p>发送数据时，先把一定的字节放入缓存中，然后取一些字节组成报文段然后带上TCP头部组成完整报文段</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305222029888.png" alt="image-20240305222029888" class="lazyload"></p>
 <blockquote>
 <p>字节数不是固定的</p>
 </blockquote>
-<h2><span id="tcp报文段首部格式">TCP报文段首部格式</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305222924879.png" alt="image-20240305222924879" class="lazyload"></p>
+<h2><span id="tcp-bao-wen-duan-shou-bu-ge-shi">TCP报文段首部格式</span><a href="#tcp-bao-wen-duan-shou-bu-ge-shi" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305222924879.png" alt="image-20240305222924879" class="lazyload"></p>
 <p><strong>下面是各个部分的作用：</strong></p>
 <ul>
 <li><p>序号:在一个TCP连接中传送的字节流中的每一个字节都按顺序编号，本字段表示本报文段所发送数据的第一个字节的序号。</p>
@@ -475,23 +475,23 @@
 <li><p>终止位FIN：FIN&#x3D;1时，表明此报文段发送方数据已发完，要求释放连接。</p>
 </li>
 </ul>
-<h1><span id="tcp连接管理">TCP连接管理</span></h1><p>TCP连接传输的三个阶段：</p>
+<h1><span id="tcp-lian-jie-guan-li">TCP连接管理</span><a href="#tcp-lian-jie-guan-li" class="header-anchor">#</a></h1><p>TCP连接传输的三个阶段：</p>
 <p>连接建立&#x3D;》数据传输&#x3D;》连接释放</p>
-<h2><span id="tcp连接建立">TCP连接建立</span></h2><p>采用三次握手建立TCP连接</p>
+<h2><span id="tcp-lian-jie-jian-li">TCP连接建立</span><a href="#tcp-lian-jie-jian-li" class="header-anchor">#</a></h2><p>采用三次握手建立TCP连接</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305225606569.png" alt="image-20240305225606569" class="lazyload"></p>
 <blockquote>
 <p>seq是序号，ack是确认号</p>
 </blockquote>
-<h2><span id="syn洪泛攻击">SYN洪泛攻击</span></h2><p>SYN洪泛攻击发生在OSI第四层，这种方式利用TCP协议的特性，就是三次握手。攻击者发送TCP SYN，SYN是TCP三次握手中的第一个数据包，而当服务器返回ACK后，该攻击者就不对其进行再确认，那这个TCP连接就处于挂起状态，也就是所谓的半连接状态，服务器收不到再确认的话，还会重复发送ACK给攻击者。这样更加会浪费服务器的资源。攻击者就对服务器发送非常大量的这种TCP连接，由于每一个都没法完成三次握手，所以在服务器上，这些TCP连接会因为挂起状态而消耗CPU和内存，最后服务器可能死机，就无法为正常用户提供服务了。</p>
+<h2><span id="syn-hong-fan-gong-ji">SYN洪泛攻击</span><a href="#syn-hong-fan-gong-ji" class="header-anchor">#</a></h2><p>SYN洪泛攻击发生在OSI第四层，这种方式利用TCP协议的特性，就是三次握手。攻击者发送TCP SYN，SYN是TCP三次握手中的第一个数据包，而当服务器返回ACK后，该攻击者就不对其进行再确认，那这个TCP连接就处于挂起状态，也就是所谓的半连接状态，服务器收不到再确认的话，还会重复发送ACK给攻击者。这样更加会浪费服务器的资源。攻击者就对服务器发送非常大量的这种TCP连接，由于每一个都没法完成三次握手，所以在服务器上，这些TCP连接会因为挂起状态而消耗CPU和内存，最后服务器可能死机，就无法为正常用户提供服务了。</p>
 <p><strong>防范SYN洪泛攻击的方法</strong></p>
 <p>可以通过设置SYN cookie</p>
-<h2><span id="tcp的连接释放">TCP的连接释放</span></h2><p>采用四次握手</p>
+<h2><span id="tcp-de-lian-jie-shi-fang">TCP的连接释放</span><a href="#tcp-de-lian-jie-shi-fang" class="header-anchor">#</a></h2><p>采用四次握手</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305230921528.png" alt="image-20240305230921528" class="lazyload"></p>
 <blockquote>
 <p>等待2MSL的目的是为了能够彻底关闭连接</p>
 <p>因为若B没有收到确认报文段会在2MSL内重新发送第三个报文段，若A直接关闭了就会收不到重传的报文段，B就会一直重传导致连接无法完全关闭</p>
 </blockquote>
-<h1><span id="tcp可靠传输">TCP可靠传输</span></h1><p>可靠传输就是保证接收方进程从缓存区读出的字节流与发送方发出的字节流是完全一样的。</p>
+<h1><span id="tcp-ke-kao-chuan-shu">TCP可靠传输</span><a href="#tcp-ke-kao-chuan-shu" class="header-anchor">#</a></h1><p>可靠传输就是保证接收方进程从缓存区读出的字节流与发送方发出的字节流是完全一样的。</p>
 <p>实现可靠传输的机制：</p>
 <ol>
 <li><p><strong>校验</strong></p>
@@ -514,11 +514,11 @@
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306004112025.png" alt="image-20240306004112025" class="lazyload"></p>
 </li>
 </ol>
-<h1><span id="tcp流量控制">TCP流量控制</span></h1><p>流量控制：也就是控制发送速率，使接收方能够完全接收数据</p>
+<h1><span id="tcp-liu-liang-kong-zhi">TCP流量控制</span><a href="#tcp-liu-liang-kong-zhi" class="header-anchor">#</a></h1><p>流量控制：也就是控制发送速率，使接收方能够完全接收数据</p>
 <p>TCP采用滑动窗口机制实现流量控制</p>
 <p>在通信过程中，接收方根据自己接收缓存的大小，动态地调整发送方的发送窗口大小，即接收窗口rwnd(接收方设置确认报文段的窗口字段来将rwnd通知给发送方)，发送方的发送窗口取接收窗口rwnd和拥塞窗口cwnd的最小值。</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306132247748.png" alt="image-20240306132247748" class="lazyload"></p>
-<h1><span id="tcp拥塞控制">TCP拥塞控制</span></h1><p>出现拥塞的条件：对资源需求总和&gt;可用资源</p>
+<h1><span id="tcp-yong-sai-kong-zhi">TCP拥塞控制</span><a href="#tcp-yong-sai-kong-zhi" class="header-anchor">#</a></h1><p>出现拥塞的条件：对资源需求总和&gt;可用资源</p>
 <p>拥塞控制就是防止过多的数据注入到网络中。(全局性控制)</p>
 <p>拥塞控制还有四种算法：满开始、拥塞避免、快重传、快恢复</p>
 <p><strong>现在先假定一下情况来学习这四种算法：</strong></p>
@@ -530,10 +530,10 @@
 <p>接收窗口：接收方根据接受缓存设置的值，并告知给发送方，反映接收方容量。<br>拥塞窗口：发送方根据自己估算的网络拥塞程度而设置的窗口值，反映网络当前容量。</p>
 </li>
 </ol>
-<h2><span id="慢开始和拥塞避免">慢开始和拥塞避免</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306134517263.png" alt="image-20240306134517263" class="lazyload"></p>
+<h2><span id="man-kai-shi-he-yong-sai-bi-mian">慢开始和拥塞避免</span><a href="#man-kai-shi-he-yong-sai-bi-mian" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306134517263.png" alt="image-20240306134517263" class="lazyload"></p>
 <p>慢开始就是逐渐增加注入的报文段，在达到sshresh(慢开始门限)之前以2的指数倍上升，第一次传输1，第二次则2，第三次则4，以此类推，这里在收到确认报文段之后就会立刻改变拥塞窗口大小；到达门限之后就线性增长，这里的图就逐次加一。</p>
 <p>检测到网络拥塞之后，cwnd(拥塞窗口)就直接降到一，然后重复前面的过程，但是唯一改变的就是sshresh，是在检测到网络拥塞时，将拥塞窗口除以2作为新的sshresh</p>
-<h2><span id="快重传和快恢复">快重传和快恢复</span></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306134721633.png" alt="image-20240306134721633" class="lazyload"></p>
+<h2><span id="kuai-chong-chuan-he-kuai-hui-fu">快重传和快恢复</span><a href="#kuai-chong-chuan-he-kuai-hui-fu" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306134721633.png" alt="image-20240306134721633" class="lazyload"></p>
 <p>快重传就是上面说到的冗余ACK，收到三个重复的确认之后就会执行快重传。</p>
 <p>快重传之后执行的就是快恢复，快恢复不会立刻降到拥塞窗口为1，而是降到新的门限值，门限值的大小就是检测到三个重复确认时的拥塞窗口除以2.</p>
 
@@ -560,6 +560,12 @@
 			<div class="old">
 				<span>上一章</span>
 				<a href="/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-2/"> 计算机网络学习-2</a>
+			</div>
+			       
+			<!-- 下一篇文章 -->
+			<div class="new">
+				<span>下一章</span>
+				<a href="/2024/03/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-4/"> 计算机网络-4</a>
 			</div>
 			          
 		</nav>

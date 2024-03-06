@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> Tags：go -  clown</title>
+		<title> 计算机网络-4 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -322,45 +322,168 @@
 			<div class="kira-content">
 				<div id="kira-top-header"></div>
 				<div class="kira-main-content">
-					<div class="kira-posts">
-    
-        <div class="kira-post">
-            <a href="/2024/02/27/go-get%E5%B0%8F%E5%9D%91/">
-                
-                <div
-                    class="kira-post-cover mdui-ripple"
-                    style="padding-bottom: '56.25%'"
-                >
-                    <img
-                        data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
-                        data-sizes="auto"
-                        alt="go get小坑"
-                        class="lazyload"
-                    />
-                    <h1>go get小坑</h1>
-                </div>
-                
-            </a>
+					
+<link rel="stylesheet" href="/css/kira-image.css">
 
-            <div class="kira-post-meta kira-rainbow">
-                <a>
-                    <i class="kirafont icon-calendar-fill"></i>
-                    2024年02月27日
-                </a>
-                <a>
-                    <i class="kirafont icon-edit-fill"></i>
-                    270 字
-                </a>
-                <a>
-                    <i class="kirafont icon-time-circle-fill"></i>大概
-                    1 分钟
-                </a>
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
             </div>
-    
-            
         </div>
-        <div class="kira-hr"></div>
-    
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="计算机网络-4"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>计算机网络-4</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月06日</a>
+			<a><i class="kirafont icon-edit-fill"></i>425 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 1 分钟</a>
+		</div>
+		<h1><span id="wang-luo-ceng-gai-shu">网络层概述</span><a href="#wang-luo-ceng-gai-shu" class="header-anchor">#</a></h1><p>这里放个导图</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306232043207.png" alt="image-20240306232043207" class="lazyload"></p>
+<p>网络层主要任务是把分组从源端传到目的端，为分组交换网上的不同主机提供通信服务。</p>
+<p>网络层传输单位是数据报。</p>
+<p><strong>网络层的功能</strong></p>
+<ul>
+<li><p>功能一:路由选择与分组转发(选择最佳路径)</p>
+</li>
+<li><p>功能二:异构网络互联</p>
+</li>
+<li><p>功能三:拥塞控制</p>
+<p>若所有结点都来不及接受分组，而要丢弃大量分组的话，网络就处于拥塞状态。因此要采取一定措施缓解这种拥塞；</p>
+<p>拥塞控制有两种方法：</p>
+<ul>
+<li>开环控制：这是静态的，即提前考虑网络会产生拥塞的各种情况并做好准备</li>
+<li>闭环控制：这是动态的，即在网络运行的时候进行实时调整</li>
+</ul>
+</li>
+</ul>
+<h1><span id="sdn">SDN</span><a href="#sdn" class="header-anchor">#</a></h1><h2><span id="lu-you-zhuan-fa-he-lu-you-xuan-ze">路由转发和路由选择</span><a href="#lu-you-zhuan-fa-he-lu-you-xuan-ze" class="header-anchor">#</a></h2><p><strong>转发：</strong></p>
+<p>达到路由器输入链路之一的数据报如何转发到该路由器的输出链路之一。花费时间短，通常用硬件解决</p>
+<p><strong>数据平面</strong></p>
+<p>数据平面对于数据处理过程中各种具体处理转发过程。对应路由转发</p>
+<p><strong>路由选择：</strong></p>
+<p>控制数据报沿着从源主机到目的主机的端到端路径中路由器之间的路由方式。花费时间长，通常用软件解决。</p>
+<p><strong>控制平面</strong></p>
+<p>控制平面用于控制和管理网络协议的运行，比如OSPF协议、RIP协议、BGP协议。对应路由选择。</p>
+<h2><span id="shu-ju-ping-mian">数据平面</span><a href="#shu-ju-ping-mian" class="header-anchor">#</a></h2><p>数据平面执行的主要功能是根据转发表进行转发，这是路由器的本地动作。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306235123180.png" alt="image-20240306235123180" class="lazyload"></p>
+<h2><span id="kong-zhi-ping-mian">控制平面</span><a href="#kong-zhi-ping-mian" class="header-anchor">#</a></h2>
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C-4/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;06&#x2F;计算机网络-4&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;06&#x2F;计算机网络-4&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			                              
+			<!-- 先找到与当前文字相同的目录 -->
+			            
+			<!-- 在找到当前文章所在的 index -->
+			            
+			<!-- 上一篇文章 -->
+			<div class="old">
+				<span>上一章</span>
+				<a href="/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-3/"> 计算机网络学习-3</a>
+			</div>
+			          
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/%E5%9F%BA%E7%A1%80/">基础</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E8%AE%A1%E7%BD%91/" rel="tag">计网</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
 </div>
 
 				</div>
