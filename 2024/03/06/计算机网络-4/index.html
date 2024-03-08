@@ -385,10 +385,10 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月06日</a>
-			<a><i class="kirafont icon-edit-fill"></i>4.7k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 19 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>6.1k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 25 分钟</a>
 		</div>
-		<!--toc-->()
+		<!--toc-->
 
 <h1><span id="wang-luo-ceng-gai-shu">网络层概述</span><a href="#wang-luo-ceng-gai-shu" class="header-anchor">#</a></h1><p>这里放个导图</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306232043207.png" alt="image-20240306232043207" class="lazyload"></p>
@@ -423,7 +423,7 @@
 <p><strong>分片</strong></p>
 <p>分片的就和上面数据报中的标识、标志、片偏移三个部分相关</p>
 <ul>
-<li><p>标识：同一数据报的分片使用同一标识。比如有三个数据报他们的标识都是888，那他们就是属于同一个数据包，最后会重新组合成一个完整的数据报。</p>
+<li><p>标识：同一数据报的分片使用同一标识。比如有三个数据报他们的标识都是888，那他们就是属于同一个数据报，最后会重新组合成一个完整的数据报。</p>
 </li>
 <li><p>标志：只有两位有意义</p>
 <p>中间位DF（Don’t Fragment）：DF&#x3D;1,禁止分片；DF&#x3D;0，允许分片。</p>
@@ -580,6 +580,34 @@
 <p>改进了首部格式以便快速处理和快速转发。</p>
 <p>支持QoS(Quality of Service，服务质量)：指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力,是网络的一种安全机制，是用来解决网络延迟和阻塞等问题的一种技术。</p>
 <h2><span id="shu-ju-bao-ge-shi">数据报格式</span><a href="#shu-ju-bao-ge-shi" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309004131851.png" alt="image-20240309004131851" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309005425608.png" alt="image-20240309005425608" class="lazyload"></p>
+<ol>
+<li>这里的版本指明了协议版本，IPv6他的字段值就是6</li>
+<li>优先级就是区分数据报的类别和优先级</li>
+<li>流标签有点类似数据报分片中的标识位，“流”是互联网络上从特定源点到特定终点的一系列数据报。所有属于同一个流的数据报都具有同样的流标签。比如B和A主机进行连接传输数据，在该连接上B向A发出的多个数据包都属于同一个流，所以他们也就有相同的流标签。</li>
+<li>下一个首部顾名思义就是表示下一个首部是谁，比如基本首部的下一个首部标识扩展首部1，扩展首部的下一个首部标识扩展首部2，扩展首部2的下一个首部标识数据部分。</li>
+<li>跳数限制就相当于IPv4的TTL。</li>
+</ol>
+<h2><span id="ipv6-he-ipv4-de-qu-bie">IPv6和IPv4的区别</span><a href="#ipv6-he-ipv4-de-qu-bie" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309010458862.png" alt="image-20240309010458862" class="lazyload"></p>
+<blockquote>
+<p>在第七点中，因为在传输过程中不能在路由分片，所以如果超过了数据链路层的最大传输单元MTU就会将数据报丢弃，返回一个ICMPv6差错报文。</p>
+</blockquote>
+<h2><span id="ipv6-di-zhi-biao-shi-xing-shi">IPv6地址表示形式</span><a href="#ipv6-di-zhi-biao-shi-xing-shi" class="header-anchor">#</a></h2><ol>
+<li><p>一般形式：冒号十六进制记法**(八组四位十六进制数)**，比如：4BF5:AA12:0216:FEBC:BA5F:039A:BE9A:2170</p>
+</li>
+<li><p>压缩形式</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309011120976.png" alt="image-20240309011120976" class="lazyload"></p>
+</li>
+</ol>
+<h2><span id="ipv6-ji-ben-di-zhi-lei-xing">IPv6基本地址类型</span><a href="#ipv6-ji-ben-di-zhi-lei-xing" class="header-anchor">#</a></h2><ol>
+<li>单播：一对一通信，可做源地址+目的地址</li>
+<li>多播：一对多通信，可做目的地址</li>
+<li>任播：一对多中的一个通信，可做目的地址</li>
+</ol>
+<h2><span id="ipv6-xiang-ipv4-guo-du-ce-lue">IPv6向IPv4过渡策略</span><a href="#ipv6-xiang-ipv4-guo-du-ce-lue" class="header-anchor">#</a></h2><ol>
+<li><strong>双栈协议：</strong>双协议栈技术就是指在一台设备上<strong>同时启用IPv4协议栈和IPv6协议栈</strong>。这样的话，这台设备既能和IPv4网络通信，又能和IPv6网络通信。如果这台设备是一个路由器，那么这台路由器的不同接口上，分别配置了IPv4地址和IPv6地址，并很可能分别连接了IPv4网络和IPv6网络。如果这台设备是一个计算机，那么它将同时拥有IPv4地址和IPv6地址，并具备同时处理这两个协议地址的功能。</li>
+<li><strong>隧道技术：</strong>通过使用互联网络的基础设施在网络之间传递数据的方式。使用隧道传递的数据(或负载)可以是不同协议的数据帧或包。隧道协议将其它协议的数据帧或包重新封装然后通过隧道发送。比如一段IPv6的数据报加上IPv4的首部，而IPv6的数据报则作为数据部分，然后重新封装当作IPv4进行传播。</li>
+</ol>
 <h1><span id="sdn">SDN</span><a href="#sdn" class="header-anchor">#</a></h1><h2><span id="lu-you-zhuan-fa-he-lu-you-xuan-ze">路由转发和路由选择</span><a href="#lu-you-zhuan-fa-he-lu-you-xuan-ze" class="header-anchor">#</a></h2><p><strong>转发：</strong></p>
 <p>达到路由器输入链路之一的数据报如何转发到该路由器的输出链路之一。花费时间短，通常用硬件解决</p>
 <p><strong>数据平面</strong></p>
@@ -634,7 +662,48 @@
 <blockquote>
 <p>现在常用的是BGP-4</p>
 </blockquote>
-
+<h1><span id="rip-xie-yi">RIP协议</span><a href="#rip-xie-yi" class="header-anchor">#</a></h1><p><strong>定义</strong></p>
+<p>RIP是一种分布式的基于距离向量的路由选择协议，是因特网的协议标准，最大优点是简单；它适用于小型网络。</p>
+<p><strong>相关规则</strong></p>
+<p>RIP协议要求网络中每一个路由器都维护从它自己到其他每一个目的网络的唯一最佳距离记录(即一组距离)</p>
+<p>&#x3D;&#x3D;距离：&#x3D;&#x3D;通常为“跳数”，即从源端口到目的端口所经过的路由器个数，经过一个路由器跳数+1。特别的，从由器到直接连接的网络距离为1。RIP允许一条路由最多只能包含15个路由器，因此距离为16表示网络不可达<br>一路</p>
+<p>一个示例图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309012809494.png" alt="image-20240309012809494" class="lazyload"></p>
+<h2><span id="rip-xie-yi-jiao-huan-gui-ze">RIP协议交换规则</span><a href="#rip-xie-yi-jiao-huan-gui-ze" class="header-anchor">#</a></h2><ol>
+<li>仅和相邻路由器交换信息</li>
+<li>路由器交换的信息是自己的路由表</li>
+<li>每30秒交换一次路由信息，然后路由器根据新信息更新路由表。若超过180s没收到邻居路由器的通告，则判定邻居没了，并更新自己路由表。</li>
+</ol>
+<blockquote>
+<p>路由器刚开始工作时，只知道直接连接的网络的距离(距离为1)，接着每一个路由器也只和数目非常有限的相路由器交换并更新路由信息。</p>
+<p>经过若干次更新后，所有路由器最终都会知道到达本自治系统任何一个网络的最短距离和下一跳路由器的地址,即“收敛</p>
+</blockquote>
+<h2><span id="ju-chi-xiang-liang-suan-fa">距离向量算法</span><a href="#ju-chi-xiang-liang-suan-fa" class="header-anchor">#</a></h2><ol>
+<li><p>修改相邻路由器发来的RIP报文中所有表项。</p>
+<p>对地址为X的相邻路由器发来的RIP报文，修改此报文中的所有项目：把“下一跳”字段中的地址改为X，并把<br>所有的“距离”字段+1。</p>
+<p>这里用一个演示图解释一下：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309013653735.png" alt="image-20240309013653735" class="lazyload"></p>
+<p>与x相邻的路由为R1，x就把自己的上图路由表发给R1，原来的路由表表示，到Net3网络的最短路径为2跳，下一跳为R2，R1收到后就直接顺着修改成到Net3的最短路径为3，下一跳为x</p>
+</li>
+<li><p>对修改后的RIP报文中的每一个项目，进行以下步骤：</p>
+<ul>
+<li><p>R1路由表中若没有Net3，则把该项目填入R1路由表。</p>
+</li>
+<li><p>R1路由表中若有Net3，则查看下一跳路由器地址：</p>
+<p>若下一跳是X不管距离大小，则用收到的项目替换源路由表中的项目；</p>
+<p>若下一跳不是X，比较原来距离比从X走的距离远则更新，否则不作处理。</p>
+</li>
+</ul>
+</li>
+<li><p>若180s还没收到相邻路由器X的更新路由表，则把X记为不可达的路由器，即把距离设置为16。</p>
+</li>
+<li><p>返回。</p>
+</li>
+</ol>
+<h2><span id="rip-xie-yi-bao-wen-ge-shi">RIP协议报文格式</span><a href="#rip-xie-yi-bao-wen-ge-shi" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309015032452.png" alt="image-20240309015032452" class="lazyload"></p>
+<h2><span id="rip-te-dian">RIP特点</span><a href="#rip-te-dian" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="C:/Users/86189/AppData/Roaming/Typora/typora-user-images/image-20240309015302320.png" alt="image-20240309015302320" class="lazyload"></p>
+<p>要不断重复更新下去，直到双方路由表到网1的距离都更新到16，R1和R2才知道网络1是不可达的。</p>
+<h1><span id="ospf-xie-yi">OSPF协议</span><a href="#ospf-xie-yi" class="header-anchor">#</a></h1>
 	</article>
 
 	 
