@@ -80,7 +80,7 @@
 		</a>
 	</div>
 	<div class="kira-count">
-		<div><span>文章</span>17</div>
+		<div><span>文章</span>14</div>
 		<div><span>标签</span>8</div>
 		<div><span>分类</span>8</div>
 	</div>
@@ -385,10 +385,12 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月06日</a>
-			<a><i class="kirafont icon-edit-fill"></i>425 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 1 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>4.7k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 19 分钟</a>
 		</div>
-		<h1><span id="wang-luo-ceng-gai-shu">网络层概述</span><a href="#wang-luo-ceng-gai-shu" class="header-anchor">#</a></h1><p>这里放个导图</p>
+		<!--toc-->
+
+<h1><span id="wang-luo-ceng-gai-shu">网络层概述</span><a href="#wang-luo-ceng-gai-shu" class="header-anchor">#</a></h1><p>这里放个导图</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306232043207.png" alt="image-20240306232043207" class="lazyload"></p>
 <p>网络层主要任务是把分组从源端传到目的端，为分组交换网上的不同主机提供通信服务。</p>
 <p>网络层传输单位是数据报。</p>
@@ -407,6 +409,177 @@
 </ul>
 </li>
 </ul>
+<h1><span id="ip-shu-ju-bao-ge-shi">IP数据报格式</span><a href="#ip-shu-ju-bao-ge-shi" class="header-anchor">#</a></h1><p>IP协议在网络层的占比很大</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307125809633.png" alt="image-20240307125809633" class="lazyload"></p>
+<p><strong>ip数据包的整体结构</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307141005938.png" alt="image-20240307141005938" class="lazyload"></p>
+<p>数据部分就是传输层的报文段</p>
+<p><strong>具体格式</strong><br><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307141105140.png" alt="image-20240307141105140" class="lazyload"></p>
+<h1><span id="ip-shu-ju-bao-fen-pian">IP数据报分片</span><a href="#ip-shu-ju-bao-fen-pian" class="header-anchor">#</a></h1><p><strong>最大传送单元MTU</strong></p>
+<p>链路层数据帧可封装的数据的上限</p>
+<p>以太网的MTU是1500字节</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307141645466.png" alt="image-20240307141645466" class="lazyload"></p>
+<p>链路层的数据帧的数据部分就是IP分组，所以IP分组大小不能超过MTU，以太网就是不能超过1500字节；如果超过了MTU就要采取数据报分片的方法。</p>
+<p><strong>分片</strong></p>
+<p>分片的就和上面数据报中的标识、标志、片偏移三个部分相关</p>
+<ul>
+<li><p>标识：同一数据报的分片使用同一标识。比如有三个数据报他们的标识都是888，那他们就是属于同一个数据包，最后会重新组合成一个完整的数据报。</p>
+</li>
+<li><p>标志：只有两位有意义</p>
+<p>中间位DF（Don’t Fragment）：DF&#x3D;1,禁止分片；DF&#x3D;0，允许分片。</p>
+<p>最低位MF（More Fragment）：MF&#x3D;1，后面还有分片；MF&#x3D;0，代表最后一片&#x2F;没分片。</p>
+<p>最低位要在DF为0是才有讨论意义</p>
+</li>
+<li><p>片偏移：指出较长分组分片后，某片在原分组中的相对位置，以8B为单位。</p>
+<p>比如片偏移字段为0000000000001，则代表该分片在8B的位置开始。</p>
+<p>所以除了最后一个分片不一定，每个分片的长度一定是8B的整数倍。</p>
+</li>
+</ul>
+<h2><span id="li-ti">例题</span><a href="#li-ti" class="header-anchor">#</a></h2><p>一个很基础的例题，对上面一些概念的运用和简单计算</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307143646764.png" alt="image-20240307143646764" class="lazyload"></p>
+<h1><span id="ipv4-di-zhi">IPv4地址</span><a href="#ipv4-di-zhi" class="header-anchor">#</a></h1><h2><span id="ip-fen-lei-de-li-shi-jie-duan">IP分类的历史阶段</span><a href="#ip-fen-lei-de-li-shi-jie-duan" class="header-anchor">#</a></h2><p>分类的IP地址&#x3D;》子网的划分&#x3D;》构成超网(无分类编址方法)</p>
+<h2><span id="fen-lei-de-ip-di-zhi">分类的IP地址</span><a href="#fen-lei-de-ip-di-zhi" class="header-anchor">#</a></h2><p>IP地址：唯一的32位&#x2F;4字节标识符，标识路由器主机的接口</p>
+<p>IP地址&#x3D;{&lt;网络号&gt;,&lt;主机号&gt;}</p>
+<p>为了方便人阅读，采用点分十进制的转换法</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307144802830.png" alt="image-20240307144802830" class="lazyload"></p>
+<p><strong>各类别IP地址划分</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307145139846.png" alt="image-20240307145139846" class="lazyload"></p>
+<p><strong>特殊IP地址</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307145608889.png" alt="image-20240307145608889" class="lazyload"></p>
+<p><strong>私有IP地址</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307145720156.png" alt="image-20240307145720156" class="lazyload"></p>
+<p><strong>可用网络号和主机数计算</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307150107170.png" alt="image-20240307150107170" class="lazyload"></p>
+<blockquote>
+<p>主机数需要减去全0和全1两种特殊情况</p>
+<p>网络数A类需要减去全0和127，B类和C类只要减去全0</p>
+</blockquote>
+<h1><span id="wang-luo-di-zhi-zhuan-huan-nat">网络地址转换NAT</span><a href="#wang-luo-di-zhi-zhuan-huan-nat" class="header-anchor">#</a></h1><p>因为路由器对目的地址是私有IP地址的数据报一律不进行转发，那我们平时上网是怎么去外界通信呢，就是用到了NAT技术。</p>
+<p><strong>网络地址转换NAT(NetworkAddress Translation)：</strong>在专用网连接到因特网的路由器上安装NAT软件，安装了NAT软件的路由器叫NAT路由器，它至少有一个有效的外部全球IP地址。这是一个示例图</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307151440901.png" alt="image-20240307151440901" class="lazyload"></p>
+<h1><span id="zi-wang-hua-fen-yu-zi-wang-yan-ma">子网划分与子网掩码</span><a href="#zi-wang-hua-fen-yu-zi-wang-yan-ma" class="header-anchor">#</a></h1><h2><span id="zi-wang-hua-fen">子网划分</span><a href="#zi-wang-hua-fen" class="header-anchor">#</a></h2><p>就是将**{&lt;网络号&gt;,&lt;主机号&gt;}<strong>这样的两级IP地址变成</strong>{&lt;网络号&gt;,&lt;子网号&gt;,&lt;主机号&gt;}**这样的三级IP地址；不过外界是不知道内部的子网如何划分的。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307152212955.png" alt="image-20240307152212955" class="lazyload"></p>
+<h2><span id="zi-wang-yan-ma">子网掩码</span><a href="#zi-wang-yan-ma" class="header-anchor">#</a></h2><p>网络号(子网号也是)对应的二进制位全为1，主机号则全为0。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307221224860.png" alt="image-20240307221224860" class="lazyload"></p>
+<blockquote>
+<p>子网掩码与IP地址逐位相与，就得到子网网络地址</p>
+</blockquote>
+<h3><span id="li-ti">例题</span><a href="#li-ti" class="header-anchor">#</a></h3><p>已知IP地址141.14.72.24，子网掩码是255.255.192.0，求网络地址</p>
+<p>直接中间8位的192写出来和72一与就可以得到64，所以子网网络号为141.14.64.0。</p>
+<h2><span id="shi-yong-zi-wang-shi-de-fen-zu-zhuan-fa">使用子网时的分组转发</span><a href="#shi-yong-zi-wang-shi-de-fen-zu-zhuan-fa" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307222755852.png" alt="image-20240307222755852" class="lazyload"></p>
+<h1><span id="wu-fen-lei-bian-zhi-cidr">无分类编址CIDR</span><a href="#wu-fen-lei-bian-zhi-cidr" class="header-anchor">#</a></h1><p><strong>CIDR消除了传统的A类，B类和C类地址以及划分子网的概念；网络号和子网号统一变成网络前缀。</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307230252926.png" alt="image-20240307230252926" class="lazyload"></p>
+<blockquote>
+<p>CIDR的写法是IP地址后加上&#x2F;，然后写上网络前缀的位数，比如：128.14.32.0&#x2F;20</p>
+</blockquote>
+<p><strong>CIDR融合子网地址与子网掩码，方便子网划分</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307230656231.png" alt="image-20240307230656231" class="lazyload"></p>
+<h2><span id="gou-cheng-chao-wang">构成超网</span><a href="#gou-cheng-chao-wang" class="header-anchor">#</a></h2><p>将多个子网聚合成一个较大的子网，叫做构成超网，或路由聚合。</p>
+<p>其方法就是将网络前缀缩短，在所有的网络地址取交集。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307231403673.png" alt="image-20240307231403673" class="lazyload"></p>
+<p>比如上面的IP地址的交集就是前16位，然后就把前16位当作新的网络前缀。</p>
+<h2><span id="zui-chang-qian-zhui-pi-pei">最长前缀匹配</span><a href="#zui-chang-qian-zhui-pi-pei" class="header-anchor">#</a></h2><p>使用CIDR时，查找路由表可能得到几个匹配结果(跟网络掩码按位相与)，应选择具有最长网络前缀的路由。<br>前缀越长，地址块越小，路由越具体。</p>
+<p>下面是一个例子：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240308001842598.png" alt="image-20240308001842598" class="lazyload"></p>
+<p>目的地址分别与上述路由表中的所有地址块进行匹配，左边两个都能成功匹配到网络号，而计算机系的网络前缀最长，所以会发送给计算机系。</p>
+<h1><span id="arp-xie-yi">ARP协议</span><a href="#arp-xie-yi" class="header-anchor">#</a></h1><p>ARP协议有点类似于网络层和链路层的一个中间协议，因为ARP协议就是完成主机或路由器IP地址到MAC地址的映射，也就是解决下一跳走哪的问题。</p>
+<blockquote>
+<p>在实际网络的链路上传输数据帧时，最终必须使用MAC地址</p>
+</blockquote>
+<p><strong>ARP协议使用过程</strong></p>
+<p>检查ARP高速缓存，有对应表项则写入MAC帧，没有则用目的MAC地址为FF-FF-FF-FF-FF-FF的帧封装并广播ARP请求分组，同一局域网中所有主机都能收到该请求。目的主机收到请求后就会向源主机单播一个ARP响应分组，源主机收到后将此映射写入ARP缓存(10-20min更新一次)。</p>
+<p><strong>ARP协议的四种典型情况</strong></p>
+<ol>
+<li><p>主机A发给本网络上的主机B:用ARP找到主机B的硬件地址;</p>
+</li>
+<li><p>主机A发给另一网络上的主机B:用ARP找到本网络上一个路由器(网关)的硬件地址；</p>
+</li>
+<li><p>路由器发给本网络的主机A:用ARP找到主机A的硬件地址；</p>
+</li>
+<li><p>路由器发给另一网络的主机B:用ARP找到本网络上的一个路由器的硬件地址。</p>
+</li>
+</ol>
+<p><strong>下面用向本局域网主机发送数据和向其他局域网主机发送数据的两个例子来说明ARP协议的运用</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240308153147166.png" alt="image-20240308153147166" class="lazyload"></p>
+<p>现在是向本局域网内的3号主机发送数据，首先会在本地的ARP高速缓存中检查有没有3号主机对应的mac地址，没有的话就会另IP3为全1发送一个广播分组，交换机收到请求之后就会发送给所有主机，所有主机收到请求后，如果是对应的IP地址就会返回一个单播ARP响应分组，其中就包含了自己的mac地址。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240308154025422.png" alt="image-20240308154025422" class="lazyload"></p>
+<p>这是向非局域网内的5号主机传输数据，会先将IP5与自己的子网掩码相与一下看是否在同一个网段，如果不在就直接跳到自己的默认网关，局域网内的主机都知道自己的默认网关地址，然后就可以发送广播分组得到默认网关的mac地址，然后这里就填上mac6发送到默认网关，后面的mac地址的改变调整是路由器转发数据出去时自己内部改变的，包含自身mac地址和要去的mac地址。</p>
+<blockquote>
+<p>交换机是没有mac地址的，要主机和路由器接口才有。</p>
+<p>默认网关就是本局域网和外界通信的一个接口。</p>
+</blockquote>
+<h1><span id="dhcp-xie-yi">DHCP协议</span><a href="#dhcp-xie-yi" class="header-anchor">#</a></h1><h2><span id="zhu-ji-yao-ru-he-huo-de-ip-di-zhi">主机要如何获得IP地址</span><a href="#zhu-ji-yao-ru-he-huo-de-ip-di-zhi" class="header-anchor">#</a></h2><ol>
+<li><p>静态配置：也就是管理由手动配置<strong>IP地址</strong>，<strong>子网掩码</strong>，<strong>默认网关</strong>这些东西</p>
+</li>
+<li><p>动态配置：这就是利用DHCP服务器来给局域网内的主机自动分配一个IP地址</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240308155102460.png" alt="image-20240308155102460" class="lazyload"></p>
+</li>
+</ol>
+<h2><span id="dhcp-gong-zuo-guo-cheng">DHCP工作过程</span><a href="#dhcp-gong-zuo-guo-cheng" class="header-anchor">#</a></h2><p>动态主机配置协议DHCP是应用层协议，使用客户&#x2F;服务器方式，客户端和服务端通过广播方式进行交互，基于UDP。</p>
+<p>DHCP提供即插即用联网的机制，主机可以从服务器动态获取IP地址、子网掩码、默认网关、DNS服务器名称与IP地址，允许地址重用，支持移动用户加入网络，支持在用地址续租。</p>
+<p><strong>流程</strong></p>
+<ol>
+<li>主机广播DHCP发现报文，也就是探测网络中是否有DHCP服务器，请求获得IP地址</li>
+<li>DHCP服务器广播DHCP提供报文，收到请求的服务器如果有空闲的IP地址及其相关配置都会广播发送出去</li>
+<li>主机广播DHCP请求报文，收到多个提供报文，选择其中的一个IP地址使用(先到先得)，广播发送确认使用该IP地址</li>
+<li>DHCP服务器广播DHCP确认报文，正式将该IP分配给主机</li>
+</ol>
+<h1><span id="icmp-xie-yi">ICMP协议</span><a href="#icmp-xie-yi" class="header-anchor">#</a></h1><p>ICMP协议起到传输层和网络层的桥梁作用。</p>
+<p>ICMP协议支持主机或路由器，在网络层的分组出错时，在分组被丢弃之后需要发送一个差错(或异常报告)，也就是发送特定ICMP报文：ICMP差错报文，ICMP询问报文</p>
+<h2><span id="icmp-jie-gou">ICMP结构</span><a href="#icmp-jie-gou" class="header-anchor">#</a></h2><p>ICMP报文是装在IP数据报的数据部分</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309000752280.png" alt="image-20240309000752280" class="lazyload"></p>
+<h2><span id="icmp-de-5-chong-chai-cuo-bao-gao-bao-wen">ICMP的5种差错报告报文</span><a href="#icmp-de-5-chong-chai-cuo-bao-gao-bao-wen" class="header-anchor">#</a></h2><ol>
+<li>终点不可达：当路由器或主机不能交付数据报时就向源点发送终点不可达报文，即无法交付</li>
+<li>源点抑制：当路由器或主机由于拥塞而丢弃数据报时，就向源点发送源点抑制报文，使源点知道应当把数据报的发送速率放慢，在网络拥塞丢失数据是发生；<strong>不过现在已经不用这种报文了</strong>。</li>
+<li>时间超过：当路由器收到生存时间TTL&#x3D;0的数据报时，除丢弃该数据报外，还要向源点发送时间超过报文。终点在预先规定的时间内不能收到一个数据报的全部数据报片时，就把已收到的数据报片都丢弃，并向源点发送时间超过报文，即 TTL&#x3D;0时。</li>
+<li>参数问题：当路由器或目的主机收到的数据报的首部中有的字段的值不正确时，就丢弃该数据报，并向源点发送参数问题报文。首部字段有问题时发生。</li>
+<li>改变路由(重定向)：路由器把改变路由报文发送给主机，让主机知道下次应将数据报发送给另外的路由器<br>，选择更好的路由。</li>
+</ol>
+<p><strong>ICMP差错报告报文数据格式</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309001638857.png" alt="image-20240309001638857" class="lazyload"></p>
+<p><strong>不发送ICMP差错报文的情况</strong></p>
+<ol>
+<li><p>对ICMP差错报告报文不再发送ICMP差错报告报文。</p>
+</li>
+<li><p>对第一个分片的数据报片的所有后续数据报片都不发送ICMP差错报告报文。</p>
+</li>
+<li><p>对具有组播地址的数据报都不发送ICMP差错报告报文(组播地址区别于广播地址，一点到多点即可，只用给部分节点发送，而不像广播地址发送给所有节点)。</p>
+</li>
+<li><p>对具有特殊地址(如127.0.0.0或0.0.0.0)的数据报不发送ICMP差错报告报文。</p>
+</li>
+</ol>
+<h2><span id="icmp-xun-wen-bao-wen">ICMP询问报文</span><a href="#icmp-xun-wen-bao-wen" class="header-anchor">#</a></h2><ol>
+<li><p>回送请求和回答报文：主机或路由器向特定目的主机发出的询问，收到此报文的主机必须给源主机或路由器发送ICMP回送回答报文。测试目的站是否可达以及了解其相关状态。(平时用的ping命令就是一种)</p>
+</li>
+<li><p>时间戳请求和回答报文：请某个主机或路由器回答当前的日期和时间。用来进行时钟同步和测量时间。2.时间戳请求和回答报文</p>
+</li>
+<li><p>掩码地址请求和回答报文</p>
+</li>
+<li><p>路由器询问和通告报文</p>
+</li>
+</ol>
+<blockquote>
+<p>第三和第四种现在已经不再使用了</p>
+</blockquote>
+<h2><span id="icmp-de-ying-yong">ICMP的应用</span><a href="#icmp-de-ying-yong" class="header-anchor">#</a></h2><p>这里介绍两个命令</p>
+<ol>
+<li><p>ping：该命令测试两个主机之间的连通性，使用了ICMP回送请求和回答报文</p>
+</li>
+<li><p>traceroute(Windows上是tracert)：跟踪一个分组从源点到终点的路径，使用了ICMP时间超过差错报告报文</p>
+<p>他的原理是这样的</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309002552980.png" alt="image-20240309002552980" class="lazyload"></p>
+<p>一开始的报文TTL设置为1，经过一个路由，TTL变为0然后返回差错报告报文，就可以测试出一个路由，此后每次TTL加1，以此类推就可以测出经过多少路由，也就知道了路径。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309003134315.png" alt="image-20240309003134315" class="lazyload"></p>
+<blockquote>
+<p>结果说明：第一列表示到达目标服务器经过的网络节点数，2-4列分别表示请求目标节点时间、目标节点响应时间和平均响应时间，最右边则表示到达目标服务器所经过的每个网络节点的IP</p>
+</blockquote>
+</li>
+</ol>
+<h1><span id="ipv6">IPv6</span><a href="#ipv6" class="header-anchor">#</a></h1><p>因为IPv4的地址空间分配殆尽，所以IPv6就出现了来解决地址空间不足问题。</p>
+<p><strong>IPv6的改变</strong></p>
+<p>改进了首部格式以便快速处理和快速转发。</p>
+<p>支持QoS(Quality of Service，服务质量)：指一个网络能够利用各种基础技术，为指定的网络通信提供更好的服务能力,是网络的一种安全机制，是用来解决网络延迟和阻塞等问题的一种技术。</p>
+<h2><span id="shu-ju-bao-ge-shi">数据报格式</span><a href="#shu-ju-bao-ge-shi" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309004131851.png" alt="image-20240309004131851" class="lazyload"></p>
 <h1><span id="sdn">SDN</span><a href="#sdn" class="header-anchor">#</a></h1><h2><span id="lu-you-zhuan-fa-he-lu-you-xuan-ze">路由转发和路由选择</span><a href="#lu-you-zhuan-fa-he-lu-you-xuan-ze" class="header-anchor">#</a></h2><p><strong>转发：</strong></p>
 <p>达到路由器输入链路之一的数据报如何转发到该路由器的输出链路之一。花费时间短，通常用硬件解决</p>
 <p><strong>数据平面</strong></p>
@@ -417,7 +590,51 @@
 <p>控制平面用于控制和管理网络协议的运行，比如OSPF协议、RIP协议、BGP协议。对应路由选择。</p>
 <h2><span id="shu-ju-ping-mian">数据平面</span><a href="#shu-ju-ping-mian" class="header-anchor">#</a></h2><p>数据平面执行的主要功能是根据转发表进行转发，这是路由器的本地动作。</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240306235123180.png" alt="image-20240306235123180" class="lazyload"></p>
-<h2><span id="kong-zhi-ping-mian">控制平面</span><a href="#kong-zhi-ping-mian" class="header-anchor">#</a></h2>
+<h2><span id="kong-zhi-ping-mian">控制平面</span><a href="#kong-zhi-ping-mian" class="header-anchor">#</a></h2><p><strong>控制平面的传统方法也叫每路由器法：</strong></p>
+<p>路由选择算法运行在每台路由器中，并且在每台路由器中都包含转发和路由选择两种功能。</p>
+<p>具体原理为：在一台路由器中的路由选择算法与其他路由器中的路由选择算法通信(通过交换路由选择报文)<br>计算出路由表和转发表。</p>
+<p><strong>SDN方法：Software-Defined Networking</strong></p>
+<p>控制平面从路由器物理上分离。路由器仅实现转发，远程控制器计算和分发转发表以供每台路由器所使用。</p>
+<p>具体原理为：路由器通过交换包含转发表和其他路由选择信息的报文与远程控制器通信。因为计算转发并与路由器交互的控制器是用软件实现的，所以网络是软件定义的。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307093103127.png" alt="image-20240307093103127" class="lazyload"></p>
+<p><strong>控制平面中的路由选择处理器</strong></p>
+<p>传统方法：路由选择处理器执行控制平面功能。在传统的路由器中，它执行路由选择协议，维护路由选择表于关联链路状态信息，并为该路由器计算转发表。</p>
+<p>SDN方法：在SDN路由器中，路由选择处理器负责与远程控制器通信，目的是接收远程控制器计算的转发表项。</p>
+<h2><span id="sdn-zu-jian">SDN组件</span><a href="#sdn-zu-jian" class="header-anchor">#</a></h2><ul>
+<li><p>SDN控制器：维护准确的网络状态信息(远程链路、交换机和主机的状态);为运行在控制平面中的网络控制应用程序提供这些信息(逻辑集中，在多台服务器上实现)</p>
+</li>
+<li><p>网络控制应用程序：根据SDN控制器提供的方法，这些应用程序通过这些方法能够监视、编程和控制下面的网<br>络设备。</p>
+</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307093843773.png" alt="image-20240307093843773" class="lazyload"></p>
+<p><strong>SDN控制器的细节</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307094357878.png" alt="image-20240307094357878" class="lazyload"></p>
+<h1><span id="lu-you-suan-fa">路由算法</span><a href="#lu-you-suan-fa" class="header-anchor">#</a></h1><ul>
+<li><p><strong>静态路由算法(非自适应路由算法)</strong>,</p>
+<p>由管理员手工配置路由信息。<br>简便、可靠，在负荷稳定、拓扑变化不大的网络中运行效果很好，广泛用于高度安全性的军事网络和较小的商业网络。路由更新慢，不适用大型网络。</p>
+</li>
+<li><p><strong>动态路由算法(自适应路由算法)</strong></p>
+<p>由路由器间彼此交换信息，按照路由算法优化出路由表项。<br>路由更新快，适用大型网络，及时响应链路费用或网络拓扑变化。<br>算法复杂，增加网络负担。</p>
+<p><strong>动态路由算法又可以分为全局性和分散性</strong></p>
+<ul>
+<li><p>全局性：链路状态路由算法(OSPF)</p>
+<p>所有路由器掌握完整的网络拓扑和链路费用信息。</p>
+</li>
+<li><p>分散性：距离向量路由算法(RIP)</p>
+<p>路由器只掌握物理相连的邻居及链路费用。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1><span id="fen-ceng-ci-lu-you-xuan-ze-xie-yi">分层次路由选择协议</span><a href="#fen-ceng-ci-lu-you-xuan-ze-xie-yi" class="header-anchor">#</a></h1><p>分层协议产生的原因是因为很多单位在接入因特网的同时还要隐藏自己的路由选择协议，这里就涉及到一个自治系统AS的概念</p>
+<p><strong>自治系统AS</strong></p>
+<p>在单一的技术管理下的一组路由器，而这些路由器使用一种AS内部的路由选择协议和共同的度量以确定分组在该AS内的路由，同时还使用一种AS之间的路由协议以确定在AS之间的路由。个AS内的所有网络都属于一个行政单位来管辖，一个自治系统的所有路由器在本自治系统内都必须连通</p>
+<p><strong>路由选择协议又分为两种</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240307125518139.png" alt="image-20240307125518139" class="lazyload"></p>
+<blockquote>
+<p>现在常用的是BGP-4</p>
+</blockquote>
+
 	</article>
 
 	 
