@@ -80,9 +80,9 @@
 		</a>
 	</div>
 	<div class="kira-count">
-		<div><span>文章</span>17</div>
-		<div><span>标签</span>9</div>
-		<div><span>分类</span>9</div>
+		<div><span>文章</span>19</div>
+		<div><span>标签</span>11</div>
+		<div><span>分类</span>11</div>
 	</div>
 	<div class="kira-list">
 		
@@ -230,6 +230,13 @@
 
         
           <li class="category-list-item">
+            <a class="category-list-link" href="/categories/Web/">
+              Web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
             <a class="category-list-link" href="/categories/blog/">
               blog
             </a>
@@ -261,7 +268,7 @@
             <a class="category-list-link" href="/categories/web/">
               web
             </a>
-            <span class="category-list-count">2</span>
+            <span class="category-list-count">3</span>
           </li>
         
           <li class="category-list-item">
@@ -276,6 +283,13 @@
               基础
             </a>
             <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础-计网/">
+              基础 计网
+            </a>
+            <span class="category-list-count">1</span>
           </li>
         
           <li class="category-list-item">
@@ -300,7 +314,7 @@
 			
 	<div class="kira-widget-wrap">
 		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
-			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/CTF-web/" style="font-size: 10px;">CTF web</a> <a href="/tags/Web-CTF/" style="font-size: 10px;">Web CTF</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
 		</div>
 		
 	</div>
@@ -392,10 +406,355 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月09日</a>
-			<a><i class="kirafont icon-edit-fill"></i>0 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 1 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>6k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 24 分钟</a>
 		</div>
-		
+		<div class="toc">
+
+<!-- toc -->
+
+<ul>
+<li><a href="#wu-li-ceng-gai-shu">物理层概述</a></li>
+<li><a href="#shu-ju-tong-xin">数据通信</a><ul>
+<li><a href="#shu-ju-tong-xin-mo-xing">数据通信模型</a></li>
+<li><a href="#xiang-guan-zhu-yu">相关术语</a></li>
+<li><a href="#tong-xin-fang-shi">通信方式</a></li>
+<li><a href="#shu-ju-chuan-shu-fang-shi">数据传输方式</a></li>
+<li><a href="#shu-ju-chuan-shu-xiang-guan-zhu-yu">数据传输相关术语</a></li>
+</ul>
+</li>
+<li><a href="#nai-shi-zhun-ze">奈氏准则</a><ul>
+<li><a href="#shi-zhen">失真</a></li>
+<li><a href="#nai-shi-zhun-ze-nai-kui-si-te-ding-li">奈氏准则(奈奎斯特定理)</a></li>
+</ul>
+</li>
+<li><a href="#xiang-nong-ding-li">香农定理</a><ul>
+<li><a href="#nai-shi-he-xiang-nong-de-dui-bi">奈式和香农的对比</a></li>
+</ul>
+</li>
+<li><a href="#bian-ma-yu-diao-zhi">编码与调制</a><ul>
+<li><a href="#ji-dai-xin-hao-yu-kuan-dai-xin-hao">基带信号与宽带信号</a></li>
+<li><a href="#bian-ma-yu-diao-zhi-de-qu-fen">编码与调制的区分</a></li>
+<li><a href="#bian-ma-yu-diao-zhi-de-ju-ti-fang-shi">编码与调制的具体方式</a><ul>
+<li><a href="#shu-zi-shu-ju-bian-ma-wei-shu-zi-xin-hao">数字数据编码为数字信号</a></li>
+<li><a href="#shu-zi-shu-ju-diao-zhi-wei-mo-ni-xin-hao">数字数据调制为模拟信号</a></li>
+<li><a href="#mo-ni-shu-ju-bian-ma-wei-shu-zi-xin-hao">模拟数据编码为数字信号</a></li>
+<li><a href="#mo-ni-shu-ju-diao-zhi-wei-mo-ni-xin-hao">模拟数据调制为模拟信号</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#shu-ju-jiao-huan-fang-shi">数据交换方式</a><ul>
+<li><a href="#dian-lu-jiao-huan-circuit-exchanging">电路交换(Circuit Exchanging)</a></li>
+<li><a href="#bao-wen-jiao-huan-message-exchanging">报文交换(Message Exchanging)</a></li>
+<li><a href="#fen-zu-jiao-huan-packet-exchanging">分组交换(Packet Exchanging)</a><ul>
+<li><a href="#shu-ju-bao-fang-shi">数据报方式</a></li>
+<li><a href="#xu-dian-lu-fang-shi">虚电路方式</a></li>
+<li><a href="#shu-ju-bao-he-xu-dian-lu-dui-bi">数据报和虚电路对比</a></li>
+</ul>
+</li>
+<li><a href="#jiao-huan-fang-shi-de-xuan-ze">交换方式的选择</a></li>
+</ul>
+</li>
+<li><a href="#wu-li-ceng-chuan-shu-jie-zhi">物理层传输介质</a><ul>
+<li><a href="#dao-xiang-xing-chuan-shu-jie-zhi">导向型传输介质</a><ul>
+<li><a href="#shuang-jiao-xian">双绞线</a></li>
+<li><a href="#tong-zhou-dian-lan">同轴电缆</a></li>
+<li><a href="#guang-xian">光纤</a></li>
+</ul>
+</li>
+<li><a href="#fei-dao-xiang-xing-chuan-shu-jie-zhi">非导向型传输介质</a></li>
+</ul>
+</li>
+<li><a href="#wu-li-ceng-she-bei">物理层设备</a><ul>
+<li><a href="#zhong-ji-qi">中继器</a></li>
+<li><a href="#ji-xian-qi-duo-kou-zhong-ji-qi">集线器(多口中继器)</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+</div>
+
+<h1><span id="wu-li-ceng-gai-shu">物理层概述</span><a href="#wu-li-ceng-gai-shu" class="header-anchor">#</a></h1><p>导图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311085938464.png" alt="image-20240311085938464" class="lazyload"></p>
+<p>物理层解决如何在连接各种计算机的传输媒体上传输数据比特流，而不是指具体的传输媒体。</p>
+<p><strong>物理层主要任务：</strong>确定与传输媒体接口有关的一些特性</p>
+<p><strong>物理层特性</strong></p>
+<ol>
+<li>机械特性：定义物理连接的特性，规定物理连接时所采用的规格、接口形状、引线数目、引脚数量和排列情况。</li>
+<li>电气特性：规定传输二进制位时，线路上信号的电压范围、阻抗匹配、传输速率和距离限制等。</li>
+<li>功能特性：指明某条线上出现的某一电平表示何种意义，接口部件的信号线的用途。</li>
+<li>规程特性：(过程特性)定义各条物理线路的工作规程和时序关系。</li>
+</ol>
+<h1><span id="shu-ju-tong-xin">数据通信</span><a href="#shu-ju-tong-xin" class="header-anchor">#</a></h1><h2><span id="shu-ju-tong-xin-mo-xing">数据通信模型</span><a href="#shu-ju-tong-xin-mo-xing" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311133036272.png" alt="image-20240311133036272" class="lazyload"></p>
+<p><strong>数字信号和模拟信号</strong></p>
+<p>这两种信号的最主要区别就是：数字信号是离散的，而模拟信号是连续的。</p>
+<p>数字信号是数字化的，在计算机中，CPU只认识“0”和“1”两个数字，所以数字信号需要由“0”和“1”构成的二制数来表示;而摸拟信号则是连续变化的物理量，它的频率、幅度、相位都可以随着时间连续的变化。</p>
+<p><strong>模拟信号：</strong>是指信息参数在给定范围内表现为连续的信号。或在一段连续的时间间隔内，其代表信息的特征量可以在任意瞬间呈现为任意数值的信号。其分布于自然界的各个角落，如每天的温度变化，连续的山峰。</p>
+<p><strong>数字信号：</strong>是指人们抽象出来的时间上不连续的信号，其幅度的取值是离散的，且幅值被限制在有限个数值之内。<br>例如二进制码就是一种数字信号。</p>
+<h2><span id="xiang-guan-zhu-yu">相关术语</span><a href="#xiang-guan-zhu-yu" class="header-anchor">#</a></h2><p>数据通信指在不同计算机之间传输表示信息的二进制数0、1序列的过程。</p>
+<ul>
+<li><p><strong>数据data：</strong>传送信息的实体，通常是有意义的符号序列。</p>
+</li>
+<li><p><strong>信号：</strong>数据的电气&#x2F;电磁的表现，是数据在传输过程中的存在形式。</p>
+</li>
+<li><p><strong>信源：</strong>产生和发送数据的源头。</p>
+</li>
+<li><p><strong>信宿：</strong>接收数据的终点。</p>
+</li>
+<li><p><strong>信道：</strong>信号的传输媒介。一般用来表示向某一个方向传送信息的介质，因此一条通信线路往往包含一条发送信道和一条接收信道。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311133924072.png" alt="image-20240311133924072" class="lazyload"></p>
+</li>
+</ul>
+<h2><span id="tong-xin-fang-shi">通信方式</span><a href="#tong-xin-fang-shi" class="header-anchor">#</a></h2><ol>
+<li><p>单工通信</p>
+<p>只有一个方向的通信而没有反方向的交互，仅需要一条信道。</p>
+</li>
+<li><p>半双工通信&#x2F;双向交替通信</p>
+<p>通信的双方都可以发送或接收信息，但任何一方都不能同时发送和接收需要两条信道。</p>
+</li>
+<li><p>全双工同信&#x2F;双向同时通信</p>
+<p>通信双方可以同时发送和接受信息，也需要两条信道。</p>
+</li>
+</ol>
+<h2><span id="shu-ju-chuan-shu-fang-shi">数据传输方式</span><a href="#shu-ju-chuan-shu-fang-shi" class="header-anchor">#</a></h2><ul>
+<li>串行传输和并行和传输</li>
+</ul>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311134306251.png" alt="image-20240311134306251" class="lazyload"></p>
+<ul>
+<li>同步传输和异步传输</li>
+</ul>
+<p><strong>同步传输：</strong>在同步传输的模式下，数据的传送是以一个数据区块为单位，因此同步传输又称为区块传输。<br>在传送数据时，需先送出1个或多个同步字符，再送出整批的数据。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311164351449.png" alt="image-20240311164351449" class="lazyload"></p>
+<p><strong>异步传输：</strong></p>
+<p>异步传输将比特分成小组进行传送，小组可以是8位的1个字符或更长。发送方可以在任何时刻发送这些比特组，而接收方不知道它们会在什么时候到达。传送数据时，加一个字符起始位和一个字符终止位。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311164401203.png" alt="image-20240311164401203" class="lazyload"></p>
+<h2><span id="shu-ju-chuan-shu-xiang-guan-zhu-yu">数据传输相关术语</span><a href="#shu-ju-chuan-shu-xiang-guan-zhu-yu" class="header-anchor">#</a></h2><ul>
+<li><p>码元：码元是指用一个固定时长的信号波形_(数字脉冲)，代表不同离散数值的基本波形，是数字通信中数字信号的计量单位，这个时长内的信号称为k进制码元，而该时长称为码元宽度。当码元的离散状态有M个时(M大于2)，此时码元为M进制码元。</p>
+<p>1码元可以携带多个比特的信息量。例如，在使用二进制编码时，只有两种不同的码元，一种代表0状态，另一种代表1状态。</p>
+<p><strong>例如下面的例子：</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311165607774.png" alt="image-20240311165607774" class="lazyload"></p>
+<p>传递01信号的时候，只有两种状态也就是只有两种码元就叫做二进制码元；如果有四种状态的话的就是四进制码元，此时的一个码元就可以携带两个比特的信息，因为四种状态可以用两个比特表示完全；那么相对的，16进制码元就可以携带四个比特的信息。</p>
+</li>
+<li><p>码元传输速率：别名码元速率、波形速率、调制速率、符号速率等，它表示单位时间内数字通信系统所传输的码元个数(也可称为脉冲个数或信号变化的次数)，单位是波特(Baud)；1波特表示数字通信系统每秒传输一个码元。</p>
+<p>数字信号有多进制和二进制之分，但码元速率与进制数无关，只与码元长度T有关；<strong>T就是上面01信号的一横杠时间，也就是一个状态变化的时间。</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311170416392.png" alt="image-20240311170416392" class="lazyload"></p>
+</li>
+<li><p>信息传输速率：别名信息速率、比特率等，表示单位时间内数字通信系统传输的二进制码元个数(即比特数)，单位是比特&#x2F;秒(b&#x2F;s)</p>
+<p>若一个码元携带n bit的信息量，那么M Baud的码元传输速率所对应的信息传输速率就为M*n bit&#x2F;s。</p>
+</li>
+<li><p>带宽：</p>
+<ul>
+<li>模拟信号系统中：当输入的信号频率高或低到一定程度，使得系统的输出功率成为输入功率的一半时(即-3dB)，最高频率和最低频率间的差值就代表了系统的通频带宽，其单位为赫兹(Hz)。</li>
+<li>数字设备中：表示在单位时间内从网络中的某一点到另一点所能通过的“最高数据率”&#x2F;单位时间内通过链路的数量，常用来表示网络的通信线路所能传输数据的能力。单位是比特每秒(bps或b&#x2F;s)。带宽更宽，也就是有更大的信息运送能力。</li>
+</ul>
+</li>
+</ul>
+<h1><span id="nai-shi-zhun-ze">奈氏准则</span><a href="#nai-shi-zhun-ze" class="header-anchor">#</a></h1><h2><span id="shi-zhen">失真</span><a href="#shi-zhen" class="header-anchor">#</a></h2><p>就是因为一些因素干扰，导致传输过程中信号波形改变，导致接收方难以辨认。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311171514652.png" alt="image-20240311171514652" class="lazyload"></p>
+<p><strong>影响失真程度的因素：</strong>1.码元传输速率2.信号传输距离3.噪声干扰 4.传输媒体质量</p>
+<p><strong>码间串扰</strong></p>
+<p>因为传输的频率太快导致接收端失去了码元之间清晰界限的现象</p>
+<p><strong>信道带宽</strong></p>
+<p>信道带宽是信道能通过的最高频率和最低频率之差。频率过高会发生码间串扰，过低会导致容易受到干扰导致波形变化太大。</p>
+<p>比如下图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311181049734.png" alt="image-20240311181049734" class="lazyload"></p>
+<p>该图的信道带宽就是3300Hz-300Hz&#x3D;3000Hz</p>
+<h2><span id="nai-shi-zhun-ze-nai-kui-si-te-ding-li">奈氏准则(奈奎斯特定理)</span><a href="#nai-shi-zhun-ze-nai-kui-si-te-ding-li" class="header-anchor">#</a></h2><p><strong>奈式准则</strong>：在理想低通(无噪声，带宽受限)条件下，为了避免码间串扰，极限码元传输速率为2W Baud，W是信道带宽，单位是Hz。</p>
+<p>极限数据传输速率计算如下，也就是上面码元传输速率和信息传输速率的转换。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311181856387.png" alt="image-20240311181856387" class="lazyload"></p>
+<p>由奈式准则可以推出下面的结论：</p>
+<ol>
+<li><p>在任何信道中，码元传输的速率是有上限的。若传输速率超过此上限，就会出现严重的码间串扰问题，使接收端对码元的完全正确识别成为不可能。</p>
+</li>
+<li><p>信道的频带越宽(即能通过的信号高频分量越多)，就可以用更高的速率进行码元的有效传输。</p>
+</li>
+<li><p>奈氏准则给出了码元传输速率的限制，但并没有对信息传输速率给出限制。</p>
+</li>
+<li><p>由于码元的传输速率受奈氏准则的制约，所以要提高数据的传输速率，就必须设法使每个码元能携带更多个比特的信息量，这就需要采用多元制的调制方法。</p>
+</li>
+</ol>
+<h1><span id="xiang-nong-ding-li">香农定理</span><a href="#xiang-nong-ding-li" class="header-anchor">#</a></h1><p>噪声存在于所有的电子设备和通信信道中。由于噪声随机产生，它的瞬时值有时会很大，因此噪声会使接收端对码元的判决产生错误。但是噪声的影响是相对的，若信号较强，那么噪声影响相对较小。因此，信噪比就很重要。<strong>信噪比&#x3D;信号的平均功率&#x2F;噪声的平均功率</strong>，常记为S&#x2F;N，并用分贝(dB)作为度量单位，即:</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312093325742.png" alt="image-20240312093325742" class="lazyload"></p>
+<p><strong>香农定理</strong>：在带宽受限且有噪声的信道中，为了不产生误差，信息的传输速率有上限值</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312093437732.png" alt="image-20240312093437732" class="lazyload"></p>
+<p><strong>通过香农定理得出的推论</strong></p>
+<ol>
+<li><p>信道的带宽或信道中的信噪比越大，则信息的极限传输速率就越高。</p>
+</li>
+<li><p>对一定的传输带宽和一定的信噪比，信息传输速率的上限就确定了。</p>
+</li>
+<li><p>只要信息的传输速率低于信道的极限传输速率，就一定能找到某种方法来实现无差错的传输。</p>
+</li>
+<li><p>香农定理得出的为极限信息传输速率，实际信道能达到的传输速率要比它低不少。</p>
+</li>
+<li><p>从香农定理可以看出，若信道带宽W或信噪比S&#x2F;N没有上限(不可能)，那么信道的极限信息传输速率也就没有上限。</p>
+</li>
+</ol>
+<h2><span id="nai-shi-he-xiang-nong-de-dui-bi">奈式和香农的对比</span><a href="#nai-shi-he-xiang-nong-de-dui-bi" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312094031816.png" alt="image-20240312094031816" class="lazyload"></p>
+<p><strong>例题</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312094101429.png" alt="image-20240312094101429" class="lazyload"></p>
+<p>在两个公式算出的数据传输速率中，应该选择较小的那个才是正确的。</p>
+<h1><span id="bian-ma-yu-diao-zhi">编码与调制</span><a href="#bian-ma-yu-diao-zhi" class="header-anchor">#</a></h1><h2><span id="ji-dai-xin-hao-yu-kuan-dai-xin-hao">基带信号与宽带信号</span><a href="#ji-dai-xin-hao-yu-kuan-dai-xin-hao" class="header-anchor">#</a></h2><ul>
+<li><p><strong>基带信号：</strong>将数字信号1和0直接用两种不同的电压表示，再送到数字信道上去传输(基带传输)。</p>
+<p>来自信源的信号，像计算机输出的代表各种文字或图像文件的数据信号都属于基带信号。基带信号就是发出的直接表达了要传输的信息的信号，比如我们说话的声波就是基带信号。(所以基带信号也可以是模拟信号，只是在计网中通常指的是数字信号)</p>
+</li>
+<li><p><strong>宽带信号：</strong>将基带信号进行调制后形成的频分复用模拟信号，再传送到模拟信道上去传输(宽带传输)</p>
+<p>把基带信号经过载波调制后，把信号的频率范围搬移到较高的频段以便在信道中传输(即仅在一段频率范围内能够通过信道)。</p>
+</li>
+</ul>
+<p>这两种信号的选择跟传输距离有关，在距离较近时可以直接使用基带信号直接传输，在距离较远的时候就要使用宽带信号防止信号丢失严重。</p>
+<h2><span id="bian-ma-yu-diao-zhi-de-qu-fen">编码与调制的区分</span><a href="#bian-ma-yu-diao-zhi-de-qu-fen" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312135128620.png" alt="image-20240312135128620" class="lazyload"></p>
+<h2><span id="bian-ma-yu-diao-zhi-de-ju-ti-fang-shi">编码与调制的具体方式</span><a href="#bian-ma-yu-diao-zhi-de-ju-ti-fang-shi" class="header-anchor">#</a></h2><h3><span id="shu-zi-shu-ju-bian-ma-wei-shu-zi-xin-hao">数字数据编码为数字信号</span><a href="#shu-zi-shu-ju-bian-ma-wei-shu-zi-xin-hao" class="header-anchor">#</a></h3><p>以下面的二进制数据来介绍各种编码方式：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312141043018.png" alt="image-20240312141043018" class="lazyload"></p>
+<ol>
+<li><p>非归零编码【NRZ】</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312141144428.png" alt="image-20240312141144428" class="lazyload"></p>
+<p>特点就是高1低0，该编码很容易实现，但没有纠错功能，且无法判断一个码元的开始和结束，以至于收发双方难以保持同步。</p>
+</li>
+<li><p>曼彻斯特编码</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312141802576.png" alt="image-20240312141802576" class="lazyload"></p>
+<p>将一个码元分成两个相等的间隔，前一个间隔为低电平后一个间隔为高电平表示码元1;码元0则正好相反。也可以采用相反的规定。该编码的特点是在每一个码元的中间出现电平跳变，位于中间的跳变既作时钟信号(可用于同步)又作数据信号，但它所占的频带宽度是原始的基带宽度的两倍。</p>
+<p><strong>所以数据传输速率只有调制速率的1&#x2F;2</strong></p>
+</li>
+<li><p>差分曼彻斯特编码</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312142117689.png" alt="image-20240312142117689" class="lazyload"></p>
+<p>常用于局域网传输，其规则是:若码元为1，则前半个码元的电平与上一个码元的后半个码元的电平相同，若为0，则相反。该编码的特点是，在每个码元的中间，都有一次电平的跳转，可以实现自同步，且抗干扰性强于曼彻斯特编码。</p>
+</li>
+<li><p>归零编码【RZ】</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312141301827.png" alt="image-20240312141301827" class="lazyload"></p>
+<p>就是信号电平在一个码元之内都要恢复到零。</p>
+</li>
+<li><p>反向不归零编码【NRZI】</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312141439802.png" alt="image-20240312141439802" class="lazyload"></p>
+<p>信号电平翻转表示0，信号电平不变表示1.</p>
+</li>
+<li><p>4B&#x2F;5B编码</p>
+<p>比特流中插入额外的比特以打破一连串的0或1，就是用5个比特来编码4个比特的数据，之后再传给接收方，因此称为4B&#x2F;5B。编码效率为80%。</p>
+<p>只采用16种编码对应16种不同的4位码，多出来的16种作为控制码(帧的开始和结束，线路的状态信息等)或保留。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312142425457.png" alt="image-20240312142425457" class="lazyload"></p>
+</li>
+</ol>
+<h3><span id="shu-zi-shu-ju-diao-zhi-wei-mo-ni-xin-hao">数字数据调制为模拟信号</span><a href="#shu-zi-shu-ju-diao-zhi-wei-mo-ni-xin-hao" class="header-anchor">#</a></h3><p>数字数据调制技术在发送端将数字信号转换为模拟信号，而在接收端将模拟信号还原为数字信号，分别对应于调制解调器的调制和解调过程。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312142828014.png" alt="image-20240312142828014" class="lazyload"></p>
+<ul>
+<li>调幅：为1时有幅度，为0时无幅度</li>
+<li>调频：为0时频率较低，为1时频率较高</li>
+<li>调相：即不同状态时波形的相位不同</li>
+</ul>
+<blockquote>
+<p>还可以使用调幅+调相的组合方式(QAM)。</p>
+</blockquote>
+<p><strong>例题</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312143129934.png" alt="image-20240312143129934" class="lazyload"></p>
+<blockquote>
+<p>这里相当于有4<em>4&#x3D;16种码元，也就是一码元传输四比特信息，所以是1200</em>4&#x3D;4800b&#x2F;s</p>
+</blockquote>
+<h3><span id="mo-ni-shu-ju-bian-ma-wei-shu-zi-xin-hao">模拟数据编码为数字信号</span><a href="#mo-ni-shu-ju-bian-ma-wei-shu-zi-xin-hao" class="header-anchor">#</a></h3><p>计算机内部处理的是二进制数据，处理的都是数字音频，所以需要将模拟音频通过采样、量化转换成有限个数字表示的离散序列(即实现音频数字化)。</p>
+<p>最典型的例子就是对音频信号进行编码的脉码调制(PCM)，在计算机应用中，能够达到最高保真水平的就是PCM编码，被广泛用于素材保存及音乐欣赏，CD、DVD以及我们常见的 WAV文件中均有应用。它主要包括三步:抽样、量化、编码</p>
+<ol>
+<li><p>抽样</p>
+<p>对模拟信号周期性扫描，把时间上连续的信号变成时间上离散的信号。为了使所得的离散信号能无失真地代表被抽样的模拟数据，要使用采样定理进行采样:<strong>f(采样频率)<strong>大于等于</strong>2f(信号最高频率)</strong></p>
+</li>
+<li><p>量化</p>
+<p>把抽样取得的电平幅值按照一定的分级标度转化为对应的数字值，并取整数，这就把连续的电平幅值转换为离散的数字量。</p>
+</li>
+<li><p>编码</p>
+<p>把量化的结果转换为与之对应的二进制编码。</p>
+</li>
+</ol>
+<h3><span id="mo-ni-shu-ju-diao-zhi-wei-mo-ni-xin-hao">模拟数据调制为模拟信号</span><a href="#mo-ni-shu-ju-diao-zhi-wei-mo-ni-xin-hao" class="header-anchor">#</a></h3><p>为了实现传输的有效性，可能需要较高的频率。这种调制方式还可以使用频分复用技术，充分利用带宽资源。在电话机和本地交换机所传输的信号是采用模拟信号传输模拟数据的方式;模拟的声音数据是加载到模拟的载波信号中传输的。</p>
+<h1><span id="shu-ju-jiao-huan-fang-shi">数据交换方式</span><a href="#shu-ju-jiao-huan-fang-shi" class="header-anchor">#</a></h1><p>有三种数据交换方式：</p>
+<p><strong>电路交换</strong>、<strong>报文交换</strong>、<strong>分组交换</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312145450698.png" alt="image-20240312145450698" class="lazyload"></p>
+<h2><span id="dian-lu-jiao-huan-circuit-exchanging">电路交换(Circuit Exchanging)</span><a href="#dian-lu-jiao-huan-circuit-exchanging" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312145914210.png" alt="image-20240312145914210" class="lazyload"></p>
+<p>连接之后通信方式是全双工的。</p>
+<p>释放连接的方式同理，发送释放连接请求然后等待确认响应。</p>
+<p><strong>特点：</strong>独占资源，用户始终占用端到端的固定传输带宽。适用于远程批处理信息传输或系统间实时性要求高的大量数据传输的情况。</p>
+<p><strong>电路交换优缺点</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312150144149.png" alt="image-20240312150144149" class="lazyload"></p>
+<h2><span id="bao-wen-jiao-huan-message-exchanging">报文交换(Message Exchanging)</span><a href="#bao-wen-jiao-huan-message-exchanging" class="header-anchor">#</a></h2><p><strong>报文：</strong>报文(message)是网络中交换与传输的数据单元，即站点一次性要发送的数据块。报文包含了将要发送的完整的数据信息，其长短很不一致，长度不限且可变。</p>
+<p><strong>原理：</strong>无需在两个站点之间建立一条专用通路，其数据传输的单位是报文，传送过程采用存储转发方式。</p>
+<p><strong>过程：</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312150452238.png" alt="image-20240312150452238" class="lazyload"></p>
+<p><strong>优缺点：</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312150532682.png" alt="image-20240312150532682" class="lazyload"></p>
+<h2><span id="fen-zu-jiao-huan-packet-exchanging">分组交换(Packet Exchanging)</span><a href="#fen-zu-jiao-huan-packet-exchanging" class="header-anchor">#</a></h2><p><strong>分组：</strong>大多数计算机网络都不能连续地传送任意长的数据，所以实际上网络系统把数据分割成小块，然后逐块地发送，这种小块就称作分组(packet)。分组交换是现在网络中传输数据最常用的方式。</p>
+<p><strong>分组交换的原理：</strong><br>分组交换与报文交换的工作方式基本相同，都采用存储转发方式，形式上的主要差别在于，分组交换网中要限制所传输的数据单位的长度，一般选128B。发送节点首先对从终端设备送来的数据报文进行接收存储，而后将报文划分成一定长度的分组，并以分组为单位进行传输和交换。接收结点将收到的分组组装成信息或报文。</p>
+<p><strong>过程：</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312150939221.png" alt="image-20240312150939221" class="lazyload"></p>
+<p><strong>优缺点</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312151003760.png" alt="image-20240312151003760" class="lazyload"></p>
+<h3><span id="shu-ju-bao-fang-shi">数据报方式</span><a href="#shu-ju-bao-fang-shi" class="header-anchor">#</a></h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312151546362.png" alt="image-20240312151546362" class="lazyload"></p>
+<p><strong>特点</strong></p>
+<ol>
+<li><p>数据报方式为网络层提供无连接服务。发送方可随时发送分组，网络中的结点可随时接收分组。</p>
+<p><strong>无连接服务：</strong>不事先为分组的传输确定传输路径，每个分组独立确定传输路径不同分组传输路径可能不同。</p>
+</li>
+<li><p>同一报文的不同分组达到目的结点时可能发生乱序、重复与丢失。</p>
+</li>
+<li><p>每个分组在传输过程中都必须携带源地址和目的地址，以及分组号。</p>
+</li>
+<li><p>分组在交换结点存储转发时，需要排队等候处理，这会带来一定的时延。当通过交换结点的通信量较大或网络发生拥塞时，这种时延会大大增加，交换结点还可根据情况丢弃部分分组。</p>
+</li>
+<li><p>网络具有冗余路径，当某一交换结点或一段链路出现故障时，可相应地更新转发表，寻找另一条路径转发分组，对故障的适应能力强，适用于突发性通信，不适于长报文，会话式通信。</p>
+</li>
+</ol>
+<h3><span id="xu-dian-lu-fang-shi">虚电路方式</span><a href="#xu-dian-lu-fang-shi" class="header-anchor">#</a></h3><p>虚电路将数据报方式和电路交换方式结合，以发挥两者优点。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312152224056.png" alt="image-20240312152224056" class="lazyload"></p>
+<p><strong>特点</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312152525446.png" alt="image-20240312152525446" class="lazyload"></p>
+<h3><span id="shu-ju-bao-he-xu-dian-lu-dui-bi">数据报和虚电路对比</span><a href="#shu-ju-bao-he-xu-dian-lu-dui-bi" class="header-anchor">#</a></h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312152559654.png" alt="image-20240312152559654" class="lazyload"></p>
+<h2><span id="jiao-huan-fang-shi-de-xuan-ze">交换方式的选择</span><a href="#jiao-huan-fang-shi-de-xuan-ze" class="header-anchor">#</a></h2><ol>
+<li><p>传送数据量大，且传送时间远大于呼叫时，选择电路交换。电路交换传输时延最小。</p>
+</li>
+<li><p>当端到端的通路有很多段的链路组成时,采用分组交换传送数据较为合适。</p>
+</li>
+<li><p>从信道利用率上看，报文交换和分组交换优于电路交换，其中分组交换比报文交换的时延小，尤其适合于计算机之间的突发式的数据通信。</p>
+</li>
+</ol>
+<h1><span id="wu-li-ceng-chuan-shu-jie-zhi">物理层传输介质</span><a href="#wu-li-ceng-chuan-shu-jie-zhi" class="header-anchor">#</a></h1><p>传输介质也称传输媒体&#x2F;传输媒介，它就是数据传输系统中在发送设备和接收设备之间的<strong>物理通路</strong>。</p>
+<p><strong>传输媒体并不是物理层</strong>，传输媒体在物理层的下面，因为物理层是体系结构的第一层，因此有时称传输媒体为0层。在传输媒体中传输的是信号，但传输媒体并不知道所传输的信号代表什么意思。但物理层规定了电气特性，因此能够识别所传送的比特流。</p>
+<p><strong>传输介质</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312152930074.png" alt="image-20240312152930074" class="lazyload"></p>
+<h2><span id="dao-xiang-xing-chuan-shu-jie-zhi">导向型传输介质</span><a href="#dao-xiang-xing-chuan-shu-jie-zhi" class="header-anchor">#</a></h2><h3><span id="shuang-jiao-xian">双绞线</span><a href="#shuang-jiao-xian" class="header-anchor">#</a></h3><p>双绞线是古老、又最常用的传输介质，它由两根采用一定规则并排绞合的、相互绝缘的铜导线组成。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312153151300.png" alt="image-20240312153151300" class="lazyload"></p>
+<blockquote>
+<p>双绞线价格便宜，是最常用的传输介质之一，在局域网和传统电话网中普遍使用。模拟传输和数字传输都可以使用双绞线，其通信距离一般为几公里到数十公里。距离太远时，对于模拟传输，要用放大器放大衰减的信号;对于数字传输，要用中继器将失真的信号整形。</p>
+</blockquote>
+<h3><span id="tong-zhou-dian-lan">同轴电缆</span><a href="#tong-zhou-dian-lan" class="header-anchor">#</a></h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312153436424.png" alt="image-20240312153436424" class="lazyload"></p>
+<h3><span id="guang-xian">光纤</span><a href="#guang-xian" class="header-anchor">#</a></h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312153803723.png" alt="image-20240312153803723" class="lazyload"></p>
+<p><strong>单模光纤和多模光纤</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312153940233.png" alt="image-20240312153940233" class="lazyload"></p>
+<p><strong>光纤的特点</strong></p>
+<p>1.传输损耗小，中继距离长，对远距离传输特别经济。</p>
+<p>2.抗雷电和电磁干扰性能好。</p>
+<p>3.无串音干扰，保密性好，也不易被窃听或截取数据。</p>
+<p>4.体积小，重量轻。</p>
+<h2><span id="fei-dao-xiang-xing-chuan-shu-jie-zhi">非导向型传输介质</span><a href="#fei-dao-xiang-xing-chuan-shu-jie-zhi" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312154418577.png" alt="image-20240312154418577" class="lazyload"></p>
+<p>微波就是利用中继器进行接力通信</p>
+<h1><span id="wu-li-ceng-she-bei">物理层设备</span><a href="#wu-li-ceng-she-bei" class="header-anchor">#</a></h1><h2><span id="zhong-ji-qi">中继器</span><a href="#zhong-ji-qi" class="header-anchor">#</a></h2><p><strong>诞生原因：</strong>由于存在损耗，在线路上传输的信号功率会逐渐衰减，衰减到一定程度时将造成信号失真，因此会导致接收错误。</p>
+<p><strong>中继器的功能：</strong>对信号进行&#x3D;&#x3D;再生和还原&#x3D;&#x3D;，对衰减的信号进行放大，保持与原数据相同，以增加信号传输的距离，延长网络的长度。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312154708719.png" alt="image-20240312154708719" class="lazyload"></p>
+<p><strong>中继器的两端：</strong>两端的网络部分是网段，而不是子网，适用于完全相同的两类网络的互连，且两个网段速率要相同。</p>
+<p>中继器只将任何电缆段上的数据发送到另一段电缆上，它仅作用于信号的电气部分，并不管数据中是否有错误数据或不适于网段的数据。</p>
+<p>两端可连相同媒体，也可连不同媒体。</p>
+<p>中继器两端的网段一定要是同一个协议，因为中继器不会存储转发。</p>
+<p><strong>5-4-3规则：</strong>网络标准中都对信号的延迟范围作了具体的规定，因而中继器只能在规定的范围内进行，否则会网络故障。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312155118594.png" alt="image-20240312155118594" class="lazyload"></p>
+<p>比如10M以太网中的5-4-3规则：</p>
+<ol>
+<li><p>5 个网段 : 中继器连接的网络中 , 只允许最多有5个网段 , 每个中继器 两端可以有两个网段 。</p>
+</li>
+<li><p>4 个中继器 : 5个网段内 , 最多有4个中继器 。</p>
+</li>
+<li><p>3 个计算机挂载点 : 只有3个网段可以挂载计算机 。</p>
+</li>
+</ol>
+<h2><span id="ji-xian-qi-duo-kou-zhong-ji-qi">集线器(多口中继器)</span><a href="#ji-xian-qi-duo-kou-zhong-ji-qi" class="header-anchor">#</a></h2><p><strong>功能：</strong>对信号进行再生放大转发，对衰减的信号进行放大，接着转发到其他所有(除输入端口外)处于工作状态的端口上，以增加信号传输的距离，延长网络的长度。不具备信号的定向传送能力，是一个共享式设备。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240312155755183.png" alt="image-20240312155755183" class="lazyload"></p>
+
 	</article>
 
 	 
@@ -410,12 +769,20 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			                  
+			                                          
+			<!-- 先找到与当前文字相同的目录 -->
+			   
+			<!-- 在找到当前文章所在的 index -->
+			          
 		</nav>
 	</div>
 	
 	<div class="kira-post-meta kira-rainbow">
 		
+			<a class="kirafont icon-container-fill -link" href="/categories/%E5%9F%BA%E7%A1%80-%E8%AE%A1%E7%BD%91/">基础 计网</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E8%AE%A1%E7%BD%91/" rel="tag">计网</a>
 		
 	</div>
 	

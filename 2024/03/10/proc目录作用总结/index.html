@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> Windows 提权 -  clown</title>
+		<title> proc目录作用总结 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -398,58 +398,78 @@
 			<img
 				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
 				data-sizes="auto"
-				alt="Windows 提权"
+				alt="proc目录作用总结"
 				class="lazyload kira-post-cover-image disabled-kira-image"
 			/>
-			<h1>Windows 提权</h1>
+			<h1>proc目录作用总结</h1>
 		</div>
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2024年02月29日</a>
-			<a><i class="kirafont icon-edit-fill"></i>588 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 2 分钟</a>
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月10日</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.2k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 4 分钟</a>
 		</div>
-		<h1><span id="windows-quan-xian-hua-fen">Windows权限划分</span><a href="#windows-quan-xian-hua-fen" class="header-anchor">#</a></h1><p>在Windows中，有User、Administrator、System、TrustedInstaller这四种用户权限，其权限从左到右依次升高。</p>
-<p>权限提升分为下面两类：</p>
-<ul>
-<li>纵向提取：低权限用户获得高权限用户的权限</li>
-<li>横向提权：获得同级别角色的权限</li>
-</ul>
-<p><strong>常用提权方法</strong></p>
-<ul>
-<li>Windows系统内核溢出漏洞提权</li>
-<li>错误系统配置提权</li>
-<li>数据库提权</li>
-<li>等等~</li>
-</ul>
-<h1><span id="windows-xi-tong-nei-he-yi-chu-lou-dong-ti-quan">Windows系统内核溢出漏洞提权</span><a href="#windows-xi-tong-nei-he-yi-chu-lou-dong-ti-quan" class="header-anchor">#</a></h1><p>溢出漏洞是一种计算机程序的可更正性缺陷。溢出漏洞的全名:缓冲区溢出漏洞。因为它是在程序执行的也是攻击者时候在缓冲区执行的错误代码，所以叫缓冲区溢出漏洞。缓冲溢出是最常见的内存错误之一，入侵系统时所用到的最强大、最经典的一类漏洞利用方式。成功地利用缓冲区溢出漏洞可!修改内存中变量的值，甚至可以劫持进程，执行恶意代码，最终获得主机的控制权。利用Windows系统内核溢出漏洞提权是一种很通用的提权方法，攻击者通常可以使用该方法绕过系统中的所有安全限制。攻击者利用该漏洞的关键是目标系统有没有及时安装补丁，如果目标系统没有安装某一漏洞的补丁且存在该漏洞的话，攻击者就会向目标系统上传本地溢出程序，溢出Administrator权限。</p>
-<h2><span id="shou-dong-cha-kan-xi-tong-lou-dong">手动查看系统漏洞</span><a href="#shou-dong-cha-kan-xi-tong-lou-dong" class="header-anchor">#</a></h2><p>获得一个普通用户的shell之后，我们可以用一些命令来查看系统有哪些补丁</p>
-<ol>
-<li><p>systeminfo</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240229111338484.png" alt="image-20240229111338484" class="lazyload"></p>
-</li>
-<li><p>wmic qfe get caption,description,hotfixid,installedon</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240229111417594.png" alt="image-20240229111417594" class="lazyload"></p>
-</li>
-</ol>
-<h2><span id="ti-quan-fu-zhu-gong-ju">提权辅助工具</span><a href="#ti-quan-fu-zhu-gong-ju" class="header-anchor">#</a></h2><ol>
-<li><p><strong>使用Windows-Exploit-Suggester解析systeminfo</strong>：<a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
-<p>该工具可以解析systeminfo出来的数据看是否存在漏洞</p>
-<p>使用步骤：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">./windows-exploit-suggester.py --update  #用来更新漏洞库<br>pip install xlrd --upgrade  #如果没有该依赖可以进行安装<br>./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo win7sp1-systeminfo.txt  #提供我们保存的systeminfo输出的文本文件，然后指向微软数据库<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Windows提权漏洞合集：<a target="_blank" rel="noopener" href="https://github.com/SecWiki/windows-kernel-exploits">https://github.com/SecWiki/windows-kernel-exploits</a></p>
-</li>
-<li><p>各大平台提权工具：<a target="_blank" rel="noopener" href="https://github.com/klsfct/getshell">https://github.com/klsfct/getshell</a></p>
-</li>
-</ol>
-<h1><span id="xi-tong-quan-xian-pei-zhi-cuo-wu">系统权限配置错误</span><a href="#xi-tong-quan-xian-pei-zhi-cuo-wu" class="header-anchor">#</a></h1>
+		<p>参考文章：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/241148">Proc 目录在 CTF 中的利用-安全客 - 安全资讯平台 (anquanke.com)</a></p>
+<h1><span id="x2f-proc-mu-lu-shi-shi-me">&#x2F;proc目录是什么</span><a href="#x2f-proc-mu-lu-shi-shi-me" class="header-anchor">#</a></h1><p>Linux系统上的&#x2F;proc目录是一种文件系统，即proc文件系统。与其它常见的文件系统不同的是，&#x2F;proc是一种伪文件系统（也即虚拟文件系统），存储的是当前内核运行状态的一系列特殊文件，用户可以通过这些文件查看有关系统硬件及当前正在运行进程的信息，甚至可以通过更改其中某些文件来改变内核的运行状态。</p>
+<p>这里看一下&#x2F;proc目录下有什么</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ls -al /proc<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310230848618.png" alt="image-20240310230848618" class="lazyload"></p>
+<p>目录中包含许多以数字命名的子目录，这些数字表示系统当前正在运行进程的进程号(PID)，里面包含对应进程相关的多个信息文件。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310231053017.png" alt="image-20240310231053017" class="lazyload"></p>
+<p>进程号为1的文件里有这些文件，其中有些文件是每个进程都会有的，ctf中我们需要的就是利用这些通用的文件来获取一些进程中的相关信息。</p>
+<h1><span id="x2f-proc-mu-lu-zuo-yong">&#x2F;proc目录作用</span><a href="#x2f-proc-mu-lu-zuo-yong" class="header-anchor">#</a></h1><p><strong>&#x2F;proc&#x2F;self</strong>指向的就是当前进程号的目录，这个会经常用到，因为比如靶机启动的时候会有一个自己的进程，这个时候就可以通过&#x2F;proc&#x2F;self来获取当前的进程号，进而获取我们需要的信息。</p>
+<h2><span id="cmdline">cmdline</span><a href="#cmdline" class="header-anchor">#</a></h2><p>cmdline 文件存储着启动当前进程的完整命令，但僵尸进程目录中的此文件不包含任何信息。可以通过查看cmdline目录获取启动指定进程的完整命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /proc/117/cmdline<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310231615078.png" alt="image-20240310231615078" class="lazyload"></p>
+<p>比如目标启动了一个web服务的时候，比如<strong>python .&#x2F;app.py</strong>，我们就可以通过cat &#x2F;proc&#x2F;self&#x2F;cmdline来获得这个启动命令了。</p>
+<h2><span id="cwd">cwd</span><a href="#cwd" class="header-anchor">#</a></h2><p>cwd 文件是一个指向当前进程运行目录的符号链接。可以通过查看cwd文件获取目标指定进程环境的运行目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ls /proc/117/cwd<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310231940043.png" alt="image-20240310231940043" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ls -al /proc/7163/cwd<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310232042034.png" alt="image-20240310232042034" class="lazyload"></p>
+<h2><span id="exe">exe</span><a href="#exe" class="header-anchor">#</a></h2><p>exe 是一个指向启动当前进程的可执行文件（完整路径）的符号链接。通过exe文件我们可以获得指定进程的可执行文件的完整路径：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ls -al /proc/117/exe<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310232728115.png" alt="image-20240310232728115" class="lazyload"></p>
+<h2><span id="environ">environ</span><a href="#environ" class="header-anchor">#</a></h2><p>environ 文件存储着当前进程的环境变量列表，彼此间用空字符（NULL）隔开。变量用大写字母表示，其值用小写字母表示。可以通过查看environ目录来获取指定进程的环境变量信息:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /proc/117/environ<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310232953047.png" alt="image-20240310232953047" class="lazyload"></p>
+<p>有时候secret_key会放在环境变量我们就可以去读取</p>
+<h2><span id="fd">fd</span><a href="#fd" class="header-anchor">#</a></h2><p>fd 是一个目录，里面包含这当前进程打开的每一个文件的文件描述符（file descriptor），这些文件描述符是指向实际文件的一个符号链接，即每个通过这个进程打开的文件都会显示在这里。所以我们可以通过fd目录里的文件获得指定进程打开的每个文件的路径以及文件内容。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ls -al /proc/117/fd<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310233433456.png" alt="image-20240310233433456" class="lazyload"></p>
+<p>然后想查看某个文件可以去cat对应的描述符</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /proc/117/fd/7<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310233618051.png" alt="image-20240310233618051" class="lazyload"></p>
+<blockquote>
+<p><strong>在 linux 系统中，如果一个程序用open()打开了一个文件但最终没有关闭他，即便从外部（如os.remove(SECRET_FILE)）删除这个文件之后，在 &#x2F;proc 这个进程的 pid 目录下的 fd 文件描述符目录下还是会有这个文件的文件描述符，通过这个文件描述符我们即可得到被删除文件的内容。</strong></p>
+</blockquote>
+<h2><span id="maps">maps</span><a href="#maps" class="header-anchor">#</a></h2><p>maps文件提供了有关当前进程地址空间中内存映射的信息。你可以看到包含当前进程地址空间中所有已映射内存区域（如代码段、数据段、堆、栈等）的详细信息。每一行表示一个内存区域，其中包含了该区域的起始地址、结束地址、访问权限等信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cat /proc/117/maps<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310234519798.png" alt="image-20240310234519798" class="lazyload"></p>
+<blockquote>
+<p>上面的信息依次如下：</p>
+<p>起始地址-结束地址 权限 偏移量 设备号 节点号 文件名</p>
+</blockquote>
+<h2><span id="mem">mem</span><a href="#mem" class="header-anchor">#</a></h2><p>&#x2F;proc&#x2F;self&#x2F;mem 是一个特殊文件，它代表当前进程的内存映射。通过对该文件进行读取和写入操作，可以读取和修改当前进程的物理内存。它用于对进程的内存进行读写操作，通常用于调试和分析工具。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ls -al /proc/117/mem<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310235303267.png" alt="image-20240310235303267" class="lazyload"></p>
+
 	</article>
 
 	 
     <div class="kira-post-copyright">
         <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2024/02/29/Windows-%E6%8F%90%E6%9D%83/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;Windows-提权&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;Windows-提权&#x2F;</a><br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/10/proc%E7%9B%AE%E5%BD%95%E4%BD%9C%E7%94%A8%E6%80%BB%E7%BB%93/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;10&#x2F;proc目录作用总结&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;10&#x2F;proc目录作用总结&#x2F;</a><br>
         
             <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
         
@@ -458,20 +478,20 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			      
+			                          
 			<!-- 先找到与当前文字相同的目录 -->
 			   
 			<!-- 在找到当前文章所在的 index -->
-			                                              
+			                          
 		</nav>
 	</div>
 	
 	<div class="kira-post-meta kira-rainbow">
 		
-			<a class="kirafont icon-container-fill -link" href="/categories/%E6%8F%90%E6%9D%83/">提权</a>
+			<a class="kirafont icon-container-fill -link" href="/categories/Web/">Web</a>
 		
 		
-			<a class="kirafont icon-tag-fill -none-link" href="/tags/web/" rel="tag">web</a>
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/Web-CTF/" rel="tag">Web CTF</a>
 		
 	</div>
 	

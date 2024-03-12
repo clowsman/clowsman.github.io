@@ -80,9 +80,9 @@
 		</a>
 	</div>
 	<div class="kira-count">
-		<div><span>文章</span>17</div>
-		<div><span>标签</span>9</div>
-		<div><span>分类</span>9</div>
+		<div><span>文章</span>19</div>
+		<div><span>标签</span>11</div>
+		<div><span>分类</span>11</div>
 	</div>
 	<div class="kira-list">
 		
@@ -230,6 +230,13 @@
 
         
           <li class="category-list-item">
+            <a class="category-list-link" href="/categories/Web/">
+              Web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
             <a class="category-list-link" href="/categories/blog/">
               blog
             </a>
@@ -261,7 +268,7 @@
             <a class="category-list-link" href="/categories/web/">
               web
             </a>
-            <span class="category-list-count">2</span>
+            <span class="category-list-count">3</span>
           </li>
         
           <li class="category-list-item">
@@ -276,6 +283,13 @@
               基础
             </a>
             <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础-计网/">
+              基础 计网
+            </a>
+            <span class="category-list-count">1</span>
           </li>
         
           <li class="category-list-item">
@@ -300,7 +314,7 @@
 			
 	<div class="kira-widget-wrap">
 		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
-			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/CTF-web/" style="font-size: 10px;">CTF web</a> <a href="/tags/Web-CTF/" style="font-size: 10px;">Web CTF</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
 		</div>
 		
 	</div>
@@ -393,7 +407,7 @@
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月09日</a>
 			<a><i class="kirafont icon-edit-fill"></i>4.3k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 19 分钟</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 20 分钟</a>
 		</div>
 		<div class="toc">
 
@@ -409,6 +423,10 @@
 </ul>
 </li>
 <li><a href="#vm2-sha-xiang-tao-yi">vm2沙箱逃逸</a></li>
+<li><a href="#ti-mu-fen-xi">题目分析</a><ul>
+<li><a href="#hfctf2020-justescape">[HFCTF2020]JustEscape</a></li>
+</ul>
+</li>
 </ul>
 <!-- tocstop -->
 
@@ -630,6 +648,9 @@
 </blockquote>
 <p>上述代码的具体运行原理我就贴个图，具体的要去看文章，因为代码结构变了在新的vm2中</p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240310101817366.png" alt="image-20240310101817366" class="lazyload"></p>
+<p>还有一篇文章分析了两个案例：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/207291">vm2沙箱逃逸分析-安全客 - 安全资讯平台 (anquanke.com)</a></p>
+<h1><span id="ti-mu-fen-xi">题目分析</span><a href="#ti-mu-fen-xi" class="header-anchor">#</a></h1><p>这里找几道题分析吧，vm2原理看得头大。</p>
+<h2><span id="hfctf2020-justescape">[HFCTF2020]JustEscape</span><a href="#hfctf2020-justescape" class="header-anchor">#</a></h2><p>这题在buu上面有</p>
 
 	</article>
 
@@ -645,11 +666,11 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			                          
+			                              
 			<!-- 先找到与当前文字相同的目录 -->
 			   
 			<!-- 在找到当前文章所在的 index -->
-			                  
+			                      
 		</nav>
 	</div>
 	

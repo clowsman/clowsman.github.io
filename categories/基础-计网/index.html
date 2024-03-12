@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> Windows 提权 -  clown</title>
+		<title> Categories：基础 计网 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -343,167 +343,45 @@
 			<div class="kira-content">
 				<div id="kira-top-header"></div>
 				<div class="kira-main-content">
-					
-<link rel="stylesheet" href="/css/kira-image.css">
-
-
-<script src="/js/kira-image.js"></script>
-
-<div class="kira-image">
-    <div class="kira-image-modal">
-        <div class="kira-image-header">
-            <div class="kira-image-counter"></div>
-            <div class="kira-image-title"></div>
-            <div class="kira-image-operation">
-                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
-                    <i class="kirafont icon-zoom-in"></i>
+					<div class="kira-posts">
+    
+        <div class="kira-post">
+            <a href="/2024/03/09/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-6/">
+                
+                <div
+                    class="kira-post-cover mdui-ripple"
+                    style="padding-bottom: '56.25%'"
+                >
+                    <img
+                        data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+                        data-sizes="auto"
+                        alt="计算机网络学习-6"
+                        class="lazyload"
+                    />
+                    <h1>计算机网络学习-6</h1>
                 </div>
-                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
-                    <i class="kirafont icon-close"></i>
-                </div>
+                
+            </a>
+
+            <div class="kira-post-meta kira-rainbow">
+                <a>
+                    <i class="kirafont icon-calendar-fill"></i>
+                    2024年03月09日
+                </a>
+                <a>
+                    <i class="kirafont icon-edit-fill"></i>
+                    6k 字
+                </a>
+                <a>
+                    <i class="kirafont icon-time-circle-fill"></i>大概
+                    24 分钟
+                </a>
             </div>
+    
+            
         </div>
-        <div class="kira-image-container">
-            <div class="kira-image-prev-button-panel">
-                <div class="kira-image-exchange-button">
-                    <i class="kirafont icon-left"></i>
-                </div>
-            </div>
-            <div class="kira-image-list">
-                <div class="kira-image-prev">
-                    <img />
-                </div>
-                <div class="kira-image-now">
-                    <img />
-                </div>
-                <div class="kira-image-next">
-                    <img />
-                </div>
-            </div>
-            <div class="kira-image-next-button-panel">
-                <div class="kira-image-exchange-button">
-                    <i class="kirafont icon-right"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="kira-post">
-	<article>
-		
-		<div
-			class="kira-post-cover"
-			style="padding-bottom: '56.25%'"
-		>
-			<img
-				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
-				data-sizes="auto"
-				alt="Windows 提权"
-				class="lazyload kira-post-cover-image disabled-kira-image"
-			/>
-			<h1>Windows 提权</h1>
-		</div>
-		
-		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2024年02月29日</a>
-			<a><i class="kirafont icon-edit-fill"></i>588 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 2 分钟</a>
-		</div>
-		<h1><span id="windows-quan-xian-hua-fen">Windows权限划分</span><a href="#windows-quan-xian-hua-fen" class="header-anchor">#</a></h1><p>在Windows中，有User、Administrator、System、TrustedInstaller这四种用户权限，其权限从左到右依次升高。</p>
-<p>权限提升分为下面两类：</p>
-<ul>
-<li>纵向提取：低权限用户获得高权限用户的权限</li>
-<li>横向提权：获得同级别角色的权限</li>
-</ul>
-<p><strong>常用提权方法</strong></p>
-<ul>
-<li>Windows系统内核溢出漏洞提权</li>
-<li>错误系统配置提权</li>
-<li>数据库提权</li>
-<li>等等~</li>
-</ul>
-<h1><span id="windows-xi-tong-nei-he-yi-chu-lou-dong-ti-quan">Windows系统内核溢出漏洞提权</span><a href="#windows-xi-tong-nei-he-yi-chu-lou-dong-ti-quan" class="header-anchor">#</a></h1><p>溢出漏洞是一种计算机程序的可更正性缺陷。溢出漏洞的全名:缓冲区溢出漏洞。因为它是在程序执行的也是攻击者时候在缓冲区执行的错误代码，所以叫缓冲区溢出漏洞。缓冲溢出是最常见的内存错误之一，入侵系统时所用到的最强大、最经典的一类漏洞利用方式。成功地利用缓冲区溢出漏洞可!修改内存中变量的值，甚至可以劫持进程，执行恶意代码，最终获得主机的控制权。利用Windows系统内核溢出漏洞提权是一种很通用的提权方法，攻击者通常可以使用该方法绕过系统中的所有安全限制。攻击者利用该漏洞的关键是目标系统有没有及时安装补丁，如果目标系统没有安装某一漏洞的补丁且存在该漏洞的话，攻击者就会向目标系统上传本地溢出程序，溢出Administrator权限。</p>
-<h2><span id="shou-dong-cha-kan-xi-tong-lou-dong">手动查看系统漏洞</span><a href="#shou-dong-cha-kan-xi-tong-lou-dong" class="header-anchor">#</a></h2><p>获得一个普通用户的shell之后，我们可以用一些命令来查看系统有哪些补丁</p>
-<ol>
-<li><p>systeminfo</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240229111338484.png" alt="image-20240229111338484" class="lazyload"></p>
-</li>
-<li><p>wmic qfe get caption,description,hotfixid,installedon</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240229111417594.png" alt="image-20240229111417594" class="lazyload"></p>
-</li>
-</ol>
-<h2><span id="ti-quan-fu-zhu-gong-ju">提权辅助工具</span><a href="#ti-quan-fu-zhu-gong-ju" class="header-anchor">#</a></h2><ol>
-<li><p><strong>使用Windows-Exploit-Suggester解析systeminfo</strong>：<a target="_blank" rel="noopener" href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester">https://github.com/AonCyberLabs/Windows-Exploit-Suggester</a></p>
-<p>该工具可以解析systeminfo出来的数据看是否存在漏洞</p>
-<p>使用步骤：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">./windows-exploit-suggester.py --update  #用来更新漏洞库<br>pip install xlrd --upgrade  #如果没有该依赖可以进行安装<br>./windows-exploit-suggester.py --database 2014-06-06-mssb.xlsx --systeminfo win7sp1-systeminfo.txt  #提供我们保存的systeminfo输出的文本文件，然后指向微软数据库<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>Windows提权漏洞合集：<a target="_blank" rel="noopener" href="https://github.com/SecWiki/windows-kernel-exploits">https://github.com/SecWiki/windows-kernel-exploits</a></p>
-</li>
-<li><p>各大平台提权工具：<a target="_blank" rel="noopener" href="https://github.com/klsfct/getshell">https://github.com/klsfct/getshell</a></p>
-</li>
-</ol>
-<h1><span id="xi-tong-quan-xian-pei-zhi-cuo-wu">系统权限配置错误</span><a href="#xi-tong-quan-xian-pei-zhi-cuo-wu" class="header-anchor">#</a></h1>
-	</article>
-
-	 
-    <div class="kira-post-copyright">
-        <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2024/02/29/Windows-%E6%8F%90%E6%9D%83/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;Windows-提权&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;02&#x2F;29&#x2F;Windows-提权&#x2F;</a><br>
-        
-            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
-        
-    </div>
-
-  
-	<div class="kira-post-nav">
-		<nav class="post-nav">
-			      
-			<!-- 先找到与当前文字相同的目录 -->
-			   
-			<!-- 在找到当前文章所在的 index -->
-			                                              
-		</nav>
-	</div>
-	
-	<div class="kira-post-meta kira-rainbow">
-		
-			<a class="kirafont icon-container-fill -link" href="/categories/%E6%8F%90%E6%9D%83/">提权</a>
-		
-		
-			<a class="kirafont icon-tag-fill -none-link" href="/tags/web/" rel="tag">web</a>
-		
-	</div>
-	
-		<script src="/js/kira-code-copy.js"></script>
-	
-	
-	<div class="kira-post-footer">
-		
-
-		
-	<div class="giscus"></div>
-  
-    <script src="https://giscus.app/client.js"
-      data-repo="ch1ny/ch1ny.github.io"
-      data-repo-id="R_kgDOHGgizw"
-      data-category="General"
-      data-category-id="DIC_kwDOHGgiz84CU88t"
-      data-mapping="pathname"
-      data-strict="0"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="top"
-      data-theme="light"
-      data-lang="en"
-      data-loading="lazy"
-      crossorigin="anonymous"
-      async  
-    ></script>
-  
-
-	</div>
-	
+        <div class="kira-hr"></div>
+    
 </div>
 
 				</div>
