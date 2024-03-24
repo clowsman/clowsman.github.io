@@ -420,8 +420,8 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月09日</a>
-			<a><i class="kirafont icon-edit-fill"></i>1.3k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 5 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.9k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 7 分钟</a>
 		</div>
 		<h1><span id="shu-ju-lian-lu-ceng-gai-shu">数据链路层概述</span><a href="#shu-ju-lian-lu-ceng-gai-shu" class="header-anchor">#</a></h1><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240319002608096.png" alt="image-20240319002608096" class="lazyload"></p>
 <h2><span id="ji-ben-gai-nian">基本概念</span><a href="#ji-ben-gai-nian" class="header-anchor">#</a></h2><p><strong>结点</strong>：主机、路由器。</p>
@@ -488,7 +488,46 @@
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240319182927374.png" alt="image-20240319182927374" class="lazyload"></p>
 <p><strong>纠错方法二</strong></p>
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240319182949728.png" alt="image-20240319182949728" class="lazyload"></p>
-<h1><span id="liu-liang-kong-zhi-yu-ke-kao-chuan-shu-ji-zhi">流量控制与可靠传输机制</span><a href="#liu-liang-kong-zhi-yu-ke-kao-chuan-shu-ji-zhi" class="header-anchor">#</a></h1>
+<h1><span id="liu-liang-kong-zhi-yu-ke-kao-chuan-shu-ji-zhi">流量控制与可靠传输机制</span><a href="#liu-liang-kong-zhi-yu-ke-kao-chuan-shu-ji-zhi" class="header-anchor">#</a></h1><p>较高的发送速度和较低的接收能力的不匹配，会造成传输出错，因此流量控制也是数据链路层的一项重要工作。</p>
+<p><strong>传输层和链路层流量控制的区别</strong></p>
+<p>数据链路层时点对点的(指两个相邻节点)，传输层是端到端的(指两个主机之间)</p>
+<p>数据链路层流量控制手段:接收方收不下就不回复确认。</p>
+<p>传输层流量控制手段:接收端给发送端一个窗口公告。</p>
+<p><strong>流量控制的方法</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320004554062.png" alt="image-20240320004554062" class="lazyload"></p>
+<p>所谓的滑动窗口就是接收方收到数据往后移动一帧，发送方收到确认就往后移动一帧；</p>
+<p>停止-等待协议也可以看做是一个窗口为1的特殊的滑动窗口协议</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320004750636.png" alt="image-20240320004750636" class="lazyload"></p>
+<p>数据链路层的滑动窗口在传输过程中都是确定的，而传输层则不一定</p>
+<p><strong>可靠传输、滑动窗口、流量控制</strong></p>
+<p>可靠传输：发送端发啥，接收端收啥</p>
+<p>流量控制：控制发送速率，使接收方有足够的缓冲空间来接收每一个帧。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320005114497.png" alt="image-20240320005114497" class="lazyload"></p>
+<h2><span id="ting-zhi-deng-dai-xie-yi">停止等待协议</span><a href="#ting-zhi-deng-dai-xie-yi" class="header-anchor">#</a></h2><p><strong>停止等待协议的目的</strong></p>
+<p>除了比特出差错，底层信道还会出现丢包问题。为了实现流量控制。</p>
+<p><strong>前提</strong></p>
+<p>“停止-等待”就是每发送完一个分组就停止发送，等待对方确认，在收到确认后再发送下一个分组。</p>
+<p><strong>应用情况分为两种</strong></p>
+<p>无差错情况&amp;有差错情况</p>
+<h3><span id="wu-chai-cuo-qing-kuang">无差错情况</span><a href="#wu-chai-cuo-qing-kuang" class="header-anchor">#</a></h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321081756032.png" alt="image-20240321081756032" class="lazyload"></p>
+<p>0号帧只是编号一样，两个帧是不一样的</p>
+<h3><span id="you-chai-cuo-qing-kuang">有差错情况</span><a href="#you-chai-cuo-qing-kuang" class="header-anchor">#</a></h3><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321082020356.png" alt="image-20240321082020356" class="lazyload"></p>
+<ol>
+<li><p>发完一个帧后，必须保留它的副本。</p>
+</li>
+<li><p>数据帧和确认帧必须编号。</p>
+</li>
+</ol>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321082242961.png" alt="image-20240321082242961" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321082347053.png" alt="image-20240321082347053" class="lazyload"></p>
+<p>此时若在收到重传确认0号帧之前收到了之前迟到的确认0号帧，在收到重传确认帧之后也会将其丢弃。</p>
+<h3><span id="xin-dao-li-yong-lu">信道利用率</span><a href="#xin-dao-li-yong-lu" class="header-anchor">#</a></h3><p><strong>定义</strong></p>
+<p>发送方在一个发送周期内，有效地发送数据所需要的时间占整个发送周期的比率。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321082926486.png" alt="image-20240321082926486" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321082757357.png" alt="image-20240321082757357" class="lazyload"></p>
+<p><strong>例题</strong></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240321083051546.png" alt="image-20240321083051546" class="lazyload"></p>
+<h2><span id="hou-tui-n-zheng-xie-yi-gbn-xie-yi">后退N帧协议(GBN协议)</span><a href="#hou-tui-n-zheng-xie-yi-gbn-xie-yi" class="header-anchor">#</a></h2>
 	</article>
 
 	 

