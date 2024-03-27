@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/css/layout.css">
 
 		
-		<title> 计算机网络学习(1) -  clown</title>
+		<title> 内网渗透体系建设-端口转发和代理 -  clown</title>
 		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
 		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
 		<!-- lazyload -->
@@ -412,113 +412,105 @@
 			<img
 				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
 				data-sizes="auto"
-				alt="计算机网络学习(1)"
+				alt="内网渗透体系建设-端口转发和代理"
 				class="lazyload kira-post-cover-image disabled-kira-image"
 			/>
-			<h1>计算机网络学习(1)</h1>
+			<h1>内网渗透体系建设-端口转发和代理</h1>
 		</div>
 		
 		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2024年03月04日</a>
-			<a><i class="kirafont icon-edit-fill"></i>1.4k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 5 分钟</a>
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月25日</a>
+			<a><i class="kirafont icon-edit-fill"></i>2k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 8 分钟</a>
 		</div>
-		<p><strong>这里根据王道考研视频来学习，啃书太折磨了()</strong></p>
-<h1><span id="xing-neng-zhi-biao">性能指标</span><a href="#xing-neng-zhi-biao" class="header-anchor">#</a></h1><h2><span id="su-lu">速率</span><a href="#su-lu" class="header-anchor">#</a></h2><p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305004320101.png" alt="image-20240305004320101" class="lazyload"></p>
-<h2><span id="dai-kuan">带宽</span><a href="#dai-kuan" class="header-anchor">#</a></h2><p>计算机网络中，带宽用来表示网络的通信线路传送数据的能力，通常是指单位时间内从网络中的某一点到另一点所能通过的“最高数据率”。单位是“比特每秒”，b&#x2F;s，kb&#x2F;s，Mb&#x2F;s，Gb&#x2F;s。网络设备所支持的最高速度。</p>
-<p>也就是理论上的最高速率。</p>
-<p>带宽增大也就是发送的速率变快了，并不影响传播的速率。</p>
-<h2><span id="tun-tu-liang">吞吐量</span><a href="#tun-tu-liang" class="header-anchor">#</a></h2><p>表示在单位时间内通过某个网络(或信道、接口)的数据量。单位b&#x2F;s，kb&#x2F;s，Mb&#x2F;s等。</p>
-<p>吞吐量受网络的带宽或网络的额定速率的限制。</p>
-<h2><span id="shi-yan">时延</span><a href="#shi-yan" class="header-anchor">#</a></h2><p>指数据(报文&#x2F;分组&#x2F;比特流)从网络(或链路)的一端传送到另一端所需的时间。也叫延迟或迟延。单位是s。</p>
-<p>时延又分为4种：</p>
+		<h1><span id="duan-kou-zhuan-fa-he-dai-li">端口转发和代理</span><a href="#duan-kou-zhuan-fa-he-dai-li" class="header-anchor">#</a></h1><p>在渗透测试中，在获取目标外网权限后，需要通过转发端口或搭建代理等方式建立内网通道。</p>
+<h2><span id="zheng-xiang-lian-jie-yu-fan-xiang-lian-jie">正向连接与反向连接</span><a href="#zheng-xiang-lian-jie-yu-fan-xiang-lian-jie" class="header-anchor">#</a></h2><p>两个基本概念：<strong>正向连接和反向连接</strong>。例如，Metasploit 大致可以分为两种Meterpreter，一种是以 windows&#x2F;meterpreter&#x2F;bind_tcp为代表的 Bind Shell,另一种是以 windows&#x2F;meterpreter&#x2F;reverse_tcp 为代表的 Reverse Shell。其中，Bind Shell用于正向连接，而ReverseShell用于反向连接。</p>
 <ul>
-<li>发送时延(传输时延)：发送时延&#x3D;数据长度&#x2F;信道带宽(发送速率)</li>
-<li>传播时延：取决于电磁波传播速度和链路长度，传播时延&#x3D;信道长度&#x2F;电磁波在信道上的传播速率</li>
-<li>排队时延：等待输出、输入链路可用(例如排队等安检)</li>
-<li>处理时延：检错找出口(例如安检时的过程要的时间)</li>
+<li><p>正向连接：正向连接就是受控端主机监听一个端口，由控制端主机主动去连接受控端主机的过程，适用于受控主机具有公网IP的情况下。例如下图中，Attacker 和 Victim 主机都具有公网 IP，Attacker 可以直接通过IP地址访问到 Victim，所以能够使用正向连接来控制 Victim。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325091556352.png" alt="image-20240325091556352" class="lazyload"></p>
+</li>
+<li><p>反向连接：反向连接是控制端主机监听一个端口，由受控端主机反向去连接控制端主机的过程适用于受控端主机没有公网 IP 的情况。如图所示，Victim 是一台位于内网并且没有公网 IP 的主机，Attacker 无法直接通过IP地址访问到 Victim。所以此时需要在Attacker 上监听一个端口，让 Victim 去反向连接 Attacker，从而实现对 Victim 的控制。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325092227731.png" alt="image-20240325092227731" class="lazyload"></p>
+</li>
 </ul>
-<h2><span id="shi-yan-dai-kuan-ji">时延带宽积</span><a href="#shi-yan-dai-kuan-ji" class="header-anchor">#</a></h2><p>时延带宽积(bit)&#x3D;传播时延(s) X 带宽(b&#x2F;s)</p>
-<p>时延带宽积又称为以比特为单位的链路长度</p>
-<p>就是链路上的容量</p>
-<h2><span id="wang-fan-shi-yan-rtt">往返时延RTT</span><a href="#wang-fan-shi-yan-rtt" class="header-anchor">#</a></h2><p>从发送方发送数据开始，到发送方收到接收方的确认(接收方收到数据后立即发送确认)，总共经历的时延。</p>
-<p>这里可以用ping来看到往返时延</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305084247521.png" alt="image-20240305084247521" class="lazyload"></p>
-<p>上面的时间就是往返时延</p>
-<p>RTT越大，在收到确认之前，可以发送的数据越多，因为收到确认前的时间越长</p>
-<p>RTT包括以下两部分：</p>
-<ul>
-<li>往返传播时延&#x3D;传播时延*2（主要就是这个）</li>
-<li>末端处理时间</li>
-</ul>
-<h2><span id="li-yong-lu">利用率</span><a href="#li-yong-lu" class="header-anchor">#</a></h2><ul>
-<li>信道利用率：信道利用率&#x3D;有数据通过时间&#x2F;(有+无)数据通过时间</li>
-<li>网络利用率：信道利用率的加权平均值</li>
-</ul>
-<p><strong>时延和利用率的关系图</strong></p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305084703782.png" alt="image-20240305084703782" class="lazyload"></p>
-<p>这就相当于高速车辆越多行驶越缓慢</p>
-<h1><span id="osi-qi-ceng-mo-xing">OSI七层模型</span><a href="#osi-qi-ceng-mo-xing" class="header-anchor">#</a></h1><p>OSI七层模型偏理论，并不在实际中运用，因为该模型十分理想，且效率低但对我们了解网络模型有帮助</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240304110839603.png" alt="image-20240304110839603" class="lazyload"></p>
-<p>下面是一个利用OSI七层模型通过中间系统进行信息传输的示例图</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240304111508504.png" alt="image-20240304111508504" class="lazyload"></p>
-<p>除了物理层，每一层都会对数据进行封装再往下一层传输，信息处理的过程示例图如下，也就是打包和拆包的过程</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240304111743194.png" alt="image-20240304111743194" class="lazyload"></p>
-<h2><span id="ying-yong-ceng">应用层</span><a href="#ying-yong-ceng" class="header-anchor">#</a></h2><p>能和用户交互产生网路流量的程序</p>
-<p>典型应用层服务：</p>
-<p>文件传输(FTP)</p>
-<p>电子邮件(SMTP)</p>
-<p>万维网(HTTP)</p>
-<p>……</p>
-<h2><span id="biao-shi-ceng">表示层</span><a href="#biao-shi-ceng" class="header-anchor">#</a></h2><p>用户处理两个通信系统中交换信息的表示方式</p>
-<p>功能一：数据格式变换</p>
-<p>功能二：数据加密解密</p>
-<p>功能三：数据压缩和恢复</p>
-<h2><span id="hui-hua-ceng">会话层</span><a href="#hui-hua-ceng" class="header-anchor">#</a></h2><p>向表示层实体&#x2F;用户进程提供建立连接并在连接上有序地传输数据。</p>
-<p>这是会话也是建立同步</p>
-<p>功能一：建立、管理、终止会话</p>
-<p>功能二：使用校验点可使会话在通信失效时从校验点&#x2F;同步点继续恢复通信，实现数据同步。适用于传输大文件</p>
-<h2><span id="chuan-shu-ceng">传输层</span><a href="#chuan-shu-ceng" class="header-anchor">#</a></h2><p>负责主机中两个进程的通信，即&#x3D;&#x3D;端到端&#x3D;&#x3D;的通信(也就是端口号那种)。传输单位是报文段或用户数据报。</p>
-<p>功能一:可靠传输、不可靠传输</p>
-<p>功能二:差错控制</p>
-<p>功能三:流量控制</p>
-<p>功能四:复用分用</p>
+<h2><span id="duan-kou-zhuan-fa">端口转发</span><a href="#duan-kou-zhuan-fa" class="header-anchor">#</a></h2><p>端口转发(Port Forwarding)是网络地址转换(NAT)的一种应用。通过端口转发，一个网络端口上收到的数据可以被转发给另一个网络端口。转发的端口可以是本机的端口，也可以是其他主机上的端口。</p>
+<p>在现实环境中，内网部署的各种防火墙和入侵检测设备会检查敏感端口上的连接情况，如果发现连接存在异样，就会立即阻断通信。通过端口转发，设置将这个被检测的敏感端口的数据转发到防火墙允许的端口上，建立起一个通信隧道，可以绕过防火墙的检 测并与指定端口进行通信。</p>
+<p>端口映射(Port Mapping)也是网络地址转换(NAT)的一种应用，用于把公网的地址翻译成私有地址。端口映射可以将外网主机收到的请求映射到内网主机上，使得没有公网IP地址的内网主机能够对外提供相应的服务。</p>
+<h2><span id="socks-dai-li">SOCKS代理</span><a href="#socks-dai-li" class="header-anchor">#</a></h2><p>SOCKS 全称为 Protocol For Sessions Traversal Across Firewall Securely，是一种代理协议，其标准端口为1080。SOCKS代理有SOCKS4和SOCKS5两个版本，SOCKS4只支持 TCP，而 SOCKS5 在SOCKS4的基础上进一步扩展，可以支持 UDP 和各种身份验证机制等协议。采用 SOCKS协议的代理服务器被称为SOCKS服务器，这是一种通用的代理服务器，在网络通信中扮演着一个请求代理人的角色。在内网渗透中，通过搭建SOCKS代理，可以与目标内网主机进行通信，避免多次使用端口转发。</p>
+<h1><span id="chang-jian-zhuan-fa-yu-dai-li-gong-ju">常见转发与代理工具</span><a href="#chang-jian-zhuan-fa-yu-dai-li-gong-ju" class="header-anchor">#</a></h1><h2><span id="lck">LCK</span><a href="#lck" class="header-anchor">#</a></h2><p>LCX是一款十分经典的内网端口转发工具，基于Socket套接字，具有端口转发和端口映射的功能。但是目前很多杀毒软件已经将LCX加入了特征库，在实际利用时需要自行做免杀处理。</p>
+<p>这里网上找到了一个免杀处理过的：<a target="_blank" rel="noopener" href="https://github.com/UndefinedIdentifier/LCX">https://github.com/UndefinedIdentifier/LCX</a></p>
+<ol>
+<li><p>目标有公网IP</p>
+<p>如图，假设win_server2012是一台具有公网IP地址的Web服务器。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325100613263.png" alt="image-20240325100613263" class="lazyload"></p>
+<p>假设此时已经获取了 WindowsServer 2012的控制权,需要登录其远程桌面查看情况,但是防火墙对 3389端口做了限制，不允许外网机器对 3389端口进行连接。那么，通过端口转发，可以将3389端口转发到其他防火墙允许的端口上，如4444端口，执行下面命令即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">lck.exe -tran 4444 127.0.0.1:3389<br></code></pre></td></tr></table></figure>
+
+<p>然后通过连接 Windows Server 2012的4444端口，即可成功访问其远程桌面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rdesktop 192.168.2.13:4444<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>端口映射</p>
+<p>测试环境如图所示。右侧的 Web 服务器(Windows Server 2012)有两个网卡分别连通外网和内网,分别为公网 IP(模拟)地址 192.168.2.13 和内网 IP 地址 10.10.10.13。内网还存在一台 MySQL 服务器。左侧的KaliLinux为测试人员的主机。</p>
+<p>假设已经获取 Windows Server 2012的控制权，经过信息收集，获得内网中 MySQL服务器的 SSH 登录凭据，接下来需要登录这台服务器。但是服务器位于内网，无法直接通过 IP 地址进行访问，所以需要通过端口映射，将 MySOL 服务器的 22 端口映射到Windows Server 2012</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325103859627.png" alt="image-20240325103859627" class="lazyload"></p>
+<p>在win_server2012执行下面命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">lcx.exe -tran 2222 10.10.10.15 22<br></code></pre></td></tr></table></figure>
+
+<p>然后连接win_server2012的2222端口，即可访问MySQL服务器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh root@192.168.2.13 -p 2222<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>目标无公网IP</p>
+<p>测试环境如图所示。右侧的 Web服务器(Windows Server 2012)没有公网 IP地址，通过 NAT 对外提供 Web 服务，左侧的 Ubuntu 20.04为测试人员的公网 VPS。</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325105824042.png" alt="image-20240325105824042" class="lazyload"></p>
+</li>
+</ol>
+<p>先在vps上执行下面命令监听本地4444端口，并将8888端口上接收到的数据转发给本机的4444端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">./lck -listen 4444 8888<br></code></pre></td></tr></table></figure>
+
+<p>然后在 Windows Seryer 2012上执行以下命令,控制 Windows Server 2012 去连接 VPS的8888端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">lcx.exe -slave 192.168.2.x8888 127.0.0.1 3389<br></code></pre></td></tr></table></figure>
+
+<p>然后连接vps的4444端口即可访问远程桌面</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">rdesktop 192.168.2.x:4444<br></code></pre></td></tr></table></figure>
+
+<h2><span id="frp">FRP</span><a href="#frp" class="header-anchor">#</a></h2><p>FRP 是一个专注于内网穿透的高性能的反向代理应用，支持TCP、UDP、HTTP、HTTPS 等协议，可以将内网服务以安全、便捷的方式，通过具有公网 IP 节点的中转暴露到公网。在进行内网渗透中，FRP 是一款常用的隧道工具除此之外，FRP支持搭建SOCKS5代理应用。项目地址：<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp">https://github.com/fatedier/frp</a></p>
 <blockquote>
-<p>复用:多个应用层进程可同时使用下面传输层的服务。</p>
-<p>分用:传输层把收到的信息分别交付给上面应用层中相应的进程，</p>
+<p> 最新的frp似乎不再采用frpc.ini和frps.ini配置文件了，而是.toml后缀的文件。</p>
+<p>具体使用去看官方的说明。我这里还是用回旧的方便学习</p>
 </blockquote>
-<h2><span id="wang-luo-ceng">网络层</span><a href="#wang-luo-ceng" class="header-anchor">#</a></h2><p>主要任务是把分组从源端传到目的端，为分组交换网上的不同主机提供通信服务，网络层传输单位是数据报。</p>
-<p>功能一:路由选择(最佳路径)</p>
-<p>功能二:流量控制</p>
-<p>功能三:差错控制</p>
-<p>功能四:拥塞控制</p>
+<p><strong>现在利用FRP搭建一个SOCKS5代理</strong></p>
+<p>书中的测试环境如下：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325164452772.png" alt="image-20240325164452772" class="lazyload"></p>
+<p>左边两台是攻击者的主机，我只能复现他的一级代理了，没那么多的服务器。</p>
+<p>假设已经获取 Windows Server 2012的控制权，经过信息收集，获取了 FTP 服务器的SSH 登录凭据，需要继续渗透并登录FTP服务器的SSH。在Windows Server 2012 上使用 FRP 搭建 SOCKS5 代理服务，通过 SOCKS5 代理连接到 FTP 服务器。</p>
+<ol>
+<li><p>使用vps作为FRP的服务端，执行下面命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">./frps -c ./frps.ini<br></code></pre></td></tr></table></figure>
+
+<p>配置文件如下：</p>
+</li>
+<li><p>然后使用一台内网的机器作为客户端，我这里直接用本机了，然后把ftp起在wsl里面，图个方便</p>
+<p>然后执行下面命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">.\frpc.exe -c .\frpc.ini<br></code></pre></td></tr></table></figure>
+
+<p>配置文件如下：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240325175909091.png" alt="image-20240325175909091" class="lazyload"></p>
 <blockquote>
-<p>若所有结点都来不及接受分组，而要丢弃大量分组的话，网络就处于拥塞状态。因此要采取一定措施，缓解这种拥塞，也就是拥塞控制。</p>
+<p>server_addr指向FRP服务端绑定的IP地址</p>
+<p>server_port指向FRP服务端绑定的端口</p>
+<p>remote_port为代理所使用的端口，会被转发到服务端</p>
+<p>plugin为代理的类型</p>
 </blockquote>
-<p>该层主要协议：</p>
-<p>IP、IPX、ICMP、IGMP、ARP、RARP、OSPF</p>
-<h2><span id="shu-ju-lian-lu-ceng">数据链路层</span><a href="#shu-ju-lian-lu-ceng" class="header-anchor">#</a></h2><p>主要任务是把网络层传下来的数据报组装成帧，数据链路层&#x2F;链路层的传输单位是帧。</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305002727144.png" alt="image-20240305002727144" class="lazyload"></p>
-<h2><span id="wu-li-ceng">物理层</span><a href="#wu-li-ceng" class="header-anchor">#</a></h2><p>主要任务是在物理媒体上实现比特流的透明传输，物理层传输单位是比特，</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305002907189.png" alt="image-20240305002907189" class="lazyload"></p>
-<h1><span id="tcp-x2f-ip-can-kao-mo-xing">TCP&#x2F;IP参考模型</span><a href="#tcp-x2f-ip-can-kao-mo-xing" class="header-anchor">#</a></h1><p>下面是一个TCP&#x2F;IP模型和起协议栈的对应图：<br><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003141069.png" alt="image-20240305003141069" class="lazyload"></p>
-<p><strong>TCP&#x2F;IP和OSI的不同之处：</strong></p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003538566.png" alt="image-20240305003538566" class="lazyload"></p>
-<blockquote>
-<p>面向连接：分为三个阶段，第一阶段建立连接，第二阶段进行数据传输，第三阶段释放连接</p>
-<p>无连接：直接进行数据传输</p>
-</blockquote>
-<h1><span id="5-ceng-can-kao-mo-xing">5层参考模型</span><a href="#5-ceng-can-kao-mo-xing" class="header-anchor">#</a></h1><p>综合了OSI和TCP&#x2F;IP的优点</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003806547.png" alt="image-20240305003806547" class="lazyload"></p>
-<p>5层模型的封装和解封装过程如下：</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240305003949042.png" alt="image-20240305003949042" class="lazyload"></p>
+</li>
+</ol>
+<p>此时便成功在 Windows Server 2012与 VPS 之间搭建了一个 SOCKS5 代理服务。然后，借助第三方工具，可以让计算机的其他应用使用这个 SOCKS5 代理,如ProxyChains、Proxifier 等。这里以 ProxyChains 为例进行演示(ProxyChains 是一款可以在 Linux 下实现全局代理的软件，可以使任何应用程序通过代理上网，允许TCP和 DNS 流量通过代理隧道，支持HTTP、SOCKS4、SOCK5类型代理)。</p>
 
 	</article>
 
 	 
     <div class="kira-post-copyright">
         <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-1/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;04&#x2F;计算机网络学习-1&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;04&#x2F;计算机网络学习-1&#x2F;</a><br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;25&#x2F;内网渗透体系建设-端口转发和代理&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;25&#x2F;内网渗透体系建设-端口转发和代理&#x2F;</a><br>
         
             <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
         
@@ -527,26 +519,32 @@
   
 	<div class="kira-post-nav">
 		<nav class="post-nav">
-			                                          
+			                                      
 			<!-- 先找到与当前文字相同的目录 -->
-			   
+			         
 			<!-- 在找到当前文章所在的 index -->
+			        
+			<!-- 上一篇文章 -->
+			<div class="old">
+				<span>上一章</span>
+				<a href="/2024/03/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/"> 内网渗透体系建设-信息搜集</a>
+			</div>
 			       
 			<!-- 下一篇文章 -->
 			<div class="new">
 				<span>下一章</span>
-				<a href="/2024/03/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0-2/"> 计算机网络学习-2</a>
+				<a href="/2024/03/26/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/"> 内网渗透体系建设-权限提升</a>
 			</div>
-			                                
+			                      
 		</nav>
 	</div>
 	
 	<div class="kira-post-meta kira-rainbow">
 		
-			<a class="kirafont icon-container-fill -link" href="/categories/%E5%9F%BA%E7%A1%80/">基础</a>
+			<a class="kirafont icon-container-fill -link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
 		
 		
-			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E8%AE%A1%E7%BD%91/" rel="tag">计网</a>
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" rel="tag">内网渗透</a>
 		
 	</div>
 	

