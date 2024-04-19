@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>w1r3s.v1.0.1靶场学习 | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="靶场介绍这是一个vulnhub里的一个初级的渗透靶场，主要是为了熟悉一下各个信息搜集工具的使用，以及跟着红队笔记的视频来学习一下渗透思路打一下基础。 这里的环境就一台靶机，直接打开vmx即可进行测试。 信息搜集主机存活探测渗透第一步需要做的就是信息搜集，我们先要确定主机的存活，确认我们要攻击的主机。 这里用几种方式来进行探测主机存活 namp namp -sn 192.168.20.0&#x2F;24 #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="w1r3s.v1.0.1靶场学习">
+<meta property="og:url" content="https://clowsman.github.io/2024/04/19/w1r3s-v1-0-1%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="靶场介绍这是一个vulnhub里的一个初级的渗透靶场，主要是为了熟悉一下各个信息搜集工具的使用，以及跟着红队笔记的视频来学习一下渗透思路打一下基础。 这里的环境就一台靶机，直接打开vmx即可进行测试。 信息搜集主机存活探测渗透第一步需要做的就是信息搜集，我们先要确定主机的存活，确认我们要攻击的主机。 这里用几种方式来进行探测主机存活 namp namp -sn 192.168.20.0&#x2F;24 #">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329154900.jpg">
+<meta property="article:published_time" content="2024-04-19T02:47:20.000Z">
+<meta property="article:modified_time" content="2024-04-19T17:20:51.055Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="渗透靶场学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329154900.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"><link rel="canonical" href="https://clowsman.github.io/2024/04/19/w1r3s-v1-0-1%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'w1r3s.v1.0.1靶场学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-04-20 01:20:51'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154900.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">w1r3s.v1.0.1靶场学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-19T02:47:20.000Z" title="发表于 2024-04-19 10:47:20">2024-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-04-19T17:20:51.055Z" title="更新于 2024-04-20 01:20:51">2024-04-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="w1r3s.v1.0.1靶场学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="靶场介绍"><a href="#靶场介绍" class="headerlink" title="靶场介绍"></a>靶场介绍</h1><p>这是一个vulnhub里的一个初级的渗透靶场，主要是为了熟悉一下各个信息搜集工具的使用，以及跟着红队笔记的视频来学习一下渗透思路打一下基础。</p>
+<p>这里的环境就一台靶机，直接打开vmx即可进行测试。</p>
+<h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><h2 id="主机存活探测"><a href="#主机存活探测" class="headerlink" title="主机存活探测"></a>主机存活探测</h2><p>渗透第一步需要做的就是信息搜集，我们先要确定主机的存活，确认我们要攻击的主机。</p>
+<p>这里用几种方式来进行探测主机存活</p>
+<p><strong>namp</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">namp -sn 192.168.20.0/24 # -sn 采用四种不同类型的数据包探测目标主机是否在线，只进行主机探测不进行端口扫描<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419192322268.png" alt="image-20240419192322268"></p>
+<p><strong>arp-scan</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">arp-scan -l<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419192521545.png" alt="image-20240419192521545"></p>
+<p>经过上面两种探测之后可以知道我们的目标靶机就是192.168.20.129，接下来就是对端口进行扫描搜集一下有哪些服务</p>
+<h2 id="端口扫描探测"><a href="#端口扫描探测" class="headerlink" title="端口扫描探测"></a>端口扫描探测</h2><figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">nmap -sT 192.168.20.129 # -sT 使用TCP进行端口扫描<br><span class="hljs-meta prompt_">#</span><span class="language-bash">还可以用这个命令扫描制定其他要求</span><br>nmap -sT --min-rate 10000 -p- 192.168.20.129 -oA nmap/ports# --min-rate，设置最低发包速率，这里为每秒一万次；-p- 是扫描1-65535端口的简化写法；-oA 将结果的所有格式都导出来，如果端口多的话可以方便我们查看保存下来<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419192855002.png" alt="image-20240419192855002"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419222045487.png" alt="image-20240419222045487"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419222030200.png" alt="image-20240419222030200"></p>
+<p>发现这里开启了ftp、ssh、http、mysql服务</p>
+<p>红队笔记这里还有一个很好的习惯，就是把端口提取出来，如果端口太多的话这样就会会很方便，现在我们从文件中将这四个端口提取出来，然后我们将其赋值给一个变量就可以直接用就会方便很多</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">grep open ports.nmap <br>grep open ports.nmap| awk -F &#x27;/&#x27; &#x27;&#123;print $1&#125;&#x27; #就是以斜杠为分隔符，然后打印第一个字段<br>grep open ports.nmap| awk -F &#x27;/&#x27; &#x27;&#123;print $1&#125;&#x27; | paste -sd &#x27;,&#x27; #将字符合并到一行并以逗号为分隔符<br><span class="hljs-meta prompt_"># </span><span class="language-bash">这里 awk 默认会将每一行作为一个记录来处理</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419223441495.png" alt="image-20240419223441495"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419223456921.png" alt="image-20240419223456921"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419223537108.png" alt="image-20240419223537108"></p>
+<p>这样就可以赋值给一个变量，然后-p参数就能直接探测该变量中的端口了</p>
+<p>接下来确认端口之后就对这些端口的具体服务信息进行扫描</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">ports=$(grep open ports.nmap| awk -F &#x27;/&#x27; &#x27;&#123;print $1&#125;&#x27; | paste -sd &#x27;,&#x27;)<br>nmap -sT -sV -sC -O -p $ports -oA nmap/details<br><span class="hljs-meta prompt_"># </span><span class="language-bash">-sV 探测服务版本；-sC 使用默认脚本扫描 -O 探测操作系统版本</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419224852873.png" alt="image-20240419224852873"></p>
+<p>这样我们就搜集到了相关的信息就可以开始选择性开始对具体端口进行渗透</p>
+<p>还可以使用fscan直接一条命令扫出来</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">./fscan_amd64 -h 192.168.20.129<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419225047643.png" alt="image-20240419225047643"></p>
+<h1 id="开始渗透"><a href="#开始渗透" class="headerlink" title="开始渗透"></a>开始渗透</h1><h2 id="ftp服务"><a href="#ftp服务" class="headerlink" title="ftp服务"></a>ftp服务</h2><p>从上面可以看是一个ftp匿名服务器，我们就可以直接登陆看看有什么东西</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">ftp 192.168.20.129 #匿名ftp用户名都是anonymous<br></code></pre></td></tr></table></figure>
+
+<p>这里列一下ftp常用命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">查看指定后缀文件<br>dir .jpg<br><br>删除单个文件<br>delete 文件名<br><br>删除多个文件<br># 格式：mdelete remote-files [ ...]<br>mdelete 文件名<br><br>重命名文件<br># 格式：rename filename newfilename<br>rename test atest<br><br>上传文件<br># 格式：put local-file [remote-file]<br>put /home/a.txt /mydata/b.txt<br><br>下载单个文件<br># 格式：get [remote-file] [local-file]<br>get /mydata/a.txt /apps/b.txt<br><br>下载多个文件<br># 格式：mget filename [filename ....]<br>mget *.*<br><br>输入?可以查看所有指令<br></code></pre></td></tr></table></figure>
+
+<p>登陆之后看看都有什么</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419225708258.png" alt="image-20240419225708258"></p>
+<p>我们可以输入binary切换成二进制传输模式，防止有些可执行文件损坏</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419230254565.png" alt="image-20240419230254565"></p>
+<p>然后我们进去这些目录把文件都下载下来，我们可以使用<strong>prompt</strong>命令关掉交互模式，这样下载文件就不需要我们确认更加方便</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419230904141.png" alt="image-20240419230904141"></p>
+<p>然后去查看一下文件内容看有没有什么提示</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419231041052.png" alt="image-20240419231041052"></p>
+<p>给了一串md5和base64的字符串，去解码看一下有什么用</p>
+<p>md5解密出来为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">This is not a password<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419231247620.png" alt="image-20240419231247620"></p>
+<p>base64解密出来</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419231341272.png" alt="image-20240419231341272"></p>
+<p>然后就是一些员工名单：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">Naomi.W - Manager<br>Hector.A - IT Dept<br>Joseph.G - Web Design<br>Albert.O - Web Design<br>Gina.L - Inventory<br>Rico.D - Human Resources<br></code></pre></td></tr></table></figure>
+
+<p>然后就是下面的翻转文字，这里截图旋转一下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419231602348.png" alt="image-20240419231602348"></p>
+<p>似乎就是提示从这里入手不太行</p>
+<p>然后还发现了一个有意思的，这些文字logo网上可以找到ascii转logo的网站，这里是一个网站：<a target="_blank" rel="noopener" href="https://patorjk.com/software/taag/#p=testall&f=Isometric2&t=helloworld%0A">https://patorjk.com/software/taag/#p=testall&amp;f=Isometric2&amp;t=helloworld%0A</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419231939106.png" alt="image-20240419231939106"></p>
+<h2 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h2><p>这里不太行就开始看一些他的http页面吧</p>
+<p>进去之后是一个apache的页面</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419232336159.png" alt="image-20240419232336159"></p>
+<p>找不到什么能用的东西就直接开始端口扫描</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">dirsearch -u &quot;http://192.168.20.129/&quot;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419232812060.png" alt="image-20240419232812060"></p>
+<p>这里还学到一个新的目录扫描工具gobuster，他的扫描命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">gobuster dir -u &quot;http://192.168.20.129/&quot; --wordlist=/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt<br><span class="hljs-meta prompt_"># </span><span class="language-bash">其他的字典可以去该目录下查看</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>gobuster的三种模式</p>
+<p>dir：传统的目录爆破模式；<br>dns：DNS子域名爆破模式；<br>vhost：虚拟主机爆破模式；</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419233246596.png" alt="image-20240419233246596"></p>
+<p>现在去相关端口看看有什么东西</p>
+<p>前面两个都访问不了，最后一个有东西，似乎是一个cms的安装界面</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">http://192.168.20.129/administrator/installation/<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419233413396.png" alt="image-20240419233413396"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419233448024.png" alt="image-20240419233448024"></p>
+<p>这里吓得我不敢继续了，要是覆盖了这咋整正常人谁把这玩意放上来啊（</p>
+<p>然后随便填了东西试了一下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419233619820.png" alt="image-20240419233619820"></p>
+<p>root用户是无法创建的</p>
+<p>emmm然后有点无从入手了，因为也不知道是什么cms，这是我把鼠标移到问号上在底下突然有了提示，是Cuppa CMS</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419234002096.png" alt="image-20240419234002096"></p>
+<p>这样就好办了，可以去搜一下这个CMS有没有漏洞，难绷搜了一下都是直接指向这个靶场的wp。。</p>
+<p>那这里就学习红队笔记里的搜索方法，用到了<strong>searchsploit</strong>工具</p>
+<blockquote>
+<p><code>searchsploit</code>是一个用于<code>Exploit-DB</code>的命令行搜索工具，可以帮助我们查找渗透模块。</p>
+<p>Exploit-DB是一个漏洞库，Kali Linux中保存了一个该漏洞库的拷贝，利用上面提到的命令就可以查找需要的渗透模块，它将搜索所有的漏洞和shellcode而且该漏洞库是保存在本地的，在没有网络的情况下也可以使用。</p>
+</blockquote>
+<p>这里copy一下别人翻译的选项，参考文章：<a target="_blank" rel="noopener" href="https://juejin.cn/post/7026899204446355486">https://juejin.cn/post/7026899204446355486</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">Usage: searchsploit [options] term1 [term2] ... [termN]<br>​<br>==========<br> Examples<br>==========<br>  searchsploit afd windows local<br>  searchsploit -t oracle windows<br>  searchsploit -p 39446<br>  searchsploit linux kernel 3.2 --exclude=&quot;(PoC)|/dos/&quot;<br>​<br>  For more examples, see the manual: https://www.exploit-db.com/searchsploit/<br>​<br>=========<br> Options<br>=========<br>   -c, --case     [Term]      区分大小写(默认不区分大小写)<br>   -e, --exact    [Term]      对exploit标题进行EXACT匹配 (默认为 AND) [Implies &quot;-t&quot;].<br>   -h, --help                 显示帮助<br>   -j, --json     [Term]      以JSON格式显示结果<br>   -m, --mirror   [EDB-ID]    把一个exp拷贝到当前工作目录,参数后加目标id<br>   -o, --overflow [Term]      Exploit标题被允许溢出其列<br>   -p, --path     [EDB-ID]    显示漏洞利用的完整路径（如果可能，还将路径复制到剪贴板），后面跟漏洞ID号<br>   -t, --title    [Term]      仅仅搜索漏洞标题（默认是标题和文件的路径）<br>   -u, --update               检查并安装任何exploitdb软件包更新（deb或git）<br>   -w, --www      [Term]      显示Exploit-DB.com的URL而不是本地路径（在线搜索）<br>   -x, --examine  [EDB-ID]    使用$ PAGER检查（副本）Exp<br>       --colour               搜索结果不高亮显示关键词<br>       --id                   显示EDB-ID<br>       --nmap     [file.xml]  使用服务版本检查Nmap XML输出中的所有结果（例如：nmap -sV -oX file.xml）<br>                                使用“-v”（详细）来尝试更多的组合<br>       --exclude=&quot;term&quot;       从结果中删除值。通过使用“|”分隔多个值<br>                              例如--exclude=“term1 | term2 | term3”。<br>​<br>=======<br> Notes<br>=======<br> * 你可以使用任意数量的搜索词。<br> * Search terms are not case-sensitive (by default), and ordering is irrelevant.<br>   * 搜索术语不区分大小写(默认情况下)，而排序则无关紧要。<br>   * 如果你想用精确的匹配来过滤结果，请使用用 -e 参数<br> * 使用&#x27; - t &#x27;将文件的路径排除，以过滤搜索结果<br>   * 删除误报(特别是在搜索使用数字时 - i.e. 版本).<br> * 当更新或显示帮助时，搜索项将被忽略。<br></code></pre></td></tr></table></figure>
+
+<p>那我们就直接搜索cuppa cms相关的漏洞</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">searchsploit cuppa cms<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419235101032.png" alt="image-20240419235101032"></p>
+<p>发现有一条exp我们可以把他下载下来看一下利用方式</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">searchsploit cuppa cms -m 25971<br>cat 25971.txt<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419235525664.png" alt="image-20240419235525664"></p>
+<p>我们看到了关键的利用路径和方式，是一个本地&#x2F;远程文件包含漏洞，外加一个目录穿越，那现在我们就去测试一下</p>
+<p>但是直接使用cuppa的路径是无效的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240419235900623.png" alt="image-20240419235900623"></p>
+<p>联想到我们刚刚的安装页面是administrator&#x2F;installation，猜测cuppa被替换成administrator</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420000029674.png" alt="image-20240420000029674"></p>
+<p>发现能够访问，但是没有东西读回来，我们burp抓包看一下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420000345099.png" alt="image-20240420000345099"></p>
+<p>发现还是没什么东西，换个请求方式看看</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420000423856.png" alt="image-20240420000423856"></p>
+<p>发现能读了，我们去读一下&#x2F;etc&#x2F;shadow</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420000532005.png" alt="image-20240420000532005"></p>
+<p>发现密码都出来了，我们可以用john去爆破一下，把shadow的内容都copy下来保存成文件</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420000813947.png" alt="image-20240420000813947"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">john pass.txt<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420000853870.png" alt="image-20240420000853870"></p>
+<p>看到两个用户的密码被爆出来了，www-data一般是低权限的用户，我们就去试一下w1r3s这个用户，前面扫出来22的ssh服务，那我们就可以用ssh去连接看看</p>
+<h2 id="ssh连接"><a href="#ssh连接" class="headerlink" title="ssh连接"></a>ssh连接</h2><p>拿到账户密码之后去ssh连接</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">ssh w1r3s@192.168.20.129<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420001327741.png" alt="image-20240420001327741"></p>
+<p>成功登陆！</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">id #打印真实以及有效的用户和所在组的信息<br>sudo -l #查看有哪些系统权限，列出目前用户可执行与无法执行的指令<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420001652163.png" alt="image-20240420001652163"></p>
+<p>发现拥有所有sudo权限，那我们就可以直接切换root用户了！</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420001824485.png" alt="image-20240420001824485"></p>
+<p>最后查看root目录下的flag.txt</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420001906178.png" alt="image-20240420001906178"></p>
+<p>成功拿下这台主机！</p>
+<p><strong>hydra</strong></p>
+<p>这里还可以用hydra来爆破ssh，来学习一下</p>
+<blockquote>
+<p>Hydra是一款非常强大的暴力破解工具，它是由著名的黑客组织THC开发的一款开源暴力破解工具。</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397779150">https://zhuanlan.zhihu.com/p/397779150</a></p>
+</blockquote>
+<p>这里贴一下基本使用语法和参数</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">语法：Hydra 参数 IP 服务<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">参数：<br>-l login 小写，指定用户名进行破解<br>-L file 大写，指定用户的用户名字典<br>-p pass 小写，用于指定密码破解，很少使用，一般采用密码字典。<br>-P file 大写，用于指定密码字典。<br>-e ns 额外的选项，n：空密码试探，s：使用指定账户和密码试探<br>-M file 指定目标ip列表文件，批量破解。<br>-o file 指定结果输出文件<br>-f 找到第一对登录名或者密码的时候中止破解。<br>-t tasks 同时运行的线程数，默认是16<br>-w time 设置最大超时时间，单位<br>-v / -V 显示详细过程<br>-R 恢复爆破（如果破解中断了，下次执行 hydra -R /path/to/hydra.restore 就可以继续任务。）<br>-x 自定义密码。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">service：指定服务名，支持的服务跟协议有：telnet，ftp，pop3等等。<br>注意：<br>1.自己创建字典,然后放在当前的目录下或者指定目录。<br>2.参数可以统一放在最后，格式比如hydra ip 服务 参数。<br>3.如果能确定用户名一项时候，比如web登录破解，直接用 -l就可以，然后剩余时间破解密码。<br>4.缺点，如果目标网站登录时候需要验证码就无法破解。<br>5.man hydra最万能。<br>6.或者hydra -U http-form等查看具体帮助。<br></code></pre></td></tr></table></figure>
+
+<p>可以先构造一个用户字典用于爆破：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">vim user.list<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420002455502.png" alt="image-20240420002455502"></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">hydra -L user.list -P /usr/share/wordlists/rockyou.txt -t 4 ssh://192.168.20.129<br></code></pre></td></tr></table></figure>
+
+<p>难绷没跑出来，这我也不知道为什么了，这字典明明很大</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420010700256.png" alt="image-20240420010700256"></p>
+<p>搜了一下发现也是有computer密码的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420010802330.png" alt="image-20240420010802330"></p>
+<p>然后我把w1r3s放到第一个，跑了好一会终于有了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420012002198.png" alt="image-20240420012002198"></p>
+<h2 id="mysql服务"><a href="#mysql服务" class="headerlink" title="mysql服务"></a>mysql服务</h2><p>这里可能会存在没有设置密码直接登陆的情况，可以试一下，不过基本都是不可能的，所以一开始就没想着先试它</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">mysql 192.168.20.129 -u root -p <br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240420002113439.png" alt="image-20240420002113439"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/04/19/w1r3s-v1-0-1%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/">https://clowsman.github.io/2024/04/19/w1r3s-v1-0-1靶场学习/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/">渗透靶场学习</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154900.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/04/16/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/" title="内网权限持久化"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015041.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">内网权限持久化</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">16</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%B6%E5%9C%BA%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">靶场介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">2.</span> <span class="toc-text">信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E6%9C%BA%E5%AD%98%E6%B4%BB%E6%8E%A2%E6%B5%8B"><span class="toc-number">2.1.</span> <span class="toc-text">主机存活探测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E6%89%AB%E6%8F%8F%E6%8E%A2%E6%B5%8B"><span class="toc-number">2.2.</span> <span class="toc-text">端口扫描探测</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E6%B8%97%E9%80%8F"><span class="toc-number">3.</span> <span class="toc-text">开始渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ftp%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.1.</span> <span class="toc-text">ftp服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#80%E7%AB%AF%E5%8F%A3"><span class="toc-number">3.2.</span> <span class="toc-text">80端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ssh%E8%BF%9E%E6%8E%A5"><span class="toc-number">3.3.</span> <span class="toc-text">ssh连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.4.</span> <span class="toc-text">mysql服务</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/04/19/w1r3s-v1-0-1%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/" title="w1r3s.v1.0.1靶场学习"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154900.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="w1r3s.v1.0.1靶场学习"/></a><div class="content"><a class="title" href="/2024/04/19/w1r3s-v1-0-1%E9%9D%B6%E5%9C%BA%E5%AD%A6%E4%B9%A0/" title="w1r3s.v1.0.1靶场学习">w1r3s.v1.0.1靶场学习</a><time datetime="2024-04-19T02:47:20.000Z" title="发表于 2024-04-19 10:47:20">2024-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/16/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/" title="内网权限持久化"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015041.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网权限持久化"/></a><div class="content"><a class="title" href="/2024/04/16/%E5%86%85%E7%BD%91%E6%9D%83%E9%99%90%E6%8C%81%E4%B9%85%E5%8C%96/" title="内网权限持久化">内网权限持久化</a><time datetime="2024-04-16T13:13:57.000Z" title="发表于 2024-04-16 21:13:57">2024-04-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/12/pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="pickle反序列化"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015019.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="pickle反序列化"/></a><div class="content"><a class="title" href="/2024/04/12/pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="pickle反序列化">pickle反序列化</a><time datetime="2024-04-12T10:16:06.000Z" title="发表于 2024-04-12 18:16:06">2024-04-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/11/%E5%86%85%E7%BD%91%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" title="内网信息搜集常用工具"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015019.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网信息搜集常用工具"/></a><div class="content"><a class="title" href="/2024/04/11/%E5%86%85%E7%BD%91%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" title="内网信息搜集常用工具">内网信息搜集常用工具</a><time datetime="2024-04-10T16:35:44.000Z" title="发表于 2024-04-11 00:35:44">2024-04-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/11/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" title="内网渗透体系建设-内网横向移动"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="内网渗透体系建设-内网横向移动"/></a><div class="content"><a class="title" href="/2024/04/11/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F%E4%BD%93%E7%B3%BB%E5%BB%BA%E8%AE%BE-%E5%86%85%E7%BD%91%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8/" title="内网渗透体系建设-内网横向移动">内网渗透体系建设-内网横向移动</a><time datetime="2024-04-10T16:35:19.000Z" title="发表于 2024-04-11 00:35:19">2024-04-11</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
