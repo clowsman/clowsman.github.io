@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>安卓渗透基础(root篇) | clown</title><meta name="author" content="clown"><meta name="copyright" content="clown"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="这里主要是以真机为测试环境，不使用模拟器，我这里用的是小米6，安卓版本为9 主要是学习一下和root相关的知识(顺便再水一篇博客) 前置知识一些相关的术语和root知识，可以看一下极客湾的ROOT指南：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1BY4y1H7Mc&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;35d5dfeb47a963c5db">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安卓渗透基础(root篇)">
+<meta property="og:url" content="https://clowsman.github.io/2025/04/19/%E5%AE%89%E5%8D%93%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80-root%E7%AF%87/index.html">
+<meta property="og:site_name" content="clown">
+<meta property="og:description" content="这里主要是以真机为测试环境，不使用模拟器，我这里用的是小米6，安卓版本为9 主要是学习一下和root相关的知识(顺便再水一篇博客) 前置知识一些相关的术语和root知识，可以看一下极客湾的ROOT指南：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1BY4y1H7Mc&#x2F;?share_source&#x3D;copy_web&amp;vd_source&#x3D;35d5dfeb47a963c5db">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.clown2024.cn/202407151814125.jpg">
+<meta property="article:published_time" content="2025-04-19T13:18:28.000Z">
+<meta property="article:modified_time" content="2025-04-19T13:39:52.597Z">
+<meta property="article:author" content="clown">
+<meta property="article:tag" content="渗透">
+<meta property="article:tag" content="安卓">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.clown2024.cn/202407151814125.jpg"><link rel="shortcut icon" href="http://cdn.clown2024.cn/202407151818951.jpeg"><link rel="canonical" href="https://clowsman.github.io/2025/04/19/%E5%AE%89%E5%8D%93%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80-root%E7%AF%87/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '安卓渗透基础(root篇)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-04-19 21:39:52'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"><link rel="alternate" href="/atom.xml" title="clown" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">32</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://cdn.clown2024.cn/202407151814125.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="clown"><img class="site-icon" src="https://cdn.clown2024.cn/illust_37614504_20210816_090201.jpg"/><span class="site-name">clown</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group hide" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 清单</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></li><li><a class="site-page child" href="/Gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">安卓渗透基础(root篇)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-04-19T13:18:28.000Z" title="发表于 2025-04-19 21:18:28">2025-04-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-19T13:39:52.597Z" title="更新于 2025-04-19 21:39:52">2025-04-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/web/">web</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="安卓渗透基础(root篇)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2025/04/19/%E5%AE%89%E5%8D%93%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80-root%E7%AF%87/#post-comment"><span id="twikoo-count"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>这里主要是以真机为测试环境，不使用模拟器，我这里用的是小米6，安卓版本为9</p>
+<p>主要是学习一下和root相关的知识(<del>顺便再水一篇博客</del>)</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><p>一些相关的术语和root知识，可以看一下极客湾的ROOT指南：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1BY4y1H7Mc/?share_source=copy_web&vd_source=35d5dfeb47a963c5dbc7d7d4f9c17ca5%EF%BC%8C%E5%AF%B9%E6%88%91%E8%BF%99%E4%B8%AA%E7%8E%A9%E6%9C%BA%E5%B0%8F%E7%99%BD%E8%82%A5%E8%82%A0%E5%8F%8B%E5%A5%BD">https://www.bilibili.com/video/BV1BY4y1H7Mc/?share_source=copy_web&amp;vd_source=35d5dfeb47a963c5dbc7d7d4f9c17ca5，对我这个玩机小白肥肠友好</a></p>
+<h2 id="安卓分区"><a href="#安卓分区" class="headerlink" title="安卓分区"></a>安卓分区</h2><p>大致分为五个分区：Boot、System、Data、Recovery、Cache</p>
+<p><strong>首先是Boot分区</strong><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417135044.png" alt="Pasted image 20250417135044"><br>root的操作主要也是在修改Boot分区，还有一些比较底层的操作，比如改CPU调度、给GPU超频等也在这个分区</p>
+<p>如果该分区损坏的话，就会导致启动卡在第一屏，也就是logo界面</p>
+<p><strong>System分区</strong><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417135314.png" alt="Pasted image 20250417135314"><br>这里图很形象也不多说了，System分区要是损坏就会卡在开机第二屏也就是进不去操作系统了，卡在动画界面</p>
+<blockquote>
+<p>Vendor分区现在会归并到System分区了，以前说是会独立出来</p>
+</blockquote>
+<p><strong>Data分区</strong><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417135840.png" alt="Pasted image 20250417135840"><br>这个理解也很简单，就是平时各种的使用数据之类的</p>
+<p><strong>Cache分区</strong><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417135931.png" alt="Pasted image 20250417135931"><br>就是缓存一些常打开的应用程序的数据，方便快速启动之类的</p>
+<p><strong>Recovery分区</strong><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417140016.png" alt="Pasted image 20250417140016"><br>恢复分区类似于PE的存在，可以用来恢复和更新其他分区的内容，刷机刷系统一般就在这个分区进行</p>
+<p>但是现在很多手机不存在Recovery分区了，因为安卓7.0之后引入新的OTA升级方式：<code>A/B System Updates</code><br>它是把System和Boot分成了两套<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417140307.png" alt="Pasted image 20250417140307"><br>平时在用的就是A分区，没在用的就是B分区<br>这种分区的好处就是可以做到系统无缝升级，而且可以做到防止升级系统异常导致无法开机等情况，原理就是系统升级首先是在备份分区升级，然后手机重启就会将A、B分区切换，此时升级好的备用分区就是我们的主分区，当然升级异常处理也是同理，只要我们将分区回滚回未升级的就能解决了。</p>
+<blockquote>
+<p>但是这种方式的缺点就是会占用双倍System空间，因为总有一个需要用来备份</p>
+</blockquote>
+<p>于是又多了一个<code>VAB(Virtual A/B System Updates)</code>虚拟AB分区用来解决这种情况，安卓11后的机型普遍采用这种方式来解决空间占用问题<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417163518.png" alt="Pasted image 20250417163518"></p>
+<p>这种AB分区刷机会比较麻烦，因为Recovery并到了Boot分区里了<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417163630.png" alt="Pasted image 20250417163630"><br>所以更推荐用更底层的fastboot来操作</p>
+<h2 id="bootloader引导加载器和fastboot"><a href="#Bootloader-引导加载器-和Fastboot" class="headerlink" title="Bootloader(引导加载器)和Fastboot"></a>Bootloader(引导加载器)和Fastboot</h2><p>这里需要先知道Bootloader，下面是极客湾的一张图</p>
+<p><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417172743.png" alt="Pasted image 20250417172743"><br>Recovery比作PE，fastboot的这个阶段就是BIOS或者UEFI了<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417203120.png" alt="Pasted image 20250417203120"><br>引导操作系统内核之后就会进入fastboot阶段，也就是刷机阶段了，fastboot模式下连接电脑可以通过fastboot程序输入命令执行很多操作，比如解锁设备、注入boot镜像、线刷系统等</p>
+<p>不同手机进入fastboot的方式<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417203340.png" alt="Pasted image 20250417203340"><br>还可以通过adb用下面命令进入</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">adb reboot bootloader<br></code></pre></td></tr></table></figure>
+
+<p>连接手机后可以用 <code>fastboot devices</code>检测是否连接设备，当然也可能没有识别到，比如我这样<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417203524.png" alt="Pasted image 20250417203524"><br>这是驱动问题，需要我们去设备管理器装一下fastboot驱动，驱动链接：<a target="_blank" rel="noopener" href="https://cz-jam.lanzouj.com/iZICY02v2k8j">https://cz-jam.lanzouj.com/iZICY02v2k8j</a><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417205450.png" alt="Pasted image 20250417205450"></p>
+<p><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417204841.png" alt="Pasted image 20250417204841"></p>
+<p>安装好之后就能检测了<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417205924.png" alt="Pasted image 20250417205924"></p>
+<p>fastboot的一些命令<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417215838.png" alt="Pasted image 20250417215838"></p>
+<h2 id="卡刷和线刷"><a href="#卡刷和线刷" class="headerlink" title="卡刷和线刷"></a>卡刷和线刷</h2><p>卡刷指的就是通过Recovery方式刷机，也就是直接把要刷的包拷进手机里，在手机上刷</p>
+<p>线刷指的就是通过fastboot的方式来刷机，且需要用数据线连接电脑</p>
+<h2 id="开发者选项"><a href="#开发者选项" class="headerlink" title="开发者选项"></a>开发者选项</h2><p>进入手机的参数界面点击7次版本号就可以进入</p>
+<h2 id="adb"><a href="#ADB" class="headerlink" title="ADB"></a>ADB</h2><p>从这里安装即可：<a target="_blank" rel="noopener" href="https://developer.android.com/tools/releases/platform-tools?hl=zh-cn#downloads">https://developer.android.com/tools/releases/platform-tools?hl=zh-cn#downloads</a><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417125510.png" alt="Pasted image 20250417125510"><br>里面就包含了很多常用的工具包括我们后面会用到的fastboot</p>
+<p>至于adb的使用，可以直接看官方文档：<a target="_blank" rel="noopener" href="https://developer.android.com/tools/adb?hl=zh-cn#burstMode">https://developer.android.com/tools/adb?hl=zh-cn#burstMode</a></p>
+<h2 id="root手机"><a href="#root手机" class="headerlink" title="root手机"></a>root手机</h2><p>这是很重要的一步了，只有root之后才能安装证书，这里的操作都需要打开开发者选项之后才行</p>
+<p>第一步是OEM解锁，只要去开发者选项里面打开即可，有些手机可能没有，所以最好还是选择有的，不过这一步并不一定能解锁BootLoader，比如小米解锁OEM只是表示允许解锁BootLoader</p>
+<p>大部分手机root基本都是两步走，第一步解锁BootLoader，第二步再修改boot文件刷入Magisk</p>
+<p>然后就是解锁BL了，这里小米可以直接点击解锁状态，然后点击绑定设备和账号，进入fastboot模式，然后电脑上下载官方的解锁设备：<a target="_blank" rel="noopener" href="https://www.miui.com/unlock/index.html">https://www.miui.com/unlock/index.html</a><br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417212144.png" alt="Pasted image 20250417212144"></p>
+<p>官网也贴心地给出了流程<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417212246.png" alt="Pasted image 20250417212246"><br>我们usb连接手机后，启动工具点击解锁即可<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417212611.png" alt="Pasted image 20250417212611"></p>
+<p>其他品牌的手机解锁就不记录了</p>
+<p>解锁完之后就可以开始root了，root分为两种方法，也就是前面说的卡刷和线刷<br>这里采用线刷，所以简单介绍一下卡刷的流程就算了，毕竟我只是为了做渗透测试，不需要这么复杂</p>
+<h3 id="卡刷"><a href="#卡刷" class="headerlink" title="卡刷"></a>卡刷</h3><p>因为说过Recovery类似PE，但是手机出厂给的Recovery功能简单不能随便刷东西，也就是需要刷入第三方Recovery来进行操作，出名的第三方Recovery就是TWRP，他的项目地址在这：<a target="_blank" rel="noopener" href="https://twrp.me/">https://twrp.me/</a></p>
+<p>这是一个流程图：<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417213449.png" alt="Pasted image 20250417213449"></p>
+<p>先通过fastboot线刷TWRP，然后再进入TWRP进行操作，各品牌进入TWRP也就是Recovery如下：<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417213636.png" alt="Pasted image 20250417213636"></p>
+<p>也可以adb直接重启进入recovery</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">adb reboot recovery<br></code></pre></td></tr></table></figure>
+
+<p>刷新recovery的命令<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417213751.png" alt="Pasted image 20250417213751"></p>
+<p>然后就是刷入最流行的root管理工具Magisk，也就是常说的面具，项目地址：<a target="_blank" rel="noopener" href="https://github.com/topjohnwu/Magisk">https://github.com/topjohnwu/Magisk</a><br>具体操作大概就是将zip扔进手机，然后TWRP下载，再将后缀改成apk安装即可，具体就不尝试了，现在新的Magisk直接就是apk了</p>
+<p>而且后面AB分区的话，刷TWRP就很麻烦了，要刷两遍</p>
+<h3 id="线刷"><a href="#线刷" class="headerlink" title="线刷"></a>线刷</h3><p>这里给一个线刷的流程图<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417214435.png" alt="Pasted image 20250417214435"><br>Magisk的原理就是对Boot镜像进行修补来获取root，所以我们可以提取出Boot镜像，修补好再刷入，但是提取Boot镜像又需要root，所以我们需要使用别人已经给我们提取好的boot镜像，厂商的刷机包里就有</p>
+<p>小米就直接去这里下载：<a target="_blank" rel="noopener" href="https://xiaomirom.com/">https://xiaomirom.com/</a><br>也可以直接在手机系统更新里面下载完整包，一般下载到download里面</p>
+<p>线刷包下载好之后解压找到boot.img即可<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417223452.png" alt="Pasted image 20250417223452"></p>
+<p>然后将boot.img传到手机，我们要先在手机上安装好Mgisk，然后修补该boot.img文件，然后把该文件拷到电脑上，手机重启到fastboot模式，然后刷入修补后的这个boot就可以获取root权限了</p>
+<p>修补后的镜像<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417225431.png" alt="Pasted image 20250417225431"></p>
+<p>然后fastboot刷入该镜像</p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><code class="hljs cmd">fastboot flash boot .\magisk_patched-<span class="hljs-number">28100</span>_E0MWY.img<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417225717.png" alt="Pasted image 20250417225717"><br>这时候重启手机，如果能切换到超级用户就是成功了<br><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417230244.png" alt="Pasted image 20250417230244"></p>
+<p>成功root！</p>
+<h1 id="抓包配置"><a href="#抓包配置" class="headerlink" title="抓包配置"></a>抓包配置</h1><p>这里选择用小黄鸟：<a target="_blank" rel="noopener" href="https://reqable.com/">https://reqable.com/</a></p>
+<p>下载客户端的时候需要查看架构，可以用在ubs调试连接之后用下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><code class="hljs bash">adb shell getprop ro.product.cpu.abi<br></code></pre></td></tr></table></figure>
+<p><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417125847.png" alt="Pasted image 20250417125847"></p>
+<p>各架构的说明：</p>
+<ul>
+<li>armeabiv-v7a: 第7代及以上的 ARM 处理器。2011年5月以后的生产的大部分Android设备都使用它.</li>
+<li>arm64-v8a: 第8代、64位ARM处理器，现在已经是主流版本，三星 Galaxy S6是其中之一。</li>
+<li>armeabi: 第5代、第6代的ARM处理器，早期的手机用的比较多。</li>
+<li>x86: 平板、模拟器用得比较多。</li>
+<li>x86_64: 64位的平板。</li>
+</ul>
+<p>然后我们之后的操作都需要root才行，然后就是启动reqable的连接，然后安装android的证书，这一步都是自动的，而且都有指引，就不记录了</p>
+<blockquote>
+<p>安装了系统证书后，可以不用安装用户证书了</p>
+</blockquote>
+<p><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417233103.png" alt="Pasted image 20250417233103"></p>
+<p>然后就可以愉快的抓包了</p>
+<p>如果嫌重放不方便，还可以将流量导向bp或者yakit，设置一个二级代理即可</p>
+<p><img src="https://cdn.clown2024.cn/Pasted%20image%2020250417235319.png" alt="Pasted image 20250417235319"></p>
+<p>然后就可以愉快地抓包了，虽然后面还会有很多让你抓不到包的头疼问题😭</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://clowsman.github.io">clown</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://clowsman.github.io/2025/04/19/%E5%AE%89%E5%8D%93%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80-root%E7%AF%87/">https://clowsman.github.io/2025/04/19/安卓渗透基础-root篇/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://clowsman.github.io" target="_blank">clown</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%B8%97%E9%80%8F/">渗透</a><a class="post-meta__tags" href="/tags/%E5%AE%89%E5%8D%93/">安卓</a></div><div class="post_share"><div class="social-share" data-image="http://cdn.clown2024.cn/202407151814125.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2025/03/30/Hessian%E5%88%A9%E7%94%A8%E9%93%BE/" title="Hessian利用链"><img class="cover" src="http://cdn.clown2024.cn/202407151814117.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hessian利用链</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/08/15/APP%E6%B8%97%E9%80%8F%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" title="APP渗透抓包环境配置"><img class="cover" src="http://cdn.clown2024.cn/202407151814117.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-15</div><div class="title">APP渗透抓包环境配置</div></div></a></div><div><a href="/2024/03/28/msf%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8%E5%AD%A6%E4%B9%A0/" title="msf基础使用学习"><img class="cover" src="http://cdn.clown2024.cn/202407151814114.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-03-28</div><div class="title">msf基础使用学习</div></div></a></div><div><a href="/2024/04/11/%E5%86%85%E7%BD%91%E5%B8%B8%E7%94%A8%E5%B7%A5%E5%85%B7/" title="内网信息搜集常用工具"><img class="cover" src="http://cdn.clown2024.cn/202407151814125.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-04-11</div><div class="title">内网信息搜集常用工具</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="http://cdn.clown2024.cn/202407151818951.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">clown</div><div class="author-info__description">又菜又爱玩</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">89</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">32</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/clowsman"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/clowsman" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="toc-number">1.</span> <span class="toc-text">前置知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E5%88%86%E5%8C%BA"><span class="toc-number">1.1.</span> <span class="toc-text">安卓分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bootloader%E5%BC%95%E5%AF%BC%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%92%8Cfastboot"><span class="toc-number">1.2.</span> <span class="toc-text">Bootloader(引导加载器)和Fastboot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%A1%E5%88%B7%E5%92%8C%E7%BA%BF%E5%88%B7"><span class="toc-number">1.3.</span> <span class="toc-text">卡刷和线刷</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%8F%91%E8%80%85%E9%80%89%E9%A1%B9"><span class="toc-number">1.4.</span> <span class="toc-text">开发者选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#adb"><span class="toc-number">1.5.</span> <span class="toc-text">ADB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#root%E6%89%8B%E6%9C%BA"><span class="toc-number">1.6.</span> <span class="toc-text">root手机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%A1%E5%88%B7"><span class="toc-number">1.6.1.</span> <span class="toc-text">卡刷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E5%88%B7"><span class="toc-number">1.6.2.</span> <span class="toc-text">线刷</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">抓包配置</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2025/04/19/%E5%AE%89%E5%8D%93%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80-root%E7%AF%87/" title="安卓渗透基础(root篇)"><img src="http://cdn.clown2024.cn/202407151814125.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="安卓渗透基础(root篇)"/></a><div class="content"><a class="title" href="/2025/04/19/%E5%AE%89%E5%8D%93%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80-root%E7%AF%87/" title="安卓渗透基础(root篇)">安卓渗透基础(root篇)</a><time datetime="2025-04-19T13:18:28.000Z" title="发表于 2025-04-19 21:18:28">2025-04-19</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/30/Hessian%E5%88%A9%E7%94%A8%E9%93%BE/" title="Hessian利用链"><img src="http://cdn.clown2024.cn/202407151814117.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hessian利用链"/></a><div class="content"><a class="title" href="/2025/03/30/Hessian%E5%88%A9%E7%94%A8%E9%93%BE/" title="Hessian利用链">Hessian利用链</a><time datetime="2025-03-30T14:55:05.000Z" title="发表于 2025-03-30 22:55:05">2025-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/26/NCTF2025%E5%A4%8D%E7%8E%B0/" title="NCTF2025复现"><img src="http://cdn.clown2024.cn/202407151814123.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="NCTF2025复现"/></a><div class="content"><a class="title" href="/2025/03/26/NCTF2025%E5%A4%8D%E7%8E%B0/" title="NCTF2025复现">NCTF2025复现</a><time datetime="2025-03-26T14:23:32.000Z" title="发表于 2025-03-26 22:23:32">2025-03-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Nacos漏洞学习"><img src="http://cdn.clown2024.cn/202407151814121.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Nacos漏洞学习"/></a><div class="content"><a class="title" href="/2025/03/02/Nacos%E6%BC%8F%E6%B4%9E%E5%AD%A6%E4%B9%A0/" title="Nacos漏洞学习">Nacos漏洞学习</a><time datetime="2025-03-02T13:44:14.000Z" title="发表于 2025-03-02 21:44:14">2025-03-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/02/27/WebLogic%E5%AD%A6%E4%B9%A0/" title="WebLogic学习"><img src="http://cdn.clown2024.cn/202407151814115.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="WebLogic学习"/></a><div class="content"><a class="title" href="/2025/02/27/WebLogic%E5%AD%A6%E4%B9%A0/" title="WebLogic学习">WebLogic学习</a><time datetime="2025-02-27T11:22:37.000Z" title="发表于 2025-02-27 19:22:37">2025-02-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By clown</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://clown-vercel.vercel.app',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://clown-vercel.vercel.app',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    GLOBAL_CONFIG_SITE.isPost && getCount()
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !false) {
+    if (false) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7},"log":false});</script></body></html>
